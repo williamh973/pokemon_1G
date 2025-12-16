@@ -1,15 +1,16 @@
 export class Canvas {
   constructor(canvas) {
     this.context = canvas.getContext("2d");
+    this.context.imageSmoothingEnabled = false;
     this.position = {
       x: 0,
       y: 0,
     };
-    this.width = 720;
-    this.height = 480;
+    this.width = 320;
+    this.height = 320;
     canvas.width = this.width;
     canvas.height = this.height;
-    this.context.imageSmoothingEnabled = true;
+    this.map = [];
   }
 
   clear() {

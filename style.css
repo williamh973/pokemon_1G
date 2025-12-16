@@ -1,0 +1,18 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.749);
+}
+
+#canvas {
+  background-color: aliceblue;
+  box-shadow: -0.5px -0.5px 3px 3px aliceblue;
+}
