@@ -1,4 +1,5 @@
 // import { Canvas } from "../models/Canvas/Canvas.model.js";
+import { draw } from "./draw.js";
 import { update } from "./update.js";
 
 // export const canvas = new Canvas(document.getElementById("canvas"));
@@ -10,11 +11,6 @@ export const animate = (game, tileManager) => {
   game.canvas.drawImage();
   // game.camera.follow(game.player);
 
-  tileManager.drawMap(
-    game.canvas.context,
-    game.currentMap,
-    game.camera.offsetX,
-    game.camera.offsetY
-  );
+  draw(game, tileManager);
   update(game);
 };
