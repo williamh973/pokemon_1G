@@ -6,12 +6,15 @@ import { TileManager } from "../Tile/Tile.manager.js";
 import { Camera } from "../Camera/camera.model.js";
 import { TILES_SIZE } from "../../shareds/utils.js";
 import { palletTown } from "../../logic/gameplay/maps/palletTown/palletTown.data.js";
+import { MapManager } from "../Map/MapManager.model.js";
+import { MAPS } from "../../logic/gameplay/maps/maps.registry.js";
 
 export class Game {
   constructor() {
     this.canvas = new Canvas(document.getElementById("canvas"));
     this.camera = new Camera(this.canvas);
     this.player = new Player();
+    this.mapManager = new MapManager(this, MAPS);
     this.selectionScreens = [];
     this.isPaused = false;
     this.hasStarted = false;

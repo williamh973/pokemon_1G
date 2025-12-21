@@ -9,8 +9,10 @@ export class Player {
     this.width = 32;
     this.height = 32;
     this.speed = 1;
-    this.tileX = 2;
-    this.tileY = 4;
+    this.screenX = 4;
+    this.screenY = 5;
+    this.tileX = 4;
+    this.tileY = 5;
     this.moveProgress = 0;
     this.moveDuration = 20;
     this.position = {
@@ -37,27 +39,19 @@ export class Player {
   }
 
   draw(canvas) {
+    const centerX = canvas.width / 2 - this.width / 2;
+    const centerY = canvas.height / 2 - this.height / 2;
+
     canvas.context.drawImage(
       this.image,
-      this.position.x,
-      this.position.y,
+      centerX,
+      centerY,
       this.width,
       this.height
     );
   }
 
-  checkOutOfMap() {
-    if (
-      targetX < 0 ||
-      targetY < 0 ||
-      targetX >= currentMap.width ||
-      targetY >= currentMap.height
-    ) {
-      return;
-    }
-  }
-
-  attemptMove(dx, dy, currentMap) {
+  attemptMove(dx, dy, currentMap, camera) {
     if (this.isMoving) return;
 
     const targetX = this.tileX + dx;
@@ -90,12 +84,6 @@ export class Player {
 
     this.targetX = this.tileX * TILES_SIZE;
     this.targetY = this.tileY * TILES_SIZE;
-
-    console.log(collision);
-    if (collision.warp) {
-      console.log("warp");
-      // triggerWarp();
-    }
   }
 
   update(canvas) {
@@ -111,6 +99,7 @@ export class Player {
         this.position.x = this.targetX;
         this.position.y = this.targetY;
         this.isMoving = false;
+        game.mapManager.checkWarp(this);
       }
     } else {
       if (keys.up) this.attemptMove(0, -1, game.currentMap);

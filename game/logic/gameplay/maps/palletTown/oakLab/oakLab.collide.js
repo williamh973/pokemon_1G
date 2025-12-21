@@ -1,1 +1,8 @@
-export const oakLabCollision = [];
+export const oakLabCollision = [
+  [2, 2, 2, 2, 2, 2],
+  [2, 2, 2, 2, 2, 2],
+  [2, 2, 2, 2, 2, 2],
+  [2, 2, 2, 2, 2, 2],
+  [2, 2, 2, 2, 2, 2],
+  [2, 2, 2, 2, 2, 2],
+];
