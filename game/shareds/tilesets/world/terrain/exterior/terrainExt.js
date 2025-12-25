@@ -1,0 +1,67 @@
+export const TERRAIN_EXT = {
+  1: {
+    name: "grass",
+    type: "ground",
+    src: "game/assets/images/tilesets/world/terrain/grass/grass.png",
+  },
+  3: {
+    name: "tall_grass",
+    type: "ground",
+    src: "game/assets/images/tilesets/world/terrain/grass/tall_grass.png",
+  },
+  4: {
+    name: "white_ground_w_blacks_point",
+    type: "path",
+    src: "game/assets/images/tilesets/world/terrain/path/white_ground_w_blacks_point.png",
+  },
+  5: {
+    name: "white_ground",
+    type: "path",
+    src: "game/assets/images/tilesets/world/terrain/path/white_ground.png",
+  },
+  18: {
+    name: "white_ground_w_blacks_point_2",
+    type: "ground",
+    src: "game/assets/images/tilesets/world/terrain/path/white_ground_w_blacks_point_2.png",
+  },
+  20: {
+    name: "grass_w_flower",
+    type: "ground",
+    src: "game/assets/images/tilesets/world/terrain/grass/grass_w_flower.png",
+  },
+  21: {
+    name: "grass_w_flower._reversed",
+    type: "ground",
+    src: "game/assets/images/tilesets/world/terrain/grass/grass_w_flower._reversed.png",
+  },
+  58: {
+    name: "border_left_water",
+    type: "ground",
+    src: "game/assets/images/tilesets/world/terrain/water/border_left.png",
+  },
+  59: {
+    name: "border_right_water",
+    type: "ground",
+    src: "game/assets/images/tilesets/world/terrain/water/border_right.png",
+  },
+  60: {
+    name: "border_top_center_water",
+    type: "ground",
+    src: "game/assets/images/tilesets/world/terrain/water/border_top_center.png",
+  },
+  61: {
+    name: "border_top_left_water",
+    type: "ground",
+    src: "game/assets/images/tilesets/world/terrain/water/border_top_left.png",
+  },
+  62: {
+    name: "border_top_right_water",
+    type: "ground",
+    src: "game/assets/images/tilesets/world/terrain/water/border_top_right.png",
+  },
+  63: {
+    name: "middle_water",
+    type: "ground",
+    src: "game/assets/images/tilesets/world/terrain/water/middle.png",
+  },
+};

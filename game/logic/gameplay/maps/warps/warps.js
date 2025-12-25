@@ -2,15 +2,22 @@ export const warps = [
   {
     fromMap: "PALLET_TOWN",
     toMap: "OAK_LAB",
-    from: { x: 2, y: 3 },
-    to: { x: 6, y: 6 },
+    from: { x: 12, y: 11 },
+    to: { x: 5, y: 11 },
+    facing: "up",
+  },
+  {
+    fromMap: "OAK_LAB",
+    toMap: "PALLET_TOWN",
+    from: { x: 4, y: 12 },
+    to: { x: 12, y: 11 },
     facing: "down",
   },
   {
     fromMap: "OAK_LAB",
     toMap: "PALLET_TOWN",
-    from: { x: 6, y: 6 },
-    to: { x: 6, y: 6 },
+    from: { x: 5, y: 12 },
+    to: { x: 12, y: 11 },
     facing: "down",
   },
 ];

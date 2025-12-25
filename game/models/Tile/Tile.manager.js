@@ -1,6 +1,9 @@
-import { TILESETS } from "../../shareds/tilesets/tilesets.js";
+import { TERRAIN_EXT } from "../../shareds/tilesets/world/terrain/exterior/terrainExt.js";
 import { TILES_SIZE } from "../../shareds/utils.js";
 import { drawDebugCollisionSquare } from "../../shareds/utils.js";
+import { OAKLAB } from "../../shareds/tilesets/world/building/oak_labo/oakLab.js";
+import { HOUSE } from "../../shareds/tilesets/world/building/house/house.js";
+import { PROPS } from "../../shareds/tilesets/world/props/props.js";
 
 export class TileManager {
   constructor(tileSize) {
@@ -9,7 +12,13 @@ export class TileManager {
   }
 
   load() {
-    Object.entries(TILESETS).forEach(([id, tile]) => {
+    const allTilesets = {
+      ...TERRAIN_EXT,
+      ...HOUSE,
+      ...OAKLAB,
+      ...PROPS,
+    };
+    Object.entries(allTilesets).forEach(([id, tile]) => {
       const img = new Image();
       img.src = tile.src;
       this.images[id] = img;

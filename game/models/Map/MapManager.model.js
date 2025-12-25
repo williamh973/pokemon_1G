@@ -34,6 +34,6 @@ export class MapManager {
     this.game.player.position.x = warp.to.x * TILES_SIZE;
     this.game.player.position.y = warp.to.y * TILES_SIZE;
 
-    this.game.player.setFacing?.(warp.facing);
+    this.game.player.setFacing(warp.facing);
   }
 }

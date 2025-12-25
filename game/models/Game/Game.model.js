@@ -1,7 +1,6 @@
 import { animate } from "../../render/animate.js";
 import { Player } from "../Player/Player.model.js";
 import { Canvas } from "../Canvas/Canvas.model.js";
-import { palletTownLayout } from "../../logic/gameplay/maps/palletTown/palletTown.layout.js";
 import { TileManager } from "../Tile/Tile.manager.js";
 import { Camera } from "../Camera/camera.model.js";
 import { TILES_SIZE } from "../../shareds/utils.js";
@@ -15,6 +14,7 @@ export class Game {
     this.camera = new Camera(this.canvas);
     this.player = new Player();
     this.mapManager = new MapManager(this, MAPS);
+    this.tileManager = new TileManager(TILES_SIZE);
     this.selectionScreens = [];
     this.isPaused = false;
     this.hasStarted = false;
@@ -24,10 +24,9 @@ export class Game {
   }
 
   init() {
-    const tileManager = new TileManager(TILES_SIZE);
-    tileManager.load();
+    this.tileManager.load();
 
-    animate(this, tileManager);
+    animate(this, this.tileManager);
     this.hasStarted = true;
   }
 }

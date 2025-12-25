@@ -23,7 +23,7 @@ export class Canvas {
   }
 
   drawImage() {
-    this.context.fillStyle = "transparent";
+    this.context.fillStyle = "black";
     this.context.fillRect(
       this.position.x,
       this.position.y,

@@ -1,6 +1,4 @@
 export const TILES_SIZE = 32;
-export let distanceX;
-export let distanceY;
 
 export const PLAYER_STATE = {
   IDLE: "idle",
@@ -9,6 +7,7 @@ export const PLAYER_STATE = {
   SURF: "surf",
   FISH: "fish",
   FLY: "fly",
+  TELEPORT: "teleport",
 };
 
 export const PLAYER_ABILITIES = {
