@@ -26,8 +26,8 @@ export class Player {
     this.framesCurrent = 0;
     this.framesElapsed = 0;
     this.framesHold = 10;
-    this.tileX = 12;
-    this.tileY = 12;
+    this.tileX = 10;
+    this.tileY = 5;
     this.moveProgress = 0;
     this.moveDuration = 20;
     this.position = {
@@ -98,9 +98,8 @@ export class Player {
   animateFrames() {
     this.framesElapsed++;
 
-    if (this.framesElapsed % this.framesHold === 0) {
+    if (this.framesElapsed % this.framesHold === 0)
       this.framesCurrent = (this.framesCurrent + 1) % this.framesMax;
-    }
   }
 
   setFacing(facing) {
@@ -172,11 +171,28 @@ export class Player {
         game.mapManager.checkWarp(this);
       }
     } else {
+      if (!this.isMoving && keys.action) {
+        game.mapManager.checkInteraction(this);
+        console.log(this.isMoving, keys.action);
+      }
+
       if (keys.up) this.attemptMove(0, -1, game.currentMap);
       if (keys.down) this.attemptMove(0, 1, game.currentMap);
       if (keys.left) this.attemptMove(-1, 0, game.currentMap);
       if (keys.right) this.attemptMove(1, 0, game.currentMap);
     }
     this.draw(canvas);
+  }
+
+  getFrontTile() {
+    let x = this.tileX;
+    let y = this.tileY;
+
+    if (this.facing === "up") y--;
+    if (this.facing === "down") y++;
+    if (this.facing === "left") x--;
+    if (this.facing === "right") x++;
+
+    return { x, y };
   }
 }

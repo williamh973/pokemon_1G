@@ -36,4 +36,21 @@ export class MapManager {
 
     this.game.player.setFacing(warp.facing);
   }
+
+  checkInteraction(player) {
+    const front = player.getFrontTile();
+    const interaction = this.game.currentMap.interactions.find(
+      (i) => i.tile.x === front.x && i.tile.y === front.y
+    );
+
+    if (!interaction) return;
+
+    this.triggerInteraction(interaction);
+  }
+
+  triggerInteraction(interaction) {
+    if (interaction.type === "sign") {
+      this.game.showDialog(interaction.text);
+    }
+  }
 }

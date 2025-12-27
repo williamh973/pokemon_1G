@@ -16,6 +16,8 @@ export class Game {
     this.mapManager = new MapManager(this, MAPS);
     this.tileManager = new TileManager(TILES_SIZE);
     this.selectionScreens = [];
+    this.dialogBox = null;
+    this.mapNameWindow = null;
     this.isPaused = false;
     this.hasStarted = false;
     this.isFightMod = false;
@@ -28,5 +30,11 @@ export class Game {
 
     animate(this, this.tileManager);
     this.hasStarted = true;
+  }
+
+  showDialog(text) {
+    this.isPaused = true;
+    console.log(text);
+    this.isPaused = false;
   }
 }

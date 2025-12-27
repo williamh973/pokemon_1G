@@ -3,6 +3,7 @@ export const keys = {
   right: false,
   up: false,
   down: false,
+  action: false,
 };
 
 window.addEventListener("keydown", (e) => {
@@ -18,6 +19,9 @@ window.addEventListener("keydown", (e) => {
       break;
     case "s":
       keys.down = true;
+      break;
+    case "a":
+      keys.action = true;
       break;
   }
 });
@@ -35,6 +39,9 @@ window.addEventListener("keyup", (e) => {
       break;
     case "s":
       keys.down = false;
+      break;
+    case "a":
+      keys.action = false;
       break;
   }
 });

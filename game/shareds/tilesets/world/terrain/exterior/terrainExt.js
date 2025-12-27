@@ -1,3 +1,4 @@
+// 1 - 100
 export const TERRAIN_EXT = {
   1: {
     name: "grass",
@@ -38,30 +39,48 @@ export const TERRAIN_EXT = {
     name: "border_left_water",
     type: "ground",
     src: "game/assets/images/tilesets/world/terrain/water/border_left.png",
+    animated: true,
+    frames: 4,
+    frameDuration: 35,
   },
   59: {
     name: "border_right_water",
     type: "ground",
     src: "game/assets/images/tilesets/world/terrain/water/border_right.png",
+    animated: true,
+    frames: 4,
+    frameDuration: 35,
   },
   60: {
     name: "border_top_center_water",
     type: "ground",
     src: "game/assets/images/tilesets/world/terrain/water/border_top_center.png",
+    animated: true,
+    frames: 4,
+    frameDuration: 35,
   },
   61: {
     name: "border_top_left_water",
     type: "ground",
     src: "game/assets/images/tilesets/world/terrain/water/border_top_left.png",
+    animated: true,
+    frames: 4,
+    frameDuration: 35,
   },
   62: {
     name: "border_top_right_water",
     type: "ground",
     src: "game/assets/images/tilesets/world/terrain/water/border_top_right.png",
+    animated: true,
+    frames: 4,
+    frameDuration: 35,
   },
   63: {
     name: "middle_water",
     type: "ground",
     src: "game/assets/images/tilesets/world/terrain/water/middle.png",
+    animated: true,
+    frames: 4,
+    frameDuration: 35,
   },
 };
