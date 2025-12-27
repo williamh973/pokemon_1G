@@ -23,4 +23,5 @@ export const animate = (game, tileManager) => {
   game.camera.follow(game.player);
   draw(game, tileManager);
   update(game);
+  game.transition.draw(game.canvas);
 };

@@ -7,6 +7,7 @@ import { TILES_SIZE } from "../../shareds/utils.js";
 import { palletTown } from "../../logic/gameplay/maps/palletTown/palletTown.data.js";
 import { MapManager } from "../Map/MapManager.model.js";
 import { MAPS } from "../../logic/gameplay/maps/maps.registry.js";
+import { Fade } from "../fade/fade.model.js";
 
 export class Game {
   constructor() {
@@ -15,6 +16,7 @@ export class Game {
     this.player = new Player();
     this.mapManager = new MapManager(this, MAPS);
     this.tileManager = new TileManager(TILES_SIZE);
+    this.transition = new Fade(15);
     this.selectionScreens = [];
     this.dialogBox = null;
     this.mapNameWindow = null;

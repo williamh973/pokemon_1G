@@ -26,15 +26,27 @@ export class MapManager {
   }
 
   triggerWarp(warp) {
-    this.loadMap(warp.toMap);
+    const game = this.game;
 
-    this.game.player.tileX = warp.to.x;
-    this.game.player.tileY = warp.to.y;
+    game.isPaused = true;
 
-    this.game.player.position.x = warp.to.x * TILES_SIZE;
-    this.game.player.position.y = warp.to.y * TILES_SIZE;
+    game.transition.start(
+      () => {
+        this.loadMap(warp.toMap);
+        game.player.isCanMove = false;
+        game.player.tileX = warp.to.x;
+        game.player.tileY = warp.to.y;
 
-    this.game.player.setFacing(warp.facing);
+        game.player.position.x = warp.to.x * TILES_SIZE;
+        game.player.position.y = warp.to.y * TILES_SIZE;
+
+        game.player.setFacing(warp.facing);
+      },
+      () => {
+        game.isPaused = false;
+        game.player.isCanMove = true;
+      }
+    );
   }
 
   checkInteraction(player) {

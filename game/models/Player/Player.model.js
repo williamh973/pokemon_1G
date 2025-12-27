@@ -151,7 +151,7 @@ export class Player {
   }
 
   update(canvas) {
-    if (this.isMoving) {
+    if (this.isCanMove && this.isMoving) {
       this.moveProgress++;
       this.animateFrames();
 
