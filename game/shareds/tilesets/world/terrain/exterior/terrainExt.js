@@ -5,22 +5,22 @@ export const TERRAIN_EXT = {
     type: "ground",
     src: "game/assets/images/tilesets/world/terrain/grass/grass.png",
   },
-  3: {
+  2: {
     name: "tall_grass",
     type: "ground",
     src: "game/assets/images/tilesets/world/terrain/grass/tall_grass.png",
   },
-  4: {
+  3: {
     name: "white_ground_w_blacks_point",
     type: "path",
     src: "game/assets/images/tilesets/world/terrain/path/white_ground_w_blacks_point.png",
   },
-  5: {
+  4: {
     name: "white_ground",
     type: "path",
     src: "game/assets/images/tilesets/world/terrain/path/white_ground.png",
   },
-  18: {
+  5: {
     name: "white_ground_w_blacks_point_2",
     type: "ground",
     src: "game/assets/images/tilesets/world/terrain/path/white_ground_w_blacks_point_2.png",

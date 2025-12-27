@@ -1,55 +1,55 @@
 export const RED_HOUSE = {
-  7: {
+  100: {
     name: "border_bottom_left_house",
     type: "solid",
     src: "game/assets/images/tilesets/world/building/house/redHouse/ext/border_bottom_left_house.png",
   },
-  8: {
+  101: {
     name: "door_house",
     type: "ground",
     src: "game/assets/images/tilesets/world/building/house/redHouse/ext/door_house.png",
   },
-  9: {
+  102: {
     name: "double_windows_bottom_house",
     type: "solid",
     src: "game/assets/images/tilesets/world/building/house/redHouse/ext/double_windows_bottom_house.png",
   },
-  10: {
+  103: {
     name: "border_bottom_right_house",
     type: "solid",
     src: "game/assets/images/tilesets/world/building/house/redHouse/ext/border_bottom_right_house.png",
   },
-  11: {
+  104: {
     name: "border_middle_right_house",
     type: "solid",
     src: "game/assets/images/tilesets/world/building/house/redHouse/ext/border_middle_right_house.png",
   },
-  12: {
+  105: {
     name: "double_windows_middle_house",
     type: "solid",
     src: "game/assets/images/tilesets/world/building/house/redHouse/ext/double_windows_middle_house.png",
   },
-  13: {
+  106: {
     name: "simple_window_middle_house",
     type: "solid",
     src: "game/assets/images/tilesets/world/building/house/redHouse/ext/simple_window_middle_house.png",
   },
-  14: {
-    name: "border_middle_left_house",
+  107: {
+    name: "border_left_house",
     type: "solid",
     src: "game/assets/images/tilesets/world/building/house/redHouse/ext/border_middle_left_house.png",
   },
-  15: {
+  108: {
     name: "left_roof_house",
     type: "solid",
     src: "game/assets/images/tilesets/world/building/house/redHouse/ext/left_roof_house.png",
   },
-  16: {
+  109: {
     name: "center_roof_house",
     type: "solid",
     src: "game/assets/images/tilesets/world/building/house/redHouse/ext/center_roof_house.png",
   },
-  17: {
+  110: {
     name: "right_roof_house",
     type: "solid",
     src: "game/assets/images/tilesets/world/building/house/redHouse/ext/right_roof_house.png",
