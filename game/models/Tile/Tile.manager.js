@@ -4,20 +4,25 @@ import { OAKLAB } from "../../shareds/tilesets/world/building/oak_labo/oakLab.js
 import { PROPS } from "../../shareds/tilesets/world/props/props.js";
 import { RED_HOUSE } from "../../shareds/tilesets/world/building/house/redHouse/ext/redHouse.js";
 
+// animation = les secondes qui passent
+// frameDuration = combien de secondes tu restes sur une image
+// frames = nombre d’images
+// % frames = tu reviens au début
+
 export class TileManager {
   constructor(tileSize) {
     this.tileSize = tileSize;
     this.images = {};
     this.tilesets = {};
-    this.animationTick = 0;
+    this.animation = 0;
   }
 
   update() {
-    this.animationTick++;
+    this.animation++;
   }
 
-  getAnimatedFrame(tile) {
-    return Math.floor(this.animationTick / tile.frameDuration) % tile.frames;
+  getAnimatedFrame(tiles) {
+    return Math.floor(this.animation / tiles.frameDuration) % tiles.frames;
   }
 
   load() {
@@ -61,9 +66,7 @@ export class TileManager {
 
         let sx = 0;
 
-        if (tileData?.animated) {
-          sx = this.getAnimatedFrame(tileData) * this.tileSize;
-        }
+        if (tileData.animated) sx = this.getAnimatedFrame(tileData) * 16;
 
         const dx = x * this.tileSize + cameraPosX;
         const dy = y * this.tileSize + cameraPosY;

@@ -25,62 +25,68 @@ export const TERRAIN_EXT = {
     type: "ground",
     src: "game/assets/images/tilesets/world/terrain/path/white_ground_w_blacks_point_2.png",
   },
-  20: {
+  6: {
     name: "grass_w_flower",
     type: "ground",
     src: "game/assets/images/tilesets/world/terrain/grass/grass_w_flower.png",
+    animated: true,
+    frames: 2,
+    frameDuration: 70,
   },
-  21: {
-    name: "grass_w_flower._reversed",
+  7: {
+    name: "grass_w_flower_reversed",
     type: "ground",
     src: "game/assets/images/tilesets/world/terrain/grass/grass_w_flower._reversed.png",
+    animated: true,
+    frames: 2,
+    frameDuration: 70,
   },
-  58: {
+  8: {
     name: "border_left_water",
     type: "ground",
     src: "game/assets/images/tilesets/world/terrain/water/border_left.png",
     animated: true,
-    frames: 4,
+    frames: 7,
     frameDuration: 35,
   },
-  59: {
+  9: {
     name: "border_right_water",
     type: "ground",
     src: "game/assets/images/tilesets/world/terrain/water/border_right.png",
     animated: true,
-    frames: 4,
+    frames: 7,
     frameDuration: 35,
   },
-  60: {
+  10: {
     name: "border_top_center_water",
     type: "ground",
     src: "game/assets/images/tilesets/world/terrain/water/border_top_center.png",
     animated: true,
-    frames: 4,
+    frames: 7,
     frameDuration: 35,
   },
-  61: {
+  11: {
     name: "border_top_left_water",
     type: "ground",
     src: "game/assets/images/tilesets/world/terrain/water/border_top_left.png",
     animated: true,
-    frames: 4,
+    frames: 7,
     frameDuration: 35,
   },
-  62: {
+  12: {
     name: "border_top_right_water",
     type: "ground",
     src: "game/assets/images/tilesets/world/terrain/water/border_top_right.png",
     animated: true,
-    frames: 4,
+    frames: 7,
     frameDuration: 35,
   },
-  63: {
+  13: {
     name: "middle_water",
     type: "ground",
     src: "game/assets/images/tilesets/world/terrain/water/middle.png",
     animated: true,
-    frames: 4,
+    frames: 7,
     frameDuration: 35,
   },
 };

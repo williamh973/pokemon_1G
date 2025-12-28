@@ -26,8 +26,8 @@ export class Player {
     this.framesCurrent = 0;
     this.framesElapsed = 0;
     this.framesHold = 10;
-    this.tileX = 10;
-    this.tileY = 5;
+    this.tileX = 5;
+    this.tileY = 12;
     this.moveProgress = 0;
     this.moveDuration = 20;
     this.position = {
@@ -139,13 +139,12 @@ export class Player {
     const targetX = this.tileX + dx;
     const targetY = this.tileY + dy;
 
-    if (this.outOfMap(targetX, targetY, currentMap))
-      return console.log("Tile out of map");
+    if (this.outOfMap(targetX, targetY, currentMap)) return;
 
     const tile = currentMap.collision[targetY][targetX];
     const collision = SQUARE_TYPES[tile];
 
-    if (!collision.walkable) return console.log("Tile no walkable");
+    if (!collision.walkable) return;
 
     this.moveToTile(dx, dy);
   }

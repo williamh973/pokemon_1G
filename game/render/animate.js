@@ -12,7 +12,7 @@ export const animate = (game, tileManager) => {
   frameCount++;
   const now = performance.now();
   if (now - lastLog > 1000) {
-    console.log("FPS :", frameCount);
+    // console.log("FPS :", frameCount);
     frameCount = 0;
     lastLog = now;
   }
