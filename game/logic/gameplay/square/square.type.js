@@ -10,7 +10,7 @@ export const SQUARE_TYPES = {
     trigger: "door",
     warp: true,
   },
-  202: {
+  6: {
     walkable: true,
     encounter: false,
     terrain: "ground",

@@ -27,7 +27,7 @@ export class Player {
     this.framesElapsed = 0;
     this.framesHold = 10;
     this.tileX = 5;
-    this.tileY = 12;
+    this.tileY = 5;
     this.moveProgress = 0;
     this.moveDuration = 20;
     this.position = {

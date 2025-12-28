@@ -8,6 +8,7 @@ import { palletTown } from "../../logic/gameplay/maps/palletTown/palletTown.data
 import { MapManager } from "../Map/MapManager.model.js";
 import { MAPS } from "../../logic/gameplay/maps/maps.registry.js";
 import { Fade } from "../fade/fade.model.js";
+import { redHouse1F } from "../../logic/gameplay/maps/palletTown/redHouse/redHouse.data.js";
 
 export class Game {
   constructor() {
@@ -23,7 +24,7 @@ export class Game {
     this.isPaused = false;
     this.hasStarted = false;
     this.isFightMod = false;
-    this.currentMap = palletTown;
+    this.currentMap = redHouse1F;
     this.init();
   }
 
