@@ -3,7 +3,10 @@ import { drawDebugCollisionSquare } from "../../shareds/utils.js";
 import { OAKLAB } from "../../shareds/tilesets/world/building/oak_labo/oakLab.js";
 import { PROPS } from "../../shareds/tilesets/world/props/props.js";
 import { RED_HOUSE } from "../../shareds/tilesets/world/building/house/redHouse/ext/redHouse.js";
-import { RED_HOUSE_1F } from "../../shareds/tilesets/world/building/house/redHouse/int/redHouse.js";
+import {
+  RED_HOUSE_1F,
+  RED_HOUSE_2F,
+} from "../../shareds/tilesets/world/building/house/redHouse/int/redHouse.js";
 
 // animation = les secondes qui passent
 // frameDuration = combien de secondes tu restes sur une image
@@ -31,6 +34,7 @@ export class TileManager {
       ...TERRAIN_EXT,
       ...RED_HOUSE,
       ...RED_HOUSE_1F,
+      ...RED_HOUSE_2F,
       ...OAKLAB,
       ...PROPS,
     };

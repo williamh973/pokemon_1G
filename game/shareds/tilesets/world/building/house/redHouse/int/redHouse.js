@@ -91,10 +91,60 @@ export const RED_HOUSE_1F = {
   },
 };
 
-// // export const RED_HOUSE_2F = {
-// //   128: {
-// //     name: "windows",
-// //     type: "solid",
-// //     src: "game/assets/images/tilesets/world/building/house/redHouse/int/windows.png",
-// //   },
-// };
+export const RED_HOUSE_2F = {
+  129: {
+    name: "bottom_bed",
+    type: "solid",
+    src: "game/assets/images/tilesets/world/building/house/redHouse/int/2F/bottom_bed.png",
+  },
+  130: {
+    name: "bottom_left_table",
+    type: "solid",
+    src: "game/assets/images/tilesets/world/building/house/redHouse/int/2F/bottom_left_table.png",
+  },
+  131: {
+    name: "bottom_pc",
+    type: "solid",
+    src: "game/assets/images/tilesets/world/building/house/redHouse/int/2F/bottom_pc.png",
+  },
+  132: {
+    name: "bottom_right_table",
+    type: "solid",
+    src: "game/assets/images/tilesets/world/building/house/redHouse/int/2F/bottom_right_table.png",
+  },
+  133: {
+    name: "playstation",
+    type: "solid",
+    src: "game/assets/images/tilesets/world/building/house/redHouse/int/2F/playstation.png",
+  },
+  134: {
+    name: "top_bed",
+    type: "solid",
+    src: "game/assets/images/tilesets/world/building/house/redHouse/int/2F/top_bed.png",
+  },
+  135: {
+    name: "top_left_table",
+    type: "solid",
+    src: "game/assets/images/tilesets/world/building/house/redHouse/int/2F/top_left_table.png",
+  },
+  136: {
+    name: "top_pc",
+    type: "solid",
+    src: "game/assets/images/tilesets/world/building/house/redHouse/int/2F/top_pc.png",
+  },
+  137: {
+    name: "top_right_table",
+    type: "solid",
+    src: "game/assets/images/tilesets/world/building/house/redHouse/int/2F/top_right_table.png",
+  },
+  138: {
+    name: "stair_down",
+    type: "solid",
+    src: "game/assets/images/tilesets/world/building/house/redHouse/int/2F/stair_2.png",
+  },
+  139: {
+    name: "tv_only",
+    type: "solid",
+    src: "game/assets/images/tilesets/world/building/house/redHouse/int/2F/tv_only.png",
+  },
+};

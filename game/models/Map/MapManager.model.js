@@ -1,4 +1,3 @@
-import { warps } from "../../logic/gameplay/maps/warps/warps.js";
 import { TILES_SIZE } from "../../shareds/utils.js";
 
 export class MapManager {
@@ -10,10 +9,11 @@ export class MapManager {
 
   loadMap(mapId) {
     this.game.currentMap = this.maps[mapId];
+    console.log(this.game.currentMap);
   }
 
   checkWarp(player) {
-    const warp = warps.find(
+    const warp = this.game.currentMap.warps.find(
       (w) =>
         w.fromMap === this.game.currentMap.id &&
         w.from.x === player.tileX &&
@@ -41,6 +41,7 @@ export class MapManager {
         game.player.position.y = warp.to.y * TILES_SIZE;
 
         game.player.setFacing(warp.facing);
+        console.log(game.player.facing);
       },
       () => {
         game.isPaused = false;

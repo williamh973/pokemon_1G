@@ -104,6 +104,7 @@ export class Player {
 
   setFacing(facing) {
     this.facing = facing;
+    this.image = this.sprites.idle[this.facing];
   }
 
   getFacingFromDelta(dx, dy) {

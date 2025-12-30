@@ -1,5 +1,6 @@
 import { redHouse1FCollide } from "./redHouse.collide.js";
 import { redHouse1FLayout } from "./redHouse.layout.js";
+import { redHouse1FWarps } from "./redHouse.warp.js";
 
 export const redHouse1F = {
   id: "RED_HOUSE_1F",
@@ -7,4 +8,5 @@ export const redHouse1F = {
   collision: redHouse1FCollide,
   width: redHouse1FCollide[0].length,
   height: redHouse1FCollide.length,
+  warps: redHouse1FWarps,
 };
