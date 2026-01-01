@@ -11,6 +11,5 @@ export const palletTown = {
   interactions: palletTownInteractions,
   width: palletTownCollide[0].length,
   height: palletTownCollide.length,
-  // tileSize: TILES_SIZE,
   warps: palletTownWarps,
 };

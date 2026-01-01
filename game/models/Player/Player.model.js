@@ -26,8 +26,8 @@ export class Player {
     this.framesCurrent = 0;
     this.framesElapsed = 0;
     this.framesHold = 10;
-    this.tileX = 5;
-    this.tileY = 5;
+    this.tileX = 3;
+    this.tileY = 6;
     this.moveProgress = 0;
     this.moveDuration = 20;
     this.position = {
@@ -134,7 +134,7 @@ export class Player {
   attemptMove(dx, dy, currentMap) {
     this.image = this.sprites.idle[this.facing];
 
-    if (this.isMoving) return;
+    if (this.isMoving || game.isPaused) return;
 
     this.setFacing(this.getFacingFromDelta(dx, dy));
     const targetX = this.tileX + dx;
@@ -171,10 +171,7 @@ export class Player {
         game.mapManager.checkWarp(this);
       }
     } else {
-      if (!this.isMoving && keys.action) {
-        game.mapManager.checkInteraction(this);
-        console.log(this.isMoving, keys.action);
-      }
+      if (!this.isMoving && keys.action) game.mapManager.checkInteraction(this);
 
       if (keys.up) this.attemptMove(0, -1, game.currentMap);
       if (keys.down) this.attemptMove(0, 1, game.currentMap);

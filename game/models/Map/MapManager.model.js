@@ -9,7 +9,6 @@ export class MapManager {
 
   loadMap(mapId) {
     this.game.currentMap = this.maps[mapId];
-    console.log(this.game.currentMap);
   }
 
   checkWarp(player) {
@@ -41,7 +40,6 @@ export class MapManager {
         game.player.position.y = warp.to.y * TILES_SIZE;
 
         game.player.setFacing(warp.facing);
-        console.log(game.player.facing);
       },
       () => {
         game.isPaused = false;
@@ -58,12 +56,14 @@ export class MapManager {
 
     if (!interaction) return;
 
-    this.triggerInteraction(interaction);
+    this.triggerInteraction(interaction, player);
   }
 
-  triggerInteraction(interaction) {
-    if (interaction.type === "sign") {
+  triggerInteraction(interaction, player) {
+    if (
+      interaction.type === "sign" &&
+      player.facing === interaction.facing[player.facing]
+    )
       this.game.showDialog(interaction.text);
-    }
   }
 }

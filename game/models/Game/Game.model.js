@@ -8,7 +8,8 @@ import { palletTown } from "../../logic/gameplay/maps/palletTown/palletTown.data
 import { MapManager } from "../Map/MapManager.model.js";
 import { MAPS } from "../../logic/gameplay/maps/maps.registry.js";
 import { Fade } from "../fade/fade.model.js";
-import { redHouse2F } from "../../logic/gameplay/maps/palletTown/redHouse/2F/redHouse.data.js";
+import { DialogBox } from "../dialogBox/dialogBox.model.js";
+import { keys } from "../../logic/gameplay/player/keyboard.js";
 
 export class Game {
   constructor() {
@@ -17,7 +18,7 @@ export class Game {
     this.player = new Player();
     this.mapManager = new MapManager(this, MAPS);
     this.tileManager = new TileManager(TILES_SIZE);
-    this.transition = new Fade(15);
+    this.transition = new Fade(10);
     this.selectionScreens = [];
     this.dialogBox = null;
     this.mapNameWindow = null;
@@ -36,8 +37,18 @@ export class Game {
   }
 
   showDialog(text) {
+    if (this.dialogBox?.isOpen) return;
     this.isPaused = true;
-    console.log(text);
+    this.player.isCanMove = false;
+    this.dialogBox = new DialogBox(this.canvas, text, false);
+    this.dialogBox.justPressed = true;
+    this.dialogBox.open();
+    keys.actionAlreadyPressed = false;
+  }
+
+  closeDialog() {
+    this.dialogBox = null;
     this.isPaused = false;
+    this.player.isCanMove = true;
   }
 }
