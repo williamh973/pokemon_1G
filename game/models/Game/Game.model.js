@@ -8,8 +8,8 @@ import { palletTown } from "../../logic/gameplay/maps/palletTown/palletTown.data
 import { MapManager } from "../Map/MapManager.model.js";
 import { MAPS } from "../../logic/gameplay/maps/maps.registry.js";
 import { Fade } from "../fade/fade.model.js";
-import { DialogBox } from "../dialogBox/dialogBox.model.js";
 import { keys } from "../../logic/gameplay/player/keyboard.js";
+import { DialogBox } from "../dialogBox/dialogBox.model.js";
 
 export class Game {
   constructor() {
