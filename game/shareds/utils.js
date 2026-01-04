@@ -43,3 +43,12 @@ export const drawDebugCollisionSquare = (element, context, enabled) => {
     context.stroke();
   }
 };
+export const drawBox = (context, positionX, positionY, width, height) => {
+  const borderColor = "black";
+  context.fillStyle = "white";
+  context.fillRect(positionX, positionY, width, height);
+
+  context.strokeStyle = borderColor;
+  context.lineWidth = 2;
+  context.strokeRect(positionX, positionY, width, height);
+};

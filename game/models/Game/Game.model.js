@@ -7,9 +7,10 @@ import { TILES_SIZE } from "../../shareds/utils.js";
 import { palletTown } from "../../logic/gameplay/maps/palletTown/palletTown.data.js";
 import { MapManager } from "../Map/MapManager.model.js";
 import { MAPS } from "../../logic/gameplay/maps/maps.registry.js";
-import { Fade } from "../fade/fade.model.js";
+import { Fade } from "../Fade/fade.model.js";
 import { keys } from "../../logic/gameplay/player/keyboard.js";
 import { DialogBox } from "../dialogBox/dialogBox.model.js";
+import { Menu } from "../Menu/Menu.model.js";
 
 export class Game {
   constructor() {
@@ -19,6 +20,7 @@ export class Game {
     this.mapManager = new MapManager(this, MAPS);
     this.tileManager = new TileManager(TILES_SIZE);
     this.transition = new Fade(10);
+    this.menu = new Menu(this.canvas);
     this.selectionScreens = [];
     this.dialogBox = null;
     this.mapNameWindow = null;
@@ -36,19 +38,27 @@ export class Game {
     this.hasStarted = true;
   }
 
+  togglePause(isPaused, isCanMove) {
+    this.isPaused = isPaused;
+    this.player.isCanMove = isCanMove;
+  }
+
   showDialog(text) {
     if (this.dialogBox?.isOpen) return;
-    this.isPaused = true;
-    this.player.isCanMove = false;
+    this.togglePause(true, false);
     this.dialogBox = new DialogBox(this.canvas, text, false);
-    this.dialogBox.justPressed = true;
     this.dialogBox.open();
-    keys.actionAlreadyPressed = false;
   }
 
   closeDialog() {
     this.dialogBox = null;
-    this.isPaused = false;
-    this.player.isCanMove = true;
+    this.togglePause(false, true);
+  }
+
+  showMenu() {
+    this.menu.isOpen = !this.menu.isOpen;
+    this.menu.isOpen
+      ? this.togglePause(true, false)
+      : this.togglePause(false, true);
   }
 }

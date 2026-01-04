@@ -27,7 +27,7 @@ export class MapManager {
   triggerWarp(warp) {
     const game = this.game;
 
-    game.isPaused = true;
+    game.togglePause(true, false);
 
     game.transition.start(
       () => {
@@ -42,8 +42,7 @@ export class MapManager {
         game.player.setFacing(warp.facing);
       },
       () => {
-        game.isPaused = false;
-        game.player.isCanMove = true;
+        game.togglePause(false, true);
       }
     );
   }

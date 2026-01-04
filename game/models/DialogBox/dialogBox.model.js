@@ -1,7 +1,8 @@
 import { game } from "../../../main.js";
+import { drawBox } from "../../shareds/utils.js";
 
 export class DialogBox {
-  constructor(canvas, text, justPressed) {
+  constructor(canvas, text) {
     this.width = canvas.width;
     this.height = 65;
     this.position = {
@@ -32,24 +33,12 @@ export class DialogBox {
 
   draw(context) {
     if (!this.isOpen) return;
-    const borderColor = "black";
-    context.fillStyle = "white";
-    context.fillRect(this.position.x, this.position.y, this.width, this.height);
-
-    context.strokeStyle = borderColor;
-    context.lineWidth = 2;
-    context.strokeRect(
-      this.position.x,
-      this.position.y,
-      this.width,
-      this.height
-    );
+    drawBox(context, this.position.x, this.position.y, this.width, this.height);
     this.drawText(context);
   }
 
   drawText(context) {
     const page = this.pages[this.currentPageIndex];
-    console.log(page);
     const padding = 15;
     context.font = "16px monospace";
     context.fillStyle = "black";

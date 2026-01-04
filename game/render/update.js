@@ -7,11 +7,15 @@ export const update = (game) => {
   if (game.dialogBox?.isOpen) {
     game.dialogBox.update(game.canvas.context);
 
-    if (keys.action && game.dialogBox.justPressed) {
-      console.log("cou");
-      game.dialogBox.nextPage();
-    }
+    if (keys.action) game.dialogBox.nextPage();
     keys.action = false; // on garde
+  }
+
+  if (game.menu?.isOpen) game.menu.update(game.canvas.context);
+
+  if (keys.menu) {
+    game.showMenu();
+    keys.menu = false;
   }
   game.transition.update();
 };

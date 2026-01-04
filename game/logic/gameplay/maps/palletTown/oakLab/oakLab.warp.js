@@ -9,7 +9,7 @@ export const oakLabWarps = [
   {
     fromMap: "OAK_LAB",
     toMap: "PALLET_TOWN",
-    from: { x: 3, y: 11 },
+    from: { x: 5, y: 11 },
     to: { x: 12, y: 11 },
     facing: "down",
   },

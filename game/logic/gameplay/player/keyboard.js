@@ -4,7 +4,7 @@ export const keys = {
   up: false,
   down: false,
   action: false,
-  actionAlreadyPressed: false,
+  menu: false,
 };
 
 window.addEventListener("keydown", (e) => {
@@ -23,6 +23,9 @@ window.addEventListener("keydown", (e) => {
       break;
     case "a":
       keys.action = true;
+      break;
+    case "c":
+      keys.menu = true;
       break;
   }
 });
@@ -43,6 +46,10 @@ window.addEventListener("keyup", (e) => {
       break;
     case "a":
       keys.action = false;
+      break;
+    case "c":
+      keys.menu = false;
+
       break;
   }
 });
