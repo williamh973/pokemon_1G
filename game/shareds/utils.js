@@ -1,4 +1,6 @@
 export const TILES_SIZE = 32;
+export const font = "PixelOperator";
+export const FADING_TIME = 10;
 
 export const PLAYER_STATE = {
   IDLE: "idle",

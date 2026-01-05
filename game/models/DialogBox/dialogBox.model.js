@@ -1,5 +1,5 @@
 import { game } from "../../../main.js";
-import { drawBox } from "../../shareds/utils.js";
+import { drawBox, font } from "../../shareds/utils.js";
 
 export class DialogBox {
   constructor(canvas, text) {
@@ -40,7 +40,7 @@ export class DialogBox {
   drawText(context) {
     const page = this.pages[this.currentPageIndex];
     const padding = 15;
-    context.font = "16px monospace";
+    context.font = `18px PixelOperator `;
     context.fillStyle = "black";
     context.textBaseline = "top";
 

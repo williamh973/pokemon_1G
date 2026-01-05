@@ -119,6 +119,7 @@ export class Player {
     this.framesCurrent = 0;
     this.framesMax = this.frames.walk.max;
     this.image = this.sprites.walk[this.facing];
+    this.state = PLAYER_STATE.WALK;
     this.moveProgress = 0;
 
     this.tileX += dx;
@@ -133,6 +134,7 @@ export class Player {
 
   attemptMove(dx, dy, currentMap) {
     this.image = this.sprites.idle[this.facing];
+    this.state = PLAYER_STATE.IDLE;
 
     if (this.isMoving || game.isPaused) return;
 
@@ -167,7 +169,7 @@ export class Player {
         this.framesCurrent = 0;
         this.framesMax = this.frames.idle.max;
         this.image = this.sprites.idle[this.facing];
-
+        this.state = PLAYER_STATE.IDLE;
         game.mapManager.checkWarp(this);
       }
     } else {

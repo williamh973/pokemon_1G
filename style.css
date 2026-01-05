@@ -3,7 +3,16 @@
   padding: 0;
 }
 
+@font-face {
+  font-family: "PixelOperator";
+  src: url("game/assets/font/pixel_operator/pixelOperator.ttf")
+    format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
+  font-family: "PixelOperator", monospace;
   width: 100vw;
   height: 100vh;
   display: flex;

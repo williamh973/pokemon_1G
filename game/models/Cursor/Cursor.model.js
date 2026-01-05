@@ -1,26 +1,18 @@
 import { rightArrow } from "../../assets/images/ui/misc/misc.assets.js";
-import { drawDebugCollisionSquare } from "../../shareds/utils.js";
 
 export class Cursor {
-  constructor(currentMenuIndex) {
+  constructor() {
     this.position = {
       x: 0,
-      y: currentMenuIndex,
+      y: 0,
     };
     this.width = 16;
     this.height = 16;
     this.image = rightArrow;
   }
 
-  draw(context, parentPositionX, parentPositionY, heightLine) {
-    context.drawImage(
-      this.image,
-      parentPositionX,
-      parentPositionY + heightLine,
-      this.width,
-      this.height
-    );
-    drawDebugCollisionSquare(this, context, true);
+  draw(context, positionX, cursorY) {
+    context.drawImage(this.image, positionX, cursorY, this.width, this.height);
   }
 
   update() {

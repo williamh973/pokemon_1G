@@ -3,14 +3,14 @@ import { Player } from "../Player/Player.model.js";
 import { Canvas } from "../Canvas/Canvas.model.js";
 import { TileManager } from "../Tile/Tile.manager.js";
 import { Camera } from "../Camera/camera.model.js";
-import { TILES_SIZE } from "../../shareds/utils.js";
+import { FADING_TIME, TILES_SIZE } from "../../shareds/utils.js";
 import { palletTown } from "../../logic/gameplay/maps/palletTown/palletTown.data.js";
 import { MapManager } from "../Map/MapManager.model.js";
 import { MAPS } from "../../logic/gameplay/maps/maps.registry.js";
 import { Fade } from "../Fade/fade.model.js";
-import { keys } from "../../logic/gameplay/player/keyboard.js";
 import { DialogBox } from "../dialogBox/dialogBox.model.js";
 import { Menu } from "../Menu/Menu.model.js";
+import { Pokedex } from "../Menu/items/pokedex/pokedex.model.js";
 
 export class Game {
   constructor() {
@@ -19,9 +19,9 @@ export class Game {
     this.player = new Player();
     this.mapManager = new MapManager(this, MAPS);
     this.tileManager = new TileManager(TILES_SIZE);
-    this.transition = new Fade(10);
-    this.menu = new Menu(this.canvas);
-    this.selectionScreens = [];
+    this.transition = new Fade(FADING_TIME);
+    this.menu = new Menu(this);
+    this.activeMenuScreen = null;
     this.dialogBox = null;
     this.mapNameWindow = null;
     this.isPaused = false;
@@ -60,5 +60,23 @@ export class Game {
     this.menu.isOpen
       ? this.togglePause(true, false)
       : this.togglePause(false, true);
+  }
+
+  openPokedex() {
+    this.menu.isOpen = false;
+    this.activeMenuScreen = new Pokedex(this, true);
+    console.log(this.activeMenuScreen);
+  }
+
+  showMenuSelectedItem(itemId) {
+    const items = {
+      POKEDEX: () => this.openPokedex(),
+      POKEMON: () => this.openTeam(),
+      SAC: () => this.openBag(),
+      OPTIONS: () => this.openOptions(),
+      RETOUR: () => this.showMenu(),
+    };
+
+    items[itemId]?.();
   }
 }
