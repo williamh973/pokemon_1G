@@ -9,34 +9,64 @@ const dialogBox = (game) => {
   }
 };
 
-const menu = (game) => {
-  if (game.menu?.isOpen) game.menu.update(game.canvas.context);
-  if (game.menu?.isOpen && keys.up && game.menu.currentIndex > 0) {
-    game.menu.currentIndex--;
-    keys.up = false;
-  }
-  if (
-    game.menu?.isOpen &&
-    keys.down &&
-    game.menu.currentIndex < game.menu.items.length - 1
-  ) {
-    game.menu.currentIndex++;
-    keys.down = false;
-  }
-
+const handleOpenClose = (game) => {
   if (keys.menu) {
-    game.showMenu();
+    game.toggleMenu();
     keys.menu = false;
   }
+};
 
-  if (game.menu?.isOpen && keys.action) {
-    game.menu.openItem();
+const handleIndex = (menu) => {
+  if (menu.isOpen && keys.up && menu.currentIndex > 0) {
+    menu.currentIndex--;
+    keys.up = false;
+  }
+  if (menu.isOpen && keys.down && menu.currentIndex < menu.items.length - 1) {
+    menu.currentIndex++;
+    keys.down = false;
+  }
+};
+
+const handleItems = (menu) => {
+  if (menu.isOpen && keys.action) {
+    menu.openItem();
     keys.action = false;
   }
 };
 
-const activeScreen = (game) => {
-  if (game.activeMenuScreen) game.activeMenuScreen.update(game.canvas.context);
+const menu = (game) => {
+  const menu = game.menu;
+  if (menu.isOpen) menu.update(game.canvas.context);
+
+  handleOpenClose(game);
+  handleIndex(menu);
+  handleItems(menu);
+};
+
+const pokedex = (game) => {
+  const currentScreen = game.currentScreen;
+  if (currentScreen?.name !== "POKEDEX") return;
+
+  const pokedex = currentScreen;
+  const pokemonList = pokedex?.pokemonList;
+  if (pokedex) {
+    pokedex.update(game.canvas.context);
+    pokemonList.update(game.canvas.context);
+  }
+
+  if (keys.up && pokemonList.currentIndex > 0) {
+    pokemonList.currentIndex--;
+    keys.up = false;
+  }
+
+  if (
+    keys.down &&
+    pokemonList.currentIndex < pokemonList.databases.length - 1
+  ) {
+    console.log(pokemonList.currentIndex);
+    pokemonList.currentIndex++;
+    keys.down = false;
+  }
 };
 
 export const update = (game) => {
@@ -45,8 +75,7 @@ export const update = (game) => {
 
   dialogBox(game);
   menu(game);
-  activeScreen(game);
+  pokedex(game);
 
   game.transition.update();
 };
-//

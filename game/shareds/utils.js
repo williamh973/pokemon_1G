@@ -27,6 +27,12 @@ export const createImg = (path) => {
   return image;
 };
 
+export const createSong = (path) => {
+  const audio = new Audio();
+  audio.src = path;
+  return audio;
+};
+
 export const drawDebugCollisionSquare = (element, context, enabled) => {
   if (!enabled) return;
 

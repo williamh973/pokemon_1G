@@ -5,6 +5,7 @@ export const keys = {
   down: false,
   action: false,
   menu: false,
+  escape: false,
 };
 
 window.addEventListener("keydown", (e) => {

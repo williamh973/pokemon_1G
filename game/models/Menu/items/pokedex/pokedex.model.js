@@ -1,12 +1,16 @@
+import { pokemonList } from "./pokemonList/pokemonList.model.js";
+
 export class Pokedex {
-  constructor(game, isOpen) {
+  constructor(canvas, isOpen) {
+    this.name = "POKEDEX";
     this.position = {
       x: 0,
       y: 0,
     };
-    this.width = game.canvas.width;
-    this.height = game.canvas.height;
+    this.width = canvas.width;
+    this.height = canvas.height;
     this.isOpen = isOpen;
+    this.pokemonList = new pokemonList(canvas, true);
   }
 
   draw(context) {

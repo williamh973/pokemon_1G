@@ -16,6 +16,6 @@ export class Cursor {
   }
 
   update() {
-    this.draw(context, positionX, positionY, index);
+    this.draw(context, positionX, positionY);
   }
 }

@@ -23,6 +23,7 @@ export class Menu {
     ];
     this.currentIndex = 0;
     this.lineHeight = 40;
+    this.heightLine = 40;
     this.baseY = 21;
     this.cursor = new Cursor();
   }
@@ -32,8 +33,7 @@ export class Menu {
     drawBox(context, this.position.x, this.position.y, this.width, this.height);
     this.drawText(context);
 
-    const cursorY =
-      this.position.y + this.baseY + this.currentIndex * this.lineHeight;
+    const cursorY = this.position.y + this.currentIndex * this.lineHeight + 20;
 
     this.cursor.draw(context, this.position.x + 10, cursorY);
   }

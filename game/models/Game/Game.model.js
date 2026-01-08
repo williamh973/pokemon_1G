@@ -21,7 +21,7 @@ export class Game {
     this.tileManager = new TileManager(TILES_SIZE);
     this.transition = new Fade(FADING_TIME);
     this.menu = new Menu(this);
-    this.activeMenuScreen = null;
+    this.currentScreen = null;
     this.dialogBox = null;
     this.mapNameWindow = null;
     this.isPaused = false;
@@ -55,7 +55,7 @@ export class Game {
     this.togglePause(false, true);
   }
 
-  showMenu() {
+  toggleMenu() {
     this.menu.isOpen = !this.menu.isOpen;
     this.menu.isOpen
       ? this.togglePause(true, false)
@@ -63,9 +63,7 @@ export class Game {
   }
 
   openPokedex() {
-    this.menu.isOpen = false;
-    this.activeMenuScreen = new Pokedex(this, true);
-    console.log(this.activeMenuScreen);
+    this.currentScreen = new Pokedex(this.canvas, true);
   }
 
   showMenuSelectedItem(itemId) {
@@ -74,9 +72,10 @@ export class Game {
       POKEMON: () => this.openTeam(),
       SAC: () => this.openBag(),
       OPTIONS: () => this.openOptions(),
-      RETOUR: () => this.showMenu(),
+      RETOUR: () => this.toggleMenu(),
     };
 
     items[itemId]?.();
+    this.toggleMenu();
   }
 }
