@@ -25,7 +25,7 @@ export class Menu {
     this.lineHeight = 40;
     this.heightLine = 40;
     this.baseY = 21;
-    this.cursor = new Cursor();
+    this.cursor = new Cursor(false);
   }
 
   draw(context) {

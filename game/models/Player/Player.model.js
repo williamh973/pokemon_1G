@@ -173,7 +173,8 @@ export class Player {
         game.mapManager.checkWarp(this);
       }
     } else {
-      if (!this.isMoving && keys.action) game.mapManager.checkInteraction(this);
+      if (!this.isMoving && keys.action && !game.menu.isOpen)
+        game.mapManager.checkInteraction(this);
 
       if (keys.up) this.attemptMove(0, -1, game.currentMap);
       if (keys.down) this.attemptMove(0, 1, game.currentMap);

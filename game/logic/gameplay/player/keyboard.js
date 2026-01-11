@@ -28,6 +28,9 @@ window.addEventListener("keydown", (e) => {
     case "c":
       keys.menu = true;
       break;
+    case "e":
+      keys.escape = true;
+      break;
   }
 });
 
@@ -50,7 +53,9 @@ window.addEventListener("keyup", (e) => {
       break;
     case "c":
       keys.menu = false;
-
+      break;
+    case "e":
+      keys.escape = false;
       break;
   }
 });

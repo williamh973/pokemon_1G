@@ -1,22 +1,32 @@
 import { POKEDEX_DATABASE } from "../../../../../logic/gameplay/pokemon/pokemon.database.js";
 import { drawBox } from "../../../../../shareds/utils.js";
 import { Cursor } from "../../../../Cursor/Cursor.model.js";
+import { PokedexState } from "../pokedexState/pokedexState.model.js";
 
-export class pokemonList {
+export class PokemonList {
   constructor(canvas, isOpen) {
     this.position = {
       x: 0,
       y: 0,
     };
-    this.width = canvas.width / 1.5;
+    this.width = canvas.width / 1.35;
     this.height = canvas.height;
     this.isOpen = isOpen;
     this.databases = POKEDEX_DATABASE;
     this.currentIndex = 0;
     this.lineHeight = 40;
     this.heightLine = 40;
-    this.cursor = new Cursor();
+    this.isPokemonSelected = false;
+    this.cursor = new Cursor(false);
     this.title = "SOMMAIRE";
+    this.pokedexState = new PokedexState(this, true);
+  }
+
+  checkPokedexState(context, positionX, positionY, pokemon, index) {
+    this.pokedexState.see(pokemon.id);
+    if (this.pokedexState.isSeen(pokemon.id)) {
+      this.showPokemon(context, positionX, positionY, pokemon, index);
+    } else this.hidePokemon(context, positionX, positionY, pokemon, index);
   }
 
   drawText(context) {
@@ -29,9 +39,8 @@ export class pokemonList {
       const paddingY = 50;
       const positionX = this.position.x + paddingX;
       const positionY = this.position.y + paddingY + index * this.heightLine;
-      if (pokemon.seen)
-        this.hasSeen(context, positionX, positionY, pokemon, index);
-      else this.hasNotSeen(context, positionX, positionY, pokemon, index);
+
+      this.checkPokedexState(context, positionX, positionY, pokemon, index);
     });
 
     context.fillStyle = "white";
@@ -41,7 +50,7 @@ export class pokemonList {
     context.fillText(this.title, 50, 0, this.width, 50);
   }
 
-  hasSeen(context, positionX, positionY, pokemon, index) {
+  showPokemon(context, positionX, positionY, pokemon, index) {
     context.font = `23px PixelOperator`;
     context.fillText(
       pokemon.id,
@@ -60,7 +69,7 @@ export class pokemonList {
     );
   }
 
-  hasNotSeen(context, positionX, positionY, pokemon, index) {
+  hidePokemon(context, positionX, positionY, pokemon, index) {
     context.fillText(
       pokemon.id,
       positionX,
@@ -78,14 +87,21 @@ export class pokemonList {
   }
 
   handleScroll() {
-    const visibleCount = 7;
+    if (this.currentIndex >= 7)
+      this.position.y = -(this.currentIndex - (7 - 1)) * this.lineHeight;
+    else this.position.y = 0;
+  }
 
-    if (this.currentIndex >= visibleCount) {
-      this.position.y =
-        -(this.currentIndex - (visibleCount - 1)) * this.lineHeight;
-    } else {
-      this.position.y = 0;
-    }
+  checkCursorState(context) {
+    const cursorY =
+      this.position.y +
+      this.heightLine +
+      this.currentIndex * this.lineHeight +
+      15;
+
+    this.isPokemonSelected
+      ? this.cursor.update(context, this.position.x + 5, cursorY, true)
+      : this.cursor.update(context, this.position.x + 5, cursorY, false);
   }
 
   draw(context) {
@@ -94,13 +110,7 @@ export class pokemonList {
     drawBox(context, 0, 0, this.width, this.height);
     this.drawText(context);
 
-    const cursorY =
-      this.position.y +
-      this.heightLine +
-      this.currentIndex * this.lineHeight +
-      15;
-
-    this.cursor.draw(context, this.position.x + 5, cursorY);
+    this.checkCursorState(context);
   }
 
   update(context) {

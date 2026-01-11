@@ -63,11 +63,15 @@ export class Game {
   }
 
   openPokedex() {
-    this.currentScreen = new Pokedex(this.canvas, true);
+    this.currentScreen = new Pokedex(this, true);
+  }
+
+  openPokemonDetailPage() {
+    this.currentScreen.pokemonDetail.isOpen = true;
   }
 
   showMenuSelectedItem(itemId) {
-    const items = {
+    const mainMenu = {
       POKEDEX: () => this.openPokedex(),
       POKEMON: () => this.openTeam(),
       SAC: () => this.openBag(),
@@ -75,7 +79,17 @@ export class Game {
       RETOUR: () => this.toggleMenu(),
     };
 
-    items[itemId]?.();
+    const pokedexCharacMenu = {
+      INFO: () => this.openPokemonDetailPage(),
+      CRI: () => this(),
+      ZONE: () => this.openPokemonLocationPage(),
+      RETOUR: () => this.toggleMenu(),
+    };
+
+    mainMenu[itemId]?.();
+    pokedexCharacMenu[itemId]?.();
+
     this.toggleMenu();
+    this.togglePause(true, false);
   }
 }
