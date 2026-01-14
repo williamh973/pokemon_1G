@@ -1,4 +1,4 @@
-import { keys } from "../logic/gameplay/player/keyboard.js";
+import { keys } from "../../logic/gameplay/player/keyboard.js";
 
 const handleOpenClose = (game) => {
   if (keys.menu) {

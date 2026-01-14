@@ -1,16 +1,17 @@
-import { POKEDEX_DATABASE } from "../../../../../logic/gameplay/pokemon/pokemon.database.js";
-import { drawBox } from "../../../../../shareds/utils.js";
-import { Cursor } from "../../../../Cursor/Cursor.model.js";
+import { POKEDEX_DATABASE } from "../../../../../../logic/gameplay/pokemon/pokemon.database.js";
+import { drawBox } from "../../../../../../shareds/utils.js";
+import { Cursor } from "../../../../../Cursor/Cursor.model.js";
 import { PokedexState } from "../pokedexState/pokedexState.model.js";
+import { PokemonDetail } from "../pokemonDetail/pokemonDetail.model.js";
 
 export class PokemonList {
-  constructor(canvas, isOpen) {
+  constructor(game, isOpen) {
     this.position = {
       x: 0,
       y: 0,
     };
-    this.width = canvas.width / 1.35;
-    this.height = canvas.height;
+    this.width = game.canvas.width / 1.35;
+    this.height = game.canvas.height;
     this.isOpen = isOpen;
     this.databases = POKEDEX_DATABASE;
     this.currentIndex = 0;
@@ -20,6 +21,7 @@ export class PokemonList {
     this.cursor = new Cursor(false);
     this.title = "SOMMAIRE";
     this.pokedexState = new PokedexState(this, true);
+    this.pokemonDetail = new PokemonDetail(game);
   }
 
   checkPokedexState(context, positionX, positionY, pokemon, index) {
@@ -92,7 +94,7 @@ export class PokemonList {
     else this.position.y = 0;
   }
 
-  checkCursorState(context) {
+  updateCursorWhenPokemonSelected(context) {
     const cursorY =
       this.position.y +
       this.heightLine +
@@ -102,15 +104,18 @@ export class PokemonList {
     this.isPokemonSelected
       ? this.cursor.update(context, this.position.x + 5, cursorY, true)
       : this.cursor.update(context, this.position.x + 5, cursorY, false);
+
+    const pokemonFounded = this.databases[this.currentIndex];
+    this.pokemonDetail.pokemon = pokemonFounded;
   }
 
   draw(context) {
     if (!this.isOpen) return;
 
-    drawBox(context, 0, 0, this.width, this.height);
+    drawBox(context, 0, 0, this.width, this.height, "black", "white");
     this.drawText(context);
 
-    this.checkCursorState(context);
+    this.updateCursorWhenPokemonSelected(context);
   }
 
   update(context) {

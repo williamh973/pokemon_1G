@@ -8,9 +8,10 @@ import { palletTown } from "../../logic/gameplay/maps/palletTown/palletTown.data
 import { MapManager } from "../Map/MapManager.model.js";
 import { MAPS } from "../../logic/gameplay/maps/maps.registry.js";
 import { Fade } from "../Fade/fade.model.js";
-import { DialogBox } from "../dialogBox/dialogBox.model.js";
+import { DialogBox } from "../DialogBox/dialogBox.model.js";
 import { Menu } from "../Menu/Menu.model.js";
 import { Pokedex } from "../Menu/items/pokedex/pokedex.model.js";
+import { keys } from "../../logic/gameplay/player/keyboard.js";
 
 export class Game {
   constructor() {
@@ -43,14 +44,13 @@ export class Game {
     this.player.isCanMove = isCanMove;
   }
 
-  showDialog(text) {
-    if (this.dialogBox?.isOpen) return;
+  openDialogBox(text, height) {
+    this.dialogBox = new DialogBox(this, text, true, height);
     this.togglePause(true, false);
-    this.dialogBox = new DialogBox(this.canvas, text, false);
-    this.dialogBox.open();
+    keys.action = false;
   }
 
-  closeDialog() {
+  closeDialogBox() {
     this.dialogBox = null;
     this.togglePause(false, true);
   }
@@ -67,7 +67,9 @@ export class Game {
   }
 
   openPokemonDetailPage() {
-    this.currentScreen.pokemonDetail.isOpen = true;
+    const detailPage = this.currentScreen.pokemonList.pokemonDetail;
+    detailPage.isOpen = true;
+    this.openDialogBox(detailPage.pokemon.desc);
   }
 
   showMenuSelectedItem(itemId) {

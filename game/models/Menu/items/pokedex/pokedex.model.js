@@ -1,7 +1,6 @@
 import { drawBox } from "../../../../shareds/utils.js";
-import { PokedexCharacteristic } from "./pokedexCharact/pokedexCharact.model.js";
-import { PokemonDetail } from "./pokemonDetail/pokemonDetail.model.js";
-import { PokemonList } from "./pokemonList/pokemonList.model.js";
+import { PokedexCharacteristic } from "./sections/pokedexCharact/pokedexCharact.model.js";
+import { PokemonList } from "./sections/pokemonList/pokemonList.model.js";
 
 export class Pokedex {
   constructor(game, isOpen) {
@@ -15,18 +14,25 @@ export class Pokedex {
     this.width = this.canvas.width;
     this.height = this.canvas.height;
     this.isOpen = isOpen;
-    this.pokemonList = new PokemonList(this.canvas, true);
+    this.pokemonList = new PokemonList(this.game, true);
     this.pokedexCharac = new PokedexCharacteristic(
       this.game,
       this.pokemonList,
       true
     );
-    this.pokemonDetail = new PokemonDetail(this.canvas, false);
   }
 
   draw(context) {
     context.fillStyle = "white";
-    drawBox(context, this.position.x, this.position.y, this.width, this.height);
+    drawBox(
+      context,
+      this.position.x,
+      this.position.y,
+      this.width,
+      this.height,
+      "black",
+      "white"
+    );
   }
 
   update(context) {

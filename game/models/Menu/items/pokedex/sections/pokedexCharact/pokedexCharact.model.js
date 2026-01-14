@@ -1,5 +1,6 @@
-import { drawBox } from "../../../../../shareds/utils.js";
-import { Cursor } from "../../../../Cursor/Cursor.model.js";
+import { drawBox } from "../../../../../../shareds/utils.js";
+import { Cursor } from "../../../../../Cursor/Cursor.model.js";
+import { PokemonDetail } from "../pokemonDetail/pokemonDetail.model.js";
 
 export class PokedexCharacteristic {
   constructor(game, pokemonList, isOpen) {
@@ -45,7 +46,15 @@ export class PokedexCharacteristic {
 
   draw(context) {
     if (!this.isOpen) return;
-    drawBox(context, this.position.x, this.position.y, this.width, this.height);
+    drawBox(
+      context,
+      this.position.x,
+      this.position.y,
+      this.width,
+      this.height,
+      "black",
+      "white"
+    );
     this.drawText(context);
 
     this.updateCursorWhenPokemonSelected(context);

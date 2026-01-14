@@ -62,7 +62,8 @@ export class MapManager {
     if (
       interaction.type === "sign" &&
       player.facing === interaction.facing[player.facing]
-    )
-      this.game.showDialog(interaction.text);
+    ) {
+      this.game.openDialogBox(interaction.text);
+    }
   }
 }

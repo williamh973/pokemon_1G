@@ -30,7 +30,15 @@ export class Menu {
 
   draw(context) {
     if (!this.isOpen) return;
-    drawBox(context, this.position.x, this.position.y, this.width, this.height);
+    drawBox(
+      context,
+      this.position.x,
+      this.position.y,
+      this.width,
+      this.height,
+      "black",
+      "white"
+    );
     this.drawText(context);
 
     const cursorY = this.position.y + this.currentIndex * this.lineHeight + 20;

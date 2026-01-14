@@ -1,4 +1,4 @@
-import { drawBox } from "../../../../../shareds/utils.js";
+import { drawBox } from "../../../../../../shareds/utils.js";
 
 export class PokedexState {
   constructor(pokemonList, isOpen) {
@@ -45,7 +45,15 @@ export class PokedexState {
 
   draw(context) {
     if (!this.isOpen) return;
-    drawBox(context, this.position.x, this.position.y, this.width, this.height);
+    drawBox(
+      context,
+      this.position.x,
+      this.position.y,
+      this.width,
+      this.height,
+      "black",
+      "white"
+    );
     const positionX = this.position.x + this.width / 2.5;
     context.fillStyle = "black";
 

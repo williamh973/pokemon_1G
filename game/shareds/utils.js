@@ -2,6 +2,11 @@ export const TILES_SIZE = 32;
 export const font = "PixelOperator";
 export const FADING_TIME = 10;
 
+export const dialogBoxParams = {
+  isOpen: false,
+  height: 65,
+};
+
 export const PLAYER_STATE = {
   IDLE: "idle",
   WALK: "walk",
@@ -51,9 +56,18 @@ export const drawDebugCollisionSquare = (element, context, enabled) => {
     context.stroke();
   }
 };
-export const drawBox = (context, positionX, positionY, width, height) => {
-  const borderColor = "black";
-  context.fillStyle = "white";
+export const drawBox = (
+  context,
+  positionX,
+  positionY,
+  width,
+  height,
+  color,
+  fillStyle
+) => {
+  const borderColor = color;
+  context.fillStyle = fillStyle;
+
   context.fillRect(positionX, positionY, width, height);
 
   context.strokeStyle = borderColor;
