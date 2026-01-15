@@ -1,8 +1,11 @@
 import { keys } from "../../logic/gameplay/player/keyboard.js";
 
 const handleOpenClose = (game) => {
-  if (keys.menu) {
-    game.toggleMenu();
+  if (keys.menu && !game.menu.isOpen) {
+    game.openMenu();
+    keys.menu = false;
+  } else if (keys.menu && game.menu.isOpen) {
+    game.closeMenu();
     keys.menu = false;
   }
 };
@@ -15,6 +18,7 @@ const handleIndex = (menu) => {
   if (menu.isOpen && keys.down && menu.currentIndex < menu.items.length - 1) {
     menu.currentIndex++;
     keys.down = false;
+    console.log("ca passe");
   }
 };
 

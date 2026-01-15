@@ -1,11 +1,5 @@
 import { keys } from "../../../../logic/gameplay/player/keyboard.js";
 
-export const openPokemonDetails = (pokemonList, pokemonDetail) => {
-  if (pokemonList.isPokemonSelected && keys.action) {
-    console.log("déclenché");
-  }
-};
-
 export const handleItems = (pokemonList, pokedexCharac) => {
   if (pokemonList.isPokemonSelected && keys.action) {
     pokedexCharac.openItem();

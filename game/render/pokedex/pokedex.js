@@ -1,7 +1,6 @@
 import { keys } from "../../logic/gameplay/player/keyboard.js";
 import {
   handleItems,
-  openPokemonDetails,
   pokedexCharacteristicsIndexMoveDown,
   pokedexCharacteristicsIndexMoveUp,
 } from "./sections/pokemonCharacteristics/pokemonCharacteristics.js";
@@ -12,13 +11,16 @@ import {
 } from "./sections/pokemonList/pokemonList.js";
 
 const closePokedex = (game, pokedex, pokemonList, pokemonDetail) => {
-  if (keys.escape)
+  if (pokedex.isOpen && keys.escape) {
     pokedex.isOpen =
       pokemonList.isOpen =
       pokedex.pokedexCharac.isOpen =
       pokemonList.pokedexState.isOpen =
       pokemonDetail.isOpen =
         false;
+    game.currentScreen = null;
+    game.togglePause(false, true);
+  }
 };
 
 const pokemonListS = (pokemonList) => {
@@ -29,14 +31,13 @@ const pokemonListS = (pokemonList) => {
 
 const characteristicsS = (pokemonList, pokedexCharac, pokemonDetail) => {
   handleItems(pokemonList, pokedexCharac);
-  openPokemonDetails(pokemonList, pokemonDetail);
   pokedexCharacteristicsIndexMoveUp(pokemonList, pokedexCharac);
   pokedexCharacteristicsIndexMoveDown(pokemonList, pokedexCharac);
 };
 
 export const pokedex = (game) => {
+  if (game.currentScreen?.name !== "POKEDEX") return;
   const currentScreen = game.currentScreen;
-  if (currentScreen?.name !== "POKEDEX") return;
   const pokedex = currentScreen;
   const pokemonList = pokedex?.pokemonList;
   const pokemonState = pokemonList.pokedexState;

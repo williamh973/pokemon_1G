@@ -1,3 +1,4 @@
+import { keys } from "../logic/gameplay/player/keyboard.js";
 import { draw } from "./draw.js";
 import { update } from "./update.js";
 

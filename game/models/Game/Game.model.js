@@ -44,6 +44,16 @@ export class Game {
     this.player.isCanMove = isCanMove;
   }
 
+  openMenu() {
+    this.menu.isOpen = true;
+    this.togglePause(true, false);
+  }
+
+  closeMenu() {
+    this.menu.isOpen = false;
+    this.togglePause(false, true);
+  }
+
   openDialogBox(text, height) {
     this.dialogBox = new DialogBox(this, text, true, height);
     this.togglePause(true, false);
@@ -53,13 +63,6 @@ export class Game {
   closeDialogBox() {
     this.dialogBox = null;
     this.togglePause(false, true);
-  }
-
-  toggleMenu() {
-    this.menu.isOpen = !this.menu.isOpen;
-    this.menu.isOpen
-      ? this.togglePause(true, false)
-      : this.togglePause(false, true);
   }
 
   openPokedex() {
@@ -78,20 +81,20 @@ export class Game {
       POKEMON: () => this.openTeam(),
       SAC: () => this.openBag(),
       OPTIONS: () => this.openOptions(),
-      RETOUR: () => this.toggleMenu(),
+      RETOUR: () => this.closeMenu(),
     };
 
     const pokedexCharacMenu = {
       INFO: () => this.openPokemonDetailPage(),
       CRI: () => this(),
       ZONE: () => this.openPokemonLocationPage(),
-      RETOUR: () => this.toggleMenu(),
+      RETOUR: () => this.closeMenu(),
     };
 
     mainMenu[itemId]?.();
     pokedexCharacMenu[itemId]?.();
 
-    this.toggleMenu();
+    this.closeMenu();
     this.togglePause(true, false);
   }
 }
