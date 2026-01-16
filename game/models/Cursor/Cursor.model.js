@@ -1,18 +1,18 @@
 import {
-  activatedRightArrow,
+  focusedRightArrow,
   rightArrow,
 } from "../../assets/images/ui/misc/misc.assets.js";
 
 export class Cursor {
-  constructor(isActivated) {
+  constructor() {
     this.position = {
       x: 0,
       y: 0,
     };
     this.width = 16;
     this.height = 16;
-    this.isActivated = isActivated;
-    this.state = { idle: rightArrow, active: activatedRightArrow };
+    this.isVisible = false;
+    this.state = { idle: rightArrow, focused: focusedRightArrow };
     this.image = this.state.idle;
   }
 
@@ -20,11 +20,13 @@ export class Cursor {
     context.drawImage(this.image, positionX, cursorY, this.width, this.height);
   }
 
-  update(context, positionX, cursorY, isActivated) {
-    this.isActivated = isActivated;
-    this.isActivated
-      ? (this.image = activatedRightArrow)
-      : (this.image = rightArrow);
+  update(context, positionX, cursorY, isFocused) {
+    if (!this.isVisible) return;
+    this.checkFocus(isFocused);
     this.draw(context, positionX, cursorY);
+  }
+
+  checkFocus(isFocused) {
+    isFocused ? (this.image = focusedRightArrow) : (this.image = rightArrow);
   }
 }

@@ -11,7 +11,6 @@ export class Menu {
       x: this.canvas.width - this.width,
       y: 0,
     };
-    this.isOpen = false;
     this.items = [
       { id: "POKEDEX", name: "POKEDEX" },
       { id: "POKEMON", name: "POKEMON" },
@@ -21,15 +20,16 @@ export class Menu {
       { id: "OPTIONS", name: "OPTIONS" },
       { id: "RETOUR", name: "RETOUR" },
     ];
+    this.isOpen = false;
+    this.hasFocus = false;
     this.currentIndex = 0;
     this.lineHeight = 40;
     this.heightLine = 40;
     this.baseY = 21;
-    this.cursor = new Cursor(false);
+    this.cursor = new Cursor();
   }
 
   draw(context) {
-    if (!this.isOpen) return;
     drawBox(
       context,
       this.position.x,
@@ -41,9 +41,13 @@ export class Menu {
     );
     this.drawText(context);
 
+    this.showCursor(context);
+  }
+
+  showCursor(context) {
     const cursorY = this.position.y + this.currentIndex * this.lineHeight + 20;
 
-    this.cursor.draw(context, this.position.x + 10, cursorY);
+    this.cursor.update(context, this.position.x + 10, cursorY);
   }
 
   drawText(context) {
@@ -60,7 +64,20 @@ export class Menu {
   }
 
   update(context) {
+    if (!this.isOpen) return;
     this.draw(context);
+  }
+
+  open() {
+    this.isOpen = true;
+    this.cursor.isVisible = true;
+    this.hasFocus = true;
+  }
+
+  close() {
+    this.isOpen = false;
+    this.cursor.isVisible = false;
+    this.hasFocus = false;
   }
 
   openItem() {

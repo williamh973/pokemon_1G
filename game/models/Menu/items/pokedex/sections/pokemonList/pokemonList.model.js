@@ -5,21 +5,23 @@ import { PokedexState } from "../pokedexState/pokedexState.model.js";
 import { PokemonDetail } from "../pokemonDetail/pokemonDetail.model.js";
 
 export class PokemonList {
-  constructor(game, isOpen) {
+  constructor(game) {
+    this.game = game;
     this.position = {
       x: 0,
       y: 0,
     };
     this.width = game.canvas.width / 1.35;
     this.height = game.canvas.height;
-    this.isOpen = isOpen;
+    this.isOpen = false;
+    this.hasFocus = false;
+    this.isPokemonSelected = false;
     this.databases = POKEDEX_DATABASE;
     this.currentIndex = 0;
     this.lineHeight = 40;
     this.heightLine = 40;
-    this.isPokemonSelected = false;
-    this.cursor = new Cursor(false);
     this.title = "SOMMAIRE";
+    this.cursor = new Cursor();
     this.pokedexState = new PokedexState(this, true);
     this.pokemonDetail = new PokemonDetail(game);
   }
@@ -101,9 +103,27 @@ export class PokemonList {
       this.currentIndex * this.lineHeight +
       15;
 
+    let hasFocusedCursor = false;
+
     this.isPokemonSelected
-      ? this.cursor.update(context, this.position.x + 5, cursorY, true)
-      : this.cursor.update(context, this.position.x + 5, cursorY, false);
+      ? (hasFocusedCursor = true)
+      : (hasFocusedCursor = false);
+
+    if (this.isPokemonSelected) {
+      this.cursor.update(
+        context,
+        this.position.x + 5,
+        cursorY,
+        hasFocusedCursor
+      );
+    } else {
+      this.cursor.update(
+        context,
+        this.position.x + 5,
+        cursorY,
+        hasFocusedCursor
+      );
+    }
 
     const pokemonFounded = this.databases[this.currentIndex];
     this.pokemonDetail.pokemon = pokemonFounded;

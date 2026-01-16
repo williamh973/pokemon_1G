@@ -11,6 +11,7 @@ import {
 } from "./sections/pokemonList/pokemonList.js";
 
 const closePokedex = (game, pokedex, pokemonList, pokemonDetail) => {
+  const dialogBox = game.dialogBox;
   if (pokedex.isOpen && keys.escape) {
     pokedex.isOpen =
       pokemonList.isOpen =
@@ -18,15 +19,17 @@ const closePokedex = (game, pokedex, pokemonList, pokemonDetail) => {
       pokemonList.pokedexState.isOpen =
       pokemonDetail.isOpen =
         false;
-    game.currentScreen = null;
-    game.togglePause(false, true);
+    game.closePokedex();
+
+    dialogBox?.isOpen ? game.closeDialogBox() : game.togglePause(false, true);
   }
 };
 
-const pokemonListS = (pokemonList) => {
+const pokemonListS = (pokemonList, pokedexCharac) => {
+  if (!pokemonList.isOpen || !pokemonList.hasFocus) return;
   pokemonListIndexMoveUp(pokemonList);
   pokemonListIndexMoveDown(pokemonList);
-  selectPokemonFromPokemonList(pokemonList);
+  selectPokemonFromPokemonList(pokemonList, pokedexCharac);
 };
 
 const characteristicsS = (pokemonList, pokedexCharac, pokemonDetail) => {
@@ -52,7 +55,7 @@ export const pokedex = (game) => {
   }
   if (pokemonList.isPokemonSelected) pokemonDetail.update(game.canvas.context);
 
-  pokemonListS(pokemonList);
+  pokemonListS(pokemonList, pokedexCharac);
   characteristicsS(pokemonList, pokedexCharac, pokemonDetail);
   closePokedex(game, pokedex, pokemonList, pokemonDetail);
 };

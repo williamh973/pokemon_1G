@@ -1,9 +1,11 @@
 import { keys } from "../../../../logic/gameplay/player/keyboard.js";
 
-export const selectPokemonFromPokemonList = (pokemonList) => {
+export const selectPokemonFromPokemonList = (pokemonList, pokedexCharac) => {
   if (keys.action && !pokemonList.isPokemonSelected) {
     pokemonList.isPokemonSelected = true;
-    pokemonList.cursor.state = pokemonList.cursor.state.active;
+    pokemonList.cursor.state = pokemonList.cursor.state.focused;
+    pokedexCharac.cursor.isVisible = true;
+    pokedexCharac.hasFocus = true;
     keys.action = false;
   }
 };

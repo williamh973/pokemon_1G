@@ -1,39 +1,47 @@
 import { keys } from "../../logic/gameplay/player/keyboard.js";
 
 const handleOpenClose = (game) => {
-  if (keys.menu && !game.menu.isOpen) {
-    game.openMenu();
-    keys.menu = false;
-  } else if (keys.menu && game.menu.isOpen) {
+  if (!keys.menu) return;
+
+  if (game.menu.isOpen) {
     game.closeMenu();
-    keys.menu = false;
+  } else {
+    game.openMenu();
   }
+
+  keys.menu = false;
 };
 
 const handleIndex = (menu) => {
-  if (menu.isOpen && keys.up && menu.currentIndex > 0) {
+  if (!menu.isOpen || !menu.hasFocus) return;
+
+  if (keys.up && menu.currentIndex > 0) {
     menu.currentIndex--;
     keys.up = false;
   }
-  if (menu.isOpen && keys.down && menu.currentIndex < menu.items.length - 1) {
+
+  if (keys.down && menu.currentIndex < menu.items.length - 1) {
     menu.currentIndex++;
     keys.down = false;
-    console.log("ca passe");
   }
 };
 
 const handleItems = (menu) => {
-  if (menu.isOpen && keys.action) {
+  if (!menu.isOpen || !menu.hasFocus) return;
+
+  if (keys.action) {
     menu.openItem();
     keys.action = false;
   }
 };
 
 export const menu = (game) => {
-  const menu = game.menu;
-  if (menu.isOpen) menu.update(game.canvas.context);
-
   handleOpenClose(game);
+
+  const menu = game.menu;
+  if (!menu.isOpen) return;
+
+  menu.update(game.canvas.context);
   handleIndex(menu);
   handleItems(menu);
 };

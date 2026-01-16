@@ -1,9 +1,8 @@
 import { drawBox } from "../../../../../../shareds/utils.js";
 import { Cursor } from "../../../../../Cursor/Cursor.model.js";
-import { PokemonDetail } from "../pokemonDetail/pokemonDetail.model.js";
 
 export class PokedexCharacteristic {
-  constructor(game, pokemonList, isOpen) {
+  constructor(game, pokemonList) {
     this.game = game;
     this.pokemonList = pokemonList;
     this.position = {
@@ -12,7 +11,8 @@ export class PokedexCharacteristic {
     };
     this.width = 82;
     this.height = 190;
-    this.isOpen = isOpen;
+    this.isOpen = false;
+    this.hasFocus = false;
     this.items = [
       { id: "INFO", name: "INFO" },
       { id: "CRI", name: "CRI" },
@@ -21,7 +21,7 @@ export class PokedexCharacteristic {
     ];
     this.currentIndex = 0;
     this.lineHeight = 40;
-    this.cursor = new Cursor(false);
+    this.cursor = new Cursor();
   }
 
   drawText(context) {

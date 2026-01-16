@@ -45,12 +45,12 @@ export class Game {
   }
 
   openMenu() {
-    this.menu.isOpen = true;
+    this.menu.open();
     this.togglePause(true, false);
   }
 
   closeMenu() {
-    this.menu.isOpen = false;
+    this.menu.close();
     this.togglePause(false, true);
   }
 
@@ -66,7 +66,15 @@ export class Game {
   }
 
   openPokedex() {
-    this.currentScreen = new Pokedex(this, true);
+    this.menu.hasFocus = false;
+    this.currentScreen = new Pokedex(this);
+    if (this.currentScreen !== "POKEDEX") return;
+    const pokedex = this.currentScreen;
+    pokedex.isOpen = true;
+  }
+
+  closePokedex() {
+    this.currentScreen = null;
   }
 
   openPokemonDetailPage() {
@@ -88,13 +96,10 @@ export class Game {
       INFO: () => this.openPokemonDetailPage(),
       CRI: () => this(),
       ZONE: () => this.openPokemonLocationPage(),
-      RETOUR: () => this.closeMenu(),
+      RETOUR: () => this.closePokedex(),
     };
 
     mainMenu[itemId]?.();
     pokedexCharacMenu[itemId]?.();
-
-    this.closeMenu();
-    this.togglePause(true, false);
   }
 }
