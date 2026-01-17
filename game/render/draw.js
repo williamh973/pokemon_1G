@@ -5,4 +5,6 @@ export const draw = (game, tileManager) => {
     game.camera.offsetX,
     game.camera.offsetY
   );
+
+  if (game.worldMap.isOpen) game.worldMap.draw(game.canvas.context);
 };

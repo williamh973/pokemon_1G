@@ -6,7 +6,6 @@ import { PokemonDetail } from "../pokemonDetail/pokemonDetail.model.js";
 
 export class PokemonList {
   constructor(game) {
-    this.game = game;
     this.position = {
       x: 0,
       y: 0,
@@ -16,14 +15,18 @@ export class PokemonList {
     this.isOpen = false;
     this.hasFocus = false;
     this.isPokemonSelected = false;
+    this.selectedPokemon = {};
     this.databases = POKEDEX_DATABASE;
     this.currentIndex = 0;
     this.lineHeight = 40;
-    this.heightLine = 40;
     this.title = "SOMMAIRE";
     this.cursor = new Cursor();
-    this.pokedexState = new PokedexState(this, true);
+    this.pokedexState = new PokedexState(this);
     this.pokemonDetail = new PokemonDetail(game);
+  }
+
+  openPokedexState() {
+    this.pokedexState.isOpen = true;
   }
 
   checkPokedexState(context, positionX, positionY, pokemon, index) {
@@ -42,7 +45,7 @@ export class PokemonList {
       const paddingX = 30;
       const paddingY = 50;
       const positionX = this.position.x + paddingX;
-      const positionY = this.position.y + paddingY + index * this.heightLine;
+      const positionY = this.position.y + paddingY + index * 40;
 
       this.checkPokedexState(context, positionX, positionY, pokemon, index);
     });
@@ -56,37 +59,25 @@ export class PokemonList {
 
   showPokemon(context, positionX, positionY, pokemon, index) {
     context.font = `23px PixelOperator`;
-    context.fillText(
-      pokemon.id,
-      positionX,
-      positionY,
-      this.width,
-      this.heightLine * index
-    );
+    context.fillText(pokemon.id, positionX, positionY, this.width, 40 * index);
 
     context.fillText(
       pokemon.name,
       positionX + 50,
       positionY,
       this.width,
-      this.heightLine * index
+      40 * index
     );
   }
 
   hidePokemon(context, positionX, positionY, pokemon, index) {
-    context.fillText(
-      pokemon.id,
-      positionX,
-      positionY,
-      this.width,
-      this.heightLine * index
-    );
+    context.fillText(pokemon.id, positionX, positionY, this.width, 40 * index);
     context.fillText(
       "- - - - - - -",
       positionX + 50,
       positionY,
       this.width,
-      this.heightLine * index
+      40 * index
     );
   }
 
@@ -98,10 +89,7 @@ export class PokemonList {
 
   updateCursorWhenPokemonSelected(context) {
     const cursorY =
-      this.position.y +
-      this.heightLine +
-      this.currentIndex * this.lineHeight +
-      15;
+      this.position.y + 40 + this.currentIndex * this.lineHeight + 15;
 
     let hasFocusedCursor = false;
 
@@ -126,6 +114,7 @@ export class PokemonList {
     }
 
     const pokemonFounded = this.databases[this.currentIndex];
+    this.selectedPokemon = pokemonFounded;
     this.pokemonDetail.pokemon = pokemonFounded;
   }
 

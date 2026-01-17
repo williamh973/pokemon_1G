@@ -52,7 +52,7 @@ export class TileManager {
     return this.images[tileId];
   }
 
-  drawMap(ctx, layout, cameraPosX, cameraPosY) {
+  drawMap(context, layout, cameraPosX, cameraPosY) {
     for (let y = 0; y < layout.length; y++) {
       for (let x = 0; x < layout[y].length; x++) {
         const tileId = layout[y][x];
@@ -77,9 +77,19 @@ export class TileManager {
         const dx = x * this.tileSize + cameraPosX;
         const dy = y * this.tileSize + cameraPosY;
 
-        ctx.drawImage(img, sx, 0, 16, 16, dx, dy, this.tileSize, this.tileSize);
+        context.drawImage(
+          img,
+          sx,
+          0,
+          16,
+          16,
+          dx,
+          dy,
+          this.tileSize,
+          this.tileSize
+        );
 
-        drawDebugCollisionSquare(tile, ctx, true);
+        drawDebugCollisionSquare(tile, context, true);
       }
     }
   }

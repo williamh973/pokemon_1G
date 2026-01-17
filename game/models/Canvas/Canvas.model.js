@@ -22,7 +22,7 @@ export class Canvas {
     );
   }
 
-  drawImage() {
+  draw() {
     this.context.fillStyle = "black";
     this.context.fillRect(
       this.position.x,

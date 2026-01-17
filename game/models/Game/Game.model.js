@@ -12,6 +12,7 @@ import { DialogBox } from "../DialogBox/dialogBox.model.js";
 import { Menu } from "../Menu/Menu.model.js";
 import { Pokedex } from "../Menu/items/pokedex/pokedex.model.js";
 import { keys } from "../../logic/gameplay/player/keyboard.js";
+import { WorldMap } from "../Menu/items/pokedex/sections/WorldMap/WorldMap.model.js";
 
 export class Game {
   constructor() {
@@ -22,6 +23,7 @@ export class Game {
     this.tileManager = new TileManager(TILES_SIZE);
     this.transition = new Fade(FADING_TIME);
     this.menu = new Menu(this);
+    this.worldMap = new WorldMap(this);
     this.currentScreen = null;
     this.dialogBox = null;
     this.mapNameWindow = null;
@@ -68,16 +70,18 @@ export class Game {
   openPokedex() {
     this.menu.hasFocus = false;
     this.currentScreen = new Pokedex(this);
-    if (this.currentScreen !== "POKEDEX") return;
-    const pokedex = this.currentScreen;
-    pokedex.isOpen = true;
   }
 
-  closePokedex() {
+  resetCurrentScreen() {
     this.currentScreen = null;
   }
 
-  openPokemonDetailPage() {
+  openPokemonAreas() {
+    const pokemon = this.currentScreen.pokemonList.selectedPokemon;
+    this.currentScreen.openAreas(pokemon);
+  }
+
+  openPokemonDetail() {
     const detailPage = this.currentScreen.pokemonList.pokemonDetail;
     detailPage.isOpen = true;
     this.openDialogBox(detailPage.pokemon.desc);
@@ -93,13 +97,13 @@ export class Game {
     };
 
     const pokedexCharacMenu = {
-      INFO: () => this.openPokemonDetailPage(),
+      INFO: () => this.openPokemonDetail(),
       CRI: () => this(),
-      ZONE: () => this.openPokemonLocationPage(),
-      RETOUR: () => this.closePokedex(),
+      ZONE: () => this.openPokemonAreas(),
+      RETOUR: () => this.menu.open(),
     };
 
-    mainMenu[itemId]?.();
-    pokedexCharacMenu[itemId]?.();
+    if (this.menu.isOpen) mainMenu[itemId]?.();
+    if (this.currentScreen.pokedexCharac.isOpen) pokedexCharacMenu[itemId]?.();
   }
 }

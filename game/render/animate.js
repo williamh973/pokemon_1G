@@ -1,4 +1,3 @@
-import { keys } from "../logic/gameplay/player/keyboard.js";
 import { draw } from "./draw.js";
 import { update } from "./update.js";
 
@@ -19,7 +18,7 @@ export const animate = (game, tileManager) => {
   }
 
   game.canvas.clear();
-  game.canvas.drawImage();
+  game.canvas.draw();
 
   game.camera.follow(game.player);
   draw(game, tileManager);

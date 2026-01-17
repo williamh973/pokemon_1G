@@ -24,7 +24,6 @@ export class Menu {
     this.hasFocus = false;
     this.currentIndex = 0;
     this.lineHeight = 40;
-    this.heightLine = 40;
     this.baseY = 21;
     this.cursor = new Cursor();
   }
@@ -40,13 +39,11 @@ export class Menu {
       "white"
     );
     this.drawText(context);
-
     this.showCursor(context);
   }
 
   showCursor(context) {
     const cursorY = this.position.y + this.currentIndex * this.lineHeight + 20;
-
     this.cursor.update(context, this.position.x + 10, cursorY);
   }
 

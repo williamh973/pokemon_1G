@@ -13,7 +13,7 @@ export class Pokedex {
     };
     this.width = this.canvas.width;
     this.height = this.canvas.height;
-    this.isOpen = false;
+    this.isOpen = true;
     this.pokemonList = new PokemonList(this.game);
     this.pokedexCharac = new PokedexCharacteristic(this.game, this.pokemonList);
 

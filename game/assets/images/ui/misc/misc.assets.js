@@ -7,3 +7,5 @@ export let rightArrow = createImg(
 export let focusedRightArrow = createImg(
   "game/assets/images/ui/misc/cursor_activated.png"
 );
+
+export let kantoImg = createImg("game/assets/images/ui/misc/global_map.png");

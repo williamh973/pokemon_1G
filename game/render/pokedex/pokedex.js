@@ -13,15 +13,23 @@ import {
 const closePokedex = (game, pokedex, pokemonList, pokemonDetail) => {
   const dialogBox = game.dialogBox;
   if (pokedex.isOpen && keys.escape) {
+    if (dialogBox?.isOpen) game.closeDialogBox();
+
     pokedex.isOpen =
       pokemonList.isOpen =
       pokedex.pokedexCharac.isOpen =
       pokemonList.pokedexState.isOpen =
       pokemonDetail.isOpen =
         false;
-    game.closePokedex();
 
-    dialogBox?.isOpen ? game.closeDialogBox() : game.togglePause(false, true);
+    pokedex.pokedexCharac.hasFocus = false;
+    pokemonList.hasFocus = false;
+
+    pokedex.pokedexCharac.cursor.isVisible = false;
+    pokemonList.cursor.isVisible = false;
+
+    game.resetCurrentScreen();
+    game.openMenu();
   }
 };
 

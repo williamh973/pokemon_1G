@@ -1,12 +1,12 @@
 import { drawBox } from "../../../../../../shareds/utils.js";
 
 export class PokedexState {
-  constructor(pokemonList, isOpen) {
+  constructor(pokemonList) {
     this.position = {
       x: pokemonList.position.x + pokemonList.width,
       y: 0,
     };
-    this.isOpen = isOpen;
+    this.isOpen = false;
     this.width = 82;
     this.height = 130;
     this.seen = new Set();
