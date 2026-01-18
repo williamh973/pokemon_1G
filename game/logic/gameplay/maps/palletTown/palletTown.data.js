@@ -1,4 +1,3 @@
-import { TILES_SIZE } from "../../../../shareds/utils.js";
 import { palletTownWarps } from "./palletTown.warp.js";
 import { palletTownCollide } from "./palletTown.collide.js";
 import { palletTownInteractions } from "./palletTown.interaction.js";
@@ -12,4 +11,6 @@ export const palletTown = {
   width: palletTownCollide[0].length,
   height: palletTownCollide.length,
   warps: palletTownWarps,
+  worldMap: { x: 3, y: 6.5, w: 1, h: 1 },
+  flyable: true,
 };

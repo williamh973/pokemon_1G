@@ -13,6 +13,7 @@ import { Menu } from "../Menu/Menu.model.js";
 import { Pokedex } from "../Menu/items/pokedex/pokedex.model.js";
 import { keys } from "../../logic/gameplay/player/keyboard.js";
 import { WorldMap } from "../Menu/items/pokedex/sections/WorldMap/WorldMap.model.js";
+import { KANTO_ROUTE_1 } from "../../logic/gameplay/maps/kanto/kantoRoute1/kantoRoute1.data.js";
 
 export class Game {
   constructor() {
@@ -23,14 +24,25 @@ export class Game {
     this.tileManager = new TileManager(TILES_SIZE);
     this.transition = new Fade(FADING_TIME);
     this.menu = new Menu(this);
-    this.worldMap = new WorldMap(this);
-    this.currentScreen = null;
+    this.currentMap = palletTown;
+    this.currentScreen = new WorldMap(this, "ENCOUNTER"); // temporaire
+    this.currentScreen.open({
+      id: "001",
+      name: "BULBIZARRE",
+      species: "Graine",
+      height: "0.7",
+      weight: "6.9",
+      desc: "Une étrange graine est plan-\ntée sur son dos dès sa nais-\nsance.La plante germe et\ngrandit avec ce Pokémon.",
+      img: "",
+      cry: "",
+      worldMap: [palletTown.worldMap, KANTO_ROUTE_1.worldMap],
+      print: "",
+    }); // temporaire
     this.dialogBox = null;
     this.mapNameWindow = null;
     this.isPaused = false;
     this.hasStarted = false;
-    this.isFightMod = false;
-    this.currentMap = palletTown;
+    this.isBattleMod = false;
     this.init();
   }
 
@@ -76,9 +88,16 @@ export class Game {
     this.currentScreen = null;
   }
 
-  openPokemonAreas() {
-    const pokemon = this.currentScreen.pokemonList.selectedPokemon;
-    this.currentScreen.openAreas(pokemon);
+  openPokemonEncounters() {
+    this.transition.start(
+      () => {
+        const pokemon = this.currentScreen.pokemonList.selectedPokemon;
+        this.currentScreen = new WorldMap(this, "encounters");
+        this.currentScreen.open(pokemon);
+        this.menu.close();
+      },
+      () => {}
+    );
   }
 
   openPokemonDetail() {
@@ -99,7 +118,7 @@ export class Game {
     const pokedexCharacMenu = {
       INFO: () => this.openPokemonDetail(),
       CRI: () => this(),
-      ZONE: () => this.openPokemonAreas(),
+      ZONE: () => this.openPokemonEncounters(),
       RETOUR: () => this.menu.open(),
     };
 

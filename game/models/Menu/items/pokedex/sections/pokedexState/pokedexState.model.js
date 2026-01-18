@@ -6,7 +6,7 @@ export class PokedexState {
       x: pokemonList.position.x + pokemonList.width,
       y: 0,
     };
-    this.isOpen = false;
+    this.isOpen = true;
     this.width = 82;
     this.height = 130;
     this.seen = new Set();

@@ -4,6 +4,8 @@ import {
 } from "../../../assets/images/pokemons/pokemon.assets.js";
 import { charizardPrint } from "../../../assets/images/pokemons/print/pokemonPrint.assets.js";
 import { bulbasaurCry } from "../../../assets/songs/pokemons/pokemon.assets.js";
+import { KANTO_ROUTE_1 } from "../maps/kanto/kantoRoute1/kantoRoute1.data.js";
+import { palletTown } from "../maps/palletTown/palletTown.data.js";
 
 export const POKEDEX_DATABASE = [
   {
@@ -15,7 +17,7 @@ export const POKEDEX_DATABASE = [
     desc: "Une étrange graine est plan-\ntée sur son dos dès sa nais-\nsance.La plante germe et\ngrandit avec ce Pokémon.",
     img: bulbasaurImg,
     cry: bulbasaurCry,
-    area: ["KANTO_ROUTE_1"],
+    worldMap: [palletTown.worldMap, KANTO_ROUTE_1.worldMap],
     print: "",
   },
   {
