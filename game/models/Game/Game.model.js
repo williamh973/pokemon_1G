@@ -25,19 +25,7 @@ export class Game {
     this.transition = new Fade(FADING_TIME);
     this.menu = new Menu(this);
     this.currentMap = palletTown;
-    this.currentScreen = new WorldMap(this, "ENCOUNTER"); // temporaire
-    this.currentScreen.open({
-      id: "001",
-      name: "BULBIZARRE",
-      species: "Graine",
-      height: "0.7",
-      weight: "6.9",
-      desc: "Une étrange graine est plan-\ntée sur son dos dès sa nais-\nsance.La plante germe et\ngrandit avec ce Pokémon.",
-      img: "",
-      cry: "",
-      worldMap: [palletTown.worldMap, KANTO_ROUTE_1.worldMap],
-      print: "",
-    }); // temporaire
+    this.currentScreen = null;
     this.dialogBox = null;
     this.mapNameWindow = null;
     this.isPaused = false;
@@ -102,7 +90,7 @@ export class Game {
 
   openPokemonDetail() {
     const detailPage = this.currentScreen.pokemonList.pokemonDetail;
-    detailPage.isOpen = true;
+    detailPage.open();
     this.openDialogBox(detailPage.pokemon.desc);
   }
 

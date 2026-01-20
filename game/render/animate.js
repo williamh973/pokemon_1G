@@ -6,9 +6,8 @@ let animationCount = 0;
 let lastLog = performance.now();
 
 export const animate = (game, tileManager) => {
-  animationCount++;
   requestAnimationFrame(() => animate(game, tileManager));
-
+  animationCount++;
   frameCount++;
   const now = performance.now();
   if (now - lastLog > 1000) {

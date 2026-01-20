@@ -11,10 +11,13 @@ export class WorldMap {
       x: 0,
       y: 0,
     };
+    this.scale = WORLDMAP_GRID.scale;
     this.selectedPokemon = null;
     this.hasFocus = false;
-    this.isOpen = true;
+    this.isOpen = false;
     this.images = {};
+    this.blinkTimer = 0;
+    this.blinkVisible = true;
 
     this.loadTiles();
   }
@@ -78,18 +81,18 @@ export class WorldMap {
       16 / 2
     );
 
-    context.strokeStyle = "red";
+    if (!this.blinkVisible) return;
     for (const area of this.selectedPokemon.worldMap)
-      this.drawRect(context, area);
+      this.drawOverlays(context, area);
   }
 
-  drawRect(context, area) {
-    const scale = WORLDMAP_GRID.scale;
-    context.strokeRect(
+  drawOverlays(context, area) {
+    context.fillStyle = "rgba(255, 0, 0, 0.55)";
+    context.fillRect(
       area.x * WORLDMAP_GRID.tileSize,
       area.y * WORLDMAP_GRID.tileSize,
-      area.w * WORLDMAP_GRID.tileSize * scale,
-      area.h * WORLDMAP_GRID.tileSize * scale
+      (area.w * WORLDMAP_GRID.tileSize) / 2,
+      (area.h * WORLDMAP_GRID.tileSize) / 2
     );
   }
 
@@ -106,6 +109,12 @@ export class WorldMap {
 
   update(context) {
     if (!this.isOpen) return;
+
+    this.blinkTimer++;
+    if (this.blinkTimer % 30 === 0) {
+      this.blinkVisible = !this.blinkVisible;
+    }
+
     this.draw(context);
   }
 }

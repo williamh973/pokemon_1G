@@ -2,7 +2,10 @@ import {
   bulbasaurImg,
   charizardImg,
 } from "../../../assets/images/pokemons/pokemon.assets.js";
-import { charizardPrint } from "../../../assets/images/pokemons/print/pokemonPrint.assets.js";
+import {
+  bulbasaurPrint,
+  charizardPrint,
+} from "../../../assets/images/pokemons/1G/footPrints/pokemonPrint.assets.js";
 import { bulbasaurCry } from "../../../assets/songs/pokemons/pokemon.assets.js";
 import { KANTO_ROUTE_1 } from "../maps/kanto/kantoRoute1/kantoRoute1.data.js";
 import { palletTown } from "../maps/palletTown/palletTown.data.js";
@@ -18,7 +21,10 @@ export const POKEDEX_DATABASE = [
     img: bulbasaurImg,
     cry: bulbasaurCry,
     worldMap: [palletTown.worldMap, KANTO_ROUTE_1.worldMap],
-    print: "",
+    print: bulbasaurPrint,
+    animations: {
+      idle: "bulbasaur_idle",
+    },
   },
   {
     id: "002",
@@ -79,6 +85,9 @@ export const POKEDEX_DATABASE = [
     cry: "pokemon006Cry",
     area: ["KANTO_ROUTE_1"],
     print: charizardPrint,
+    animations: {
+      idle: "charizard_idle",
+    },
   },
   {
     id: "007",

@@ -61,8 +61,10 @@ export const pokedex = (game) => {
     pokemonState.update(game.canvas.context);
     pokedexCharac.update(game.canvas.context);
   }
-  if (pokemonList.isPokemonSelected) pokemonDetail.update(game.canvas.context);
-
+  if (pokemonList.isPokemonSelected) {
+    pokemonDetail.update(game.canvas.context);
+    pokemonDetail.pokemonSprite?.update(game.canvas.context);
+  }
   pokemonListS(pokemonList, pokedexCharac);
   characteristicsS(pokemonList, pokedexCharac, pokemonDetail);
   closePokedex(game, pokedex, pokemonList, pokemonDetail);

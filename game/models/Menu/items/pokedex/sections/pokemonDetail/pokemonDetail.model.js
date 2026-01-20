@@ -1,4 +1,6 @@
+import { POKEMON_ANIMATIONS } from "../../../../../../logic/gameplay/pokemon/pokemon.animation.js";
 import { drawBox } from "../../../../../../shareds/utils.js";
+import { AnimatedSprite } from "../../../../../AnimationSprite/AnimationSprite.model.js";
 
 export class PokemonDetail {
   constructor(game, pokemon = "") {
@@ -11,13 +13,23 @@ export class PokemonDetail {
     this.width = this.game.canvas.width;
     this.height = this.game.canvas.height;
     this.isOpen = false;
+    this.pokemonSprite = null;
+  }
+
+  open() {
+    this.isOpen = true;
+    const animKey = this.pokemon.animations.idle;
+    this.pokemonSprite = new AnimatedSprite(POKEMON_ANIMATIONS[animKey]);
   }
 
   draw(context) {
-    if (!this.isOpen) return;
     this.drawMainBox(context);
-    this.drawPokemonImage(context);
     this.drawPokemonDatas(context);
+  }
+
+  update(context) {
+    if (!this.isOpen) return;
+    this.draw(context);
   }
 
   drawMainBox(context) {
@@ -32,29 +44,11 @@ export class PokemonDetail {
     );
   }
 
-  drawPokemonImage(context) {
-    drawBox(
-      context,
-      this.position.x,
-      this.position.y,
-      this.width,
-      this.height,
-      "black",
-      "white"
-    );
-    context.drawImage(
-      this.pokemon.img,
-      this.position.x,
-      this.position.y,
-      150,
-      150
-    );
-  }
-
   drawPokemonDatas(context) {
     context.fillStyle = "black";
 
     context.font = `25px PixelOperator `;
+    this.pokemonBg(context);
     this.name(context);
     this.species(context);
     this.pkheight(context);
@@ -64,6 +58,10 @@ export class PokemonDetail {
 
     this.unitSymb(context);
     this.footPrint(context);
+  }
+
+  pokemonBg(context) {
+    context.fillRect(15, 15, 120, 120);
   }
 
   name(context) {
@@ -98,10 +96,5 @@ export class PokemonDetail {
 
   footPrint(context) {
     context.drawImage(this.pokemon.print, 270, 150, 40, 40);
-  }
-
-  update(context) {
-    if (!this.isOpen) return;
-    this.draw(context);
   }
 }
