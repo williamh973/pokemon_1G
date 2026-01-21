@@ -60,11 +60,6 @@ export class Menu {
     });
   }
 
-  update(context) {
-    if (!this.isOpen) return;
-    this.draw(context);
-  }
-
   open() {
     this.isOpen = true;
     this.cursor.isVisible = true;
@@ -80,5 +75,36 @@ export class Menu {
   openItem() {
     const itemId = this.items[this.currentIndex].id;
     this.game.showMenuSelectedItem(itemId);
+  }
+
+  handleIndex() {
+    if (!this.isOpen || !this.hasFocus) return;
+
+    if (keys.up && this.currentIndex > 0) {
+      this.currentIndex--;
+      keys.up = false;
+    }
+
+    if (keys.down && this.currentIndex < this.items.length - 1) {
+      this.currentIndex++;
+      keys.down = false;
+    }
+  }
+
+  handleItems() {
+    if (!this.isOpen || !this.hasFocus) return;
+
+    if (keys.action) {
+      this.openItem();
+      keys.action = false;
+    }
+  }
+
+  update(context) {
+    if (!this.isOpen) return;
+    this.draw(context);
+
+    this.handleIndex();
+    this.handleItems();
   }
 }

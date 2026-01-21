@@ -82,30 +82,29 @@ export class DialogBox {
     });
   }
 
-  handleAction(action) {
-    if (action !== "ACTION") return;
-    if (this.hasNextPage()) this.currentPageIndex++;
-    else this.close();
-  }
-
   open(text) {
     this.text = text;
+    this.currentPageIndex = 0;
     this.isOpen = true;
     this.pages = this.createPages(this.text);
   }
 
   close() {
-    this.game.dialogBox = null;
-    this.game.state = "WORLD";
     this.isOpen = false;
+    this.text = null;
+    this.pages = [];
   }
 
   hasNextPage() {
     return this.currentPageIndex < this.pages.length - 1;
   }
 
-  update(context) {
+  update(context, action) {
     if (!this.isOpen) return;
     this.draw(context);
+
+    if (action !== "ACTION") return;
+    if (this.hasNextPage()) this.currentPageIndex++;
+    else this.game.closeDialogBox();
   }
 }

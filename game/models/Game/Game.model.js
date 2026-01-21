@@ -68,7 +68,9 @@ export class Game {
   closeDialogBox() {
     this.dialogBox.close();
     this.state = "WORLD";
-    this.togglePause(false, true);
+    requestAnimationFrame(() => {
+      this.togglePause(false, true);
+    });
   }
 
   openPokedex() {

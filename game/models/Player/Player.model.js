@@ -8,9 +8,9 @@ import {
   walkRight,
   walkUp,
 } from "../../assets/images/player/player.assets.js";
-import { game } from "../../../main.js";
 import { PLAYER_STATE, TILES_SIZE } from "../../shareds/utils.js";
 import { SQUARE_TYPES } from "../../logic/gameplay/square/square.type.js";
+import { keys } from "../../logic/gameplay/player/keyboard.js";
 
 export class Player {
   constructor() {
@@ -76,6 +76,8 @@ export class Player {
   }
 
   draw(canvas) {
+    console.log("action");
+
     const centerX = canvas.width / 2 - this.width / 2;
     const centerY = canvas.height / 2 - this.height / 2;
 
@@ -131,7 +133,7 @@ export class Player {
     this.targetY = this.tileY * TILES_SIZE;
   }
 
-  attemptMove(dx, dy, currentMap) {
+  attemptMove(dx, dy, game) {
     this.image = this.sprites.idle[this.facing];
     this.state = PLAYER_STATE.IDLE;
 
@@ -141,9 +143,9 @@ export class Player {
     const targetX = this.tileX + dx;
     const targetY = this.tileY + dy;
 
-    if (this.outOfMap(targetX, targetY, currentMap)) return;
+    if (this.outOfMap(targetX, targetY, game.currentMap)) return;
 
-    const tile = currentMap.collision[targetY][targetX];
+    const tile = game.currentMap.collision[targetY][targetX];
     const collision = SQUARE_TYPES[tile];
 
     if (!collision.walkable) return;
@@ -151,7 +153,7 @@ export class Player {
     this.moveToTile(dx, dy);
   }
 
-  update(canvas, input) {
+  update(game, action) {
     if (this.isCanMove && this.isMoving) {
       this.moveProgress++;
       this.animateFrames();
@@ -172,29 +174,36 @@ export class Player {
         game.mapManager.checkWarp(this);
       }
     } else {
-      if (input.consume() === "ACTION") {
-        game.mapManager.checkInteraction(this);
+      if (!this.isMoving) {
+        switch (action) {
+          case "ACTION":
+            game.mapManager.checkInteraction(this);
+            break;
+          case "UP":
+            this.attemptMove(0, -1, game);
+            break;
+          case "DOWN":
+            this.attemptMove(0, 1, game);
+            break;
+          case "LEFT":
+            this.attemptMove(-1, 0, game);
+            break;
+          case "RIGHT":
+            this.attemptMove(1, 0, game);
+            break;
+          default:
+            break;
+        }
       }
 
-      switch (input.held) {
-        case "UP":
-          this.attemptMove(0, -1, game.currentMap);
-          break;
-
-        case "DOWN":
-          this.attemptMove(0, 1, game.currentMap);
-          break;
-
-        case "LEFT":
-          this.attemptMove(-1, 0, game.currentMap);
-          break;
-
-        case "RIGHT":
-          this.attemptMove(1, 0, game.currentMap);
-          break;
+      if (!this.isMoving) {
+        if (keys.up) this.attemptMove(0, -1, game);
+        if (keys.down) this.attemptMove(0, 1, game);
+        if (keys.left) this.attemptMove(-1, 0, game);
+        if (keys.right) this.attemptMove(1, 0, game);
       }
     }
-    this.draw(canvas);
+    this.draw(game.canvas);
   }
 
   getFrontTile() {
