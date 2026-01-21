@@ -1,8 +1,7 @@
-import { game } from "../../../main.js";
 import { drawBox } from "../../shareds/utils.js";
 
 export class DialogBox {
-  constructor(game, text, isOpen) {
+  constructor(game) {
     this.game = game;
     this.width = this.game.canvas.width;
     this.height = 65;
@@ -10,13 +9,13 @@ export class DialogBox {
       x: 0,
       y: this.game.canvas.height - this.height,
     };
-    this.text = text;
+    this.text = null;
     this.maxLines = 2;
     this.currentPageIndex = 0;
-    this.isOpen = isOpen;
+    this.isOpen = false;
+    this.hasCurrentPageRead = false;
     this.pokedexDetailPage =
       this.game.currentScreen?.pokemonList?.pokemonDetail;
-    this.pages = this.createPages(text);
   }
 
   checkBoxHeight() {
@@ -33,11 +32,17 @@ export class DialogBox {
     this.position.y = this.game.canvas.height - this.height;
   }
 
+  updateMaxLineForPokedexDetailPage() {
+    this.pokedexDetailPage && this.pokedexDetailPage.isOpen
+      ? (this.maxLines = 4)
+      : (this.maxLines = 2);
+  }
+
   createPages(text) {
     const pages = [];
     const lines = text.split("\n");
 
-    this.pokedexDetailPage.isOpen ? (this.maxLines = 4) : (this.maxLines = 2);
+    this.updateMaxLineForPokedexDetailPage();
 
     for (let i = 0; i < lines.length; i += this.maxLines) {
       pages.push(lines.slice(i, i + this.maxLines));
@@ -48,6 +53,7 @@ export class DialogBox {
   draw(context) {
     if (this.pokedexDetailPage && this.pokedexDetailPage.isOpen)
       this.checkBoxHeight();
+
     drawBox(
       context,
       this.position.x,
@@ -57,7 +63,7 @@ export class DialogBox {
       "black",
       "white"
     );
-    this.drawText(context);
+    if (this.text) this.drawText(context);
   }
 
   drawText(context) {
@@ -76,19 +82,30 @@ export class DialogBox {
     });
   }
 
-  nextPage() {
-    if (this.currentPageIndex < this.pages.length - 1) {
-      this.currentPageIndex++;
-      return;
-    } else {
-      this.isOpen = false;
-      game.closeDialogBox();
-    }
+  handleAction(action) {
+    if (action !== "ACTION") return;
+    if (this.hasNextPage()) this.currentPageIndex++;
+    else this.close();
+  }
+
+  open(text) {
+    this.text = text;
+    this.isOpen = true;
+    this.pages = this.createPages(this.text);
+  }
+
+  close() {
+    this.game.dialogBox = null;
+    this.game.state = "WORLD";
+    this.isOpen = false;
+  }
+
+  hasNextPage() {
+    return this.currentPageIndex < this.pages.length - 1;
   }
 
   update(context) {
     if (!this.isOpen) return;
-
     this.draw(context);
   }
 }

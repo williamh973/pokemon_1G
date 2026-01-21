@@ -10,7 +10,7 @@ export const palletTownInteractions = [
   {
     type: "sign",
     tile: { x: 3, y: 5 },
-    text: "Maison du joueur",
+    text: "Maison du joueur\nMaison du joueur1\nMaison du joueur\nMaison du joueur2\nMaison du joueur\nMaison du joueur3",
     facing: {
       up: "up",
     },

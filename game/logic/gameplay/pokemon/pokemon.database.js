@@ -10,6 +10,8 @@ import { bulbasaurCry } from "../../../assets/songs/pokemons/pokemon.assets.js";
 import { KANTO_ROUTE_1 } from "../maps/kanto/kantoRoute1/kantoRoute1.data.js";
 import { palletTown } from "../maps/palletTown/palletTown.data.js";
 
+// pour les desc, revenir à la ligne tous les 27 caracthères
+
 export const POKEDEX_DATABASE = [
   {
     id: "001",
@@ -80,7 +82,7 @@ export const POKEDEX_DATABASE = [
     species: "FLAMME",
     height: "1.7",
     weight: "90.5",
-    desc: "Il souffle des flammes capables de faire fondre des rochers. Son vol majestueux impressionne les dresseurs. Il peut involontairement provoquer des incendies.",
+    desc: "Il souffle des flammes capa-\nbles de faire fondre des ro-\nchers. Son vol majestueux\nimpressionne les dresseurs.\nIl peut involontairement\nprovoquer des incendies.",
     img: charizardImg,
     cry: "pokemon006Cry",
     area: ["KANTO_ROUTE_1"],

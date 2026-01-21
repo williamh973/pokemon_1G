@@ -11,9 +11,8 @@ import { Fade } from "../Fade/fade.model.js";
 import { DialogBox } from "../DialogBox/dialogBox.model.js";
 import { Menu } from "../Menu/Menu.model.js";
 import { Pokedex } from "../Menu/items/pokedex/pokedex.model.js";
-import { keys } from "../../logic/gameplay/player/keyboard.js";
 import { WorldMap } from "../Menu/items/pokedex/sections/WorldMap/WorldMap.model.js";
-import { KANTO_ROUTE_1 } from "../../logic/gameplay/maps/kanto/kantoRoute1/kantoRoute1.data.js";
+import { InputManager } from "../InputManager/InputManager.model.js";
 
 export class Game {
   constructor() {
@@ -24,9 +23,11 @@ export class Game {
     this.tileManager = new TileManager(TILES_SIZE);
     this.transition = new Fade(FADING_TIME);
     this.menu = new Menu(this);
+    this.dialogBox = new DialogBox(this);
+    this.input = new InputManager();
+    this.state = "WORLD";
     this.currentMap = palletTown;
     this.currentScreen = null;
-    this.dialogBox = null;
     this.mapNameWindow = null;
     this.isPaused = false;
     this.hasStarted = false;
@@ -48,28 +49,32 @@ export class Game {
 
   openMenu() {
     this.menu.open();
+    this.state = "MENU";
     this.togglePause(true, false);
   }
 
   closeMenu() {
     this.menu.close();
+    this.state = "WORLD";
     this.togglePause(false, true);
   }
 
-  openDialogBox(text, height) {
-    this.dialogBox = new DialogBox(this, text, true, height);
+  openDialogBox(text) {
+    this.dialogBox.open(text);
+    this.state = "DIALOG";
     this.togglePause(true, false);
-    keys.action = false;
   }
 
   closeDialogBox() {
-    this.dialogBox = null;
+    this.dialogBox.close();
+    this.state = "WORLD";
     this.togglePause(false, true);
   }
 
   openPokedex() {
     this.menu.hasFocus = false;
     this.currentScreen = new Pokedex(this);
+    this.state = "POKEDEX";
   }
 
   resetCurrentScreen() {

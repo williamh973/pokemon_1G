@@ -24,6 +24,9 @@ window.addEventListener("keydown", (e) => {
       break;
     case "a":
       keys.action = true;
+      if (e.repeat) {
+        return;
+      }
       break;
     case "c":
       keys.menu = true;

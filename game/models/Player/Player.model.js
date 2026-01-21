@@ -8,7 +8,6 @@ import {
   walkRight,
   walkUp,
 } from "../../assets/images/player/player.assets.js";
-import { keys } from "../../logic/gameplay/player/keyboard.js";
 import { game } from "../../../main.js";
 import { PLAYER_STATE, TILES_SIZE } from "../../shareds/utils.js";
 import { SQUARE_TYPES } from "../../logic/gameplay/square/square.type.js";
@@ -152,7 +151,7 @@ export class Player {
     this.moveToTile(dx, dy);
   }
 
-  update(canvas) {
+  update(canvas, input) {
     if (this.isCanMove && this.isMoving) {
       this.moveProgress++;
       this.animateFrames();
@@ -173,13 +172,27 @@ export class Player {
         game.mapManager.checkWarp(this);
       }
     } else {
-      if (!this.isMoving && keys.action && !game.menu.isOpen)
+      if (input.consume() === "ACTION") {
         game.mapManager.checkInteraction(this);
+      }
 
-      if (keys.up) this.attemptMove(0, -1, game.currentMap);
-      if (keys.down) this.attemptMove(0, 1, game.currentMap);
-      if (keys.left) this.attemptMove(-1, 0, game.currentMap);
-      if (keys.right) this.attemptMove(1, 0, game.currentMap);
+      switch (input.held) {
+        case "UP":
+          this.attemptMove(0, -1, game.currentMap);
+          break;
+
+        case "DOWN":
+          this.attemptMove(0, 1, game.currentMap);
+          break;
+
+        case "LEFT":
+          this.attemptMove(-1, 0, game.currentMap);
+          break;
+
+        case "RIGHT":
+          this.attemptMove(1, 0, game.currentMap);
+          break;
+      }
     }
     this.draw(canvas);
   }
