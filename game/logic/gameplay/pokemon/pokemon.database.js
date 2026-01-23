@@ -82,7 +82,7 @@ export const POKEDEX_DATABASE = [
     species: "FLAMME",
     height: "1.7",
     weight: "90.5",
-    desc: "Il souffle des flammes capa-\nbles de faire fondre des ro-\nchers. Son vol majestueux\nimpressionne les dresseurs.\nIl peut involontairement\nprovoquer des incendies.",
+    desc: "Il souffle des flammes capa-\nbles de faire fondre des ro-\nchers. Son vol majestueux\nimpressionne les dresseurs.",
     img: charizardImg,
     cry: "pokemon006Cry",
     area: ["KANTO_ROUTE_1"],

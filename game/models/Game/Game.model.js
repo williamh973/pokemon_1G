@@ -26,6 +26,7 @@ export class Game {
     this.dialogBox = new DialogBox(this);
     this.input = new InputManager();
     this.state = "WORLD";
+    this.substate = "";
     this.currentMap = palletTown;
     this.currentScreen = null;
     this.mapNameWindow = null;
@@ -60,7 +61,7 @@ export class Game {
   }
 
   openDialogBox(text) {
-    this.dialogBox.open(text);
+    this.dialogBox.open(text, false);
     this.state = "DIALOG";
     this.togglePause(true, false);
   }
@@ -74,9 +75,12 @@ export class Game {
   }
 
   openPokedex() {
-    this.menu.hasFocus = false;
     this.currentScreen = new Pokedex(this);
     this.state = "POKEDEX";
+  }
+
+  closePokedex() {
+    this.currentScreen.close();
   }
 
   resetCurrentScreen() {
@@ -98,10 +102,10 @@ export class Game {
   openPokemonDetail() {
     const detailPage = this.currentScreen.pokemonList.pokemonDetail;
     detailPage.open();
-    this.openDialogBox(detailPage.pokemon.desc);
   }
 
-  showMenuSelectedItem(itemId) {
+  showMenuSelectedItem(itemId, source) {
+    source.hasFocus = false;
     const mainMenu = {
       POKEDEX: () => this.openPokedex(),
       POKEMON: () => this.openTeam(),

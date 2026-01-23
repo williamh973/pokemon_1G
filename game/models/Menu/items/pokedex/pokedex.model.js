@@ -37,6 +37,29 @@ export class Pokedex {
     this.pokedexCharac.hasFocus = false;
   }
 
+  close() {
+    const dialogBox = this.game.dialogBox;
+    if (this.isOpen) {
+      if (dialogBox?.isOpen) this.game.closeDialogBox();
+
+      this.isOpen =
+        this.pokemonList.isOpen =
+        this.pokedexCharac.isOpen =
+        this.pokemonList.pokedexState.isOpen =
+        this.pokemonList.pokemonDetail.isOpen =
+          false;
+
+      this.pokedexCharac.hasFocus = false;
+      this.pokemonList.hasFocus = false;
+
+      this.pokedexCharac.cursor.isVisible = false;
+      this.pokemonList.cursor.isVisible = false;
+
+      this.game.resetCurrentScreen();
+      this.game.openMenu();
+    }
+  }
+
   draw(context) {
     context.fillStyle = "white";
     drawBox(
@@ -50,8 +73,17 @@ export class Pokedex {
     );
   }
 
-  update(context) {
+  update(context, action) {
     if (!this.isOpen) return;
     this.draw(context);
+
+    switch (action) {
+      case "CANCEL":
+        this.game.closePokedex();
+        break;
+
+      default:
+        break;
+    }
   }
 }

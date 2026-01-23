@@ -76,8 +76,6 @@ export class Player {
   }
 
   draw(canvas) {
-    console.log("action");
-
     const centerX = canvas.width / 2 - this.width / 2;
     const centerY = canvas.height / 2 - this.height / 2;
 

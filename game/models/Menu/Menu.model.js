@@ -74,37 +74,31 @@ export class Menu {
 
   openItem() {
     const itemId = this.items[this.currentIndex].id;
-    this.game.showMenuSelectedItem(itemId);
+    this.game.showMenuSelectedItem(itemId, this);
   }
 
-  handleIndex() {
-    if (!this.isOpen || !this.hasFocus) return;
-
-    if (keys.up && this.currentIndex > 0) {
-      this.currentIndex--;
-      keys.up = false;
-    }
-
-    if (keys.down && this.currentIndex < this.items.length - 1) {
-      this.currentIndex++;
-      keys.down = false;
-    }
-  }
-
-  handleItems() {
-    if (!this.isOpen || !this.hasFocus) return;
-
-    if (keys.action) {
-      this.openItem();
-      keys.action = false;
-    }
-  }
-
-  update(context) {
+  update(context, action) {
     if (!this.isOpen) return;
     this.draw(context);
 
-    this.handleIndex();
-    this.handleItems();
+    if (!this.isOpen || !this.hasFocus) return;
+
+    switch (action) {
+      case "UP":
+        if (this.currentIndex > 0) this.currentIndex--;
+        break;
+
+      case "DOWN":
+        if (this.currentIndex < this.items.length - 1) this.currentIndex++;
+        break;
+
+      case "ACTION":
+        this.openItem();
+        break;
+
+      case "MENU":
+        this.game.closeMenu();
+        break;
+    }
   }
 }

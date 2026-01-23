@@ -45,7 +45,6 @@ export class PokedexCharacteristic {
   }
 
   draw(context) {
-    if (!this.isOpen) return;
     drawBox(
       context,
       this.position.x,
@@ -60,12 +59,32 @@ export class PokedexCharacteristic {
     this.updateCursorWhenPokemonSelected(context);
   }
 
-  update(context) {
-    this.draw(context);
-  }
-
   openItem() {
     const itemId = this.items[this.currentIndex].id;
-    this.game.showMenuSelectedItem(itemId);
+    if (itemId) {
+      this.game.showMenuSelectedItem(itemId, this);
+    }
+  }
+
+  update(context, action) {
+    this.draw(context);
+    if (!this.hasFocus) return;
+
+    switch (action) {
+      case "UP":
+        if (this.pokemonList.isPokemonSelected && this.currentIndex > 0)
+          this.currentIndex--;
+        break;
+      case "DOWN":
+        if (
+          this.pokemonList.isPokemonSelected &&
+          this.currentIndex < this.items.length - 1
+        )
+          this.currentIndex++;
+        break;
+      case "ACTION":
+        this.openItem();
+        break;
+    }
   }
 }

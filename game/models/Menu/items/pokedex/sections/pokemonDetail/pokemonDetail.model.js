@@ -1,6 +1,7 @@
 import { POKEMON_ANIMATIONS } from "../../../../../../logic/gameplay/pokemon/pokemon.animation.js";
 import { drawBox } from "../../../../../../shareds/utils.js";
 import { AnimatedSprite } from "../../../../../AnimationSprite/AnimationSprite.model.js";
+import { DialogBox } from "../../../../../DialogBox/dialogBox.model.js";
 
 export class PokemonDetail {
   constructor(game, pokemon = "") {
@@ -14,12 +15,15 @@ export class PokemonDetail {
     this.height = this.game.canvas.height;
     this.isOpen = false;
     this.pokemonSprite = null;
+    this.dialogBox = new DialogBox(game);
   }
 
   open() {
     this.isOpen = true;
+    this.dialogBox.hasFocus = true;
     const animKey = this.pokemon.animations.idle;
     this.pokemonSprite = new AnimatedSprite(POKEMON_ANIMATIONS[animKey]);
+    this.dialogBox.open(this.pokemon.desc, true);
   }
 
   draw(context) {
@@ -27,9 +31,14 @@ export class PokemonDetail {
     this.drawPokemonDatas(context);
   }
 
-  update(context) {
+  update(context, action) {
     if (!this.isOpen) return;
     this.draw(context);
+
+    if (this.dialogBox.isOpen) {
+      this.dialogBox.update(this.game.canvas.context, action);
+      return;
+    }
   }
 
   drawMainBox(context) {

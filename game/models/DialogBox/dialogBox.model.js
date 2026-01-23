@@ -1,7 +1,7 @@
 import { drawBox } from "../../shareds/utils.js";
 
 export class DialogBox {
-  constructor(game) {
+  constructor(game, ignoreNextAction = false) {
     this.game = game;
     this.width = this.game.canvas.width;
     this.height = 65;
@@ -14,6 +14,8 @@ export class DialogBox {
     this.currentPageIndex = 0;
     this.isOpen = false;
     this.hasCurrentPageRead = false;
+    this.ignoreNextAction = ignoreNextAction;
+    this.hasFocus = false;
     this.pokedexDetailPage =
       this.game.currentScreen?.pokemonList?.pokemonDetail;
   }
@@ -82,10 +84,12 @@ export class DialogBox {
     });
   }
 
-  open(text) {
+  open(text, ignoreNextAction = false) {
     this.text = text;
     this.currentPageIndex = 0;
     this.isOpen = true;
+    this.ignoreNextAction = ignoreNextAction;
+    this.hasFocus = true;
     this.pages = this.createPages(this.text);
   }
 
@@ -93,6 +97,7 @@ export class DialogBox {
     this.isOpen = false;
     this.text = null;
     this.pages = [];
+    this.hasFocus = false;
   }
 
   hasNextPage() {
@@ -102,8 +107,13 @@ export class DialogBox {
   update(context, action) {
     if (!this.isOpen) return;
     this.draw(context);
+    if (!this.hasFocus || action !== "ACTION") return;
 
-    if (action !== "ACTION") return;
+    if (this.ignoreNextAction) {
+      this.ignoreNextAction = false;
+      return;
+    }
+
     if (this.hasNextPage()) this.currentPageIndex++;
     else this.game.closeDialogBox();
   }

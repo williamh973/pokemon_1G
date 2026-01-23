@@ -6,6 +6,7 @@ import { PokemonDetail } from "../pokemonDetail/pokemonDetail.model.js";
 
 export class PokemonList {
   constructor(game) {
+    this.game = game;
     this.position = {
       x: 0,
       y: 0,
@@ -119,16 +120,43 @@ export class PokemonList {
   }
 
   draw(context) {
-    if (!this.isOpen) return;
-
     drawBox(context, 0, 0, this.width, this.height, "black", "white");
     this.drawText(context);
-
     this.updateCursorWhenPokemonSelected(context);
   }
 
-  update(context) {
+  selectPokemonFromPokemonList() {
+    if (!this.isPokemonSelected) {
+      this.isPokemonSelected = true;
+      this.hasFocus = false;
+      this.cursor.state = this.cursor.state.focused;
+      this.game.currentScreen.pokedexCharac.cursor.isVisible = true;
+      this.game.currentScreen.pokedexCharac.hasFocus = true;
+    }
+  }
+
+  update(context, action) {
     this.draw(context);
+    if (!this.hasFocus) return;
     this.handleScroll();
+
+    switch (action) {
+      case "UP":
+        if (!this.isPokemonSelected && this.currentIndex > 0)
+          this.currentIndex--;
+        break;
+
+      case "DOWN":
+        if (
+          !this.isPokemonSelected &&
+          this.currentIndex < this.databases.length - 1
+        )
+          this.currentIndex++;
+        break;
+
+      case "ACTION":
+        this.selectPokemonFromPokemonList();
+        break;
+    }
   }
 }

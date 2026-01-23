@@ -1,17 +1,6 @@
 export class InputManager {
   constructor() {
     this.buffer = null;
-    // this.held = null;
-
-    const KEY_MAP = {
-      a: "ACTION",
-      c: "MENU",
-      e: "CANCEL",
-      z: "UP",
-      s: "DOWN",
-      q: "LEFT",
-      d: "RIGHT",
-    };
 
     window.addEventListener("keydown", (e) => {
       switch (e.key) {
@@ -24,7 +13,6 @@ export class InputManager {
         case "e":
           this.buffer = "CANCEL";
           break;
-
         case "z":
           this.buffer = "UP";
           break;
@@ -39,12 +27,6 @@ export class InputManager {
           break;
       }
     });
-
-    // window.addEventListener("keyup", (e) => {
-    //   if (["z", "s", "q", "d"].includes(e.key)) {
-    //     this.held = null;
-    //   }
-    // });
   }
 
   consume() {
