@@ -13,6 +13,8 @@ import { Menu } from "../Menu/Menu.model.js";
 import { Pokedex } from "../Menu/items/pokedex/pokedex.model.js";
 import { WorldMap } from "../Menu/items/pokedex/sections/WorldMap/WorldMap.model.js";
 import { InputManager } from "../InputManager/InputManager.model.js";
+import { Save } from "../Menu/items/save/save.model.js";
+import { TitleScreen } from "../titleScreen/TitleScreen.model.js";
 
 export class Game {
   constructor() {
@@ -26,26 +28,42 @@ export class Game {
     this.dialogBox = new DialogBox(this);
     this.input = new InputManager();
     this.state = "WORLD";
-    this.substate = "";
     this.currentMap = palletTown;
-    this.currentScreen = null;
+    this.currentScreen = new TitleScreen(this, true);
     this.mapNameWindow = null;
     this.isPaused = false;
-    this.hasStarted = false;
     this.isBattleMod = false;
     this.init();
+    this.openTitleScreen();
   }
 
   init() {
     this.tileManager.load();
 
     animate(this, this.tileManager);
-    this.hasStarted = true;
   }
 
   togglePause(isPaused, isCanMove) {
     this.isPaused = isPaused;
     this.player.isCanMove = isCanMove;
+  }
+
+  openTitleScreen() {
+    // this.currentScreen = new TitleScreen(this.canvas);
+    this.currentScreen.open();
+    this.state = "TITLE_SCREEN";
+  }
+
+  closeTitleScreen() {
+    this.currentScreen.close();
+    this.state = "WORLD";
+    this.togglePause(false, true);
+  }
+
+  closeMenu() {
+    this.currentScreen.close();
+    this.state = "WORLD";
+    this.togglePause(false, true);
   }
 
   openMenu() {
@@ -83,6 +101,19 @@ export class Game {
     this.currentScreen.close();
   }
 
+  save() {
+    const save = new Save();
+    save.capture(this);
+    save.write();
+  }
+
+  load() {
+    const save = Save.load();
+    if (!save) return;
+
+    save.apply(this);
+  }
+
   resetCurrentScreen() {
     this.currentScreen = null;
   }
@@ -91,8 +122,9 @@ export class Game {
     this.transition.start(
       () => {
         const pokemon = this.currentScreen.pokemonList.selectedPokemon;
-        this.currentScreen = new WorldMap(this, "encounters");
+        this.currentScreen = new WorldMap(this, "ENCOUNTER");
         this.currentScreen.open(pokemon);
+        this.state = "WORLDMAP";
         this.menu.close();
       },
       () => {}
@@ -110,6 +142,7 @@ export class Game {
       POKEDEX: () => this.openPokedex(),
       POKEMON: () => this.openTeam(),
       SAC: () => this.openBag(),
+      SAUVER: () => this.save(),
       OPTIONS: () => this.openOptions(),
       RETOUR: () => this.closeMenu(),
     };
@@ -121,7 +154,22 @@ export class Game {
       RETOUR: () => this.menu.open(),
     };
 
+    const titleScreenMenu = {
+      NEW_GAME: () => this.closeTitleScreen(),
+      CONTINUE: () => this.closeTitleScreen(),
+    };
+
     if (this.menu.isOpen) mainMenu[itemId]?.();
-    if (this.currentScreen.pokedexCharac.isOpen) pokedexCharacMenu[itemId]?.();
+    if (
+      this.currentScreen?.name === "POKEDEX" &&
+      this.currentScreen?.pokedexCharac.isOpen
+    )
+      pokedexCharacMenu[itemId]?.();
+
+    if (
+      this.currentScreen?.name === "TITLE_SCREEN" &&
+      this.currentScreen?.isOpen
+    )
+      titleScreenMenu[itemId]?.();
   }
 }

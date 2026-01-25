@@ -1,4 +1,5 @@
 import { pokedex } from "./pokedex/pokedex.js";
+import { titleScreen } from "./titleScreen/titleScreen.render.js";
 import { worldMap } from "./worldMap/worldMap.render.js";
 
 const openMenu = (game) => {
@@ -8,6 +9,7 @@ const openMenu = (game) => {
 
 export const update = (game) => {
   const action = game.input.consume();
+  game.tileManager.update();
 
   console.log(game.state);
 
@@ -29,11 +31,12 @@ export const update = (game) => {
     case "POKEDEX":
       pokedex(game, action);
       break;
+    case "WORLDMAP":
+      worldMap(game);
+      break;
+    case "TITLE_SCREEN":
+      game.currentScreen.update(game.canvas.context, action);
+      break;
   }
-
-  game.tileManager.update();
-
-  // worldMap(game);
-
   game.transition.update();
 };
