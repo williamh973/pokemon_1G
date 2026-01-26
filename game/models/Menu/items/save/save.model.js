@@ -1,25 +1,30 @@
+import { TILES_SIZE } from "../../../../shareds/utils.js";
+
 export class Save {
   constructor() {
     this.player = {
       tileX: 0,
       tileY: 0,
     };
+    this.currentMapId = null;
   }
 
   capture(game) {
     this.player.tileX = game.player.tileX;
     this.player.tileY = game.player.tileY;
-    this.currentMap = game.currentMap;
+    this.currentMapId = game.currentMap.id;
   }
 
   write() {
     localStorage.setItem("POKEMON_SAVE", JSON.stringify(this));
+    const raw = localStorage.getItem("POKEMON_SAVE");
+    // console.log(raw);
   }
 
   static load() {
     const raw = localStorage.getItem("POKEMON_SAVE");
     if (!raw) return null;
-
+    // console.log(raw);
     const data = JSON.parse(raw);
     return Object.assign(new Save(), data);
   }
@@ -27,14 +32,18 @@ export class Save {
   apply(game) {
     game.player.tileX = this.player.tileX;
     game.player.tileY = this.player.tileY;
+    game.player.position = {
+      x: TILES_SIZE * game.player.tileX,
+      y: TILES_SIZE * game.player.tileY,
+    };
 
-    game.currentMap = game.mapManager.get(this.world.currentMap);
+    const map = game.mapManager.maps[this.currentMapId];
+    game.currentMap = map;
   }
 }
 
 // pour plus tard
 //   name: "",
-//   facing: "down",
 //   team: [],
 //   inventory: {},
 //   money: 0,

@@ -3,7 +3,7 @@ import { Cursor } from "../Cursor/Cursor.model.js";
 
 export class TitleScreen {
   constructor(game, isOpen) {
-    this.name = "TITLE_SCREEN";
+    this.name = "TITLE";
     this.game = game;
     this.position = {
       x: 0,
@@ -80,7 +80,7 @@ export class TitleScreen {
     this.draw(context);
 
     if (!this.isOpen || !this.hasFocus) return;
-    console.log("ca passe");
+
     switch (action) {
       case "UP":
         if (this.currentIndex > 0) this.currentIndex--;

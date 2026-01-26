@@ -5,5 +5,6 @@ export const redHouse2FWarps = [
     from: { x: 7, y: 0 },
     to: { x: 7, y: 0 },
     facing: "down",
+    transition: true,
   },
 ];

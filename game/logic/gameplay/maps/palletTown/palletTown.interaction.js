@@ -1,7 +1,7 @@
 export const palletTownInteractions = [
   {
     type: "sign",
-    tile: { x: 7, y: 9 },
+    tile: { x: 7, y: 14 },
     text: "BOURG PALETTE\nLe berceau de l'aventure !\nBourg Palette est la ville de \ndépart de la région de Kanto. \nAu nord se trouve la Route 1 \nconduisant à Jadielle et au \nsud se trouve le Chenal 21 me-\nnant à Cramois'Île.",
     facing: {
       up: "up",
@@ -9,7 +9,7 @@ export const palletTownInteractions = [
   },
   {
     type: "sign",
-    tile: { x: 3, y: 5 },
+    tile: { x: 3, y: 10 },
     text: "Maison du joueur",
     facing: {
       up: "up",
@@ -17,7 +17,7 @@ export const palletTownInteractions = [
   },
   {
     type: "sign",
-    tile: { x: 11, y: 5 },
+    tile: { x: 11, y: 11 },
     text: "Maison de Régis",
     facing: {
       up: "up",
@@ -25,7 +25,7 @@ export const palletTownInteractions = [
   },
   {
     type: "sign",
-    tile: { x: 13, y: 13 },
+    tile: { x: 13, y: 18 },
     text: "Le laboratoire du professeur\nChen",
     facing: {
       up: "up",

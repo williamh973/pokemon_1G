@@ -13,8 +13,9 @@ import { Menu } from "../Menu/Menu.model.js";
 import { Pokedex } from "../Menu/items/pokedex/pokedex.model.js";
 import { WorldMap } from "../Menu/items/pokedex/sections/WorldMap/WorldMap.model.js";
 import { InputManager } from "../InputManager/InputManager.model.js";
-import { Save } from "../Menu/items/save/save.model.js";
-import { TitleScreen } from "../titleScreen/TitleScreen.model.js";
+import { Save } from "../Menu/items/Save/save.model.js";
+import { TitleScreen } from "../TitleScreen/TitleScreen.model.js";
+import { kantoRoute1 } from "../../logic/gameplay/maps/kanto/kantoRoute1/kantoRoute1.data.js";
 
 export class Game {
   constructor() {
@@ -29,12 +30,13 @@ export class Game {
     this.input = new InputManager();
     this.state = "WORLD";
     this.currentMap = palletTown;
-    this.currentScreen = new TitleScreen(this, true);
+    this.currentScreen = null;
     this.mapNameWindow = null;
     this.isPaused = false;
     this.isBattleMod = false;
+    this.isLoaded = false;
     this.init();
-    this.openTitleScreen();
+    // this.openTitleScreen();
   }
 
   init() {
@@ -49,9 +51,9 @@ export class Game {
   }
 
   openTitleScreen() {
-    // this.currentScreen = new TitleScreen(this.canvas);
+    this.currentScreen = new TitleScreen(this);
     this.currentScreen.open();
-    this.state = "TITLE_SCREEN";
+    this.state = "TITLE";
   }
 
   closeTitleScreen() {
@@ -105,6 +107,7 @@ export class Game {
     const save = new Save();
     save.capture(this);
     save.write();
+    this.closeMenu();
   }
 
   load() {
@@ -112,6 +115,8 @@ export class Game {
     if (!save) return;
 
     save.apply(this);
+    this.isLoaded = true;
+    this.closeTitleScreen();
   }
 
   resetCurrentScreen() {
@@ -143,7 +148,7 @@ export class Game {
       POKEMON: () => this.openTeam(),
       SAC: () => this.openBag(),
       SAUVER: () => this.save(),
-      OPTIONS: () => this.openOptions(),
+      OPTIONS: () => this.openOptionsScreen()(),
       RETOUR: () => this.closeMenu(),
     };
 
@@ -156,7 +161,8 @@ export class Game {
 
     const titleScreenMenu = {
       NEW_GAME: () => this.closeTitleScreen(),
-      CONTINUE: () => this.closeTitleScreen(),
+      CONTINUE: () => this.load(),
+      OPTIONS: () => this.openOptionsScreen(),
     };
 
     if (this.menu.isOpen) mainMenu[itemId]?.();
@@ -166,10 +172,7 @@ export class Game {
     )
       pokedexCharacMenu[itemId]?.();
 
-    if (
-      this.currentScreen?.name === "TITLE_SCREEN" &&
-      this.currentScreen?.isOpen
-    )
+    if (this.currentScreen?.name === "TITLE" && this.currentScreen?.isOpen)
       titleScreenMenu[itemId]?.();
   }
 }

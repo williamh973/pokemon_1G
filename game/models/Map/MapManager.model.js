@@ -26,20 +26,36 @@ export class MapManager {
 
   triggerWarp(warp) {
     const game = this.game;
+    this.checkTransition(game, warp);
+  }
 
+  checkTransition(game, warp) {
+    if (!warp.transition) {
+      this.loadMap(warp.toMap);
+      this.updatePlayerPositionWithFacing(game, true, warp);
+    } else {
+      this.startTransition(game, warp);
+    }
+  }
+
+  updatePlayerPositionWithFacing(game, isCanMove, warp) {
+    game.player.isCanMove = isCanMove;
+    game.player.tileX = warp.to.x;
+    game.player.tileY = warp.to.y;
+
+    game.player.position.x = warp.to.x * TILES_SIZE;
+    game.player.position.y = warp.to.y * TILES_SIZE;
+
+    game.player.setFacing(warp.facing);
+  }
+
+  startTransition(game, warp) {
     game.togglePause(true, false);
 
     game.transition.start(
       () => {
         this.loadMap(warp.toMap);
-        game.player.isCanMove = false;
-        game.player.tileX = warp.to.x;
-        game.player.tileY = warp.to.y;
-
-        game.player.position.x = warp.to.x * TILES_SIZE;
-        game.player.position.y = warp.to.y * TILES_SIZE;
-
-        game.player.setFacing(warp.facing);
+        this.updatePlayerPositionWithFacing(game, false, warp);
       },
       () => {
         game.togglePause(false, true);

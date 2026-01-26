@@ -30,14 +30,14 @@ export class Player {
     this.framesElapsed = 0;
     this.step = 0;
     this.framesHold = 10;
-    this.tileX = 13;
-    this.tileY = 14;
-    this.moveProgress = 10;
-    this.moveDuration = 20;
+    this.tileX = 8;
+    this.tileY = 6;
     this.position = {
       x: TILES_SIZE * this.tileX,
       y: TILES_SIZE * this.tileY,
     };
+    this.moveProgress = 10;
+    this.moveDuration = 20;
     this.startX = this.position.x;
     this.startY = this.position.y;
     this.targetX = this.position.x;
@@ -112,6 +112,7 @@ export class Player {
 
   setFacing(facing) {
     this.facing = facing;
+    this.updateSprite();
   }
 
   getFacingFromDelta(dx, dy) {

@@ -14,4 +14,9 @@ export const PROPS = {
     type: "solid",
     src: "game/assets/images/tilesets/world/props/barrel.png",
   },
+  204: {
+    name: "garbage",
+    type: "solid",
+    src: "game/assets/images/tilesets/world/props/garbage.png",
+  },
 };

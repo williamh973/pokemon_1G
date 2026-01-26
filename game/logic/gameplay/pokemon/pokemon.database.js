@@ -7,7 +7,7 @@ import {
   charizardPrint,
 } from "../../../assets/images/pokemons/1G/footPrints/pokemonPrint.assets.js";
 import { bulbasaurCry } from "../../../assets/songs/pokemons/pokemon.assets.js";
-import { KANTO_ROUTE_1 } from "../maps/kanto/kantoRoute1/kantoRoute1.data.js";
+import { kantoRoute1 } from "../maps/kanto/kantoRoute1/kantoRoute1.data.js";
 import { palletTown } from "../maps/palletTown/palletTown.data.js";
 
 // pour les desc, revenir à la ligne tous les 27 caracthères
@@ -22,7 +22,7 @@ export const POKEDEX_DATABASE = [
     desc: "Une étrange graine est plan-\ntée sur son dos dès sa nais-\nsance.La plante germe et\ngrandit avec ce Pokémon.",
     img: bulbasaurImg,
     cry: bulbasaurCry,
-    worldMap: [palletTown.worldMap, KANTO_ROUTE_1.worldMap],
+    worldMap: [palletTown.worldMap, kantoRoute1.worldMap],
     print: bulbasaurPrint,
     animations: {
       idle: "bulbasaur_idle",
@@ -202,19 +202,21 @@ export const POKEDEX_DATABASE = [
   {
     id: "016",
     name: "ROUCOOL",
-    species: "Pokémon Petit Oiseau",
+    species: "OISEAU",
     height: "0.3",
     weight: "1.8",
-    desc: "Ce petit oiseau vole avec habileté dans le ciel. Il observe le sol à la recherche de graines et d’insectes. Agile, il peut éviter la majorité des attaques.",
-    img: "pokemon016Img",
-    cry: "pokemon016Cry",
-    area: ["KANTO_ROUTE_1"],
-    print: "",
+    desc: "Ce petit oiseau vole avec\nhabileté dans le ciel. Il\nobserve le sol à la recher-\nche de graines et d’insec-\ntes. Agile, il peut éviter\nla majorité des attaques.",
+    img: "pokemon015Img",
+    worldMap: [palletTown.worldMap, kantoRoute1.worldMap],
+    print: bulbasaurPrint,
+    animations: {
+      idle: "pidgey_idle",
+    },
   },
   {
     id: "017",
     name: "ROUCOUPS",
-    species: "Pokémon Oiseau",
+    species: "OISEAU",
     height: "0.6",
     weight: "30.0",
     desc: "Plus grand et plus fort que Roucool, il fend l’air à grande vitesse. Il harcèle ses adversaires avec des attaques rapides. Son cri perce les oreilles.",
@@ -226,7 +228,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "018",
     name: "ROUCARNAGE",
-    species: "Pokémon Brutal Oiseau",
+    species: "OISEAU",
     height: "1.2",
     weight: "39.5",
     desc: "Son envergure est imposante et ses serres très puissantes. Il domine le ciel et attaque sans relâche. Ce Pokémon ne recule devant rien.",
@@ -896,14 +898,16 @@ export const POKEDEX_DATABASE = [
   {
     id: "074",
     name: "RACAILLOU",
-    species: "Pokémon Roche",
+    species: "ROCHE",
     height: "0.4",
     weight: "20.0",
-    desc: "Il se confond facilement avec les rochers. Il roule pour se déplacer. Son corps est extrêmement dur.",
+    desc: "Il se confond facilement avec\nles rochers. Il roule pour\nse déplacer. Son corps est\nextrêmement dur.",
     img: "pokemon074Img",
-    cry: "pokemon074Cry",
-    area: ["KANTO_ROUTE_1"],
+    worldMap: [palletTown.worldMap, kantoRoute1.worldMap],
     print: "",
+    animations: {
+      idle: "geodude_idle",
+    },
   },
   {
     id: "075",

@@ -98,21 +98,20 @@ export class PokemonList {
       ? (hasFocusedCursor = true)
       : (hasFocusedCursor = false);
 
-    if (this.isPokemonSelected) {
+    if (this.isPokemonSelected)
       this.cursor.update(
         context,
         this.position.x + 5,
         cursorY,
         hasFocusedCursor
       );
-    } else {
+    else
       this.cursor.update(
         context,
         this.position.x + 5,
         cursorY,
         hasFocusedCursor
       );
-    }
 
     const pokemonFounded = this.databases[this.currentIndex];
     this.selectedPokemon = pokemonFounded;
@@ -126,7 +125,10 @@ export class PokemonList {
   }
 
   selectPokemonFromPokemonList() {
-    if (!this.isPokemonSelected) {
+    if (
+      this.pokedexState.isSeen(this.selectedPokemon.id) &&
+      !this.isPokemonSelected
+    ) {
       this.isPokemonSelected = true;
       this.hasFocus = false;
       this.cursor.state = this.cursor.state.focused;

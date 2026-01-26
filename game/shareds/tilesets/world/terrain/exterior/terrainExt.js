@@ -89,4 +89,59 @@ export const TERRAIN_EXT = {
     frames: 7,
     frameDuration: 35,
   },
+  14: {
+    name: "bush",
+    type: "ground",
+    src: "game/assets/images/tilesets/world/terrain/bush/bush.png",
+  },
+  15: {
+    name: "small_tree",
+    type: "ground",
+    src: "game/assets/images/tilesets/world/terrain/tree/small_tree.png",
+  },
+  16: {
+    name: "top_left_big_tree",
+    type: "ground",
+    src: "game/assets/images/tilesets/world/terrain/tree/top_left_big_tree.png",
+  },
+  17: {
+    name: "top_right_big_tree",
+    type: "ground",
+    src: "game/assets/images/tilesets/world/terrain/tree/top_right_big_tree.png",
+  },
+  18: {
+    name: "bottom_left_big_tree",
+    type: "ground",
+    src: "game/assets/images/tilesets/world/terrain/tree/bottom_left_big_tree.png",
+  },
+  19: {
+    name: "bottom_right_big_tree",
+    type: "ground",
+    src: "game/assets/images/tilesets/world/terrain/tree/bottom_right_big_tree.png",
+  },
+  20: {
+    name: "tall_grass_2",
+    type: "ground",
+    src: "game/assets/images/tilesets/world/terrain/grass/tall_grass_2.png",
+  },
+  21: {
+    name: "white_w_brown_cliff_ledge",
+    type: "ground",
+    src: "game/assets/images/tilesets/world/terrain/path/white_cliff_ledge.png",
+  },
+  22: {
+    name: "grass_w_brown_cliff_ledge",
+    type: "ground",
+    src: "game/assets/images/tilesets/world/terrain/path/grass_cliff_ledge.png",
+  },
+  23: {
+    name: "grass_w_brown_path",
+    type: "ground",
+    src: "game/assets/images/tilesets/world/terrain/path/grass_w_brown_path.png",
+  },
+  23: {
+    name: "grass_w_brown_cliff_ledge_left_side",
+    type: "ground",
+    src: "game/assets/images/tilesets/world/terrain/path/grass_w_brown_cliff_ledge_left_side.png",
+  },
 };

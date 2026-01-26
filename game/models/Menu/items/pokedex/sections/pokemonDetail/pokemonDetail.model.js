@@ -104,6 +104,8 @@ export class PokemonDetail {
   }
 
   footPrint(context) {
-    context.drawImage(this.pokemon.print, 270, 150, 40, 40);
+    this.pokemon.print
+      ? context.drawImage(this.pokemon.print, 270, 150, 40, 40)
+      : null;
   }
 }
