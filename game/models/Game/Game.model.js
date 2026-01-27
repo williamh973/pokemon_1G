@@ -62,12 +62,6 @@ export class Game {
     this.togglePause(false, true);
   }
 
-  closeMenu() {
-    // this.currentScreen.close();
-    this.state = "WORLD";
-    this.togglePause(false, true);
-  }
-
   openMenu() {
     this.menu.open();
     this.state = "MENU";
@@ -171,7 +165,7 @@ export class Game {
       INFO: () => this.openPokemonDetail(),
       CRI: () => this(),
       ZONE: () => this.openWorldMap(),
-      RETOUR: () => this.menu.open(),
+      RETOUR: () => this.closePokedex(),
     };
 
     const titleScreenMenu = {
