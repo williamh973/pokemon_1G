@@ -1,5 +1,5 @@
-export const worldMap = (game) => {
+export const worldMap = (game, action) => {
   if (game.currentScreen?.name !== "worldMap") return;
   const worldMap = game.currentScreen;
-  worldMap.update(game.canvas.context);
+  worldMap.update(game, action);
 };

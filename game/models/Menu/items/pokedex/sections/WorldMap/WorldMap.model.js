@@ -1,5 +1,5 @@
 import { drawBox } from "../../../../../../shareds/utils.js";
-import { WORLDMAP_GRID } from "../../../../../../shareds/worldMap/worldMap.js";
+import { WORLDMAP_GRID } from "../../../../../../shareds/worldMap/worldMap.grid.js";
 
 export class WorldMap {
   constructor(game, mod) {
@@ -107,14 +107,24 @@ export class WorldMap {
     this.hasFocus = false;
   }
 
-  update(context) {
+  update(game, action) {
     if (!this.isOpen) return;
 
     this.blinkTimer++;
-    if (this.blinkTimer % 30 === 0) {
-      this.blinkVisible = !this.blinkVisible;
-    }
+    if (this.blinkTimer % 30 === 0) this.blinkVisible = !this.blinkVisible;
 
-    this.draw(context);
+    this.draw(game.canvas.context);
+
+    if (!this.hasFocus) return;
+
+    switch (action) {
+      case "CANCEL":
+        this.close();
+        game.closeWorldMap();
+        break;
+
+      default:
+        break;
+    }
   }
 }

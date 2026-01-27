@@ -10,7 +10,7 @@ export const update = (game) => {
   const action = game.input.consume();
   game.tileManager.update();
 
-  // console.log(game.state);
+  console.log(game.state);
 
   switch (game.state) {
     case "WORLD":
@@ -31,7 +31,7 @@ export const update = (game) => {
       pokedex(game, action);
       break;
     case "WORLDMAP":
-      worldMap(game);
+      worldMap(game, action);
       break;
     case "TITLE":
       game.currentScreen.update(game.canvas.context, action);

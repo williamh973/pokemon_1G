@@ -1,7 +1,7 @@
 import { animate } from "../../render/animate.js";
 import { Player } from "../Player/Player.model.js";
 import { Canvas } from "../Canvas/Canvas.model.js";
-import { TileManager } from "../Tile/Tile.manager.js";
+import { TileManager } from "../TileManager/Tile.manager.js";
 import { Camera } from "../Camera/camera.model.js";
 import { FADING_TIME, TILES_SIZE } from "../../shareds/utils.js";
 import { palletTown } from "../../logic/gameplay/maps/palletTown/palletTown.data.js";
@@ -63,7 +63,7 @@ export class Game {
   }
 
   closeMenu() {
-    this.currentScreen.close();
+    // this.currentScreen.close();
     this.state = "WORLD";
     this.togglePause(false, true);
   }
@@ -123,7 +123,7 @@ export class Game {
     this.currentScreen = null;
   }
 
-  openPokemonEncounters() {
+  openWorldMap() {
     this.transition.start(
       () => {
         const pokemon = this.currentScreen.pokemonList.selectedPokemon;
@@ -134,6 +134,21 @@ export class Game {
       },
       () => {}
     );
+  }
+
+  closeWorldMap() {
+    const worldMap = this.currentScreen;
+    switch (worldMap.mod) {
+      case "ENCOUNTER":
+        this.openPokedex();
+        break;
+      case "FLY":
+        break;
+      case "PLAYER_POSITION":
+        break;
+      default:
+        break;
+    }
   }
 
   openPokemonDetail() {
@@ -155,7 +170,7 @@ export class Game {
     const pokedexCharacMenu = {
       INFO: () => this.openPokemonDetail(),
       CRI: () => this(),
-      ZONE: () => this.openPokemonEncounters(),
+      ZONE: () => this.openWorldMap(),
       RETOUR: () => this.menu.open(),
     };
 

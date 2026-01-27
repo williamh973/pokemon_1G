@@ -4,7 +4,6 @@ export class MapManager {
   constructor(game, maps) {
     this.game = game;
     this.maps = maps;
-    this.currentMap = null;
   }
 
   loadMap(mapId) {
@@ -33,9 +32,7 @@ export class MapManager {
     if (!warp.transition) {
       this.loadMap(warp.toMap);
       this.updatePlayerPositionWithFacing(game, true, warp);
-    } else {
-      this.startTransition(game, warp);
-    }
+    } else this.startTransition(game, warp);
   }
 
   updatePlayerPositionWithFacing(game, isCanMove, warp) {
