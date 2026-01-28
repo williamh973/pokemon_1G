@@ -12,13 +12,16 @@ export const update = (game) => {
 
   console.log(game.state);
 
+  game.currentMap.npcs?.forEach((npc) => {
+    npc.update(game, null);
+  });
+
   switch (game.state) {
     case "WORLD":
       if (action === "MENU") {
         openMenu(game);
         return;
       }
-
       game.player.update(game, action);
       break;
     case "DIALOG":

@@ -8,10 +8,10 @@ export const draw = (game, tileManager) => {
 
   switch (game.state) {
     case "DIALOG":
-      game.player.draw(game.canvas);
+      game.player.draw(game.canvas, game.camera);
       break;
     case "MENU":
-      game.player.draw(game.canvas);
+      game.player.draw(game.canvas, game.camera);
       break;
   }
 };

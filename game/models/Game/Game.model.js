@@ -15,7 +15,7 @@ import { WorldMap } from "../Menu/items/pokedex/sections/WorldMap/WorldMap.model
 import { InputManager } from "../InputManager/InputManager.model.js";
 import { Save } from "../Menu/items/Save/save.model.js";
 import { TitleScreen } from "../TitleScreen/TitleScreen.model.js";
-import { kantoRoute1 } from "../../logic/gameplay/maps/kanto/kantoRoute1/kantoRoute1.data.js";
+import { redHouse1F } from "../../logic/gameplay/maps/palletTown/redHouse/1F/redHouse.data.js";
 
 export class Game {
   constructor() {
@@ -29,7 +29,7 @@ export class Game {
     this.dialogBox = new DialogBox(this);
     this.input = new InputManager();
     this.state = "WORLD";
-    this.currentMap = palletTown;
+    this.currentMap = redHouse1F;
     this.currentScreen = null;
     this.mapNameWindow = null;
     this.isPaused = false;

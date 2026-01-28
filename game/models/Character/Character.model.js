@@ -2,7 +2,7 @@ import { PLAYER_STATE, TILES_SIZE } from "../../shareds/utils.js";
 import { SQUARE_TYPES } from "../../logic/gameplay/square/square.type.js";
 
 export class Character {
-  constructor({ tileX, tileY, sprites }) {
+  constructor({ tileX, tileY, sprites, facing = "down" }) {
     this.width = 32;
     this.height = 32;
     this.tileX = tileX;
@@ -32,7 +32,7 @@ export class Character {
     this.justStartedMoving = false;
     this.state = PLAYER_STATE.IDLE;
     this.sprites = sprites;
-    this.facing = "down";
+    this.facing = facing;
 
     this.updateSprite();
   }
@@ -65,9 +65,9 @@ export class Character {
     this.targetY = this.tileY * TILES_SIZE;
   }
 
-  draw(canvas) {
-    const centerX = canvas.width / 2 - this.width / 2;
-    const centerY = canvas.height / 2 - this.height / 2;
+  draw(canvas, camera) {
+    const screenX = this.position.x + camera.offsetX;
+    const screenY = this.position.y + camera.offsetY;
     const frameWidth = this.image.width / this.framesMax;
 
     canvas.context.drawImage(
@@ -76,8 +76,8 @@ export class Character {
       0,
       frameWidth,
       this.image.height,
-      centerX,
-      centerY,
+      screenX,
+      screenY,
       this.width,
       this.height
     );
@@ -153,9 +153,8 @@ export class Character {
         this.framesMax = this.frames.idle.max;
         this.image = this.sprites.idle[this.facing];
         this.state = PLAYER_STATE.IDLE;
-        game.mapManager.checkWarp(this);
       }
     }
-    this.draw(game.canvas);
+    this.draw(game.canvas, game.camera);
   }
 }

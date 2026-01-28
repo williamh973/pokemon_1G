@@ -33,8 +33,8 @@ export class Player extends Character {
     };
 
     super({
-      tileX: 13,
-      tileY: 12,
+      tileX: 5,
+      tileY: 5,
       sprites: playerSprites,
     });
 
@@ -56,6 +56,9 @@ export class Player extends Character {
       if (keys.left) this.attemptMove(-1, 0, game);
       if (keys.right) this.attemptMove(1, 0, game);
     }
+    const wasMoving = this.isMoving;
     super.update(game);
+
+    if (wasMoving && !this.isMoving) game.mapManager.checkWarp(this);
   }
 }
