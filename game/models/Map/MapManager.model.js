@@ -60,23 +60,40 @@ export class MapManager {
     );
   }
 
-  checkInteraction(player) {
-    const front = player.getFrontTile();
+  staticInteraction(front) {
     const interaction = this.game.currentMap.interactions.find(
       (i) => i.tile.x === front.x && i.tile.y === front.y
     );
-
-    if (!interaction) return;
-
-    this.triggerInteraction(interaction, player);
+    return interaction;
   }
 
-  triggerInteraction(interaction, player) {
-    if (
-      interaction.type === "sign" &&
-      player.facing === interaction.facing[player.facing]
-    ) {
-      this.game.openDialogBox(interaction.text);
+  npcInteraction(front) {
+    return this.game.currentMap.npcs?.find(
+      (npc) => npc.tileX === front.x && npc.tileY === front.y
+    );
+  }
+
+  checkInteraction(player) {
+    const front = player.getFrontTile();
+
+    const staticInteraction = this.staticInteraction(front);
+    if (staticInteraction) {
+      this.triggerInteraction(staticInteraction, player);
+      return;
     }
+
+    const npc = this.npcInteraction(front);
+    if (npc) {
+      npc.interact(this.game);
+      return;
+    }
+  }
+
+  triggerInteraction(staticInteraction, player) {
+    if (
+      staticInteraction.type === "sign" &&
+      player.facing === staticInteraction.facing[player.facing]
+    )
+      this.game.openDialogBox(staticInteraction.text);
   }
 }

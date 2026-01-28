@@ -1,16 +1,16 @@
-import { redHouse1FCollide } from "./redHouse.collide.js";
-import { redHouse1FInteractions } from "./redHouse.interaction.js";
-import { redHouse1FLayout } from "./redHouse.layout.js";
-import { redHouse1FNPCs } from "./redHouse.npc.js";
-import { redHouse1FWarps } from "./redHouse.warp.js";
+import { redHouse1F_Collide } from "./redHouse.collide.js";
+import { redHouse1F_Interactions } from "./redHouse.interaction.js";
+import { redHouse1F_Layout } from "./redHouse.layout.js";
+import { redHouse1F_NPCs } from "./redHouse.npc.js";
+import { redHouse1F_Warps } from "./redHouse.warp.js";
 
 export const redHouse1F = {
   id: "RED_HOUSE_1F",
-  layout: redHouse1FLayout,
-  collision: redHouse1FCollide,
-  interactions: redHouse1FInteractions,
-  width: redHouse1FCollide[0].length,
-  height: redHouse1FCollide.length,
-  warps: redHouse1FWarps,
-  npcs: redHouse1FNPCs,
+  layout: redHouse1F_Layout,
+  collision: redHouse1F_Collide,
+  interactions: redHouse1F_Interactions,
+  width: redHouse1F_Collide[0].length,
+  height: redHouse1F_Collide.length,
+  warps: redHouse1F_Warps,
+  npcs: redHouse1F_NPCs,
 };

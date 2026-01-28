@@ -1,13 +1,10 @@
-export const redHouse1FInteractions = [
+export const redHouse1F_Interactions = [
   {
-    type: "PNC",
-    tile: { x: 5, y: 5 },
-    text: "Coucou, je suis là",
+    type: "sign",
+    tile: { x: 2, y: 1 },
+    text: "La TV montre un épisode de \nla série Malcolm",
     facing: {
       up: "up",
-      down: "down",
-      left: "left",
-      right: "right",
     },
   },
 ];

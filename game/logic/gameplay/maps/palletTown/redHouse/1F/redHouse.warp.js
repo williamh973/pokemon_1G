@@ -1,4 +1,4 @@
-export const redHouse1FWarps = [
+export const redHouse1F_Warps = [
   {
     fromMap: "RED_HOUSE_1F",
     toMap: "PALLET_TOWN",

@@ -1,4 +1,4 @@
-import { TILES_SIZE } from "../../../../shareds/utils.js";
+import { GAME_FLAGS, TILES_SIZE } from "../../../../shareds/utils.js";
 
 export class Save {
   constructor() {
@@ -7,24 +7,26 @@ export class Save {
       tileY: 0,
     };
     this.currentMapId = null;
+    this.flags = null;
   }
 
   capture(game) {
     this.player.tileX = game.player.tileX;
     this.player.tileY = game.player.tileY;
     this.currentMapId = game.currentMap.id;
+    this.flags = game.flags;
   }
 
   write() {
     localStorage.setItem("POKEMON_SAVE", JSON.stringify(this));
     const raw = localStorage.getItem("POKEMON_SAVE");
-    // console.log(raw);
+    console.log(raw);
   }
 
   static load() {
     const raw = localStorage.getItem("POKEMON_SAVE");
     if (!raw) return null;
-    // console.log(raw);
+    console.log(raw);
     const data = JSON.parse(raw);
     return Object.assign(new Save(), data);
   }
@@ -39,6 +41,7 @@ export class Save {
 
     const map = game.mapManager.maps[this.currentMapId];
     game.currentMap = map;
+    game.flags = this.flags;
   }
 }
 

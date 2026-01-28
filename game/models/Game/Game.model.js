@@ -3,7 +3,7 @@ import { Player } from "../Player/Player.model.js";
 import { Canvas } from "../Canvas/Canvas.model.js";
 import { TileManager } from "../TileManager/Tile.manager.js";
 import { Camera } from "../Camera/camera.model.js";
-import { FADING_TIME, TILES_SIZE } from "../../shareds/utils.js";
+import { FADING_TIME, GAME_FLAGS, TILES_SIZE } from "../../shareds/utils.js";
 import { palletTown } from "../../logic/gameplay/maps/palletTown/palletTown.data.js";
 import { MapManager } from "../Map/MapManager.model.js";
 import { MAPS } from "../../logic/gameplay/maps/maps.registry.js";
@@ -30,6 +30,7 @@ export class Game {
     this.input = new InputManager();
     this.state = "WORLD";
     this.currentMap = redHouse1F;
+    this.flags = GAME_FLAGS;
     this.currentScreen = null;
     this.mapNameWindow = null;
     this.isPaused = false;

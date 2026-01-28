@@ -118,19 +118,33 @@ export class Character {
     return { x, y };
   }
 
+  npc(game, targetX, targetY) {
+    return game.currentMap.npcs?.some((npc) => {
+      return npc.tileX === targetX && npc.tileY === targetY;
+    });
+  }
+
+  walkableTile(game, targetX, targetY) {
+    const tile = game.currentMap.collision[targetY][targetX];
+    const collision = SQUARE_TYPES[tile];
+    return collision.walkable;
+  }
+
   attemptMove(dx, dy, game) {
     if (this.isMoving || game.isPaused) return;
     this.setFacing(this.getFacingFromDelta(dx, dy));
     this.updateSprite();
+
     const targetX = this.tileX + dx;
     const targetY = this.tileY + dy;
 
     if (this.outOfMap(targetX, targetY, game.currentMap)) return;
 
-    const tile = game.currentMap.collision[targetY][targetX];
-    const collision = SQUARE_TYPES[tile];
-
-    if (!collision.walkable) return;
+    if (
+      !this.walkableTile(game, targetX, targetY) ||
+      this.npc(game, targetX, targetY)
+    )
+      return;
 
     this.moveToTile(dx, dy);
   }

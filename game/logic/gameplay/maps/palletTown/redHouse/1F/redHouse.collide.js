@@ -1,4 +1,4 @@
-export const redHouse1FCollide = [
+export const redHouse1F_Collide = [
   [3, 3, 3, 3, 3, 3, 3, 5],
   [3, 3, 3, 3, 2, 2, 2, 2],
   [2, 2, 2, 2, 2, 2, 2, 2],

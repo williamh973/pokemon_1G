@@ -2,7 +2,7 @@ import { pokedex } from "./pokedex/pokedex.js";
 import { worldMap } from "./worldMap/worldMap.render.js";
 
 const openMenu = (game) => {
-  game.player.draw(game.canvas);
+  game.player.draw(game.canvas, game.camera);
   game.openMenu();
 };
 

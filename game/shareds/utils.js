@@ -74,3 +74,9 @@ export const drawBox = (
   context.lineWidth = 2;
   context.strokeRect(positionX, positionY, width, height);
 };
+
+export const GAME_FLAGS = {
+  OAK_INTRO_DONE: false,
+  GOT_STARTER: false,
+  TALKED_TO_MOM: false,
+};

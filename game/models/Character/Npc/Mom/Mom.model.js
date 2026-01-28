@@ -30,4 +30,18 @@ export class Mom extends Character {
   update(game) {
     super.update(game);
   }
+
+  interact(game) {
+    if (!game.flags.TALKED_TO_MOM) {
+      game.flags.TALKED_TO_MOM = true;
+      game.openDialogBox(
+        "Tous les garçons partent un\njour de la maison. J'ai déjà\nvu ça à la TV."
+      );
+      return;
+    } else {
+      game.openDialogBox(
+        "N'oublie pas de passer dire\nbonjour au professeur Chen."
+      );
+    }
+  }
 }
