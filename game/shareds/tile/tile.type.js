@@ -1,4 +1,4 @@
-export const SQUARE_TYPES = {
+export const TILE_TYPES = {
   1: { walkable: true, encounter: true, terrain: "ground" },
   2: { walkable: true, encounter: false, terrain: "ground" },
   3: { walkable: false, encounter: false, terrain: "solid" },

@@ -1,5 +1,5 @@
 import { PLAYER_STATE, TILES_SIZE } from "../../shareds/utils.js";
-import { SQUARE_TYPES } from "../../logic/gameplay/square/square.type.js";
+import { TILE_TYPES } from "../../shareds/tile/tile.type.js";
 
 export class Character {
   constructor({ tileX, tileY, sprites, facing = "down" }) {
@@ -127,7 +127,7 @@ export class Character {
 
   walkableTile(game, targetX, targetY) {
     const tile = game.currentMap.collision[targetY][targetX];
-    const collision = SQUARE_TYPES[tile];
+    const collision = TILE_TYPES[tile];
     return collision.walkable;
   }
 

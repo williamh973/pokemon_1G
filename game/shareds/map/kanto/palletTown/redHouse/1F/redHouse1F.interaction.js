@@ -1,4 +1,4 @@
-export const redHouse1F_Interactions = [
+export const redHouse_1F_Interactions = [
   {
     type: "sign",
     tile: { x: 2, y: 1 },

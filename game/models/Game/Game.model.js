@@ -4,9 +4,7 @@ import { Canvas } from "../Canvas/Canvas.model.js";
 import { TileManager } from "../TileManager/Tile.manager.js";
 import { Camera } from "../Camera/camera.model.js";
 import { FADING_TIME, GAME_FLAGS, TILES_SIZE } from "../../shareds/utils.js";
-import { palletTown } from "../../logic/gameplay/maps/palletTown/palletTown.data.js";
 import { MapManager } from "../Map/MapManager.model.js";
-import { MAPS } from "../../logic/gameplay/maps/maps.registry.js";
 import { Fade } from "../Fade/fade.model.js";
 import { DialogBox } from "../DialogBox/dialogBox.model.js";
 import { Menu } from "../Menu/Menu.model.js";
@@ -15,7 +13,8 @@ import { WorldMap } from "../Menu/items/pokedex/sections/WorldMap/WorldMap.model
 import { InputManager } from "../InputManager/InputManager.model.js";
 import { Save } from "../Menu/items/Save/save.model.js";
 import { TitleScreen } from "../TitleScreen/TitleScreen.model.js";
-import { redHouse1F } from "../../logic/gameplay/maps/palletTown/redHouse/1F/redHouse.data.js";
+import { MAPS } from "../../shareds/map/maps.registry.js";
+import { redHouse_1F } from "../../shareds/map/kanto/palletTown/redHouse/1F/redHouse1F.data.js";
 
 export class Game {
   constructor() {
@@ -29,7 +28,7 @@ export class Game {
     this.dialogBox = new DialogBox(this);
     this.input = new InputManager();
     this.state = "WORLD";
-    this.currentMap = redHouse1F;
+    this.currentMap = redHouse_1F;
     this.flags = GAME_FLAGS;
     this.currentScreen = null;
     this.mapNameWindow = null;

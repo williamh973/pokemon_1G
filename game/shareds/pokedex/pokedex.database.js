@@ -7,8 +7,8 @@ import {
   charizardPrint,
 } from "../../assets/images/pokemons/1G/footPrints/pokemonPrint.assets.js";
 import { bulbasaurCry } from "../../assets/songs/pokemons/pokemon.assets.js";
-import { kantoRoute1 } from "../../logic/gameplay/maps/kanto/kantoRoute1/kantoRoute1.data.js";
-import { palletTown } from "../../logic/gameplay/maps/palletTown/palletTown.data.js";
+import { kantoRoute1 } from "../map/kanto/kantoRoute1/kantoRoute1.data.js";
+import { palletTown } from "../map/kanto/palletTown/palletTown.data.js";
 
 // pour les desc, revenir à la ligne tous les 27 caracthères
 
