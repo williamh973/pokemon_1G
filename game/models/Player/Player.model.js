@@ -13,7 +13,7 @@ import {
   walkUp_stepA,
   walkUp_stepB,
 } from "../../assets/images/player/player.assets.js";
-import { keys } from "../../logic/gameplay/player/keyboard.js";
+import { keys } from "../../logic/input/keyboard.js";
 
 export class Player extends Character {
   constructor() {
