@@ -1,14 +1,14 @@
 import {
   bulbasaurImg,
   charizardImg,
-} from "../../../assets/images/pokemons/pokemon.assets.js";
+} from "../../assets/images/pokemons/pokemon.assets.js";
 import {
   bulbasaurPrint,
   charizardPrint,
-} from "../../../assets/images/pokemons/1G/footPrints/pokemonPrint.assets.js";
-import { bulbasaurCry } from "../../../assets/songs/pokemons/pokemon.assets.js";
-import { kantoRoute1 } from "../maps/kanto/kantoRoute1/kantoRoute1.data.js";
-import { palletTown } from "../maps/palletTown/palletTown.data.js";
+} from "../../assets/images/pokemons/1G/footPrints/pokemonPrint.assets.js";
+import { bulbasaurCry } from "../../assets/songs/pokemons/pokemon.assets.js";
+import { kantoRoute1 } from "../../logic/gameplay/maps/kanto/kantoRoute1/kantoRoute1.data.js";
+import { palletTown } from "../../logic/gameplay/maps/palletTown/palletTown.data.js";
 
 // pour les desc, revenir à la ligne tous les 27 caracthères
 
@@ -1152,14 +1152,17 @@ export const POKEDEX_DATABASE = [
   {
     id: "095",
     name: "ONIX",
-    species: "Pokémon Serpenroc",
+    species: "Serpenroc",
     height: "8.8",
     weight: "210.0",
-    desc: "Il creuse des tunnels sous terre. Son corps rocheux est extrêmement solide. Il se nourrit de minéraux.",
+    desc: "Il creuse des tunnels sous \nterre. Son corps rocheux est\nextrêmement solide. Il se \nnourrit de minéraux.",
     img: "pokemon095Img",
     cry: "pokemon095Cry",
-    area: ["KANTO_ROUTE_1"],
-    print: "",
+    worldMap: [palletTown.worldMap, kantoRoute1.worldMap],
+    print: bulbasaurPrint,
+    animations: {
+      idle: "onix_idle",
+    },
   },
   {
     id: "096",
@@ -1488,14 +1491,17 @@ export const POKEDEX_DATABASE = [
   {
     id: "123",
     name: "INSECATEUR",
-    species: "Pokémon Mante",
+    species: "MANTE",
     height: "1.5",
     weight: "56.0",
-    desc: "Ses faucilles sont si tranchantes qu’elles peuvent couper l’acier.",
+    desc: "Ses faucilles sont si tran-\nchantes qu’elles peuvent cou-\nper l’acier.",
     img: "pokemon123Img",
     cry: "pokemon123Cry",
-    area: ["KANTO_SAFARI"],
+    worldMap: [palletTown.worldMap, kantoRoute1.worldMap],
     print: "",
+    animations: {
+      idle: "scyther_idle",
+    },
   },
   {
     id: "124",

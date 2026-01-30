@@ -1,4 +1,4 @@
-import { POKEDEX_DATABASE } from "../../../../../../logic/gameplay/pokemon/pokedex.database.js";
+import { POKEDEX_DATABASE } from "../../../../../../shareds/pokedex/pokedex.database.js";
 import { drawBox } from "../../../../../../shareds/utils.js";
 import { Cursor } from "../../../../../Cursor/Cursor.model.js";
 import { PokedexState } from "../pokedexState/pokedexState.model.js";

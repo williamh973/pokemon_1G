@@ -4,9 +4,9 @@ import {
   idleMomRight,
   idleMomUp,
 } from "../../../../assets/images/npcs/girl/redMom/redMom.assets.js";
-import { Character } from "../../Character.model.js";
+import { Npc } from "../npc.model.js";
 
-export class Mom extends Character {
+export class Mom extends Npc {
   constructor(tileX, tileY, facing) {
     const sprites = {
       idle: {
@@ -26,22 +26,8 @@ export class Mom extends Character {
     super({ tileX, tileY, sprites, facing });
     this.name = "Mom";
   }
-
-  update(game) {
-    super.update(game);
-  }
-
-  interact(game) {
-    if (!game.flags.TALKED_TO_MOM) {
-      game.flags.TALKED_TO_MOM = true;
-      game.openDialogBox(
-        "Tous les garçons partent un\njour de la maison. J'ai déjà\nvu ça à la TV."
-      );
-      return;
-    } else {
-      game.openDialogBox(
-        "N'oublie pas de passer dire\nbonjour au professeur Chen."
-      );
-    }
-  }
+  // this.dialogs = [
+  //   "Tous les garçons partent un\njour de la maison. J'ai déjà\nvu ça à la TV.",
+  //   "N'oublie pas de passer dire\nbonjour au professeur Chen.",
+  // ];
 }

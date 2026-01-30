@@ -1,0 +1,1 @@
+export const POKEMON_SPECIAL_ANIMATIONS = {};

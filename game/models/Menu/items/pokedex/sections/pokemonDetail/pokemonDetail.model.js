@@ -1,4 +1,4 @@
-import { POKEMON_ANIMATIONS } from "../../../../../../logic/gameplay/pokemon/pokemon.animation.js";
+import { POKEMON_ANIMATIONS } from "../../../../../../shareds/pokemon/animations/pokemonAnimation.database.js";
 import { drawBox } from "../../../../../../shareds/utils.js";
 import { AnimatedSprite } from "../../../../../AnimationSprite/AnimationSprite.model.js";
 import { DialogBox } from "../../../../../DialogBox/dialogBox.model.js";
@@ -22,7 +22,7 @@ export class PokemonDetail {
     this.isOpen = true;
     this.dialogBox.hasFocus = true;
     const animKey = this.pokemon.animations.idle;
-    this.pokemonSprite = new AnimatedSprite(POKEMON_ANIMATIONS[animKey]);
+    this.pokemonSprite = new AnimatedSprite(POKEMON_ANIMATIONS.idle[animKey]);
     this.dialogBox.open(this.pokemon.desc, true);
   }
 

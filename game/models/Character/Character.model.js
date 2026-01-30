@@ -33,6 +33,7 @@ export class Character {
     this.state = PLAYER_STATE.IDLE;
     this.sprites = sprites;
     this.facing = facing;
+    this.initialFacing = facing;
 
     this.updateSprite();
   }
@@ -128,6 +129,14 @@ export class Character {
     const tile = game.currentMap.collision[targetY][targetX];
     const collision = SQUARE_TYPES[tile];
     return collision.walkable;
+  }
+
+  getFacingToward(target) {
+    const dx = target.tileX - this.tileX;
+    const dy = target.tileY - this.tileY;
+
+    if (Math.abs(dx) > Math.abs(dy)) return dx > 0 ? "right" : "left";
+    else return dy > 0 ? "down" : "up";
   }
 
   attemptMove(dx, dy, game) {

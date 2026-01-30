@@ -1,4 +1,4 @@
-export const POKEMON_ANIMATIONS = {
+export const POKEMON_IDLE_ANIMATIONS = {
   charizard_idle: {
     src: "game/assets/images/pokemons/1G/front/charizard/idle/charizard_idle.png",
     positionX: 20,
@@ -41,6 +41,28 @@ export const POKEMON_ANIMATIONS = {
     frames: 24,
     frameDelay: 6,
     scale: 1.5,
+    loop: true,
+  },
+  onix_idle: {
+    src: "game/assets/images/pokemons/1G/front/onix/idle/onix_idle.png",
+    positionX: 20,
+    positionY: 20,
+    frameWidth: 88,
+    frameHeight: 88,
+    frames: 14,
+    frameDelay: 6,
+    scale: 1.3,
+    loop: true,
+  },
+  scyther_idle: {
+    src: "game/assets/images/pokemons/1G/front/scyther/idle/scyther_idle.png",
+    positionX: 20,
+    positionY: 20,
+    frameWidth: 68,
+    frameHeight: 68,
+    frames: 9,
+    frameDelay: 6,
+    scale: 1.2,
     loop: true,
   },
 };
