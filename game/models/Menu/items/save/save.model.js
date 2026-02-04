@@ -1,4 +1,4 @@
-import { GAME_FLAGS, TILES_SIZE } from "../../../../shareds/utils.js";
+import { TILES_SIZE } from "../../../../shareds/utils.js";
 
 export class Save {
   constructor() {

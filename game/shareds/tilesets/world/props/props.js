@@ -1,20 +1,20 @@
 export const PROPS = {
-  201: {
+  301: {
     name: "barrel_steal",
     type: "solid",
     src: "game/assets/images/tilesets/world/props/barrel_steal.png",
   },
-  202: {
+  302: {
     name: "panel",
     type: "solid",
     src: "game/assets/images/tilesets/world/props/pannel.png",
   },
-  203: {
+  303: {
     name: "barrel",
     type: "solid",
     src: "game/assets/images/tilesets/world/props/barrel.png",
   },
-  204: {
+  304: {
     name: "garbage",
     type: "solid",
     src: "game/assets/images/tilesets/world/props/garbage.png",

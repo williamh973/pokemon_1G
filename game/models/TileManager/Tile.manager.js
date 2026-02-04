@@ -1,12 +1,11 @@
 import { TERRAIN_EXT } from "../../shareds/tilesets/world/terrain/exterior/terrainExt.js";
 import { drawDebugCollisionSquare } from "../../shareds/utils.js";
-import { OAKLAB } from "../../shareds/tilesets/world/building/oak_labo/oakLab.js";
+import { OAKLAB_EXT } from "../../shareds/tilesets/world/building/oak_labo/oakLabExt.js";
 import { PROPS } from "../../shareds/tilesets/world/props/props.js";
-import { RED_HOUSE } from "../../shareds/tilesets/world/building/house/redHouse/ext/redHouse.js";
-import {
-  RED_HOUSE_1F,
-  RED_HOUSE_2F,
-} from "../../shareds/tilesets/world/building/house/redHouse/int/redHouse.js";
+import { RED_HOUSE_EXT } from "../../shareds/tilesets/world/building/house/redHouse/ext/redHouseExt.js";
+import { RED_HOUSE_1F } from "../../shareds/tilesets/world/building/house/redHouse/int/redHouse1F.js";
+import { OAKLAB_INT } from "../../shareds/tilesets/world/building/oak_labo/oakLabInt.js";
+import { RED_HOUSE_2F } from "../../shareds/tilesets/world/building/house/redHouse/int/redHouse2F.js";
 
 // animation = les secondes qui passent
 // frameDuration = combien de secondes tu restes sur une image
@@ -32,10 +31,11 @@ export class TileManager {
   load() {
     const allTilesets = {
       ...TERRAIN_EXT,
-      ...RED_HOUSE,
+      ...RED_HOUSE_EXT,
       ...RED_HOUSE_1F,
       ...RED_HOUSE_2F,
-      ...OAKLAB,
+      ...OAKLAB_EXT,
+      ...OAKLAB_INT,
       ...PROPS,
     };
 

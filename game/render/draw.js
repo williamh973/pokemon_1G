@@ -9,9 +9,18 @@ export const draw = (game, tileManager) => {
   switch (game.state) {
     case "DIALOG":
       game.player.draw(game.canvas, game.camera);
+      if (!game.saveSystem) return;
+      game.menu?.draw(game.canvas.context, null);
+
       break;
     case "MENU":
       game.player.draw(game.canvas, game.camera);
+      break;
+
+    case "CHOICE_MENU":
+      game.player.draw(game.canvas, game.camera);
+      game.menu?.draw(game.canvas.context, null);
+      game.dialogBox?.draw(game.canvas.context);
       break;
   }
 };

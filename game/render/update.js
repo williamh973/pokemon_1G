@@ -10,7 +10,8 @@ export const update = (game) => {
   const action = game.input.consume();
   game.tileManager.update();
 
-  console.log(game.state);
+  // console.log(game.state);
+  console.log(game.player.tileX, game.player.tileY);
 
   game.currentMap.npcs?.forEach((npc) => {
     npc.update(game, null);
@@ -29,6 +30,9 @@ export const update = (game) => {
       break;
     case "MENU":
       game.menu?.update(game.canvas.context, action);
+      break;
+    case "CHOICE_MENU":
+      game.choiceMenu?.update(game.canvas.context, action);
       break;
     case "POKEDEX":
       pokedex(game, action);

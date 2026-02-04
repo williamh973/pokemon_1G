@@ -6,27 +6,27 @@ export class Menu {
     this.game = game;
     this.canvas = this.game.canvas;
     this.width = this.canvas.width / 2 - TILES_SIZE;
-    this.height = this.canvas.height - TILES_SIZE;
-    this.position = {
-      x: this.canvas.width - this.width,
-      y: 0,
-    };
-    this.isOpen = false;
-    this.hasFocus = false;
-    this.currentIndex = 0;
-    this.lineHeight = 40;
-    this.baseY = 21;
-    this.cursor = new Cursor();
-
     this.items = [
       { id: "POKEDEX", name: "POKEDEX" },
-      { id: "POKEMON", name: "POKEMON" },
+      //       { id: "POKEMON", name: "POKEMON" },
       { id: "SAC", name: "SAC" },
       { id: "SACHA", name: "SACHA" },
       { id: "SAUVER", name: "SAUVER" },
       { id: "OPTIONS", name: "OPTIONS" },
       { id: "RETOUR", name: "RETOUR" },
     ];
+    this.position = {
+      x: this.canvas.width - this.width,
+      y: 0,
+    };
+    this.lineHeight = 40;
+    this.height = this.lineHeight * this.items.length;
+
+    this.isOpen = false;
+    this.hasFocus = false;
+    this.currentIndex = 0;
+    this.baseY = 21;
+    this.cursor = new Cursor();
   }
 
   draw(context) {

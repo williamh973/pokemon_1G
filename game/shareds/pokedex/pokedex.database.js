@@ -94,14 +94,17 @@ export const POKEDEX_DATABASE = [
   {
     id: "007",
     name: "CARAPUCE",
-    species: "Pokémon Tortue",
+    species: "TORTUE",
     height: "0.5",
     weight: "9.0",
-    desc: "Sa carapace dure le protège contre les attaques. Il aime jouer dans l’eau et lancer des jets puissants pour attaquer. Il se déplace habilement dans les rivières et les étangs.",
+    desc: "Sa carapace dure le protège\ncontre les attaques. Il aime\njouer dans l’eau et lancer \ndes jets puissants pour at-\ntaquer. Il se déplace habi-\nlement dans les rivières et\nles étangs.",
     img: "pokemon007Img",
     cry: "pokemon007Cry",
     area: ["KANTO_ROUTE_1"],
-    print: "",
+    print: charizardPrint,
+    animations: {
+      idle: "squirtle_idle",
+    },
   },
   {
     id: "008",
@@ -240,14 +243,17 @@ export const POKEDEX_DATABASE = [
   {
     id: "019",
     name: "RATTATA",
-    species: "Pokémon Souris",
+    species: "SOURIS",
     height: "0.3",
     weight: "3.5",
-    desc: "Il ronge tout ce qu’il trouve pour se constituer des réserves. Sa rapidité lui permet de fuir les prédateurs. Il est souvent aperçu dans les herbes hautes.",
+    desc: "Il ronge tout ce qu’il trou-\nve pour se constituer des \nréserves. Sa rapidité lui \npermet de fuir les préda-\nteurs. Il est souvent aperçu\ndans les herbes hautes.",
     img: "pokemon019Img",
     cry: "pokemon019Cry",
-    area: ["KANTO_ROUTE_1"],
-    print: "",
+    worldMap: [kantoRoute1.worldMap],
+    print: bulbasaurPrint,
+    animations: {
+      idle: "rattata_idle",
+    },
   },
   {
     id: "020",

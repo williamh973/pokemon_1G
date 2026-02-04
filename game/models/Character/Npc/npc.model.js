@@ -24,17 +24,12 @@ export class Npc extends Character {
     this.isInteracting = true;
     this.setFacing(this.getFacingToward(game.player));
 
-    switch (game.flags.TALKED_TO_MOM) {
-      case true:
-        game.openDialogBox(this.dialogs[1]);
-        break;
-      case false:
-        game.flags.TALKED_TO_MOM = true;
-        game.openDialogBox(this.dialogs[0]);
-        break;
-      default:
-        break;
-    }
+    const nodeKey = game.flags.TALKED_TO_MOM ? "repeat" : "start";
+    const node = this.dialogTree[nodeKey];
+
+    if (node.setFlag) game.flags[node.setFlag] = true;
+
+    game.openDialogBox(node.text);
   }
 
   update(game) {

@@ -139,7 +139,7 @@ export const TERRAIN_EXT = {
     type: "ground",
     src: "game/assets/images/tilesets/world/terrain/path/grass_w_brown_path.png",
   },
-  23: {
+  24: {
     name: "grass_w_brown_cliff_ledge_left_side",
     type: "ground",
     src: "game/assets/images/tilesets/world/terrain/path/grass_w_brown_cliff_ledge_left_side.png",

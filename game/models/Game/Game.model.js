@@ -15,6 +15,12 @@ import { Save } from "../Menu/items/Save/save.model.js";
 import { TitleScreen } from "../TitleScreen/TitleScreen.model.js";
 import { MAPS } from "../../shareds/map/maps.registry.js";
 import { redHouse_1F } from "../../shareds/map/kanto/palletTown/redHouse/1F/redHouse1F.data.js";
+import { ChoiceMenu } from "../ChoiceMenu/ChoiceMenu.model.js";
+import { SAVE_DIALOG } from "../../shareds/dialog/save/save.dialogTree.js";
+import { palletTown } from "../../shareds/map/kanto/palletTown/palletTown.data.js";
+import { kantoRoute1 } from "../../shareds/map/kanto/kantoRoute1/kantoRoute1.data.js";
+import { redHouse_2F } from "../../shareds/map/kanto/palletTown/redHouse/2F/redHouse2F.data.js";
+import { oakLab } from "../../shareds/map/kanto/palletTown/oakLab/oakLab.data.js";
 
 export class Game {
   constructor() {
@@ -28,10 +34,12 @@ export class Game {
     this.dialogBox = new DialogBox(this);
     this.input = new InputManager();
     this.state = "WORLD";
-    this.currentMap = redHouse_1F;
+    this.currentMap = kantoRoute1;
     this.flags = GAME_FLAGS;
+    this.choiceMenu = null;
     this.currentScreen = null;
     this.mapNameWindow = null;
+    this.save = null;
     this.isPaused = false;
     this.isBattleMod = false;
     this.isLoaded = false;
@@ -74,10 +82,30 @@ export class Game {
     this.togglePause(false, true);
   }
 
-  openDialogBox(text) {
+  openChoiceMenu(source) {
+    this.choiceMenu = new ChoiceMenu(this, source);
+    this.choiceMenu.open();
+    this.state = "CHOICE_MENU";
+  }
+
+  closeChoiceMenu() {
+    this.choiceMenu.close();
+    this.state = "WORLD";
+    this.togglePause(false, true);
+  }
+
+  attemptSave() {
+    this.save = new Save();
+    this.openDialogBox(SAVE_DIALOG.start.text, SAVE_DIALOG);
+  }
+
+  openDialogBox(text, source) {
     this.dialogBox.open(text, false);
     this.state = "DIALOG";
     this.togglePause(true, false);
+
+    if (!source) return;
+    this.openChoiceMenu(source);
   }
 
   closeDialogBox() {
@@ -95,13 +123,6 @@ export class Game {
 
   closePokedex() {
     this.currentScreen.close();
-  }
-
-  save() {
-    const save = new Save();
-    save.capture(this);
-    save.write();
-    this.closeMenu();
   }
 
   load() {
@@ -156,7 +177,7 @@ export class Game {
       POKEDEX: () => this.openPokedex(),
       POKEMON: () => this.openTeam(),
       SAC: () => this.openBag(),
-      SAUVER: () => this.save(),
+      SAUVER: () => this.attemptSave(),
       OPTIONS: () => this.openOptionsScreen()(),
       RETOUR: () => this.closeMenu(),
     };
