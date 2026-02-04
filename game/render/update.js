@@ -11,7 +11,6 @@ export const update = (game) => {
   game.tileManager.update();
 
   // console.log(game.state);
-  console.log(game.player.tileX, game.player.tileY);
 
   game.currentMap.npcs?.forEach((npc) => {
     npc.update(game, null);

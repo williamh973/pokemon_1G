@@ -34,7 +34,7 @@ export class Game {
     this.dialogBox = new DialogBox(this);
     this.input = new InputManager();
     this.state = "WORLD";
-    this.currentMap = kantoRoute1;
+    this.currentMap = palletTown;
     this.flags = GAME_FLAGS;
     this.choiceMenu = null;
     this.currentScreen = null;

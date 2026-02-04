@@ -34,7 +34,7 @@ export class Player extends Character {
 
     super({
       tileX: 8,
-      tileY: 33,
+      tileY: 6,
       sprites: playerSprites,
     });
 
