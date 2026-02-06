@@ -1,40 +1,17 @@
 import { Character } from "../Character/Character.model.js";
-import {
-  idleDown,
-  idleLeft,
-  idleRight,
-  idleUp,
-  walkDown_stepA,
-  walkDown_stepB,
-  walkLeft_stepA,
-  walkLeft_stepB,
-  walkRight_stepA,
-  walkRight_stepB,
-  walkUp_stepA,
-  walkUp_stepB,
-} from "../../assets/images/player/player.assets.js";
 import { keys } from "../../logic/input/keyboard.js";
+import { CHARACTER_SPRITES } from "../../shareds/character/sprite/sprite.database.js";
 
 export class Player extends Character {
   constructor() {
     const playerSprites = {
-      idle: {
-        up: idleUp,
-        down: idleDown,
-        left: idleLeft,
-        right: idleRight,
-      },
-      walk: {
-        up: [walkUp_stepA, walkUp_stepB],
-        down: [walkDown_stepA, walkDown_stepB],
-        left: [walkLeft_stepA, walkLeft_stepB],
-        right: [walkRight_stepA, walkRight_stepB],
-      },
+      idle: CHARACTER_SPRITES.player.idle,
+      walk: CHARACTER_SPRITES.player.walk,
     };
 
     super({
-      tileX: 8,
-      tileY: 6,
+      tileX: 4,
+      tileY: 3,
       sprites: playerSprites,
     });
 

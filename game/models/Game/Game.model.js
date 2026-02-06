@@ -16,11 +16,11 @@ import { TitleScreen } from "../TitleScreen/TitleScreen.model.js";
 import { MAPS } from "../../shareds/map/maps.registry.js";
 import { redHouse_1F } from "../../shareds/map/kanto/palletTown/redHouse/1F/redHouse1F.data.js";
 import { ChoiceMenu } from "../ChoiceMenu/ChoiceMenu.model.js";
-import { SAVE_DIALOG } from "../../shareds/dialog/save/save.dialogTree.js";
 import { palletTown } from "../../shareds/map/kanto/palletTown/palletTown.data.js";
 import { kantoRoute1 } from "../../shareds/map/kanto/kantoRoute1/kantoRoute1.data.js";
 import { redHouse_2F } from "../../shareds/map/kanto/palletTown/redHouse/2F/redHouse2F.data.js";
 import { oakLab } from "../../shareds/map/kanto/palletTown/oakLab/oakLab.data.js";
+import { DIALOGS_TREE_DATABASE } from "../../shareds/dialogTree/dialogTree.database.js";
 
 export class Game {
   constructor() {
@@ -34,7 +34,7 @@ export class Game {
     this.dialogBox = new DialogBox(this);
     this.input = new InputManager();
     this.state = "WORLD";
-    this.currentMap = palletTown;
+    this.currentMap = redHouse_2F;
     this.flags = GAME_FLAGS;
     this.choiceMenu = null;
     this.currentScreen = null;
@@ -44,7 +44,7 @@ export class Game {
     this.isBattleMod = false;
     this.isLoaded = false;
     this.init();
-    // this.openTitleScreen();
+    this.openTitleScreen();
   }
 
   init() {
@@ -96,7 +96,10 @@ export class Game {
 
   attemptSave() {
     this.save = new Save();
-    this.openDialogBox(SAVE_DIALOG.start.text, SAVE_DIALOG);
+    this.openDialogBox(
+      DIALOGS_TREE_DATABASE.saveSystem.start.text,
+      DIALOGS_TREE_DATABASE.saveSystem
+    );
   }
 
   openDialogBox(text, source) {
@@ -131,6 +134,7 @@ export class Game {
 
     save.apply(this);
     this.isLoaded = true;
+    this.mapManager.loadMap(this.currentMap.id);
     this.closeTitleScreen();
   }
 

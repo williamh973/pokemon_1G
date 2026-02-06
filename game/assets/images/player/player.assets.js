@@ -1,35 +1,41 @@
 import { createImg } from "../../../shareds/utils.js";
 
-export let idleDown = createImg("game/assets/images/player/idle_down.png");
-export let idleUp = createImg("game/assets/images/player/idle_up.png");
-export let idleLeft = createImg("game/assets/images/player/idle_left.png");
-export let idleRight = createImg("game/assets/images/player/idle_right.png");
+export let idlePlayerDown = createImg(
+  "game/assets/images/player/idle_down.png"
+);
+export let idlePlayerUp = createImg("game/assets/images/player/idle_up.png");
+export let idlePlayerLeft = createImg(
+  "game/assets/images/player/idle_left.png"
+);
+export let idlePlayerRight = createImg(
+  "game/assets/images/player/idle_right.png"
+);
 
-export let walkDown_stepA = createImg(
+export let walkPlayerDown_stepA = createImg(
   "game/assets/images/player/walkDown_stepA.png"
 );
-export let walkDown_stepB = createImg(
+export let walkPlayerDown_stepB = createImg(
   "game/assets/images/player/walkDown_stepB.png"
 );
-export let walkUp_stepA = createImg(
+export let walkPlayerUp_stepA = createImg(
   "game/assets/images/player/walkUp_stepA.png"
 );
-export let walkUp_stepB = createImg(
+export let walkPlayerUp_stepB = createImg(
   "game/assets/images/player/walkUp_stepB.png"
 );
 
-export let walkLeft_stepA = createImg(
+export let walkPlayerLeft_stepA = createImg(
   "game/assets/images/player/walkLeft_stepA.png"
 );
 
-export let walkLeft_stepB = createImg(
+export let walkPlayerLeft_stepB = createImg(
   "game/assets/images/player/walkLeft_stepB.png"
 );
 
-export let walkRight_stepA = createImg(
+export let walkPlayerRight_stepA = createImg(
   "game/assets/images/player/walkRight_stepA.png"
 );
 
-export let walkRight_stepB = createImg(
+export let walkPlayerRight_stepB = createImg(
   "game/assets/images/player/walkRight_stepB.png"
 );

@@ -8,6 +8,11 @@ export class MapManager {
 
   loadMap(mapId) {
     this.game.currentMap = this.maps[mapId];
+
+    this.game.currentMap.npcs = this.game.currentMap.npcs.filter((npc) => {
+      if (!npc.flagId) return true;
+      return !this.game.flags[npc.flagId];
+    });
   }
 
   checkWarp(player) {

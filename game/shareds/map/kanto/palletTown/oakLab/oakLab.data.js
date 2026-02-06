@@ -1,5 +1,6 @@
 import { oakLabCollision } from "./oakLab.collide.js";
 import { oakLabLayout } from "./oakLab.layout.js";
+import { OAKLAB_NPCs } from "./oakLab.npc.js";
 import { oakLabWarps } from "./oakLab.warp.js";
 
 export const oakLab = {
@@ -9,4 +10,5 @@ export const oakLab = {
   width: oakLabCollision[0].length,
   height: oakLabCollision.length,
   warps: oakLabWarps,
+  npcs: OAKLAB_NPCs,
 };
