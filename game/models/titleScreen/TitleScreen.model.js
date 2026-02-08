@@ -72,7 +72,7 @@ export class TitleScreen {
 
   openItem() {
     const itemId = this.items[this.currentIndex].id;
-    this.game.showMenuSelectedItem(itemId, this);
+    this.game.handleMenuSelection(itemId, this);
   }
 
   update(context, action) {

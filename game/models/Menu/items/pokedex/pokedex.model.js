@@ -79,7 +79,7 @@ export class Pokedex {
 
     switch (action) {
       case "CANCEL":
-        this.game.closePokedex();
+        this.game.closeCurrentScreen();
         break;
 
       default:

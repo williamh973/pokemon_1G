@@ -1,32 +1,28 @@
-import { TILES_SIZE, drawBox } from "../../shareds/utils.js";
+import { drawBox } from "../../shareds/utils.js";
 import { Cursor } from "../Cursor/Cursor.model.js";
 
-export class Menu {
+export class Inventory {
   constructor(game) {
     this.game = game;
-    this.canvas = this.game.canvas;
-    this.width = this.canvas.width / 2 - TILES_SIZE;
-    this.items = [
-      { id: "POKEDEX", name: "POKEDEX" },
-      //       { id: "POKEMON", name: "POKEMON" },
-      { id: "SAC", name: "SAC" },
-      { id: "SACHA", name: "SACHA" },
-      { id: "SAUVER", name: "SAUVER" },
-      { id: "OPTIONS", name: "OPTIONS" },
-      { id: "RETOUR", name: "RETOUR" },
-    ];
     this.position = {
-      x: this.canvas.width - this.width,
+      x: 0,
       y: 0,
     };
-    this.lineHeight = 40;
-    this.height = this.lineHeight * this.items.length;
-
+    this.canvas = this.game.canvas;
+    this.width = this.canvas.width;
+    this.height = this.canvas.height;
+    this.categories = ["care", "ball", "key"];
+    this.items = [];
     this.isOpen = false;
     this.hasFocus = false;
+    this.lineHeight = 40;
     this.currentIndex = 0;
     this.baseY = 21;
     this.cursor = new Cursor();
+  }
+
+  add(item) {
+    this.items.push(item);
   }
 
   draw(context) {
@@ -73,7 +69,7 @@ export class Menu {
     this.hasFocus = false;
   }
 
-  openItem() {
+  useItem() {
     const itemId = this.items[this.currentIndex].id;
     this.game.handleMenuSelection(itemId, this);
   }
@@ -94,11 +90,19 @@ export class Menu {
         break;
 
       case "ACTION":
-        this.openItem();
+        this.useItem();
         break;
 
       case "MENU":
-        this.game.closeMenu();
+        this.close();
+        this.game.resetCurrentScreen();
+        this.game.openMenu();
+        break;
+
+      case "CANCEL":
+        this.close();
+        this.game.resetCurrentScreen();
+        this.game.openMenu();
         break;
     }
   }

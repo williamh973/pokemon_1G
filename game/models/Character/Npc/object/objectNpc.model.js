@@ -3,7 +3,7 @@ import { OBJECT_SPRITES } from "../../../../shareds/items/sprite/itemsSprite.dat
 import { Npc } from "../npc.model.js";
 
 export class ObjectNpc extends Npc {
-  constructor(tileX, tileY, itemId, flagId) {
+  constructor(tileX, tileY, itemId, objectCategory, flagId) {
     const sprites = {
       idle: OBJECT_SPRITES.pokeball.idle,
     };
@@ -16,16 +16,20 @@ export class ObjectNpc extends Npc {
     this.itemId = itemId;
     this.flagId = flagId;
     this.isStatic = true;
+    this.objectCategory = objectCategory;
   }
 
   interact(game) {
     if (game.flags[this.flagId]) return;
 
-    const item = ITEMS_DATABASE[this.itemId];
-    // game.inventory.add(item);
+    const itemsData = ITEMS_DATABASE;
+    const foundedCategory = itemsData[this.objectCategory];
+    const foundedItem = foundedCategory[this.itemId];
+
+    game.inventory.add(foundedItem);
     game.flags[this.flagId] = true;
 
-    game.openDialogBox(`Vous obtenez ${item.name} !`, null);
+    game.openDialogBox(`Vous obtenez ${foundedItem.name} !`, null);
     this.destroy(game);
   }
   destroy(game) {

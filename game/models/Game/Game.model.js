@@ -9,18 +9,23 @@ import { Fade } from "../Fade/fade.model.js";
 import { DialogBox } from "../DialogBox/dialogBox.model.js";
 import { Menu } from "../Menu/Menu.model.js";
 import { Pokedex } from "../Menu/items/pokedex/pokedex.model.js";
-import { WorldMap } from "../Menu/items/pokedex/sections/WorldMap/WorldMap.model.js";
 import { InputManager } from "../InputManager/InputManager.model.js";
 import { Save } from "../Menu/items/Save/save.model.js";
 import { TitleScreen } from "../TitleScreen/TitleScreen.model.js";
 import { MAPS } from "../../shareds/map/maps.registry.js";
-import { redHouse_1F } from "../../shareds/map/kanto/palletTown/redHouse/1F/redHouse1F.data.js";
 import { ChoiceMenu } from "../ChoiceMenu/ChoiceMenu.model.js";
+import { redHouse_2F } from "../../shareds/map/kanto/palletTown/redHouse/2F/redHouse2F.data.js";
+import { DIALOGS_TREE_DATABASE } from "../../shareds/dialogTree/dialogTree.database.js";
+import { Inventory } from "../Inventory/Inventory.model.js";
+import {
+  dispatchMenuSelection,
+  loadGame,
+  startTransitionBeforeOpenWorldMap,
+} from "../../logic/gameplay/game/game.gameplay.js";
+import { redHouse_1F } from "../../shareds/map/kanto/palletTown/redHouse/1F/redHouse1F.data.js";
 import { palletTown } from "../../shareds/map/kanto/palletTown/palletTown.data.js";
 import { kantoRoute1 } from "../../shareds/map/kanto/kantoRoute1/kantoRoute1.data.js";
-import { redHouse_2F } from "../../shareds/map/kanto/palletTown/redHouse/2F/redHouse2F.data.js";
 import { oakLab } from "../../shareds/map/kanto/palletTown/oakLab/oakLab.data.js";
-import { DIALOGS_TREE_DATABASE } from "../../shareds/dialogTree/dialogTree.database.js";
 
 export class Game {
   constructor() {
@@ -33,6 +38,7 @@ export class Game {
     this.menu = new Menu(this);
     this.dialogBox = new DialogBox(this);
     this.input = new InputManager();
+    this.inventory = new Inventory(this);
     this.state = "WORLD";
     this.currentMap = redHouse_2F;
     this.flags = GAME_FLAGS;
@@ -44,7 +50,7 @@ export class Game {
     this.isBattleMod = false;
     this.isLoaded = false;
     this.init();
-    this.openTitleScreen();
+    // this.openTitleScreen();
   }
 
   init() {
@@ -105,7 +111,6 @@ export class Game {
   openDialogBox(text, source) {
     this.dialogBox.open(text, false);
     this.state = "DIALOG";
-    this.togglePause(true, false);
 
     if (!source) return;
     this.openChoiceMenu(source);
@@ -114,9 +119,7 @@ export class Game {
   closeDialogBox() {
     this.dialogBox.close();
     this.state = "WORLD";
-    requestAnimationFrame(() => {
-      this.togglePause(false, true);
-    });
+    requestAnimationFrame(() => this.togglePause(false, true));
   }
 
   openPokedex() {
@@ -124,18 +127,18 @@ export class Game {
     this.state = "POKEDEX";
   }
 
-  closePokedex() {
+  closeCurrentScreen() {
     this.currentScreen.close();
   }
 
-  load() {
-    const save = Save.load();
-    if (!save) return;
+  openInventory() {
+    this.currentScreen = this.inventory;
+    this.currentScreen.open();
+    this.state = "INVENTORY";
+  }
 
-    save.apply(this);
-    this.isLoaded = true;
-    this.mapManager.loadMap(this.currentMap.id);
-    this.closeTitleScreen();
+  load() {
+    loadGame(this);
   }
 
   resetCurrentScreen() {
@@ -143,16 +146,7 @@ export class Game {
   }
 
   openWorldMap() {
-    this.transition.start(
-      () => {
-        const pokemon = this.currentScreen.pokemonList.selectedPokemon;
-        this.currentScreen = new WorldMap(this, "ENCOUNTER");
-        this.currentScreen.open(pokemon);
-        this.state = "WORLDMAP";
-        this.menu.close();
-      },
-      () => {}
-    );
+    startTransitionBeforeOpenWorldMap(this);
   }
 
   closeWorldMap() {
@@ -175,38 +169,7 @@ export class Game {
     detailPage.open();
   }
 
-  showMenuSelectedItem(itemId, source) {
-    source.hasFocus = false;
-    const mainMenu = {
-      POKEDEX: () => this.openPokedex(),
-      POKEMON: () => this.openTeam(),
-      SAC: () => this.openBag(),
-      SAUVER: () => this.attemptSave(),
-      OPTIONS: () => this.openOptionsScreen()(),
-      RETOUR: () => this.closeMenu(),
-    };
-
-    const pokedexCharacMenu = {
-      INFO: () => this.openPokemonDetail(),
-      CRI: () => this(),
-      ZONE: () => this.openWorldMap(),
-      RETOUR: () => this.closePokedex(),
-    };
-
-    const titleScreenMenu = {
-      NEW_GAME: () => this.closeTitleScreen(),
-      CONTINUE: () => this.load(),
-      OPTIONS: () => this.openOptionsScreen(),
-    };
-
-    if (this.menu.isOpen) mainMenu[itemId]?.();
-    if (
-      this.currentScreen?.name === "POKEDEX" &&
-      this.currentScreen?.pokedexCharac.isOpen
-    )
-      pokedexCharacMenu[itemId]?.();
-
-    if (this.currentScreen?.name === "TITLE" && this.currentScreen?.isOpen)
-      titleScreenMenu[itemId]?.();
+  handleMenuSelection(itemId, source) {
+    dispatchMenuSelection(this, itemId, source);
   }
 }

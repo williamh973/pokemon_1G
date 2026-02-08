@@ -20,13 +20,13 @@ export class Save {
   write() {
     localStorage.setItem("POKEMON_SAVE", JSON.stringify(this));
     const raw = localStorage.getItem("POKEMON_SAVE");
-    console.log(raw);
+    // console.log(raw);
   }
 
   static load() {
     const raw = localStorage.getItem("POKEMON_SAVE");
     if (!raw) return null;
-    console.log(raw);
+    // console.log(raw);
     const data = JSON.parse(raw);
     return Object.assign(new Save(), data);
   }

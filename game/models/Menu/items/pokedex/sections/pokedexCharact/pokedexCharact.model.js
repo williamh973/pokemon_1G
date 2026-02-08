@@ -62,7 +62,7 @@ export class PokedexCharacteristic {
   openItem() {
     const itemId = this.items[this.currentIndex].id;
     if (itemId) {
-      this.game.showMenuSelectedItem(itemId, this);
+      this.game.handleMenuSelection(itemId, this);
     }
   }
 

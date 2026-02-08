@@ -45,6 +45,9 @@ export const update = (game) => {
     case "BATTLE":
       game.currentScreen.update(game.canvas.context, action);
       break;
+    case "INVENTORY":
+      game.currentScreen.update(game.canvas.context, action);
+      break;
   }
   game.transition.update();
 };

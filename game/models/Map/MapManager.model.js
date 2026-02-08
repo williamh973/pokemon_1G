@@ -6,13 +6,16 @@ export class MapManager {
     this.maps = maps;
   }
 
-  loadMap(mapId) {
-    this.game.currentMap = this.maps[mapId];
-
+  filterMissableObjects() {
     this.game.currentMap.npcs = this.game.currentMap.npcs.filter((npc) => {
       if (!npc.flagId) return true;
       return !this.game.flags[npc.flagId];
     });
+  }
+
+  loadMap(mapId) {
+    this.game.currentMap = this.maps[mapId];
+    this.filterMissableObjects();
   }
 
   checkWarp(player) {

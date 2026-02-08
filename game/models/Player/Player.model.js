@@ -1,6 +1,7 @@
 import { Character } from "../Character/Character.model.js";
 import { keys } from "../../logic/input/keyboard.js";
 import { CHARACTER_SPRITES } from "../../shareds/character/sprite/sprite.database.js";
+import { Inventory } from "../Inventory/Inventory.model.js";
 
 export class Player extends Character {
   constructor() {
@@ -21,7 +22,6 @@ export class Player extends Character {
     this.hasLose = false;
     this.pokedex = [];
     this.team = [];
-    this.inventory = {};
     this.trainerCard = {};
   }
 
