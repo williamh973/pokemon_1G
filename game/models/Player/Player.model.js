@@ -20,7 +20,6 @@ export class Player extends Character {
     this.abilities = "";
     this.hasWon = false;
     this.hasLose = false;
-    this.pokedex = [];
     this.team = [];
     this.trainerCard = {};
   }

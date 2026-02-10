@@ -1,5 +1,6 @@
 import { drawBox } from "../../shareds/utils.js";
 import { Cursor } from "../Cursor/Cursor.model.js";
+import { DialogBox } from "../DialogBox/dialogBox.model.js";
 
 export class Inventory {
   constructor(game) {
@@ -11,18 +12,61 @@ export class Inventory {
     this.canvas = this.game.canvas;
     this.width = this.canvas.width;
     this.height = this.canvas.height;
-    this.categories = ["care", "ball", "key"];
-    this.items = [];
+    this.categoryLabels = ["SOIN", "BALL", "RARE", "CT/CS"];
+    this.cares = [];
+    this.balls = [];
+    this.keys = [];
+    this.cTcS = [];
     this.isOpen = false;
     this.hasFocus = false;
     this.lineHeight = 40;
-    this.currentIndex = 0;
+    this.itemCurrentIndex = 0;
+    this.catCurrentIndex = 0;
     this.baseY = 21;
     this.cursor = new Cursor();
+    this.dialogBox = new DialogBox(this.game);
   }
 
-  add(item) {
-    this.items.push(item);
+  get categories() {
+    switch (this.catCurrentIndex) {
+      case 0:
+        return this.cares;
+      case 1:
+        return this.balls;
+      case 2:
+        return this.keys;
+      case 3:
+        return this.cTcS;
+      default:
+        return [];
+    }
+  }
+
+  async getCategoryList(category) {
+    switch (category) {
+      case "care":
+        return this.cares;
+      case "ball":
+        return this.balls;
+      case "key":
+        return this.keys;
+      case "CTCS":
+        return this.cTcS;
+      default:
+        return [];
+    }
+  }
+
+  async add(item, category) {
+    const list = await this.getCategoryList(category);
+    const itemExist = list.find((i) => i.name === item.name);
+
+    if (itemExist) itemExist.count += 1;
+    else
+      list.push({
+        ...item,
+        count: 1,
+      });
   }
 
   draw(context) {
@@ -35,32 +79,69 @@ export class Inventory {
       "black",
       "white"
     );
-    this.drawText(context);
+    this.drawCategoryLabel(context);
+    this.drawItemList(context);
+    this.drawItemsCount(context);
     this.showCursor(context);
   }
 
-  showCursor(context) {
-    const cursorY = this.position.y + this.currentIndex * this.lineHeight + 20;
-    this.cursor.update(context, this.position.x + 10, cursorY);
+  drawCategoryLabel(context) {
+    const padding = 15;
+    context.font = "25px PixelOperator";
+    context.textBaseline = "top";
+    context.fillStyle = "black";
+
+    const positionX = this.position.x;
+    const positionY = this.position.y + padding;
+
+    context.fillText(
+      this.categoryLabels[this.catCurrentIndex],
+      positionX,
+      positionY
+    );
   }
 
-  drawText(context) {
-    const padding = 15;
+  drawItemList(context) {
+    const padding = 40;
     context.font = `25px PixelOperator `;
-    context.fillStyle = "black";
-    context.textBaseline = "top";
 
-    this.items.forEach((item, index) => {
-      const positionX = this.position.x + padding + 20;
+    this.categories.forEach((item, index) => {
+      const positionX = this.position.x + padding;
       const positionY = this.position.y + padding + index * this.lineHeight;
       context.fillText(item.name, positionX, positionY);
     });
+  }
+
+  showCursor(context) {
+    const cursorY =
+      this.position.y + this.itemCurrentIndex * this.lineHeight + 45;
+    this.cursor.update(context, this.position.x + 10, cursorY);
+  }
+
+  drawItemsCount(context) {
+    const padding = 55;
+    this.categories.forEach((item, index) => {
+      if (!item.count) return;
+
+      const positionX = this.width - 110;
+      const positionY = this.position.y + padding + index * this.lineHeight;
+
+      context.fillText(`x${item.count}`, positionX, positionY);
+    });
+  }
+
+  openDialogBox() {
+    const item = this.categories[this.itemCurrentIndex];
+    item
+      ? this.dialogBox.open(item?.desc, true)
+      : this.dialogBox.open("", true);
   }
 
   open() {
     this.isOpen = true;
     this.cursor.isVisible = true;
     this.hasFocus = true;
+    this.openDialogBox();
   }
 
   close() {
@@ -70,39 +151,55 @@ export class Inventory {
   }
 
   useItem() {
-    const itemId = this.items[this.currentIndex].id;
+    const itemId = this.categories[this.itemCurrentIndex].id;
     this.game.handleMenuSelection(itemId, this);
+  }
+
+  toQuit() {
+    this.close();
+    this.game.resetCurrentScreen();
+    this.game.openMenu();
   }
 
   update(context, action) {
     if (!this.isOpen) return;
     this.draw(context);
+    this.openDialogBox();
+    if (this.dialogBox.isOpen)
+      this.dialogBox.update(this.game.canvas.context, action);
 
     if (!this.isOpen || !this.hasFocus) return;
 
     switch (action) {
       case "UP":
-        if (this.currentIndex > 0) this.currentIndex--;
+        if (this.itemCurrentIndex > 0) this.itemCurrentIndex--;
         break;
 
       case "DOWN":
-        if (this.currentIndex < this.items.length - 1) this.currentIndex++;
+        if (this.itemCurrentIndex < this.categories.length - 1)
+          this.itemCurrentIndex++;
         break;
 
+      case "RIGHT":
+        if (this.catCurrentIndex < this.categoryLabels.length - 1) {
+          this.catCurrentIndex++;
+          this.itemCurrentIndex = 0;
+        }
+        break;
+
+      case "LEFT":
+        if (this.catCurrentIndex > 0) {
+          this.catCurrentIndex--;
+          this.itemCurrentIndex = 0;
+        }
+        break;
       case "ACTION":
         this.useItem();
         break;
 
       case "MENU":
-        this.close();
-        this.game.resetCurrentScreen();
-        this.game.openMenu();
-        break;
-
       case "CANCEL":
-        this.close();
-        this.game.resetCurrentScreen();
-        this.game.openMenu();
+        this.toQuit();
         break;
     }
   }

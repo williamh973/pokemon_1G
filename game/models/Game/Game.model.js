@@ -50,7 +50,7 @@ export class Game {
     this.isBattleMod = false;
     this.isLoaded = false;
     this.init();
-    // this.openTitleScreen();
+    this.openTitleScreen();
   }
 
   init() {

@@ -8,6 +8,7 @@ export class Save {
     };
     this.currentMapId = null;
     this.flags = null;
+    this.categories = {};
   }
 
   capture(game) {
@@ -15,12 +16,19 @@ export class Save {
     this.player.tileY = game.player.tileY;
     this.currentMapId = game.currentMap.id;
     this.flags = game.flags;
+    const categories = {
+      cares: game.inventory.cares,
+      balls: game.inventory.balls,
+      keys: game.inventory.keys,
+      cTcS: game.inventory.cTcS,
+    };
+    this.categories = categories;
   }
 
   write() {
     localStorage.setItem("POKEMON_SAVE", JSON.stringify(this));
     const raw = localStorage.getItem("POKEMON_SAVE");
-    // console.log(raw);
+    console.log(raw);
   }
 
   static load() {
@@ -42,6 +50,11 @@ export class Save {
     const map = game.mapManager.maps[this.currentMapId];
     game.currentMap = map;
     game.flags = this.flags;
+
+    game.inventory.cares = this.categories.cares;
+    game.inventory.balls = this.categories.balls;
+    game.inventory.keys = this.categories.keys;
+    game.inventory.cTcS = this.categories.cTcS;
   }
 }
 

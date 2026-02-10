@@ -76,7 +76,10 @@ export const drawBox = (
 };
 
 export const GAME_FLAGS = {
+  GOT_SUPER_POTION_REDHOUSE_2F: false,
+  GOT_POKEBALL_REDHOUSE_2F: false,
   GOT_POTION_REDHOUSE_2F: false,
+  GOT_POTION_2_REDHOUSE_2F: false,
   OAK_INTRO_DONE: false,
   GOT_STARTER: false,
   TALKED_TO_MOM: false,

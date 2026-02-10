@@ -16,7 +16,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "001",
     name: "BULBIZARRE",
-    species: "Graine",
+    species: "GRAINE",
     height: "0.7",
     weight: "6.9",
     desc: "Une étrange graine est plan-\ntée sur son dos dès sa nais-\nsance.La plante germe et\ngrandit avec ce Pokémon.",
@@ -31,7 +31,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "002",
     name: "HERBIZARRE",
-    species: "Pokémon Graine",
+    species: "GRAINE",
     height: "1.0",
     weight: "13.0",
     desc: "Le bulbe sur son dos grossit progressivement. Il peut balancer sa plante pour attaquer ou se défendre. Ce Pokémon préfère les zones ensoleillées.",
@@ -43,14 +43,17 @@ export const POKEDEX_DATABASE = [
   {
     id: "003",
     name: "FLORIZARRE",
-    species: "Pokémon Graine",
+    species: "GRAINE",
     height: "2.0",
     weight: "100.0",
     desc: "La grande fleur sur son dos absorbe la lumière du soleil pour accroître sa puissance. Il attaque avec des lianes massives. Ce Pokémon inspire respect par sa taille et sa force.",
     img: "pokemon003Img",
     cry: "pokemon003Cry",
-    area: ["KANTO_ROUTE_1"],
-    print: "",
+    worldMap: [kantoRoute1.worldMap],
+    print: bulbasaurPrint,
+    animations: {
+      idle: "venusaur_idle",
+    },
   },
   {
     id: "004",
@@ -133,14 +136,17 @@ export const POKEDEX_DATABASE = [
   {
     id: "010",
     name: "CHENIPAN",
-    species: "Pokémon Chenille",
+    species: "CHENILLE",
     height: "0.3",
     weight: "2.9",
     desc: "Il se déplace lentement en broutant des feuilles. Ses antennes détectent les ennemis. Il évoluera bientôt pour devenir plus fort.",
     img: "pokemon010Img",
     cry: "pokemon010Cry",
-    area: ["KANTO_ROUTE_1"],
-    print: "",
+    worldMap: [kantoRoute1.worldMap],
+    print: bulbasaurPrint,
+    animations: {
+      idle: "caterpie_idle",
+    },
   },
   {
     id: "011",
@@ -324,8 +330,11 @@ export const POKEDEX_DATABASE = [
     desc: "Il stocke l’électricité dans ses joues. Lorsque sa queue brille, il est prêt à attaquer. Très attaché à son dresseur, il est courageux malgré sa taille.",
     img: "pokemon025Img",
     cry: "pokemon025Cry",
-    area: ["KANTO_ROUTE_1"],
-    print: "",
+    worldMap: [kantoRoute1.worldMap],
+    print: bulbasaurPrint,
+    animations: {
+      idle: "pikachu_idle",
+    },
   },
   {
     id: "026",
@@ -1359,8 +1368,11 @@ export const POKEDEX_DATABASE = [
     desc: "Son cerveau est très peu développé. Il charge droit devant lui sans réfléchir.",
     img: "pokemon111Img",
     cry: "pokemon111Cry",
-    area: ["KANTO_SAFARI"],
-    print: "",
+    worldMap: [kantoRoute1.worldMap],
+    print: bulbasaurPrint,
+    animations: {
+      idle: "rhyhorn_idle",
+    },
   },
   {
     id: "112",
