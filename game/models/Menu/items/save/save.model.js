@@ -1,4 +1,6 @@
-import { TILES_SIZE } from "../../../../shareds/utils.js";
+import { ITEMS_DATABASE } from "../../../../shareds/items/items.database.js";
+import { getItemById } from "../../../../shareds/utils/save/save.utils.js";
+import { TILES_SIZE } from "../../../../shareds/utils/tile/tile.utils.JS";
 
 export class Save {
   constructor() {
@@ -16,12 +18,22 @@ export class Save {
     this.player.tileY = game.player.tileY;
     this.currentMapId = game.currentMap.id;
     this.flags = game.flags;
+
+    const serialize = (list) =>
+      list
+        .filter((item) => item.id !== "RETOUR")
+        .map((item) => ({
+          id: item.id,
+          count: item.count,
+        }));
+
     const categories = {
-      cares: game.inventory.cares,
-      balls: game.inventory.balls,
-      keys: game.inventory.keys,
-      cTcS: game.inventory.cTcS,
+      cares: serialize(game.inventory.cares),
+      balls: serialize(game.inventory.balls),
+      keys: serialize(game.inventory.keys),
+      cTcS: serialize(game.inventory.cTcS),
     };
+
     this.categories = categories;
   }
 
@@ -51,20 +63,35 @@ export class Save {
     game.currentMap = map;
     game.flags = this.flags;
 
-    game.inventory.cares = this.categories.cares;
-    game.inventory.balls = this.categories.balls;
-    game.inventory.keys = this.categories.keys;
-    game.inventory.cTcS = this.categories.cTcS;
+    const rebuild = (savedList, categoryKey) => {
+      const rebuilt = [];
+
+      savedList.forEach((savedItem) => {
+        const baseItem = getItemById(categoryKey, savedItem.id);
+
+        rebuilt.push({
+          ...baseItem,
+          count: savedItem.count,
+        });
+      });
+
+      rebuilt.push(game.inventory.CANCEL_ITEM);
+
+      return rebuilt;
+    };
+
+    game.inventory.cares = rebuild(this.categories.cares, "care");
+    game.inventory.balls = rebuild(this.categories.balls, "ball");
+    game.inventory.keys = rebuild(this.categories.keys, "key");
+    game.inventory.cTcS = rebuild(this.categories.cTcS, "CTCS");
   }
 }
 
 // pour plus tard
 //   name: "",
 //   team: [],
-//   inventory: {},
 //   money: 0,
 // };
-// this.flags = {};
 // this.defeatedTrainers = [];
 // this.pokedex = {
 //   seen: [],

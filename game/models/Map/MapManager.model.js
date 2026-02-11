@@ -1,4 +1,4 @@
-import { TILES_SIZE } from "../../shareds/utils.js";
+import { TILES_SIZE } from "../../shareds/utils/tile/tile.utils.js";
 
 export class MapManager {
   constructor(game, maps) {

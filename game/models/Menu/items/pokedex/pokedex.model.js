@@ -1,4 +1,4 @@
-import { drawBox } from "../../../../shareds/utils.js";
+import { drawBox } from "../../../../shareds/utils/box/box.utils.js";
 import { PokedexCharacteristic } from "./sections/pokedexCharact/pokedexCharact.model.js";
 import { PokemonList } from "./sections/pokemonList/pokemonList.model.js";
 

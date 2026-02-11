@@ -1,4 +1,5 @@
-import { drawBox } from "../../shareds/utils.js";
+import { drawBox } from "../../shareds/utils/box/box.utils.js";
+import { textParams } from "../../shareds/utils/font/font.utils.js";
 import { Cursor } from "../Cursor/Cursor.model.js";
 
 export class TitleScreen {
@@ -41,19 +42,22 @@ export class TitleScreen {
   }
 
   showCursor(context) {
-    const cursorY = this.position.y + this.currentIndex * this.lineHeight + 20;
-    this.cursor.update(context, this.position.x + 10, cursorY);
+    const paddingX = 20;
+    const paddingY = 10;
+    const cursorY =
+      this.position.y + this.currentIndex * this.lineHeight + paddingX;
+
+    this.cursor.update(context, this.position.x + paddingY, cursorY);
   }
 
   drawText(context) {
-    const padding = 15;
-    context.font = `25px PixelOperator `;
-    context.fillStyle = "black";
-    context.textBaseline = "top";
+    const paddingX = 35;
+    const paddingY = 15;
+    textParams(context, "25px PixelOperator");
 
     this.items.forEach((item, index) => {
-      const positionX = this.position.x + padding + 20;
-      const positionY = this.position.y + padding + index * this.lineHeight;
+      const positionX = this.position.x + paddingX;
+      const positionY = this.position.y + paddingY + index * this.lineHeight;
       context.fillText(item.name, positionX, positionY);
     });
   }

@@ -3,7 +3,6 @@ import { Player } from "../Player/Player.model.js";
 import { Canvas } from "../Canvas/Canvas.model.js";
 import { TileManager } from "../TileManager/Tile.manager.js";
 import { Camera } from "../Camera/camera.model.js";
-import { FADING_TIME, GAME_FLAGS, TILES_SIZE } from "../../shareds/utils.js";
 import { MapManager } from "../Map/MapManager.model.js";
 import { Fade } from "../Fade/fade.model.js";
 import { DialogBox } from "../DialogBox/dialogBox.model.js";
@@ -22,10 +21,13 @@ import {
   loadGame,
   startTransitionBeforeOpenWorldMap,
 } from "../../logic/gameplay/game/game.gameplay.js";
+import { GAME_FLAGS } from "../../shareds/utils/game/game.utils.js";
 import { redHouse_1F } from "../../shareds/map/kanto/palletTown/redHouse/1F/redHouse1F.data.js";
 import { palletTown } from "../../shareds/map/kanto/palletTown/palletTown.data.js";
 import { kantoRoute1 } from "../../shareds/map/kanto/kantoRoute1/kantoRoute1.data.js";
 import { oakLab } from "../../shareds/map/kanto/palletTown/oakLab/oakLab.data.js";
+import { TILES_SIZE } from "../../shareds/utils/tile/tile.utils.js";
+import { FADING_TIME } from "../../shareds/utils/fade/fade.assets.js";
 
 export class Game {
   constructor() {

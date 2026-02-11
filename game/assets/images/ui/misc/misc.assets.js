@@ -1,4 +1,4 @@
-import { createImg } from "../../../../shareds/utils.js";
+import { createImg } from "../../../../shareds/utils/assets/assets.utils.js";
 
 export let rightArrow = createImg(
   "game/assets/images/ui/misc/cursor_selection.png"

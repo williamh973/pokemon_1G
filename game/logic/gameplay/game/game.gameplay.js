@@ -25,6 +25,10 @@ export const dispatchMenuSelection = (game, itemId, source) => {
     OPTIONS: () => game.openOptionsScreen(),
   };
 
+  const inventary = {
+    RETOUR: () => game.closeCurrentScreen(),
+  };
+
   if (game.menu.isOpen) gameMenu[itemId]?.();
   if (
     game.currentScreen?.name === "POKEDEX" &&

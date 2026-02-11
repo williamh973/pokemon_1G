@@ -1,5 +1,6 @@
 import { POKEDEX_DATABASE } from "../../../../../../shareds/pokedex/pokedex.database.js";
-import { drawBox } from "../../../../../../shareds/utils.js";
+import { drawBox } from "../../../../../../shareds/utils/box/box.utils.js";
+import { textParams } from "../../../../../../shareds/utils/font/font.utils.js";
 import { Cursor } from "../../../../../Cursor/Cursor.model.js";
 import { PokedexState } from "../pokedexState/pokedexState.model.js";
 import { PokemonDetail } from "../pokemonDetail/pokemonDetail.model.js";
@@ -38,9 +39,7 @@ export class PokemonList {
   }
 
   drawText(context) {
-    context.font = `27px PixelOperator `;
-    context.fillStyle = "black";
-    context.textBaseline = "top";
+    textParams(context, "27px PixelOperator");
 
     this.databases.forEach((pokemon, index) => {
       const paddingX = 30;

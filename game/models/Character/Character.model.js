@@ -1,5 +1,6 @@
-import { PLAYER_STATE, TILES_SIZE } from "../../shareds/utils.js";
 import { TILE_TYPES } from "../../shareds/tile/tile.type.js";
+import { TILES_SIZE } from "../../shareds/utils/tile/tile.utils.js";
+import { CHARACTER_STATE } from "../../shareds/utils/character/character.utils.js";
 
 export class Character {
   constructor({ tileX, tileY, sprites, facing = "down" }) {
@@ -30,7 +31,7 @@ export class Character {
     this.isCanMove = true;
     this.isMoving = false;
     this.justStartedMoving = false;
-    this.state = PLAYER_STATE.IDLE;
+    this.state = CHARACTER_STATE.IDLE;
     this.sprites = sprites;
     this.facing = facing;
     this.initialFacing = facing;
@@ -50,7 +51,7 @@ export class Character {
 
   moveToTile(dx, dy) {
     this.isMoving = true;
-    this.state = PLAYER_STATE.WALK;
+    this.state = CHARACTER_STATE.WALK;
     this.step = 1 - this.step;
     this.framesMax = this.frames.walk.max;
     this.image = this.sprites.walk[this.facing][this.step];
@@ -175,7 +176,7 @@ export class Character {
         this.framesCurrent = 0;
         this.framesMax = this.frames.idle.max;
         this.image = this.sprites.idle[this.facing];
-        this.state = PLAYER_STATE.IDLE;
+        this.state = CHARACTER_STATE.IDLE;
       }
     }
     this.draw(game.canvas, game.camera);

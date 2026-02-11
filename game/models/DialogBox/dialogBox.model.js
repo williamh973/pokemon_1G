@@ -1,4 +1,5 @@
-import { drawBox } from "../../shareds/utils.js";
+import { drawBox } from "../../shareds/utils/box/box.utils.js";
+import { textParams } from "../../shareds/utils/font/font.utils.js";
 
 export class DialogBox {
   constructor(game, ignoreNextAction = false) {
@@ -71,9 +72,7 @@ export class DialogBox {
   drawText(context) {
     const page = this.pages[this.currentPageIndex];
     const padding = 9;
-    context.font = `26px PixelOperator `;
-    context.fillStyle = "black";
-    context.textBaseline = "top";
+    textParams(context, "26px PixelOperator");
 
     page.forEach((line, index) => {
       context.fillText(

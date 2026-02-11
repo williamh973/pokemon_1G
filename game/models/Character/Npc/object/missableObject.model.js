@@ -31,7 +31,6 @@ export class MissableObject extends Npc {
     game.inventory.add(item, this.category);
     game.flags[this.flagId] = true;
     game.openDialogBox(`Vous obtenez ${item.name} !`, null);
-
     this.remove(game);
   }
 

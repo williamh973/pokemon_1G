@@ -1,4 +1,5 @@
-import { drawBox } from "../../../../../../shareds/utils.js";
+import { drawBox } from "../../../../../../shareds/utils/box/box.utils.js";
+import { textParams } from "../../../../../../shareds/utils/font/font.utils.js";
 import { Cursor } from "../../../../../Cursor/Cursor.model.js";
 
 export class PokedexCharacteristic {
@@ -26,8 +27,7 @@ export class PokedexCharacteristic {
 
   drawText(context) {
     const padding = 15;
-    context.font = `25px PixelOperator `;
-    context.fillStyle = "black";
+    textParams(context, "25px PixelOperator");
 
     this.items.forEach((item, index) => {
       const positionX = this.position.x + padding + 10;

@@ -1,4 +1,4 @@
-import { drawBox } from "../../../../../../shareds/utils.js";
+import { drawBox } from "../../../../../../shareds/utils/box/box.utils.js";
 
 export class PokedexState {
   constructor(pokemonList) {

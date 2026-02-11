@@ -1,4 +1,4 @@
-import { drawBox } from "../../../../../../shareds/utils.js";
+import { drawBox } from "../../../../../../shareds/utils/box/box.utils.js";
 import { WORLDMAP_GRID } from "../../../../../../shareds/worldMap/worldMap.grid.js";
 
 export class WorldMap {

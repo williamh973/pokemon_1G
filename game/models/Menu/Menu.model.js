@@ -1,5 +1,7 @@
-import { TILES_SIZE, drawBox } from "../../shareds/utils.js";
+import { TILES_SIZE } from "../../shareds/utils/tile/tile.utils.js";
+import { drawBox } from "../../shareds/utils/box/box.utils.js";
 import { Cursor } from "../Cursor/Cursor.model.js";
+import { textParams } from "../../shareds/utils/font/font.utils.js";
 
 export class Menu {
   constructor(game) {
@@ -50,9 +52,7 @@ export class Menu {
 
   drawText(context) {
     const padding = 15;
-    context.font = `25px PixelOperator `;
-    context.fillStyle = "black";
-    context.textBaseline = "top";
+    textParams(context, "25px PixelOperator");
 
     this.items.forEach((item, index) => {
       const positionX = this.position.x + padding + 20;

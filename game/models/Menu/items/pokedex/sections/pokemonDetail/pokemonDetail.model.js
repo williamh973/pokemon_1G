@@ -1,5 +1,5 @@
 import { POKEMON_ANIMATIONS } from "../../../../../../shareds/pokemon/animations/pokemonAnimation.database.js";
-import { drawBox } from "../../../../../../shareds/utils.js";
+import { drawBox } from "../../../../../../shareds/utils/box/box.utils.js";
 import { AnimatedSprite } from "../../../../../AnimationSprite/AnimationSprite.model.js";
 import { DialogBox } from "../../../../../DialogBox/dialogBox.model.js";
 

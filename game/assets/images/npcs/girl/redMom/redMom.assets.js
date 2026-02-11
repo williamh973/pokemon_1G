@@ -1,4 +1,4 @@
-import { createImg } from "../../../../../shareds/utils.js";
+import { createImg } from "../../../../../shareds/utils/assets/assets.utils.js";
 
 export let idleMomDown = createImg(
   "game/assets/images/npcs/girl/redMom/idle/idle_down.png"

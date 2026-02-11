@@ -1,4 +1,5 @@
-import { drawBox } from "../../shareds/utils.js";
+import { drawBox } from "../../shareds/utils/box/box.utils.js";
+import { textParams } from "../../shareds/utils/font/font.utils.js";
 import { Cursor } from "../Cursor/Cursor.model.js";
 import { DialogBox } from "../DialogBox/dialogBox.model.js";
 
@@ -13,10 +14,11 @@ export class Inventory {
     this.width = this.canvas.width;
     this.height = this.canvas.height;
     this.categoryLabels = ["SOIN", "BALL", "RARE", "CT/CS"];
-    this.cares = [];
-    this.balls = [];
-    this.keys = [];
-    this.cTcS = [];
+    this.CANCEL_ITEM = { id: "RETOUR", name: "RETOUR" };
+    this.cares = [this.CANCEL_ITEM];
+    this.balls = [this.CANCEL_ITEM];
+    this.keys = [this.CANCEL_ITEM];
+    this.cTcS = [this.CANCEL_ITEM];
     this.isOpen = false;
     this.hasFocus = false;
     this.lineHeight = 40;
@@ -57,6 +59,18 @@ export class Inventory {
     }
   }
 
+  removeCancelItem(list) {
+    return list.filter((item) => item.id !== "RETOUR");
+  }
+
+  listSort(listFilter) {
+    return listFilter.sort((a, b) => a.name.localeCompare(b.name));
+  }
+
+  resetList(list) {
+    list.length = 0;
+  }
+
   async add(item, category) {
     const list = await this.getCategoryList(category);
     const itemExist = list.find((i) => i.name === item.name);
@@ -67,6 +81,13 @@ export class Inventory {
         ...item,
         count: 1,
       });
+
+    const cancelItem = list.find((item) => item.id === "RETOUR");
+
+    const listFilter = this.removeCancelItem(list);
+    const listSorted = this.listSort(listFilter);
+    this.resetList(list);
+    list.push(...listSorted, cancelItem);
   }
 
   draw(context) {
@@ -87,24 +108,17 @@ export class Inventory {
 
   drawCategoryLabel(context) {
     const padding = 15;
-    context.font = "25px PixelOperator";
-    context.textBaseline = "top";
-    context.fillStyle = "black";
-
-    const positionX = this.position.x;
-    const positionY = this.position.y + padding;
+    textParams(context, `25px PixelOperator `);
 
     context.fillText(
       this.categoryLabels[this.catCurrentIndex],
-      positionX,
-      positionY
+      this.position.x,
+      this.position.y + padding
     );
   }
 
   drawItemList(context) {
     const padding = 40;
-    context.font = `25px PixelOperator `;
-
     this.categories.forEach((item, index) => {
       const positionX = this.position.x + padding;
       const positionY = this.position.y + padding + index * this.lineHeight;
@@ -122,17 +136,15 @@ export class Inventory {
     const padding = 55;
     this.categories.forEach((item, index) => {
       if (!item.count) return;
-
       const positionX = this.width - 110;
       const positionY = this.position.y + padding + index * this.lineHeight;
-
       context.fillText(`x${item.count}`, positionX, positionY);
     });
   }
 
   openDialogBox() {
     const item = this.categories[this.itemCurrentIndex];
-    item
+    item && item.desc
       ? this.dialogBox.open(item?.desc, true)
       : this.dialogBox.open("", true);
   }
@@ -151,7 +163,7 @@ export class Inventory {
   }
 
   useItem() {
-    const itemId = this.categories[this.itemCurrentIndex].id;
+    const itemId = this.categories[this.itemCurrentIndex].name;
     this.game.handleMenuSelection(itemId, this);
   }
 
@@ -193,6 +205,7 @@ export class Inventory {
           this.itemCurrentIndex = 0;
         }
         break;
+
       case "ACTION":
         this.useItem();
         break;
