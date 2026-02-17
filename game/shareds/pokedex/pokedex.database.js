@@ -25,7 +25,7 @@ export const POKEDEX_DATABASE = [
     worldMap: [palletTown.worldMap, kantoRoute1.worldMap],
     print: bulbasaurPrint,
     animations: {
-      idle: "bulbasaur_idle",
+      idle: "bulbasaur_front_idle",
     },
   },
   {
@@ -52,7 +52,7 @@ export const POKEDEX_DATABASE = [
     worldMap: [kantoRoute1.worldMap],
     print: bulbasaurPrint,
     animations: {
-      idle: "venusaur_idle",
+      idle: "venusaur_front_idle",
     },
   },
   {
@@ -67,7 +67,7 @@ export const POKEDEX_DATABASE = [
     worldMap: [palletTown.worldMap, kantoRoute1.worldMap],
     print: bulbasaurPrint,
     animations: {
-      idle: "charmander_idle",
+      idle: "charmander_front_idle",
     },
   },
   {
@@ -94,7 +94,7 @@ export const POKEDEX_DATABASE = [
     area: ["KANTO_ROUTE_1"],
     print: charizardPrint,
     animations: {
-      idle: "charizard_idle",
+      idle: "charizard_front_idle",
     },
   },
   {
@@ -109,7 +109,7 @@ export const POKEDEX_DATABASE = [
     area: ["KANTO_ROUTE_1"],
     print: charizardPrint,
     animations: {
-      idle: "squirtle_idle",
+      idle: "squirtle_front_idle",
     },
   },
   {
@@ -148,7 +148,7 @@ export const POKEDEX_DATABASE = [
     worldMap: [kantoRoute1.worldMap],
     print: bulbasaurPrint,
     animations: {
-      idle: "caterpie_idle",
+      idle: "caterpie_front_idle",
     },
   },
   {
@@ -163,7 +163,7 @@ export const POKEDEX_DATABASE = [
     worldMap: [kantoRoute1.worldMap],
     print: bulbasaurPrint,
     animations: {
-      idle: "metapod_idle",
+      idle: "metapod_front_idle",
     },
   },
   {
@@ -225,7 +225,7 @@ export const POKEDEX_DATABASE = [
     worldMap: [palletTown.worldMap, kantoRoute1.worldMap],
     print: bulbasaurPrint,
     animations: {
-      idle: "pidgey_idle",
+      idle: "pidgey_front_idle",
     },
   },
   {
@@ -264,7 +264,7 @@ export const POKEDEX_DATABASE = [
     worldMap: [kantoRoute1.worldMap],
     print: bulbasaurPrint,
     animations: {
-      idle: "rattata_idle",
+      idle: "rattata_front_idle",
     },
   },
   {
@@ -339,7 +339,7 @@ export const POKEDEX_DATABASE = [
     worldMap: [kantoRoute1.worldMap],
     print: bulbasaurPrint,
     animations: {
-      idle: "pikachu_idle",
+      idle: "pikachu_front_idle",
     },
   },
   {
@@ -927,7 +927,7 @@ export const POKEDEX_DATABASE = [
     worldMap: [palletTown.worldMap, kantoRoute1.worldMap],
     print: "",
     animations: {
-      idle: "geodude_idle",
+      idle: "geodude_front_idle",
     },
   },
   {
@@ -1182,7 +1182,7 @@ export const POKEDEX_DATABASE = [
     worldMap: [palletTown.worldMap, kantoRoute1.worldMap],
     print: bulbasaurPrint,
     animations: {
-      idle: "onix_idle",
+      idle: "onix_front_idle",
     },
   },
   {
@@ -1377,7 +1377,7 @@ export const POKEDEX_DATABASE = [
     worldMap: [kantoRoute1.worldMap],
     print: bulbasaurPrint,
     animations: {
-      idle: "rhyhorn_idle",
+      idle: "rhyhorn_front_idle",
     },
   },
   {
@@ -1524,7 +1524,7 @@ export const POKEDEX_DATABASE = [
     worldMap: [palletTown.worldMap, kantoRoute1.worldMap],
     print: "",
     animations: {
-      idle: "scyther_idle",
+      idle: "scyther_front_idle",
     },
   },
   {
@@ -1611,7 +1611,7 @@ export const POKEDEX_DATABASE = [
     worldMap: [kantoRoute1.worldMap],
     print: bulbasaurPrint,
     animations: {
-      idle: "gyarados_idle",
+      idle: "gyarados_front_front_idle",
     },
   },
   {

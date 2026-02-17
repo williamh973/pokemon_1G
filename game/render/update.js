@@ -12,7 +12,7 @@ export const update = (game) => {
 
   // console.log(game.state);
 
-  game.currentMap.npcs?.forEach((npc) => {
+  game.mapManager.currentMap.npcs?.forEach((npc) => {
     npc.update(game, null);
   });
 
@@ -28,7 +28,7 @@ export const update = (game) => {
       game.dialogBox?.update(game.canvas.context, action);
       break;
     case "MENU":
-      game.menu?.update(game.canvas.context, action);
+      game.mainMenu?.update(game.canvas.context, action);
       break;
     case "CHOICE_MENU":
       game.choiceMenu?.update(game.canvas.context, action);

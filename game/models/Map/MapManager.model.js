@@ -1,27 +1,49 @@
+import { NPC_DATABASE } from "../../shareds/character/npc/npc.database.js";
+import { NPC_LOCATION } from "../../shareds/character/npc/npcLocation.database.js";
 import { TILES_SIZE } from "../../shareds/utils/tile/tile.utils.js";
+import { Npc } from "../Character/Npc/npc.model.js";
 
 export class MapManager {
   constructor(game, maps) {
     this.game = game;
     this.maps = maps;
+    this.currentMap = this.maps["PALLET_TOWN"];
+    this.loadMap(this.currentMap);
+  }
+
+  loadNpcs(map) {
+    const mapNpcs = NPC_LOCATION[map.id];
+    return mapNpcs.map((data) => {
+      const config = NPC_DATABASE[data.id];
+      const npc = new Npc({
+        tileX: data.tileX,
+        tileY: data.tileY,
+        sprites: config.sprites,
+        facing: config.facing,
+        name: config.name,
+        dialogTree: config.dialogTree,
+        behavior: config.behavior,
+      });
+      return this.currentMap.npcs.push(npc);
+    });
   }
 
   filterMissableObjects() {
-    this.game.currentMap.npcs = this.game.currentMap.npcs.filter((npc) => {
+    this.currentMap.npcs = this.currentMap.npcs.filter((npc) => {
       if (!npc.flagId) return true;
       return !this.game.flags[npc.flagId];
     });
   }
 
-  loadMap(mapId) {
-    this.game.currentMap = this.maps[mapId];
+  loadMap(map) {
+    this.loadNpcs(map);
     this.filterMissableObjects();
   }
 
   checkWarp(player) {
-    const warp = this.game.currentMap.warps.find(
+    const warp = this.currentMap.warps.find(
       (w) =>
-        w.fromMap === this.game.currentMap.id &&
+        w.fromMap === this.currentMap.id &&
         w.from.x === player.tileX &&
         w.from.y === player.tileY
     );
@@ -59,7 +81,8 @@ export class MapManager {
 
     game.transition.start(
       () => {
-        this.loadMap(warp.toMap);
+        this.currentMap = this.maps[warp.toMap];
+        this.loadMap(this.currentMap);
         this.updatePlayerPositionWithFacing(game, false, warp);
       },
       () => {
@@ -69,14 +92,14 @@ export class MapManager {
   }
 
   staticInteraction(front) {
-    const interaction = this.game.currentMap.interactions.find(
+    const interaction = this.currentMap.interactions.find(
       (i) => i.tile.x === front.x && i.tile.y === front.y
     );
     return interaction;
   }
 
-  npcInteraction(front) {
-    return this.game.currentMap.npcs?.find(
+  npcInFrontOf(front) {
+    return this.currentMap.npcs?.find(
       (npc) => npc.tileX === front.x && npc.tileY === front.y
     );
   }
@@ -85,16 +108,11 @@ export class MapManager {
     const front = player.getFrontTile();
 
     const staticInteraction = this.staticInteraction(front);
-    if (staticInteraction) {
-      this.triggerInteraction(staticInteraction, player);
-      return;
-    }
+    if (staticInteraction)
+      return this.triggerInteraction(staticInteraction, player);
 
-    const npc = this.npcInteraction(front);
-    if (npc) {
-      npc.interact(this.game);
-      return;
-    }
+    const npc = this.npcInFrontOf(front);
+    if (npc) return npc.interact(this.game);
   }
 
   triggerInteraction(staticInteraction, player) {

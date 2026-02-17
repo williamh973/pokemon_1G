@@ -1,43 +1,23 @@
-import { Save } from "../../../models/Menu/items/Save/save.model.js";
-import { WorldMap } from "../../../models/Menu/items/pokedex/sections/WorldMap/WorldMap.model.js";
+import { Save } from "../../../models/MainMenu/items/Save/save.model.js";
+import { WorldMap } from "../../../models/MainMenu/items/pokedex/sections/WorldMap/WorldMap.model.js";
 
 export const dispatchMenuSelection = (game, itemId, source) => {
   source.hasFocus = false;
-  const gameMenu = {
+  const itemsList = {
     POKEDEX: () => game.openPokedex(),
     POKEMON: () => game.openTeam(),
     SAC: () => game.openInventory(),
     SAUVER: () => game.attemptSave(),
     OPTIONS: () => game.openOptionsScreen(),
     RETOUR: () => game.closeMenu(),
-  };
-
-  const pokedexCharacMenu = {
     INFO: () => game.openPokemonDetail(),
-    CRI: () => game(),
+    CRI: () => game.playCry(),
     ZONE: () => game.openWorldMap(),
-    RETOUR: () => game.closeCurrentScreen(),
-  };
-
-  const titleScreenMenu = {
     NEW_GAME: () => game.closeTitleScreen(),
     CONTINUE: () => game.load(),
-    OPTIONS: () => game.openOptionsScreen(),
   };
 
-  const inventary = {
-    RETOUR: () => game.closeCurrentScreen(),
-  };
-
-  if (game.menu.isOpen) gameMenu[itemId]?.();
-  if (
-    game.currentScreen?.name === "POKEDEX" &&
-    game.currentScreen?.pokedexCharac.isOpen
-  )
-    pokedexCharacMenu[itemId]?.();
-
-  if (game.currentScreen?.name === "TITLE" && game.currentScreen?.isOpen)
-    titleScreenMenu[itemId]?.();
+  return itemsList[itemId]?.();
 };
 
 export const startTransitionBeforeOpenWorldMap = (game) => {
@@ -47,7 +27,7 @@ export const startTransitionBeforeOpenWorldMap = (game) => {
       game.currentScreen = new WorldMap(game, "ENCOUNTER");
       game.currentScreen.open(pokemon);
       game.state = "WORLDMAP";
-      game.menu.close();
+      game.mainMenu.close();
     },
     () => {}
   );
@@ -59,6 +39,6 @@ export const loadGame = (game) => {
 
   save.apply(game);
   game.isLoaded = true;
-  game.mapManager.loadMap(game.currentMap.id);
+  game.mapManager.loadMap(game.mapManager.currentMap.id);
   game.closeTitleScreen();
 };

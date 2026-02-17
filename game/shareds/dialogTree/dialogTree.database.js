@@ -27,7 +27,7 @@ export const DIALOGS_TREE_DATABASE = {
       },
     },
   },
-  palletTown: {
+  redHouse1F: {
     mom: {
       start: {
         text: "Tous les garçons partent un\njour de la maison. J'ai déjà\nvu ça à la TV.",
@@ -38,9 +38,16 @@ export const DIALOGS_TREE_DATABASE = {
         text: "N'oublie pas de dire bonjour\nau professeur Chen.",
       },
     },
-    fatKid: {
+  },
+  palletTown: {
+    guss: {
       start: {
         text: "Mon Rattata est le meilleur !",
+      },
+    },
+    julio: {
+      start: {
+        text: "Mon frère prétend que son \nRattata est le meilleur !",
       },
     },
   },

@@ -1,11 +1,21 @@
 import { Character } from "../Character.model.js";
 
 export class Npc extends Character {
-  constructor({ tileX, tileY, sprites, facing = "down" }) {
+  constructor({
+    tileX,
+    tileY,
+    sprites,
+    facing = "down",
+    dialogTree = null,
+    behavior = "static",
+    name = "NPC",
+  }) {
     super({ tileX, tileY, sprites, facing });
     this.initialFacing = facing;
     this.restoreTimeout = null;
-    this.dialogs = [];
+    this.name = name;
+    this.behavior = behavior;
+    this.dialogTree = dialogTree;
   }
 
   setInitialFacing(facing) {

@@ -1,33 +1,28 @@
 import { animate } from "../../render/animate.js";
-import { Player } from "../Player/Player.model.js";
 import { Canvas } from "../Canvas/Canvas.model.js";
 import { TileManager } from "../TileManager/Tile.manager.js";
 import { Camera } from "../Camera/camera.model.js";
 import { MapManager } from "../Map/MapManager.model.js";
 import { Fade } from "../Fade/fade.model.js";
 import { DialogBox } from "../DialogBox/dialogBox.model.js";
-import { Menu } from "../Menu/Menu.model.js";
-import { Pokedex } from "../Menu/items/pokedex/pokedex.model.js";
+import { MainMenu } from "../MainMenu/MainMenu.model.js";
+import { Pokedex } from "../MainMenu/items/pokedex/pokedex.model.js";
 import { InputManager } from "../InputManager/InputManager.model.js";
-import { Save } from "../Menu/items/Save/save.model.js";
+import { Save } from "../MainMenu/items/Save/save.model.js";
 import { TitleScreen } from "../TitleScreen/TitleScreen.model.js";
 import { MAPS } from "../../shareds/map/maps.registry.js";
 import { ChoiceMenu } from "../ChoiceMenu/ChoiceMenu.model.js";
-import { redHouse_2F } from "../../shareds/map/kanto/palletTown/redHouse/2F/redHouse2F.data.js";
 import { DIALOGS_TREE_DATABASE } from "../../shareds/dialogTree/dialogTree.database.js";
-import { Inventory } from "../Inventory/Inventory.model.js";
+import { Inventory } from "../MainMenu/items/Inventory/Inventory.model.js";
 import {
   dispatchMenuSelection,
   loadGame,
   startTransitionBeforeOpenWorldMap,
 } from "../../logic/gameplay/game/game.gameplay.js";
 import { GAME_FLAGS } from "../../shareds/utils/game/game.utils.js";
-import { redHouse_1F } from "../../shareds/map/kanto/palletTown/redHouse/1F/redHouse1F.data.js";
-import { palletTown } from "../../shareds/map/kanto/palletTown/palletTown.data.js";
-import { kantoRoute1 } from "../../shareds/map/kanto/kantoRoute1/kantoRoute1.data.js";
-import { oakLab } from "../../shareds/map/kanto/palletTown/oakLab/oakLab.data.js";
 import { TILES_SIZE } from "../../shareds/utils/tile/tile.utils.js";
 import { FADING_TIME } from "../../shareds/utils/fade/fade.assets.js";
+import { Player } from "../Character/Player/Player.model.js";
 
 export class Game {
   constructor() {
@@ -37,12 +32,11 @@ export class Game {
     this.mapManager = new MapManager(this, MAPS);
     this.tileManager = new TileManager(TILES_SIZE);
     this.transition = new Fade(FADING_TIME);
-    this.menu = new Menu(this);
+    this.mainMenu = new MainMenu(this);
     this.dialogBox = new DialogBox(this);
     this.input = new InputManager();
     this.inventory = new Inventory(this);
     this.state = "WORLD";
-    this.currentMap = redHouse_2F;
     this.flags = GAME_FLAGS;
     this.choiceMenu = null;
     this.currentScreen = null;
@@ -52,7 +46,7 @@ export class Game {
     this.isBattleMod = false;
     this.isLoaded = false;
     this.init();
-    this.openTitleScreen();
+    // this.openTitleScreen();
   }
 
   init() {
@@ -79,13 +73,13 @@ export class Game {
   }
 
   openMenu() {
-    this.menu.open();
+    this.mainMenu.open();
     this.state = "MENU";
     this.togglePause(true, false);
   }
 
   closeMenu() {
-    this.menu.close();
+    this.mainMenu.close();
     this.state = "WORLD";
     this.togglePause(false, true);
   }

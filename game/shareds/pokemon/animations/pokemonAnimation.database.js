@@ -1,4 +1,4 @@
-import { POKEMON_IDLE_ANIMATIONS } from "./idle/pokemonIdleAnimation.database.js";
+import { POKEMON_IDLE_ANIMATIONS } from "./idle/pokemonFrontIdleAnimation.database.js";
 import { POKEMON_SPECIAL_ANIMATIONS } from "./special/pokemonSpecialAnimation.database.js";
 
 export const POKEMON_ANIMATIONS = {

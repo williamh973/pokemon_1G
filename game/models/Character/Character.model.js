@@ -121,13 +121,13 @@ export class Character {
   }
 
   npc(game, targetX, targetY) {
-    return game.currentMap.npcs?.some((npc) => {
+    return game.mapManager.currentMap.npcs?.some((npc) => {
       return npc.tileX === targetX && npc.tileY === targetY;
     });
   }
 
   walkableTile(game, targetX, targetY) {
-    const tile = game.currentMap.collision[targetY][targetX];
+    const tile = game.mapManager.currentMap.collision[targetY][targetX];
     const collision = TILE_TYPES[tile];
     return collision.walkable;
   }
@@ -148,7 +148,7 @@ export class Character {
     const targetX = this.tileX + dx;
     const targetY = this.tileY + dy;
 
-    if (this.outOfMap(targetX, targetY, game.currentMap)) return;
+    if (this.outOfMap(targetX, targetY, game.mapManager.currentMap)) return;
 
     if (
       !this.walkableTile(game, targetX, targetY) ||

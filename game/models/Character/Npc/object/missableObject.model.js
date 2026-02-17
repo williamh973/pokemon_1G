@@ -35,7 +35,7 @@ export class MissableObject extends Npc {
   }
 
   remove(game) {
-    game.currentMap.npcs = game.currentMap.npcs.filter(
+    game.mapManager.currentMap.npcs = game.mapManager.currentMap.npcs.filter(
       (item) => item.flagId !== this.flagId
     );
   }
