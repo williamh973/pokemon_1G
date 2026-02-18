@@ -31,6 +31,11 @@ export const DIALOGS_TREE_DATABASE = {
     mom: {
       start: {
         text: "Tous les garçons partent un\njour de la maison. J'ai déjà\nvu ça à la TV.",
+        flagCheck: {
+          flag: "TALKED_TO_MOM",
+          trueNode: "repeat",
+          falseNode: "start",
+        },
         setFlag: "TALKED_TO_MOM",
         next: "repeat",
       },
@@ -43,11 +48,19 @@ export const DIALOGS_TREE_DATABASE = {
     guss: {
       start: {
         text: "Mon Rattata est le meilleur !",
+        flagCheck: {
+          flag: "GOT_STARTER",
+          trueNode: "next",
+          falseNode: "start",
+        },
+      },
+      next: {
+        text: "oh ! Mais c'est un pokémon !\nViens te battre !",
       },
     },
     julio: {
       start: {
-        text: "Mon frère prétend que son \nRattata est le meilleur !",
+        text: "Mon frère est moi sommes inséparable !",
       },
     },
   },

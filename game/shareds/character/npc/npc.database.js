@@ -19,7 +19,7 @@ export const NPC_DATABASE = {
     },
     name: "Julio",
     dialogTree: DIALOGS_TREE_DATABASE.palletTown.julio,
-    behavior: "static",
+    behavior: "lookAround",
     facing: "up",
   },
   mom: {
@@ -39,7 +39,7 @@ export const NPC_DATABASE = {
     },
     name: "Oak",
     dialogTree: "oakLab.oak",
-    behavior: "static",
+    behavior: "patrol",
     facing: "down",
   },
 };

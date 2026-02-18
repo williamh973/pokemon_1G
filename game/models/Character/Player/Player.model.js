@@ -10,8 +10,8 @@ export class Player extends Character {
     };
 
     super({
-      tileX: 8,
-      tileY: 7,
+      tileX: 10,
+      tileY: 10,
       sprites: playerSprites,
     });
 

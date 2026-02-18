@@ -3,7 +3,7 @@ import { OBJECT_SPRITES } from "../../../../shareds/items/sprite/itemsSprite.dat
 import { Npc } from "../npc.model.js";
 
 export class MissableObject extends Npc {
-  constructor(tileX, tileY, itemId, category, flagId) {
+  constructor({ key, tileX, tileY, id, category, flagId, name }) {
     super({
       tileX,
       tileY,
@@ -12,15 +12,16 @@ export class MissableObject extends Npc {
       },
       facing: "down",
     });
-    this.itemId = itemId;
+    this.itemId = id;
     this.flagId = flagId;
+    this.itemKey = key;
     this.category = category;
+    this.name = name;
   }
 
   getItem() {
-    const itemsData = ITEMS_DATABASE;
-    const category = itemsData[this.category];
-    const item = category[this.itemId];
+    const category = ITEMS_DATABASE[this.category];
+    const item = category[this.itemKey];
     return item;
   }
 
@@ -28,6 +29,7 @@ export class MissableObject extends Npc {
     if (game.flags[this.flagId]) return;
 
     const item = this.getItem();
+
     game.inventory.add(item, this.category);
     game.flags[this.flagId] = true;
     game.openDialogBox(`Vous obtenez ${item.name} !`, null);

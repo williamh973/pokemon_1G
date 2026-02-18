@@ -1,7 +1,10 @@
 import { NPC_DATABASE } from "../../shareds/character/npc/npc.database.js";
 import { NPC_LOCATION } from "../../shareds/character/npc/npcLocation.database.js";
+import { ITEMS_DATABASE } from "../../shareds/items/items.database.js";
+import { ITEM_LOCATION } from "../../shareds/items/itemsLocation.database.js";
 import { TILES_SIZE } from "../../shareds/utils/tile/tile.utils.js";
 import { Npc } from "../Character/Npc/npc.model.js";
+import { MissableObject } from "../Character/Npc/object/missableObject.model.js";
 
 export class MapManager {
   constructor(game, maps) {
@@ -28,6 +31,23 @@ export class MapManager {
     });
   }
 
+  loadMissableObjs(map) {
+    const mapMissableObjs = ITEM_LOCATION[map.id];
+    return mapMissableObjs.map((data) => {
+      const config = ITEMS_DATABASE[data.category][data.key];
+      const item = new MissableObject({
+        key: data.key,
+        tileX: data.tileX,
+        tileY: data.tileY,
+        id: config.id,
+        category: data.category,
+        flagId: data.flagId,
+        name: config.name,
+      });
+      return this.currentMap.npcs.push(item);
+    });
+  }
+
   filterMissableObjects() {
     this.currentMap.npcs = this.currentMap.npcs.filter((npc) => {
       if (!npc.flagId) return true;
@@ -35,8 +55,21 @@ export class MapManager {
     });
   }
 
+  clearCurrentMapNpcs() {
+    this.currentMap.npcs.forEach((npc) => {
+      npc.destroyTimeout();
+      npc.isTimeoutDestroyed = true;
+    });
+    this.removeCurrentMapNpcs();
+  }
+
+  removeCurrentMapNpcs() {
+    return (this.currentMap.npcs = []);
+  }
+
   loadMap(map) {
     this.loadNpcs(map);
+    this.loadMissableObjs(map);
     this.filterMissableObjects();
   }
 
@@ -59,6 +92,8 @@ export class MapManager {
   }
 
   checkTransition(game, warp) {
+    this.clearCurrentMapNpcs();
+
     if (!warp.transition) {
       this.loadMap(warp.toMap);
       this.updatePlayerPositionWithFacing(game, true, warp);
