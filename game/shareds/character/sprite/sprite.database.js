@@ -27,6 +27,34 @@ import {
   walkOakUp_stepB,
 } from "../../../assets/images/npcs/boy/oak/oak.assets.js";
 import {
+  idleScientistRight,
+  idleScientistUp,
+  idleScientistdDown,
+  idleScientistdLeft,
+  walkScientistDown_stepA,
+  walkScientistDown_stepB,
+  walkScientistLeft_stepA,
+  walkScientistLeft_stepB,
+  walkScientistRight_stepA,
+  walkScientistRight_stepB,
+  walkScientistUp_stepA,
+  walkScientistUp_stepB,
+} from "../../../assets/images/npcs/boy/scientist/scientist.assets.js";
+import {
+  idleMGDown,
+  idleMGLeft,
+  idleMGRight,
+  idleMGUp,
+  walkMGDown_stepA,
+  walkMGDown_stepB,
+  walkMGLeft_stepA,
+  walkMGLeft_stepB,
+  walkMGRight_stepA,
+  walkMGRight_stepB,
+  walkMGUp_stepA,
+  walkMGUp_stepB,
+} from "../../../assets/images/npcs/girl/middleGirl/middleGirl.assets.js";
+import {
   idleMomDown,
   idleMomLeft,
   idleMomRight,
@@ -102,6 +130,34 @@ export const CHARACTER_SPRITES = {
       down: [walkOakDown_stepA, walkOakDown_stepB],
       left: [walkOakLeft_stepA, walkOakLeft_stepB],
       right: [walkOakRight_stepA, walkOakRight_stepB],
+    },
+  },
+  middleGirl: {
+    idle: {
+      up: idleMGUp,
+      down: idleMGDown,
+      left: idleMGLeft,
+      right: idleMGRight,
+    },
+    walk: {
+      up: [walkMGUp_stepA, walkMGUp_stepB],
+      down: [walkMGDown_stepA, walkMGDown_stepB],
+      left: [walkMGLeft_stepA, walkMGLeft_stepB],
+      right: [walkMGRight_stepA, walkMGRight_stepB],
+    },
+  },
+  scientist: {
+    idle: {
+      up: idleScientistUp,
+      down: idleScientistdDown,
+      left: idleScientistdLeft,
+      right: idleScientistRight,
+    },
+    walk: {
+      up: [walkScientistUp_stepA, walkScientistUp_stepB],
+      down: [walkScientistDown_stepA, walkScientistDown_stepB],
+      left: [walkScientistLeft_stepA, walkScientistLeft_stepB],
+      right: [walkScientistRight_stepA, walkScientistRight_stepB],
     },
   },
 };

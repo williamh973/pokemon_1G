@@ -9,7 +9,7 @@ export const NPC_DATABASE = {
     },
     name: "Guss",
     dialogTree: DIALOGS_TREE_DATABASE.palletTown.guss,
-    behavior: "wander",
+    behavior: "lookAround",
     facing: "down",
   },
   julio: {
@@ -19,7 +19,7 @@ export const NPC_DATABASE = {
     },
     name: "Julio",
     dialogTree: DIALOGS_TREE_DATABASE.palletTown.julio,
-    behavior: "lookAround",
+    behavior: "wander",
     facing: "up",
   },
   mom: {
@@ -41,5 +41,35 @@ export const NPC_DATABASE = {
     dialogTree: "oakLab.oak",
     behavior: "patrol",
     facing: "down",
+  },
+  lisa: {
+    sprites: {
+      idle: CHARACTER_SPRITES.middleGirl.idle,
+      walk: CHARACTER_SPRITES.middleGirl.walk,
+    },
+    name: "Lisa",
+    dialogTree: DIALOGS_TREE_DATABASE.palletTown.lisa,
+    behavior: "wander",
+    facing: "right",
+  },
+  luc: {
+    sprites: {
+      idle: CHARACTER_SPRITES.scientist.idle,
+      walk: CHARACTER_SPRITES.scientist.walk,
+    },
+    name: "luc",
+    dialogTree: DIALOGS_TREE_DATABASE.oakLab.luc,
+    behavior: "lookAround",
+    facing: "right",
+  },
+  noah: {
+    sprites: {
+      idle: CHARACTER_SPRITES.scientist.idle,
+      walk: CHARACTER_SPRITES.scientist.walk,
+    },
+    name: "Noah",
+    dialogTree: DIALOGS_TREE_DATABASE.oakLab.noah,
+    behavior: "static",
+    facing: "up",
   },
 };

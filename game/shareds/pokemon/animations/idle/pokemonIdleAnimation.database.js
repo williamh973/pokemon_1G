@@ -215,6 +215,30 @@ export const POKEMON_IDLE_ANIMATIONS = {
       loop: true,
     },
   },
+  "012": {
+    butterfree_front_idle: {
+      src: "game/assets/images/pokemons/1G/front/butterfree/idle/butterfree_idle.png",
+      positionX: 20,
+      positionY: 20,
+      frameWidth: 63,
+      frameHeight: 61,
+      frames: 30,
+      frameDelay: 8,
+      scale: 1.2,
+      loop: true,
+    },
+    butterfree_back_idle: {
+      src: "game/assets/images/pokemons/1G/back/butterfree/idle/butterfree_idle.png",
+      positionX: 20,
+      positionY: 20,
+      frameWidth: 63,
+      frameHeight: 61,
+      frames: 14,
+      frameDelay: 8,
+      scale: 1.2,
+      loop: true,
+    },
+  },
   "016": {
     pidgey_front_idle: {
       src: "game/assets/images/pokemons/1G/front/pidgey/idle/pidgey_idle.png",

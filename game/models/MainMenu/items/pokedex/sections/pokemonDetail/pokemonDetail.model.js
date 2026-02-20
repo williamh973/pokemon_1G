@@ -1,4 +1,4 @@
-import { POKEMON_IDLE_ANIMATIONS } from "../../../../../../shareds/pokemon/animations/idle/pokemonFrontIdleAnimation.database.js";
+import { POKEMON_IDLE_ANIMATIONS } from "../../../../../../shareds/pokemon/animations/idle/pokemonIdleAnimation.database.js";
 import { drawBox } from "../../../../../../shareds/utils/box/box.utils.js";
 import { AnimatedSprite } from "../../../../../AnimationSprite/AnimationSprite.model.js";
 import { DialogBox } from "../../../../../DialogBox/dialogBox.model.js";

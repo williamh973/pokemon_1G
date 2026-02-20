@@ -63,5 +63,22 @@ export const DIALOGS_TREE_DATABASE = {
         text: "Mon frère est moi sommes inséparable !",
       },
     },
+    lisa: {
+      start: {
+        text: "Le laboratoire du PROF. CHEN\n m'a permis d'apprendre pleins\nde choses intérressantes \nsur les pokémons.",
+      },
+    },
+  },
+  oakLab: {
+    luc: {
+      start: {
+        text: "Les Poké Balls sont de véri-\ntables chefs-d'œuvre techno-\nlogiques. Elles compressent\nles Pokémons en énergie pure.",
+      },
+    },
+    noah: {
+      start: {
+        text: "Je travaille sur le POKEDEX.\nMais où est passé ce livre ?!",
+      },
+    },
   },
 };

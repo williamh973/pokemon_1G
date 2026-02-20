@@ -120,10 +120,14 @@ export class Character {
     return { x, y };
   }
 
-  npc(game, targetX, targetY) {
+  npcInFrontOfPlayer(game, targetX, targetY) {
     return game.mapManager.currentMap.npcs?.some((npc) => {
       return npc.tileX === targetX && npc.tileY === targetY;
     });
+  }
+
+  playerInFrontOfPnc(game, targetX, targetY) {
+    return game.player.tileX === targetX && game.player.tileY === targetY;
   }
 
   walkableTile(game, targetX, targetY) {
@@ -152,7 +156,8 @@ export class Character {
 
     if (
       !this.walkableTile(game, targetX, targetY) ||
-      this.npc(game, targetX, targetY)
+      this.npcInFrontOfPlayer(game, targetX, targetY) ||
+      this.playerInFrontOfPnc(game, targetX, targetY)
     )
       return;
 

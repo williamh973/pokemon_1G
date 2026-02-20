@@ -39,6 +39,6 @@ export const loadGame = (game) => {
 
   save.apply(game);
   game.isLoaded = true;
-  game.mapManager.loadMap(game.mapManager.currentMap.id);
+  game.mapManager.loadMap(game.mapManager.currentMap);
   game.closeTitleScreen();
 };

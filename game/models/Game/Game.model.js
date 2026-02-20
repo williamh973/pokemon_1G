@@ -107,7 +107,7 @@ export class Game {
   openDialogBox(text, source) {
     this.dialogBox.open(text, false);
     this.state = "DIALOG";
-
+    this.togglePause(true, false);
     if (!source) return;
     this.openChoiceMenu(source);
   }
@@ -115,7 +115,7 @@ export class Game {
   closeDialogBox() {
     this.dialogBox.close();
     this.state = "WORLD";
-    requestAnimationFrame(() => this.togglePause(false, true));
+    this.togglePause(false, true);
   }
 
   openPokedex() {

@@ -10,12 +10,13 @@ export class MapManager {
   constructor(game, maps) {
     this.game = game;
     this.maps = maps;
-    this.currentMap = this.maps["PALLET_TOWN"];
+    this.currentMap = this.maps["OAK_LAB"];
     this.loadMap(this.currentMap);
   }
 
   loadNpcs(map) {
     const mapNpcs = NPC_LOCATION[map.id];
+    if (!mapNpcs) return;
     return mapNpcs.map((data) => {
       const config = NPC_DATABASE[data.id];
       const npc = new Npc({
@@ -33,6 +34,8 @@ export class MapManager {
 
   loadMissableObjs(map) {
     const mapMissableObjs = ITEM_LOCATION[map.id];
+    if (!mapMissableObjs) return;
+
     return mapMissableObjs.map((data) => {
       const config = ITEMS_DATABASE[data.category][data.key];
       const item = new MissableObject({
@@ -55,19 +58,12 @@ export class MapManager {
     });
   }
 
-  clearCurrentMapNpcs() {
-    this.currentMap.npcs.forEach((npc) => {
-      npc.destroyTimeout();
-      npc.isTimeoutDestroyed = true;
-    });
-    this.removeCurrentMapNpcs();
-  }
-
   removeCurrentMapNpcs() {
     return (this.currentMap.npcs = []);
   }
 
   loadMap(map) {
+    this.removeCurrentMapNpcs();
     this.loadNpcs(map);
     this.loadMissableObjs(map);
     this.filterMissableObjects();
@@ -92,10 +88,9 @@ export class MapManager {
   }
 
   checkTransition(game, warp) {
-    this.clearCurrentMapNpcs();
-
     if (!warp.transition) {
-      this.loadMap(warp.toMap);
+      this.setCurrentMap(warp);
+      this.loadMap(this.currentMap);
       this.updatePlayerPositionWithFacing(game, true, warp);
     } else this.startTransition(game, warp);
   }
@@ -116,7 +111,7 @@ export class MapManager {
 
     game.transition.start(
       () => {
-        this.currentMap = this.maps[warp.toMap];
+        this.setCurrentMap(warp);
         this.loadMap(this.currentMap);
         this.updatePlayerPositionWithFacing(game, false, warp);
       },
@@ -126,11 +121,17 @@ export class MapManager {
     );
   }
 
+  setCurrentMap(warp) {
+    return (this.currentMap = this.maps[warp.toMap]);
+  }
+
   staticInteraction(front) {
-    const interaction = this.currentMap.interactions.find(
-      (i) => i.tile.x === front.x && i.tile.y === front.y
-    );
-    return interaction;
+    if (this.currentMap.interactions) {
+      const interaction = this.currentMap.interactions.find(
+        (i) => i.tile.x === front.x && i.tile.y === front.y
+      );
+      return interaction;
+    }
   }
 
   npcInFrontOf(front) {
