@@ -18,6 +18,8 @@ export class Npc extends Character {
     this.isInteracting = false;
     this.behaviorCooldown = 0;
     this.restoreTimeout = 0;
+    this.patrolFrames = 120;
+    this.patrolDirection = "up";
   }
 
   handleBehavior(game) {
@@ -28,18 +30,45 @@ export class Npc extends Character {
       case "lookAround":
         this.updateLookAround(game);
         break;
+      case "patrol":
+        this.updatePatrol(game);
+        break;
       default:
         break;
     }
   }
 
+  updateCooldown() {
+    if (this.behaviorCooldown > 0) return this.behaviorCooldown--;
+    else return false;
+  }
+
+  updatePatrol(game) {
+    if (game.isPaused || this.isInteracting || this.moving) return;
+
+    if (this.patrolFrames > 0) this.patrolFrames--;
+    else {
+      this.patrolDirection === "up"
+        ? (this.patrolDirection = "down")
+        : (this.patrolDirection = "up");
+      this.patrolFrames = 120;
+    }
+
+    const directions = {
+      up: { dx: 0, dy: -1 },
+      down: { dx: 0, dy: 1 },
+      right: { dx: 1, dy: 0 },
+      left: { dx: -1, dy: 0 },
+    };
+    let dir = directions[this.patrolDirection];
+
+    this.attemptMove(dir.dx, dir.dy, game);
+  }
+
   updateWander(game) {
     if (game.isPaused || this.isInteracting || this.isMoving) return;
 
-    if (this.behaviorCooldown > 0) {
-      this.behaviorCooldown--;
-      return;
-    }
+    if (this.updateCooldown()) return;
 
     const directions = [
       { dx: 0, dy: -1 },
@@ -56,10 +85,7 @@ export class Npc extends Character {
   updateLookAround(game) {
     if (game.isPaused || this.isInteracting) return;
 
-    if (this.behaviorCooldown > 0) {
-      this.behaviorCooldown--;
-      return;
-    }
+    if (this.updateCooldown()) return;
 
     const facings = ["up", "down", "left", "right"];
     const randomFacing = facings[Math.floor(Math.random() * facings.length)];

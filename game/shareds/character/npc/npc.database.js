@@ -9,7 +9,7 @@ export const NPC_DATABASE = {
     },
     name: "Guss",
     dialogTree: DIALOGS_TREE_DATABASE.palletTown.guss,
-    behavior: "lookAround",
+    behavior: "patrol",
     facing: "down",
   },
   julio: {
