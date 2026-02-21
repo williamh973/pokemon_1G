@@ -10,7 +10,7 @@ export class MapManager {
   constructor(game, maps) {
     this.game = game;
     this.maps = maps;
-    this.currentMap = this.maps["PALLET_TOWN"];
+    this.currentMap = this.maps["KANTO_ROUTE_1"];
     this.loadMap(this.currentMap);
   }
 
@@ -27,6 +27,7 @@ export class MapManager {
         name: config.name,
         dialogTree: config.dialogTree,
         behavior: config.behavior,
+        patrolPath: config.patrolPath,
       });
       return this.currentMap.npcs.push(npc);
     });

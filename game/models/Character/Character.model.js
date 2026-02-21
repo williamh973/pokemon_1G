@@ -162,6 +162,8 @@ export class Character {
       return;
 
     this.moveToTile(dx, dy);
+
+    return true;
   }
 
   update(game) {

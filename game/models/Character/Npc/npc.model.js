@@ -8,6 +8,7 @@ export class Npc extends Character {
     facing = "down",
     dialogTree = null,
     behavior = "static",
+    patrolPath = null,
     name = "NPC",
   }) {
     super({ tileX, tileY, sprites, facing });
@@ -18,8 +19,8 @@ export class Npc extends Character {
     this.isInteracting = false;
     this.behaviorCooldown = 0;
     this.restoreTimeout = 0;
-    this.patrolFrames = 120;
-    this.patrolDirection = "up";
+    this.patrolPath = patrolPath;
+    this.patrolIndex = 0;
   }
 
   handleBehavior(game) {
@@ -44,15 +45,13 @@ export class Npc extends Character {
   }
 
   updatePatrol(game) {
-    if (game.isPaused || this.isInteracting || this.moving) return;
-
-    if (this.patrolFrames > 0) this.patrolFrames--;
-    else {
-      this.patrolDirection === "up"
-        ? (this.patrolDirection = "down")
-        : (this.patrolDirection = "up");
-      this.patrolFrames = 120;
-    }
+    if (
+      game.isPaused ||
+      this.isInteracting ||
+      this.isMoving ||
+      !this.patrolPath
+    )
+      return;
 
     const directions = {
       up: { dx: 0, dy: -1 },
@@ -60,9 +59,14 @@ export class Npc extends Character {
       right: { dx: 1, dy: 0 },
       left: { dx: -1, dy: 0 },
     };
-    let dir = directions[this.patrolDirection];
 
-    this.attemptMove(dir.dx, dir.dy, game);
+    const currentDirection = this.patrolPath[this.patrolIndex];
+    const dir = directions[currentDirection];
+
+    const moved = this.attemptMove(dir.dx, dir.dy, game);
+
+    if (moved)
+      this.patrolIndex = (this.patrolIndex + 1) % this.patrolPath.length;
   }
 
   updateWander(game) {

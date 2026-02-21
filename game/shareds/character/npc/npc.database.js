@@ -11,6 +11,12 @@ export const NPC_DATABASE = {
     dialogTree: DIALOGS_TREE_DATABASE.palletTown.guss,
     behavior: "patrol",
     facing: "down",
+    patrolPath: [
+      ...Array(7).fill("right"),
+      ...Array(3).fill("down"),
+      ...Array(7).fill("left"),
+      ...Array(3).fill("up"),
+    ],
   },
   julio: {
     sprites: {
@@ -39,7 +45,7 @@ export const NPC_DATABASE = {
     },
     name: "Oak",
     dialogTree: "oakLab.oak",
-    behavior: "patrol",
+    behavior: "lookAround",
     facing: "down",
   },
   lisa: {

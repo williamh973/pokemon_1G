@@ -1,6 +1,5 @@
 export const NPC_LOCATION = {
   PALLET_TOWN: [
-    { id: "guss", tileX: 8, tileY: 12 },
     { id: "julio", tileX: 13, tileY: 19 },
     { id: "lisa", tileX: 4, tileY: 13 },
   ],
@@ -11,4 +10,5 @@ export const NPC_LOCATION = {
     { id: "luc", tileX: 2, tileY: 9 },
     { id: "noah", tileX: 7, tileY: 8 },
   ],
+  KANTO_ROUTE_1: [{ id: "guss", tileX: 8, tileY: 6 }],
 };
