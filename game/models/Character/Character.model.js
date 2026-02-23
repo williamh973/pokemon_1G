@@ -35,7 +35,7 @@ export class Character {
     this.sprites = sprites;
     this.facing = facing;
     this.initialFacing = facing;
-
+    this.forcedMovementQueue = [];
     this.updateSprite();
   }
 
@@ -130,6 +130,18 @@ export class Character {
     return game.player.tileX === targetX && game.player.tileY === targetY;
   }
 
+  startForcedMovement(path) {
+    this.forcedMovementQueue = [...path];
+  }
+
+  checkCliffTrigger(game, targetX, targetY) {
+    const targetTile = game.mapManager.currentMap.collision[targetY][targetX];
+    const collision = TILE_TYPES[targetTile];
+    if (collision.terrain === "cliff")
+      if (this.facing === "down")
+        this.startForcedMovement([...Array(2).fill("down")]);
+  }
+
   walkableTile(game, targetX, targetY) {
     const tile = game.mapManager.currentMap.collision[targetY][targetX];
     const collision = TILE_TYPES[tile];
@@ -155,6 +167,7 @@ export class Character {
     if (this.outOfMap(targetX, targetY, game.mapManager.currentMap)) return;
 
     if (
+      this.checkCliffTrigger(game, targetX, targetY) ||
       !this.walkableTile(game, targetX, targetY) ||
       this.npcInFrontOfPlayer(game, targetX, targetY) ||
       this.playerInFrontOfPnc(game, targetX, targetY)
@@ -162,7 +175,6 @@ export class Character {
       return;
 
     this.moveToTile(dx, dy);
-
     return true;
   }
 
@@ -186,6 +198,23 @@ export class Character {
         this.state = CHARACTER_STATE.IDLE;
       }
     }
+
+    if (!this.isMoving && this.forcedMovementQueue.length > 0) {
+      const nextDirection = this.forcedMovementQueue.shift();
+
+      const directions = {
+        up: { dx: 0, dy: -1 },
+        down: { dx: 0, dy: 1 },
+        left: { dx: -1, dy: 0 },
+        right: { dx: 1, dy: 0 },
+      };
+
+      const dir = directions[nextDirection];
+
+      this.setFacing(nextDirection);
+      this.moveToTile(dir.dx, dir.dy);
+    }
+
     this.draw(game.canvas, game.camera);
   }
 }

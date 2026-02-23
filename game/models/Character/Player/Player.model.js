@@ -5,13 +5,13 @@ import { CHARACTER_SPRITES } from "../../../shareds/character/sprite/sprite.data
 export class Player extends Character {
   constructor() {
     const playerSprites = {
-      idle: CHARACTER_SPRITES.player.idle,
-      walk: CHARACTER_SPRITES.player.walk,
+      idle: CHARACTER_SPRITES.red.idle,
+      walk: CHARACTER_SPRITES.red.walk,
     };
 
     super({
       tileX: 8,
-      tileY: 9,
+      tileY: 3,
       sprites: playerSprites,
     });
 

@@ -28,4 +28,10 @@ export const TILE_TYPES = {
     terrain: "water",
     surfable: true,
   },
+  8: {
+    walkable: false,
+    encounter: false,
+    terrain: "cliff",
+    surfable: false,
+  },
 };

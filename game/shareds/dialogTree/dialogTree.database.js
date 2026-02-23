@@ -68,6 +68,20 @@ export const DIALOGS_TREE_DATABASE = {
         text: "Le laboratoire du PROF. CHEN\n m'a permis d'apprendre pleins\nde choses intérressantes \nsur les pokémons.",
       },
     },
+    oak: {
+      start: {
+        text: "PROF.CHEN : Et toi ! Halte !",
+        flagCheck: {
+          flag: "TRIED_LEAVING_TOWN",
+          trueNode: "next",
+          falseNode: "start",
+        },
+      },
+      next: {
+        text: "PROF.CHEN : C'est dangeureux \nde se balader dans les hau-\ntes-herbes sans POKEMON. \nViens ! Suis-moi.",
+        setFlag: "OAK_INTRO_LAB",
+      },
+    },
   },
   oakLab: {
     luc: {
@@ -80,5 +94,6 @@ export const DIALOGS_TREE_DATABASE = {
         text: "Je travaille sur le POKEDEX.\nMais où est passé ce livre ?!",
       },
     },
+    oak: {}, // Créer les dialogues de Chen ici quand il est dans son labo ?
   },
 };

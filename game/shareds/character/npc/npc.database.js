@@ -44,9 +44,9 @@ export const NPC_DATABASE = {
       walk: CHARACTER_SPRITES.oak.walk,
     },
     name: "Oak",
-    dialogTree: "oakLab.oak",
-    behavior: "lookAround",
-    facing: "down",
+    dialogTree: DIALOGS_TREE_DATABASE.palletTown.oak, // peut etre rajouter DIALOGS_TREE_DATABASE.oakLab.oak, ?
+    behavior: "escort",
+    facing: "up",
   },
   lisa: {
     sprites: {

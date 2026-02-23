@@ -1,4 +1,18 @@
 import {
+  walkBlueUp_stepA,
+  walkBlueDown_stepA,
+  walkBlueLeft_stepA,
+  walkBlueRight_stepA,
+  walkBlueUp_stepB,
+  walkBlueDown_stepB,
+  walkBlueLeft_stepB,
+  walkBlueRight_stepB,
+  idleBlueUp,
+  idleBlueDown,
+  idleBlueLeft,
+  idleBlueRight,
+} from "../../../assets/images/npcs/boy/blue/blue.assets.js";
+import {
   idleFatKidDown,
   idleFatKidLeft,
   idleFatKidRight,
@@ -76,7 +90,7 @@ import {
 } from "../../../assets/images/player/player.assets.js";
 
 export const CHARACTER_SPRITES = {
-  player: {
+  red: {
     idle: {
       up: idlePlayerUp,
       down: idlePlayerDown,
@@ -158,6 +172,20 @@ export const CHARACTER_SPRITES = {
       down: [walkScientistDown_stepA, walkScientistDown_stepB],
       left: [walkScientistLeft_stepA, walkScientistLeft_stepB],
       right: [walkScientistRight_stepA, walkScientistRight_stepB],
+    },
+  },
+  blue: {
+    idle: {
+      up: idleBlueUp,
+      down: idleBlueDown,
+      left: idleBlueLeft,
+      right: idleBlueRight,
+    },
+    walk: {
+      up: [walkBlueUp_stepA, walkBlueUp_stepB],
+      down: [walkBlueDown_stepA, walkBlueDown_stepB],
+      left: [walkBlueLeft_stepA, walkBlueLeft_stepB],
+      right: [walkBlueRight_stepA, walkBlueRight_stepB],
     },
   },
 };

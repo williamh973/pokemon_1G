@@ -10,5 +10,7 @@ export const NPC_LOCATION = {
     { id: "luc", tileX: 2, tileY: 9 },
     { id: "noah", tileX: 7, tileY: 8 },
   ],
-  KANTO_ROUTE_1: [{ id: "guss", tileX: 8, tileY: 6 }],
+  KANTO_ROUTE_1: [
+    // { id: "guss", tileX: 8, tileY: 6 }
+  ],
 };
