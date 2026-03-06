@@ -118,7 +118,7 @@ export class WorldMap {
     if (!this.hasFocus) return;
 
     switch (action) {
-      case "CANCEL":
+      case "ESCAPE":
         this.close();
         game.closeWorldMap();
         break;

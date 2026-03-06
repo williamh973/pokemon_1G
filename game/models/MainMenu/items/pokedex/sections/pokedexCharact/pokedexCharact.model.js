@@ -25,6 +25,18 @@ export class PokedexCharacteristic {
     this.cursor = new Cursor();
   }
 
+  open() {
+    this.isOpen = true;
+    this.cursor.isVisible = false;
+    this.hasFocus = false;
+  }
+
+  close() {
+    this.isOpen = false;
+    this.hasFocus = false;
+    this.cursor.isVisible = false;
+  }
+
   drawText(context) {
     const padding = 15;
     textParams(context, "25px PixelOperator");

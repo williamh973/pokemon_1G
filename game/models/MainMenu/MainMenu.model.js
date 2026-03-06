@@ -2,6 +2,7 @@ import { TILES_SIZE } from "../../shareds/utils/tile/tile.utils.js";
 import { drawBox } from "../../shareds/utils/box/box.utils.js";
 import { Cursor } from "../Cursor/Cursor.model.js";
 import { textParams } from "../../shareds/utils/font/font.utils.js";
+import { listSort } from "../../shareds/utils/list/list.utils.js";
 
 export class MainMenu {
   constructor(game) {
@@ -9,8 +10,6 @@ export class MainMenu {
     this.canvas = this.game.canvas;
     this.width = this.canvas.width / 2 - TILES_SIZE;
     this.items = [
-      { id: "POKEDEX", name: "POKEDEX" },
-      //       { id: "POKEMON", name: "POKEMON" },
       { id: "SAC", name: "SAC" },
       { id: "SACHA", name: "SACHA" },
       { id: "SAUVER", name: "SAUVER" },
@@ -23,12 +22,24 @@ export class MainMenu {
     };
     this.lineHeight = 40;
     this.height = this.lineHeight * this.items.length;
-
     this.isOpen = false;
     this.hasFocus = false;
     this.currentIndex = 0;
     this.baseY = 21;
     this.cursor = new Cursor();
+    this.checkItems();
+  }
+
+  checkItems() {
+    const pokedex = { id: "POKEDEX", name: "POKEDEX" };
+    const pokemon = { id: "POKEMON", name: "POKEMON" };
+
+    if (this.game.player.gotPokedex) this.items.splice(0, 0, pokedex);
+
+    if (this.game.player.team.pokemons?.length > 0)
+      this.items.splice(1, 0, pokemon);
+
+    this.updateHeight();
   }
 
   draw(context) {
@@ -41,7 +52,7 @@ export class MainMenu {
       "black",
       "white"
     );
-    this.drawText(context);
+    this.drawItems(context);
     this.showCursor(context);
   }
 
@@ -50,7 +61,7 @@ export class MainMenu {
     this.cursor.update(context, this.position.x + 10, cursorY);
   }
 
-  drawText(context) {
+  drawItems(context) {
     const padding = 15;
     textParams(context, "25px PixelOperator");
 
@@ -76,6 +87,10 @@ export class MainMenu {
   openItem() {
     const itemId = this.items[this.currentIndex].id;
     this.game.handleMenuSelection(itemId, this);
+  }
+
+  updateHeight() {
+    this.height = this.lineHeight * this.items.length;
   }
 
   update(context, action) {

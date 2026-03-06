@@ -97,6 +97,32 @@ export const CHARACTER_SPRITES = {
       left: idlePlayerLeft,
       right: idlePlayerRight,
     },
+    jump: {
+      up: idlePlayerUp,
+      down: idlePlayerDown,
+      left: idlePlayerLeft,
+      right: idlePlayerRight,
+    },
+    walk: {
+      up: [walkPlayerUp_stepA, walkPlayerUp_stepB],
+      down: [walkPlayerDown_stepA, walkPlayerDown_stepB],
+      left: [walkPlayerLeft_stepA, walkPlayerLeft_stepB],
+      right: [walkPlayerRight_stepA, walkPlayerRight_stepB],
+    },
+  },
+  lira: {
+    idle: {
+      up: idlePlayerUp,
+      down: idlePlayerDown,
+      left: idlePlayerLeft,
+      right: idlePlayerRight,
+    },
+    jump: {
+      up: idlePlayerUp,
+      down: idlePlayerDown,
+      left: idlePlayerLeft,
+      right: idlePlayerRight,
+    },
     walk: {
       up: [walkPlayerUp_stepA, walkPlayerUp_stepB],
       down: [walkPlayerDown_stepA, walkPlayerDown_stepB],

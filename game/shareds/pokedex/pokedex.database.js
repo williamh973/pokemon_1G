@@ -39,6 +39,9 @@ export const POKEDEX_DATABASE = [
     cry: "pokemon002Cry",
     area: ["KANTO_ROUTE_1"],
     print: "",
+    animations: {
+      idle: "ivysaur_front_idle",
+    },
   },
   {
     id: "003",
@@ -81,6 +84,9 @@ export const POKEDEX_DATABASE = [
     cry: "pokemon005Cry",
     area: ["KANTO_ROUTE_1"],
     print: "",
+    animations: {
+      idle: "charmeleon_front_idle",
+    },
   },
   {
     id: "006",
@@ -106,7 +112,7 @@ export const POKEDEX_DATABASE = [
     desc: "Sa carapace dure le protège\ncontre les attaques. Il aime\njouer dans l’eau et lancer \ndes jets puissants pour at-\ntaquer. Il se déplace habi-\nlement dans les rivières et\nles étangs.",
     img: "pokemon007Img",
     cry: "pokemon007Cry",
-    area: ["KANTO_ROUTE_1"],
+    worldMap: [palletTown.worldMap, kantoRoute1.worldMap],
     print: charizardPrint,
     animations: {
       idle: "squirtle_front_idle",
@@ -177,6 +183,9 @@ export const POKEDEX_DATABASE = [
     cry: "pokemon012Cry",
     area: ["KANTO_ROUTE_1"],
     print: "",
+    animations: {
+      idle: "butterfree_front_idle",
+    },
   },
   {
     id: "013",
@@ -1596,8 +1605,10 @@ export const POKEDEX_DATABASE = [
     desc: "Il est très faible mais peut survivre dans presque toutes les eaux.",
     img: "pokemon129Img",
     cry: "pokemon129Cry",
-    area: ["KANTO_MER"],
     print: "",
+    animations: {
+      idle: "magikarp_front_idle",
+    },
   },
   {
     id: "130",
@@ -1611,7 +1622,7 @@ export const POKEDEX_DATABASE = [
     worldMap: [kantoRoute1.worldMap],
     print: bulbasaurPrint,
     animations: {
-      idle: "gyarados_front_front_idle",
+      idle: "gyarados_front_idle",
     },
   },
   {

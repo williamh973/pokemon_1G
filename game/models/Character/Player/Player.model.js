@@ -1,26 +1,48 @@
 import { Character } from "../Character.model.js";
 import { keys } from "../../../logic/input/keyboard.js";
-import { CHARACTER_SPRITES } from "../../../shareds/character/sprite/sprite.database.js";
+import { CHARACTER_SPRITES } from "../../../shareds/character/sprite/characterSprite.database.js";
+import { Team } from "../../Team/Team.model.js";
+import { Inventory } from "../../MainMenu/items/Inventory/Inventory.model.js";
+import { Pokedex } from "../../MainMenu/items/pokedex/pokedex.model.js";
 
 export class Player extends Character {
-  constructor() {
+  constructor(game, playedWith) {
     const playerSprites = {
-      idle: CHARACTER_SPRITES.red.idle,
-      walk: CHARACTER_SPRITES.red.walk,
+      idle: CHARACTER_SPRITES[playedWith].idle,
+      walk: CHARACTER_SPRITES[playedWith].walk,
     };
 
     super({
-      tileX: 8,
-      tileY: 3,
+      tileX: 5,
+      tileY: 4,
       sprites: playerSprites,
     });
-
-    this.name = "";
+    this.name = "red";
+    this.nickname = "";
     this.abilities = "";
     this.hasWon = false;
     this.hasLose = false;
-    this.team = [];
+    this.starter = {};
+    this.gotPokedex = true;
+    this.pokedex = new Pokedex(game);
+    this.team = new Team(this);
+    this.inventory = new Inventory(game);
     this.trainerCard = {};
+    this.paths = {
+      exit: [...Array(1).fill(this.facing)],
+      escortedByOak_A: [
+        ...Array(1).fill("right"),
+        ...Array(11).fill("down"),
+        ...Array(3).fill("right"),
+        ...Array(1).fill("up"),
+      ],
+      escortedByOak_B: [
+        ...Array(1).fill("left"),
+        ...Array(11).fill("down"),
+        ...Array(4).fill("right"),
+        ...Array(1).fill("up"),
+      ],
+    };
   }
 
   update(game, action) {

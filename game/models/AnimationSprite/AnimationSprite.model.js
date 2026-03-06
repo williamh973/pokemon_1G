@@ -1,9 +1,6 @@
 export class AnimatedSprite {
-  constructor(config) {
-    this.position = {
-      x: config.positionX,
-      y: config.positionY,
-    };
+  constructor(game, config) {
+    this.setPosition(game, config);
     this.image = new Image();
     this.image.src = config.src;
 
@@ -15,6 +12,18 @@ export class AnimatedSprite {
     this.loop = config.loop ?? true;
     this.currentFrame = 0;
     this.counter = 0;
+  }
+
+  setPosition(game, config) {
+    game.currentScreen?.name === "POKEDEX"
+      ? (this.position = {
+          x: config.positionX,
+          y: config.positionY,
+        })
+      : (this.position = {
+          x: config.positionX + 90,
+          y: config.positionY + 70,
+        });
   }
 
   update(context) {

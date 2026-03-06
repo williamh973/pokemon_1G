@@ -1,0 +1,1 @@
+export const REDHOUSE_2F_MISSABLE_OBJECTS = [];

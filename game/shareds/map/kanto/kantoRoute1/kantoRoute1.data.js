@@ -15,6 +15,7 @@ export const kantoRoute1 = {
   warps: kantoRoute1Warps,
   encounter: kantoRoute1Encounters,
   worldMap: { x: 3, y: 5, w: 1, h: 3 },
-  flyable: false,
+  isFlyable: false,
+  isIndoor: false,
   npcs: KANTO_ROUTE_1_NPCS,
 };

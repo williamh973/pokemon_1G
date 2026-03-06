@@ -1,10 +1,9 @@
-import { POKEMON_IDLE_ANIMATIONS } from "../../../../../../shareds/pokemon/animations/idle/pokemonIdleAnimation.database.js";
 import { drawBox } from "../../../../../../shareds/utils/box/box.utils.js";
-import { AnimatedSprite } from "../../../../../AnimationSprite/AnimationSprite.model.js";
-import { DialogBox } from "../../../../../DialogBox/dialogBox.model.js";
+import { PokemonViewer } from "../../../../../PokemonViewer/PokemonViewer.model.js";
 
 export class PokemonDetail {
-  constructor(game, pokemon = "") {
+  constructor(pokemonList, game, pokemon = "") {
+    this.pokemonList = pokemonList;
     this.game = game;
     this.pokemon = pokemon;
     this.position = {
@@ -14,35 +13,45 @@ export class PokemonDetail {
     this.width = this.game.canvas.width;
     this.height = this.game.canvas.height;
     this.isOpen = false;
-    this.pokemonSprite = null;
-    this.dialogBox = new DialogBox(game);
+    this.pokemonViewer = null;
+  }
+
+  openPokemonViewer() {
+    this.pokemonViewer = new PokemonViewer(this.game, this.pokemon);
+    this.pokemonViewer.isOpen = true;
+  }
+
+  openDialogBox() {
+    this.game.dialogBox.open(this.pokemon.desc, true);
+    this.game.dialogBox.hasFocus = true;
   }
 
   open() {
     this.isOpen = true;
-    this.dialogBox.hasFocus = true;
+    this.openPokemonViewer();
+    this.openDialogBox();
+  }
 
-    const animKey = this.pokemon.animations.idle;
-    const animObject = Object.assign(
-      POKEMON_IDLE_ANIMATIONS[this.pokemon.id][animKey]
-    );
-    this.pokemonSprite = new AnimatedSprite(animObject);
-    this.dialogBox.open(this.pokemon.desc, true);
+  closePokemonViewer() {
+    this.pokemonViewer.isOpen = false;
+    this.pokemonViewer.pokemonSprite = null;
+    this.pokemonViewer = null;
+  }
+
+  openPokemonList() {
+    this.pokemonList.open();
+  }
+
+  close() {
+    this.closePokemonViewer();
+    this.openPokemonList();
+    this.game.dialogBox.close();
+    this.isOpen = false;
   }
 
   draw(context) {
     this.drawMainBox(context);
     this.drawPokemonDatas(context);
-  }
-
-  update(context, action) {
-    if (!this.isOpen) return;
-    this.draw(context);
-
-    if (this.dialogBox.isOpen) {
-      this.dialogBox.update(this.game.canvas.context, action);
-      return;
-    }
   }
 
   drawMainBox(context) {
@@ -61,20 +70,14 @@ export class PokemonDetail {
     context.fillStyle = "black";
 
     context.font = `25px PixelOperator `;
-    this.pokemonBg(context);
     this.name(context);
     this.species(context);
     this.pkheight(context);
     this.weight(context);
     context.font = `bold 25px PixelOperator `;
     this.id(context);
-
     this.unitSymb(context);
     this.footPrint(context);
-  }
-
-  pokemonBg(context) {
-    context.fillRect(15, 15, 120, 120);
   }
 
   name(context) {
@@ -111,5 +114,18 @@ export class PokemonDetail {
     this.pokemon.print
       ? context.drawImage(this.pokemon.print, 270, 150, 40, 40)
       : null;
+  }
+
+  update(context, action) {
+    if (!this.isOpen) return;
+    this.draw(context);
+
+    if (this.game.dialogBox.isOpen) {
+      const result = this.game.dialogBox.update(
+        this.game.canvas.context,
+        action
+      );
+      if (result === this.game.dialogBox.noMorePage()) this.close();
+    }
   }
 }

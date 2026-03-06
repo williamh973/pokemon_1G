@@ -6,14 +6,12 @@ import { MapManager } from "../Map/MapManager.model.js";
 import { Fade } from "../Fade/fade.model.js";
 import { DialogBox } from "../DialogBox/dialogBox.model.js";
 import { MainMenu } from "../MainMenu/MainMenu.model.js";
-import { Pokedex } from "../MainMenu/items/pokedex/pokedex.model.js";
 import { InputManager } from "../InputManager/InputManager.model.js";
 import { Save } from "../MainMenu/items/Save/save.model.js";
 import { TitleScreen } from "../TitleScreen/TitleScreen.model.js";
 import { MAPS } from "../../shareds/map/maps.registry.js";
 import { ChoiceMenu } from "../ChoiceMenu/ChoiceMenu.model.js";
 import { DIALOGS_TREE_DATABASE } from "../../shareds/dialogTree/dialogTree.database.js";
-import { Inventory } from "../MainMenu/items/Inventory/Inventory.model.js";
 import {
   dispatchMenuSelection,
   loadGame,
@@ -23,28 +21,33 @@ import { GAME_FLAGS } from "../../shareds/utils/game/game.utils.js";
 import { TILES_SIZE } from "../../shareds/utils/tile/tile.utils.js";
 import { FADING_TIME } from "../../shareds/utils/fade/fade.assets.js";
 import { Player } from "../Character/Player/Player.model.js";
+import { ScenarioManager } from "../ScenarioManager/ScenarioManager.model.js";
 
 export class Game {
   constructor() {
+    this.state = "WORLD";
     this.canvas = new Canvas(document.getElementById("canvas"));
     this.camera = new Camera(this.canvas);
-    this.player = new Player();
+    this.playedWith = "red";
+    this.player = new Player(this, this.playedWith);
+    this.flags = GAME_FLAGS;
     this.mapManager = new MapManager(this, MAPS);
+    this.scenarioManager = new ScenarioManager(this.mapManager.currentMap);
     this.tileManager = new TileManager(TILES_SIZE);
     this.transition = new Fade(FADING_TIME);
     this.mainMenu = new MainMenu(this);
     this.dialogBox = new DialogBox(this);
     this.input = new InputManager();
-    this.inventory = new Inventory(this);
-    this.state = "WORLD";
-    this.flags = GAME_FLAGS;
     this.choiceMenu = null;
     this.currentScreen = null;
     this.mapNameWindow = null;
     this.save = null;
+    this.pokemonViewer = null;
+    this.activeNpc = null;
+    this.isSaveCompleted = false;
+    this.isAttemptSave = false;
     this.isPaused = false;
     this.isBattleMod = false;
-    this.isLoaded = false;
     this.init();
     // this.openTitleScreen();
   }
@@ -58,6 +61,24 @@ export class Game {
   togglePause(isPaused, isCanMove) {
     this.isPaused = isPaused;
     this.player.isCanMove = isCanMove;
+    this.mapManager.currentMap.npcs.forEach(
+      (npc) => (npc.isCanMove = isCanMove)
+    );
+  }
+
+  openDialogBox(text, dialogTree, callbackFn) {
+    this.dialogBox.open(text, false);
+    this.state = "DIALOG";
+    this.togglePause(true, false);
+    if (dialogTree) this.openChoiceMenu(dialogTree);
+    if (callbackFn) callbackFn();
+  }
+
+  closeDialogBox() {
+    this.dialogBox.close();
+    if (this.activeNpc) this.activeNpc = null;
+    this.state = "WORLD";
+    this.togglePause(false, true);
   }
 
   openTitleScreen() {
@@ -92,34 +113,30 @@ export class Game {
 
   closeChoiceMenu() {
     this.choiceMenu.close();
+    this.choiceMenu = null;
     this.state = "WORLD";
     this.togglePause(false, true);
   }
 
+  start() {
+    this.openDialogBox(
+      DIALOGS_TREE_DATABASE.newGame.start.text,
+      DIALOGS_TREE_DATABASE.newGame
+    );
+  }
+
   attemptSave() {
-    this.save = new Save();
+    this.isAttemptSave = true;
+    this.save = new Save(this);
     this.openDialogBox(
       DIALOGS_TREE_DATABASE.saveSystem.start.text,
       DIALOGS_TREE_DATABASE.saveSystem
     );
   }
 
-  openDialogBox(text, source) {
-    this.dialogBox.open(text, false);
-    this.state = "DIALOG";
-    this.togglePause(true, false);
-    if (!source) return;
-    this.openChoiceMenu(source);
-  }
-
-  closeDialogBox() {
-    this.dialogBox.close();
-    this.state = "WORLD";
-    this.togglePause(false, true);
-  }
-
   openPokedex() {
-    this.currentScreen = new Pokedex(this);
+    this.currentScreen = this.player.pokedex;
+    this.player.pokedex.open();
     this.state = "POKEDEX";
   }
 
@@ -127,9 +144,14 @@ export class Game {
     this.currentScreen.close();
   }
 
+  openTeam() {
+    this.currentScreen = this.player.team;
+  }
+
   openInventory() {
-    this.currentScreen = this.inventory;
-    this.currentScreen.open();
+    console.log(this.player.pokedex);
+    this.currentScreen = this.player.inventory;
+    this.player.inventory.open();
     this.state = "INVENTORY";
   }
 
@@ -139,6 +161,11 @@ export class Game {
 
   resetCurrentScreen() {
     this.currentScreen = null;
+  }
+
+  resetSaveCompleted() {
+    this.isSaveCompleted = false;
+    this.isAttemptSave = false;
   }
 
   openWorldMap() {

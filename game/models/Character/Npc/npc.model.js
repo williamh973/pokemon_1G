@@ -108,6 +108,7 @@ export class Npc extends Character {
   }
 
   interact(game) {
+    game.activeNpc = this;
     this.initialFacing ??= this.facing;
     this.isInteracting = true;
     this.setFacing(this.getFacingToward(game.player));

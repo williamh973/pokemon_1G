@@ -17,35 +17,11 @@ export class DialogBox {
     this.hasCurrentPageRead = false;
     this.ignoreNextAction = ignoreNextAction;
     this.hasFocus = false;
-    this.pokedexDetailPage =
-      this.game.currentScreen?.pokemonList?.pokemonDetail;
-  }
-
-  checkBoxHeight() {
-    switch (this.pokedexDetailPage.isOpen) {
-      case true:
-        this.height = 121;
-        break;
-      case false:
-        this.height = 65;
-        break;
-      default:
-        break;
-    }
-    this.position.y = this.game.canvas.height - this.height;
-  }
-
-  updateMaxLineForPokedexDetailPage() {
-    this.pokedexDetailPage && this.pokedexDetailPage.isOpen
-      ? (this.maxLines = 4)
-      : (this.maxLines = 2);
   }
 
   createPages(text) {
     const pages = [];
     const lines = text.split("\n");
-
-    this.updateMaxLineForPokedexDetailPage();
 
     for (let i = 0; i < lines.length; i += this.maxLines) {
       pages.push(lines.slice(i, i + this.maxLines));
@@ -54,9 +30,6 @@ export class DialogBox {
   }
 
   draw(context) {
-    if (this.pokedexDetailPage && this.pokedexDetailPage.isOpen)
-      this.checkBoxHeight();
-
     drawBox(
       context,
       this.position.x,
@@ -103,6 +76,10 @@ export class DialogBox {
     return this.currentPageIndex < this.pages.length - 1;
   }
 
+  noMorePage() {
+    return "END_DIALOG";
+  }
+
   update(context, action) {
     if (!this.isOpen) return;
     this.draw(context);
@@ -114,6 +91,6 @@ export class DialogBox {
     }
 
     if (this.hasNextPage()) this.currentPageIndex++;
-    else this.game.closeDialogBox();
+    else return this.noMorePage();
   }
 }

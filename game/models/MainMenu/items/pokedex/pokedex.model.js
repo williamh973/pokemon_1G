@@ -13,10 +13,13 @@ export class Pokedex {
     };
     this.width = this.canvas.width;
     this.height = this.canvas.height;
-    this.isOpen = true;
+    this.isOpen = false;
     this.pokemonList = new PokemonList(this.game);
     this.pokedexCharac = new PokedexCharacteristic(this.game, this.pokemonList);
+  }
 
+  open() {
+    this.isOpen = true;
     this.openSections();
   }
 
@@ -26,40 +29,32 @@ export class Pokedex {
   }
 
   openPokemonList() {
-    this.pokemonList.isOpen = true;
-    this.pokemonList.cursor.isVisible = true;
-    this.pokemonList.hasFocus = true;
+    this.pokemonList.open();
   }
 
   openPokedexCharac() {
-    this.pokedexCharac.isOpen = true;
-    this.pokedexCharac.cursor.isVisible = false;
-    this.pokedexCharac.hasFocus = false;
+    this.pokedexCharac.open();
+  }
+
+  openMainMenu() {
+    this.game.openMenu();
+  }
+
+  closeSections() {
+    this.pokemonList.close();
+    this.pokedexCharac.close();
   }
 
   close() {
-    const dialogBox = this.game.dialogBox;
-    if (this.isOpen) {
-      if (dialogBox?.isOpen) this.game.closeDialogBox();
-
-      this.isOpen =
-        this.pokemonList.isOpen =
-        this.pokedexCharac.isOpen =
-        this.pokemonList.pokedexState.isOpen =
-        this.pokemonList.pokemonDetail.isOpen =
-          false;
-
-      this.pokedexCharac.hasFocus = false;
-      this.pokemonList.hasFocus = false;
-
-      this.pokedexCharac.cursor.isVisible = false;
-      this.pokemonList.cursor.isVisible = false;
-
-      this.game.resetCurrentScreen();
-      this.game.openMenu();
-    }
+    this.closeSections();
+    this.resetCurrentScreen();
+    this.openMainMenu();
+    this.isOpen = false;
   }
 
+  resetCurrentScreen() {
+    this.game.resetCurrentScreen();
+  }
   draw(context) {
     context.fillStyle = "white";
     drawBox(
@@ -73,17 +68,46 @@ export class Pokedex {
     );
   }
 
+  updatePokedexState() {
+    if (this.pokemonList.isOpen)
+      this.pokemonList.pokedexState.update(this.game.canvas.context);
+  }
+
+  updatePokemonDetail(action) {
+    if (
+      this.pokemonList.isPokemonSelected &&
+      this.pokemonList.pokemonDetail.isOpen
+    ) {
+      this.pokemonList.pokemonDetail.update(this.game.canvas.context, action);
+      this.pokemonList.pokemonDetail.pokemonViewer?.update(
+        this.game.canvas.context,
+        null
+      );
+    }
+  }
+
   update(context, action) {
     if (!this.isOpen) return;
     this.draw(context);
 
     switch (action) {
-      case "CANCEL":
+      case "ESCAPE":
         this.game.closeCurrentScreen();
         break;
 
       default:
         break;
     }
+
+    if (this.pokemonList.hasFocus) {
+      this.pokemonList.update(this.game.canvas.context, action);
+      this.pokedexCharac.draw(this.game.canvas.context);
+    } else if (this.pokedexCharac.hasFocus) {
+      this.pokedexCharac.update(this.game.canvas.context, action);
+      this.pokemonList.draw(this.game.canvas.context);
+    }
+
+    this.updatePokedexState();
+    this.updatePokemonDetail(action);
   }
 }

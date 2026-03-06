@@ -13,4 +13,6 @@ export const redHouse_1F = {
   height: redHouse_1F_Collide.length,
   warps: redHouse_1F_Warps,
   npcs: redHouse_1F_NPCs,
+  isFlyable: false,
+  isIndoor: true,
 };

@@ -13,7 +13,7 @@ export const dispatchMenuSelection = (game, itemId, source) => {
     INFO: () => game.openPokemonDetail(),
     CRI: () => game.playCry(),
     ZONE: () => game.openWorldMap(),
-    NEW_GAME: () => game.closeTitleScreen(),
+    NEW_GAME: () => game.start(),
     CONTINUE: () => game.load(),
   };
 

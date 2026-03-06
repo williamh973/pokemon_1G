@@ -20,19 +20,21 @@ export class Save {
     this.flags = game.flags;
 
     const categories = {
-      cares: serialize(game.inventory.cares),
-      balls: serialize(game.inventory.balls),
-      keys: serialize(game.inventory.keys),
-      cTcS: serialize(game.inventory.cTcS),
+      cares: serialize(game.player.inventory.cares),
+      balls: serialize(game.player.inventory.balls),
+      keys: serialize(game.player.inventory.keys),
+      cTcS: serialize(game.player.inventory.cTcS),
     };
 
     this.inventory.categories = categories;
   }
 
-  write() {
+  write(game) {
     localStorage.setItem("POKEMON_SAVE", JSON.stringify(this));
     const raw = localStorage.getItem("POKEMON_SAVE");
-    console.log(raw);
+    if (raw) game.isSaveCompleted = true;
+
+    // console.log(raw);
   }
 
   static load() {
@@ -66,15 +68,24 @@ export class Save {
         });
       });
 
-      rebuilt.push(game.inventory.CANCEL_ITEM);
+      rebuilt.push(game.player.inventory.CANCEL_ITEM);
 
       return rebuilt;
     };
 
-    game.inventory.cares = rebuild(this.inventory.categories.cares, "care");
-    game.inventory.balls = rebuild(this.inventory.categories.balls, "ball");
-    game.inventory.keys = rebuild(this.inventory.categories.keys, "key");
-    game.inventory.cTcS = rebuild(this.inventory.categories.cTcS, "CTCS");
+    game.player.inventory.cares = rebuild(
+      this.inventory.categories.cares,
+      "care"
+    );
+    game.player.inventory.balls = rebuild(
+      this.inventory.categories.balls,
+      "ball"
+    );
+    game.player.inventory.keys = rebuild(this.inventory.categories.keys, "key");
+    game.player.inventory.cTcS = rebuild(
+      this.inventory.categories.cTcS,
+      "CTCS"
+    );
   }
 }
 

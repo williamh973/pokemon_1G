@@ -1,23 +1,40 @@
-import { pokedex } from "./pokedex/pokedex.js";
-import { worldMap } from "./worldMap/worldMap.render.js";
-
 const openMenu = (game) => {
   game.player.draw(game.canvas, game.camera);
   game.openMenu();
 };
 
-export const update = (game) => {
-  const action = game.input.consume();
-  game.tileManager.update();
-
-  // console.log(game.state);
-
+const NPCs = (game) => {
   game.mapManager.currentMap.npcs?.forEach((npc) => {
-    npc.update(game, null);
+    npc.update(game);
   });
+};
+
+const missableObjects = (game) => {
+  game.mapManager.currentMap.missableObjects?.forEach((object) => {
+    object.update(game, null);
+    if (object.pokemonViewer)
+      object.pokemonViewer.update(game.canvas.context, null);
+  });
+};
+
+const handleDialogState = (game, action) => {
+  const event = game.dialogBox.update(game.canvas.context, action);
+  if (event === "END_DIALOG") game.closeDialogBox();
+};
+
+export const update = (game) => {
+  console.log(game.state);
+  // console.log(game.pokemonViewer?.pokemonSprite);
+
+  game.tileManager.update();
+  const action = game.input.consume();
+  NPCs(game);
+  missableObjects(game);
 
   switch (game.state) {
     case "WORLD":
+      if (!game.player.isMoving) game.mapManager.checkScenarios?.(game.player);
+
       if (action === "MENU") {
         openMenu(game);
         return;
@@ -26,6 +43,7 @@ export const update = (game) => {
       break;
     case "DIALOG":
       game.dialogBox?.update(game.canvas.context, action);
+      handleDialogState(game, action);
       break;
     case "MENU":
       game.mainMenu?.update(game.canvas.context, action);
@@ -34,10 +52,10 @@ export const update = (game) => {
       game.choiceMenu?.update(game.canvas.context, action);
       break;
     case "POKEDEX":
-      pokedex(game, action);
+      game.currentScreen.update(game.canvas.context, action);
       break;
     case "WORLDMAP":
-      worldMap(game, action);
+      game.currentScreen.update(game, action);
       break;
     case "TITLE":
       game.currentScreen.update(game.canvas.context, action);
@@ -49,5 +67,6 @@ export const update = (game) => {
       game.currentScreen.update(game.canvas.context, action);
       break;
   }
+
   game.transition.update();
 };

@@ -1,5 +1,9 @@
 import { drawBox } from "../../../../shareds/utils/box/box.utils.js";
 import { textParams } from "../../../../shareds/utils/font/font.utils.js";
+import {
+  listSort,
+  resetList,
+} from "../../../../shareds/utils/list/list.utils.js";
 import { Cursor } from "../../../Cursor/Cursor.model.js";
 import { DialogBox } from "../../../DialogBox/dialogBox.model.js";
 
@@ -63,14 +67,6 @@ export class Inventory {
     return list.filter((item) => item.id !== "RETOUR");
   }
 
-  listSort(listFilter) {
-    return listFilter.sort((a, b) => a.name.localeCompare(b.name));
-  }
-
-  resetList(list) {
-    list.length = 0;
-  }
-
   async add(item, category) {
     const list = await this.getCategoryList(category);
     const itemExist = list.find((i) => i.name === item.name);
@@ -85,8 +81,8 @@ export class Inventory {
     const cancelItem = list.find((item) => item.id === "RETOUR");
 
     const listFilter = this.removeCancelItem(list);
-    const listSorted = this.listSort(listFilter);
-    this.resetList(list);
+    const listSorted = listSort(listFilter);
+    resetList(list);
     list.push(...listSorted, cancelItem);
   }
 
@@ -213,7 +209,7 @@ export class Inventory {
         break;
 
       case "MENU":
-      case "CANCEL":
+      case "ESCAPE":
         this.toQuit();
         break;
     }

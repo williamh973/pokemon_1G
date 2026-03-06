@@ -10,7 +10,7 @@ export class MapManager {
   constructor(game, maps) {
     this.game = game;
     this.maps = maps;
-    this.currentMap = this.maps["KANTO_ROUTE_1"];
+    this.currentMap = this.maps["OAK_LAB"];
     this.loadMap(this.currentMap);
   }
 
@@ -48,23 +48,30 @@ export class MapManager {
         flagId: data.flagId,
         name: config.name,
       });
-      return this.currentMap.npcs.push(item);
+      return this.currentMap.missableObjects.push(item);
     });
   }
 
   filterMissableObjects() {
-    this.currentMap.npcs = this.currentMap.npcs.filter((npc) => {
-      if (!npc.flagId) return true;
-      return !this.game.flags[npc.flagId];
-    });
+    this.currentMap.missableObjects = this.currentMap.missableObjects.filter(
+      (object) => {
+        if (!object.flagId) return true;
+        return !this.game.flags[object.flagId];
+      }
+    );
   }
 
   removeCurrentMapNpcs() {
     return (this.currentMap.npcs = []);
   }
 
+  removeCurrentMapMissableObjects() {
+    return (this.currentMap.missableObjects = []);
+  }
+
   loadMap(map) {
     this.removeCurrentMapNpcs();
+    this.removeCurrentMapMissableObjects();
     this.loadNpcs(map);
     this.loadMissableObjs(map);
     this.filterMissableObjects();
@@ -118,6 +125,8 @@ export class MapManager {
       },
       () => {
         game.togglePause(false, true);
+        if (!this.currentMap.isIndoor)
+          game.player.startForcedMovement(game.player.paths.exit);
       }
     );
   }
@@ -141,6 +150,13 @@ export class MapManager {
     );
   }
 
+  missableObjInFrontOf(front) {
+    return this.currentMap.missableObjects?.find(
+      (missableObj) =>
+        missableObj.tileX === front.x && missableObj.tileY === front.y
+    );
+  }
+
   checkInteraction(player) {
     const front = player.getFrontTile();
 
@@ -150,6 +166,9 @@ export class MapManager {
 
     const npc = this.npcInFrontOf(front);
     if (npc) return npc.interact(this.game);
+
+    const missableObj = this.missableObjInFrontOf(front);
+    if (missableObj) return missableObj.interact(this.game);
   }
 
   triggerInteraction(staticInteraction, player) {
@@ -158,5 +177,28 @@ export class MapManager {
       player.facing === staticInteraction.facing[player.facing]
     )
       this.game.openDialogBox(staticInteraction.text);
+  }
+
+  matchTrigger(trigger, player) {
+    return trigger.positions.some((triggerPos) => {
+      return (
+        triggerPos.tileX === player.tileX && triggerPos.tileY === player.tileY
+      );
+    });
+  }
+
+  checkScenarios(player) {
+    const scenarios = this.currentMap.scenarios;
+
+    scenarios?.forEach((scenario) => {
+      if (
+        !scenario.hasTriggered &&
+        this.matchTrigger(scenario.trigger, player) &&
+        scenario.condition(this.game)
+      ) {
+        scenario.hasTriggered = true;
+        scenario.action(this.game);
+      }
+    });
   }
 }

@@ -32,6 +32,7 @@ export const TILE_TYPES = {
     walkable: false,
     encounter: false,
     terrain: "cliff",
+    direction: "down",
     surfable: false,
   },
 };

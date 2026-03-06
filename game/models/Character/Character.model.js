@@ -30,12 +30,15 @@ export class Character {
     this.targetY = this.position.y;
     this.isCanMove = true;
     this.isMoving = false;
+    this.isJumping = false;
     this.justStartedMoving = false;
     this.state = CHARACTER_STATE.IDLE;
     this.sprites = sprites;
     this.facing = facing;
     this.initialFacing = facing;
-    this.forcedMovementQueue = [];
+    this.forcedMovements = [];
+    this.movementCallbacks = [];
+    this.sequences = [];
     this.updateSprite();
   }
 
@@ -131,15 +134,17 @@ export class Character {
   }
 
   startForcedMovement(path) {
-    this.forcedMovementQueue = [...path];
+    this.forcedMovements = [...path];
   }
 
   checkCliffTrigger(game, targetX, targetY) {
     const targetTile = game.mapManager.currentMap.collision[targetY][targetX];
     const collision = TILE_TYPES[targetTile];
     if (collision.terrain === "cliff")
-      if (this.facing === "down")
-        this.startForcedMovement([...Array(2).fill("down")]);
+      if (this.facing === "down") {
+        this.startForcedMovement([...Array(2).fill(this.facing)]);
+        this.isJumping = true;
+      }
   }
 
   walkableTile(game, targetX, targetY) {
@@ -178,6 +183,14 @@ export class Character {
     return true;
   }
 
+  addMovementCallback(callback) {
+    this.movementCallbacks.push(callback);
+  }
+
+  addSequence(Fn) {
+    this.sequences.push(Fn);
+  }
+
   update(game) {
     if (this.isCanMove && this.isMoving) {
       this.moveProgress++;
@@ -195,12 +208,27 @@ export class Character {
         this.framesCurrent = 0;
         this.framesMax = this.frames.idle.max;
         this.image = this.sprites.idle[this.facing];
-        this.state = CHARACTER_STATE.IDLE;
+
+        if (!this.isMoving && this.forcedMovements.length === 0) {
+          if (this.movementCallbacks.length > 0) {
+            const callBackFn = this.movementCallbacks.shift();
+            callBackFn();
+          }
+        }
       }
     }
 
-    if (!this.isMoving && this.forcedMovementQueue.length > 0) {
-      const nextDirection = this.forcedMovementQueue.shift();
+    this.state = CHARACTER_STATE.IDLE;
+
+    if (this.sequences.length > 0) {
+      const [sequenceFn] = this.sequences;
+      console.log(sequenceFn);
+      sequenceFn();
+      this.sequences = [];
+    }
+
+    if (!this.isMoving && this.forcedMovements.length > 0) {
+      const nextDirection = this.forcedMovements.shift();
 
       const directions = {
         up: { dx: 0, dy: -1 },

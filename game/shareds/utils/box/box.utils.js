@@ -9,7 +9,6 @@ export const drawBox = (
 ) => {
   const borderColor = color;
   context.fillStyle = fillStyle;
-
   context.fillRect(positionX, positionY, width, height);
 
   context.strokeStyle = borderColor;

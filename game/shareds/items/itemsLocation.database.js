@@ -11,5 +11,30 @@ export const ITEM_LOCATION = {
       flagId: "GOT_POTION_REDHOUSE_2F",
     },
   ],
-  OAK_LAB: [],
+  OAK_LAB: [
+    {
+      key: "bulbasaur",
+      tileX: 6,
+      tileY: 3,
+      id: "BULBASAUR",
+      category: "starter",
+      flagId: "STARTER_BULBASAUR_SELECTED",
+    },
+    {
+      key: "charmander",
+      tileX: 7,
+      tileY: 3,
+      id: "CHARMANDER",
+      category: "starter",
+      flagId: "STARTER_CHARMANDER_SELECTED",
+    },
+    {
+      key: "squirtle",
+      tileX: 8,
+      tileY: 3,
+      id: "SQUIRTLE",
+      category: "starter",
+      flagId: "STARTER_SQUIRTLE_SELECTED",
+    },
+  ],
 };

@@ -1,4 +1,4 @@
-import { CHARACTER_SPRITES } from "../sprite/sprite.database.js";
+import { CHARACTER_SPRITES } from "../sprite/characterSprite.database.js";
 import { DIALOGS_TREE_DATABASE } from "../../dialogTree/dialogTree.database.js";
 
 export const NPC_DATABASE = {
@@ -44,9 +44,27 @@ export const NPC_DATABASE = {
       walk: CHARACTER_SPRITES.oak.walk,
     },
     name: "Oak",
-    dialogTree: DIALOGS_TREE_DATABASE.palletTown.oak, // peut etre rajouter DIALOGS_TREE_DATABASE.oakLab.oak, ?
-    behavior: "escort",
-    facing: "up",
+    dialogTree: DIALOGS_TREE_DATABASE.palletTown.oak,
+    behavior: "special",
+    facing: "down",
+    paths: {
+      fromLabToplayer_A: [
+        ...Array(4).fill("up"),
+        ...Array(1).fill("right"),
+        ...Array(1).fill("up"),
+      ],
+      fromLabToplayer_B: [...Array(5).fill("up")],
+      escortPlayerToLab_A: [
+        ...Array(11).fill("down"),
+        ...Array(3).fill("right"),
+        ...Array(1).fill("up"),
+      ],
+      escortPlayerToLab_B: [
+        ...Array(11).fill("down"),
+        ...Array(4).fill("right"),
+        ...Array(1).fill("up"),
+      ],
+    },
   },
   lisa: {
     sprites: {

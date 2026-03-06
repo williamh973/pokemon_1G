@@ -203,4 +203,27 @@ export const ITEMS_DATABASE = {
       maxCount: 1,
     },
   },
+  starter: {
+    bulbasaur: {
+      id: "BULBASAUR",
+      name: "BULBIZARRE",
+      desc: "un Pokémon plante.",
+      maxCount: 1,
+      isPokemon: true,
+    },
+    charmander: {
+      id: "CHARMANDER",
+      name: "SALAMÈCHE",
+      desc: "un Pokémon feu.",
+      maxCount: 1,
+      isPokemon: true,
+    },
+    squirtle: {
+      id: "SQUIRTLE",
+      name: "CARAPUCE",
+      desc: "un Pokémon eau.",
+      maxCount: 1,
+      isPokemon: true,
+    },
+  },
 };

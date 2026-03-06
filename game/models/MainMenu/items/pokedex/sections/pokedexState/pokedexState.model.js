@@ -6,11 +6,19 @@ export class PokedexState {
       x: pokemonList.position.x + pokemonList.width,
       y: 0,
     };
-    this.isOpen = true;
+    this.isOpen = false;
     this.width = 82;
     this.height = 130;
     this.seen = new Set();
     this.caught = new Set();
+  }
+
+  open() {
+    this.isOpen = true;
+  }
+
+  close() {
+    this.isOpen = false;
   }
 
   see(id) {

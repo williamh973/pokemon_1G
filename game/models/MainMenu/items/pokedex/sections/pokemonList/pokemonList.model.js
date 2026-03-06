@@ -24,11 +24,36 @@ export class PokemonList {
     this.title = "SOMMAIRE";
     this.cursor = new Cursor();
     this.pokedexState = new PokedexState(this);
-    this.pokemonDetail = new PokemonDetail(game);
+    this.pokemonDetail = new PokemonDetail(this, game);
+  }
+
+  closePokemonDetail() {
+    this.pokemonDetail.isOpen = false;
+  }
+
+  open() {
+    this.isOpen = true;
+    this.isPokemonSelected = false;
+    this.cursor.state = "idle";
+    this.cursor.isVisible = true;
+    this.hasFocus = true;
+    this.openPokedexState();
+    this.closePokemonDetail();
   }
 
   openPokedexState() {
-    this.pokedexState.isOpen = true;
+    this.pokedexState.open();
+  }
+
+  closePokedexState() {
+    this.pokedexState.close();
+  }
+
+  close() {
+    this.closePokedexState();
+    this.hasFocus = false;
+    this.isPokemonSelected = false;
+    this.isOpen = false;
   }
 
   checkPokedexState(context, positionX, positionY, pokemon, index) {
@@ -131,8 +156,8 @@ export class PokemonList {
       this.isPokemonSelected = true;
       this.hasFocus = false;
       this.cursor.state = this.cursor.state.focused;
-      this.game.currentScreen.pokedexCharac.cursor.isVisible = true;
-      this.game.currentScreen.pokedexCharac.hasFocus = true;
+      this.game.player.pokedex.pokedexCharac.cursor.isVisible = true;
+      this.game.player.pokedex.pokedexCharac.hasFocus = true;
     }
   }
 

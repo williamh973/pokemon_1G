@@ -1,4 +1,3 @@
-import { TILES_SIZE } from "../../shareds/utils/tile/tile.utils.js";
 import { drawBox } from "../../shareds/utils/box/box.utils.js";
 import { Cursor } from "../Cursor/Cursor.model.js";
 import { textParams } from "../../shareds/utils/font/font.utils.js";
@@ -9,8 +8,8 @@ export class ChoiceMenu {
     this.source = source;
     this.items = source.start.choices;
     this.canvas = this.game.canvas;
-    this.width = TILES_SIZE * 2.3;
-    this.height = TILES_SIZE * 2.1;
+    this.width = this.source.setDimension.width;
+    this.height = this.source.setDimension.height;
     this.position = {
       x: 0,
       y: this.canvas.height - this.height * 2,
@@ -69,6 +68,11 @@ export class ChoiceMenu {
     return this.items[this.currentIndex];
   }
 
+  saveCompleted() {
+    this.source.finalize.action(this.game);
+    this.game.openDialogBox(this.source.finalize.text, null);
+  }
+
   update(context, action) {
     if (!this.isOpen) return;
     this.draw(context);
@@ -85,21 +89,23 @@ export class ChoiceMenu {
         break;
 
       case "ACTION":
-        const selectedItem = this.getSelectedItem();
-        if (selectedItem.next === "no") {
-          this.close();
-          this.game.closeDialogBox();
-          return;
+        switch (this.currentIndex) {
+          case 0:
+            this.source.first.action(this.game);
+            this.game.openDialogBox(this.source.first.text, null, null);
+
+            if (this.game.isSaveCompleted) this.saveCompleted();
+            break;
+          case 1:
+            this.source.second.action(this.game);
+
+            if (this.source.second.text)
+              this.game.openDialogBox(this.source.second.text, null);
+            break;
+
+          default:
+            break;
         }
-
-        this.source.yes.action(this.game);
-        this.game.openDialogBox(this.source.yes.text, null);
-        break;
-
-      case "CANCEL":
-        this.close();
-        this.game.closeDialogBox();
-        break;
     }
   }
 }

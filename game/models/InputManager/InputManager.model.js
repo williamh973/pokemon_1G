@@ -11,7 +11,7 @@ export class InputManager {
           this.buffer = "MENU";
           break;
         case "e":
-          this.buffer = "CANCEL";
+          this.buffer = "ESCAPE";
           break;
         case "z":
           this.buffer = "UP";
