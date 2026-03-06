@@ -3,13 +3,13 @@ import { Cursor } from "../Cursor/Cursor.model.js";
 import { textParams } from "../../shareds/utils/font/font.utils.js";
 
 export class ChoiceMenu {
-  constructor(game, source) {
+  constructor(game, dialogTree) {
     this.game = game;
-    this.source = source;
-    this.items = source.start.choices;
+    this.dialogTree = dialogTree;
+    this.items = dialogTree.start.choices;
     this.canvas = this.game.canvas;
-    this.width = this.source.setDimension.width;
-    this.height = this.source.setDimension.height;
+    this.width = this.dialogTree.setDimension.width;
+    this.height = this.dialogTree.setDimension.height;
     this.position = {
       x: 0,
       y: this.canvas.height - this.height * 2,
@@ -69,8 +69,8 @@ export class ChoiceMenu {
   }
 
   saveCompleted() {
-    this.source.finalize.action(this.game);
-    this.game.openDialogBox(this.source.finalize.text, null);
+    this.dialogTree.finalize.action(this.game);
+    this.game.openDialogBox(this.dialogTree.finalize.text, null);
   }
 
   update(context, action) {
@@ -91,16 +91,16 @@ export class ChoiceMenu {
       case "ACTION":
         switch (this.currentIndex) {
           case 0:
-            this.source.first.action(this.game);
-            this.game.openDialogBox(this.source.first.text, null, null);
+            this.dialogTree.first.action(this.game);
+            this.game.openDialogBox(this.dialogTree.first.text, null, null);
 
             if (this.game.isSaveCompleted) this.saveCompleted();
             break;
           case 1:
-            this.source.second.action(this.game);
+            this.dialogTree.second.action(this.game);
 
-            if (this.source.second.text)
-              this.game.openDialogBox(this.source.second.text, null);
+            if (this.dialogTree.second.text)
+              this.game.openDialogBox(this.dialogTree.second.text, null);
             break;
 
           default:

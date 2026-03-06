@@ -17,13 +17,12 @@ const missableObjects = (game) => {
   });
 };
 
-const handleDialogState = (game, action) => {
-  const event = game.dialogBox.update(game.canvas.context, action);
+const handleDialogState = (game, event) => {
   if (event === "END_DIALOG") game.closeDialogBox();
 };
 
 export const update = (game) => {
-  console.log(game.state);
+  // console.log(game.state);
   // console.log(game.pokemonViewer?.pokemonSprite);
 
   game.tileManager.update();
@@ -42,8 +41,8 @@ export const update = (game) => {
       game.player.update(game, action);
       break;
     case "DIALOG":
-      game.dialogBox?.update(game.canvas.context, action);
-      handleDialogState(game, action);
+      const event = game.dialogBox?.update(game.canvas.context, action);
+      handleDialogState(game, event);
       break;
     case "MENU":
       game.mainMenu?.update(game.canvas.context, action);

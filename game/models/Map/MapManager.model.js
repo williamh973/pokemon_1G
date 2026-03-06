@@ -10,7 +10,7 @@ export class MapManager {
   constructor(game, maps) {
     this.game = game;
     this.maps = maps;
-    this.currentMap = this.maps["OAK_LAB"];
+    this.currentMap = this.maps["PALLET_TOWN"]; // "OAK_LAB",
     this.loadMap(this.currentMap);
   }
 
