@@ -13,12 +13,12 @@ export class Player extends Character {
     };
 
     super({
-      tileX: 7,
-      tileY: 15,
+      tileX: 8,
+      tileY: 7,
       sprites: playerSprites,
     });
     this.name = "red";
-    this.nickname = "";
+    this.nickname = "RED";
     this.abilities = "";
     this.hasWon = false;
     this.hasLose = false;
@@ -30,18 +30,22 @@ export class Player extends Character {
     this.trainerCard = {};
     this.paths = {
       exit: [...Array(1).fill(this.facing)],
-      escortedByOak_A: [
-        ...Array(1).fill("right"),
-        ...Array(11).fill("down"),
-        ...Array(3).fill("right"),
-        ...Array(1).fill("up"),
-      ],
-      escortedByOak_B: [
-        ...Array(1).fill("left"),
-        ...Array(11).fill("down"),
-        ...Array(4).fill("right"),
-        ...Array(1).fill("up"),
-      ],
+      scenarioPaths: {
+        palletTown: {
+          escortedByOak_A: [
+            ...Array(1).fill("right"),
+            ...Array(11).fill("down"),
+            ...Array(3).fill("right"),
+            ...Array(1).fill("up"),
+          ],
+          escortedByOak_B: [
+            ...Array(1).fill("left"),
+            ...Array(11).fill("down"),
+            ...Array(4).fill("right"),
+            ...Array(1).fill("up"),
+          ],
+        },
+      },
     };
   }
 

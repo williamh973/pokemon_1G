@@ -38,7 +38,6 @@ export class Character {
     this.initialFacing = facing;
     this.forcedMovements = [];
     this.movementCallbacks = [];
-    this.sequences = [];
     this.updateSprite();
   }
 
@@ -162,7 +161,9 @@ export class Character {
   }
 
   attemptMove(dx, dy, game) {
-    if (this.isMoving || game.isPaused) return;
+    if (this.isMoving || this.forcedMovements.length > 0 || game.isPaused)
+      return;
+
     this.setFacing(this.getFacingFromDelta(dx, dy));
     this.updateSprite();
 
@@ -185,10 +186,6 @@ export class Character {
 
   addMovementCallback(callback) {
     this.movementCallbacks.push(callback);
-  }
-
-  addSequence(Fn) {
-    this.sequences.push(Fn);
   }
 
   update(game) {
@@ -219,13 +216,6 @@ export class Character {
     }
 
     this.state = CHARACTER_STATE.IDLE;
-
-    if (this.sequences.length > 0) {
-      const [sequenceFn] = this.sequences;
-      console.log(sequenceFn);
-      sequenceFn();
-      this.sequences = [];
-    }
 
     if (!this.isMoving && this.forcedMovements.length > 0) {
       const nextDirection = this.forcedMovements.shift();

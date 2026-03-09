@@ -61,7 +61,7 @@ export class MissableObject extends Npc {
     if (game.flags.STARTER_CHOSEN) return;
 
     game.flags[this.flagId] = true;
-    game.openDialogBox(`Vous obtenez ${item.name} !`, null);
+    game.openDialogBox(`${game.player.nickname} obtient ${item.name} !`, null);
     this.remove(game);
     game.player.inventory.add(item, this.category);
   }

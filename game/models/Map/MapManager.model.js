@@ -2,9 +2,9 @@ import { NPC_DATABASE } from "../../shareds/character/npc/npc.database.js";
 import { NPC_LOCATION } from "../../shareds/character/npc/npcLocation.database.js";
 import { ITEMS_DATABASE } from "../../shareds/items/items.database.js";
 import { ITEM_LOCATION } from "../../shareds/items/itemsLocation.database.js";
+import { spawnMO } from "../../shareds/utils/character/npc/spawnMissableObject.utils.js";
+import { spawnNpc } from "../../shareds/utils/character/npc/spawnNpc.utils.js";
 import { TILES_SIZE } from "../../shareds/utils/tile/tile.utils.js";
-import { Npc } from "../Character/Npc/npc.model.js";
-import { MissableObject } from "../Character/Npc/object/missableObject.model.js";
 
 export class MapManager {
   constructor(game, maps) {
@@ -17,38 +17,22 @@ export class MapManager {
   loadNpcs(map) {
     const mapNpcs = NPC_LOCATION[map.id];
     if (!mapNpcs) return;
+
     return mapNpcs.map((data) => {
       const config = NPC_DATABASE[data.id];
-      const npc = new Npc({
-        tileX: data.tileX,
-        tileY: data.tileY,
-        sprites: config.sprites,
-        facing: config.facing,
-        name: config.name,
-        dialogTree: config.dialogTree,
-        behavior: config.behavior,
-        patrolPath: config.patrolPath,
-      });
-      return this.currentMap.npcs.push(npc);
+      const npc = spawnNpc(config, data, map);
+      return npc;
     });
   }
 
-  loadMissableObjs(map) {
-    const mapMissableObjs = ITEM_LOCATION[map.id];
-    if (!mapMissableObjs) return;
+  loadMO(map) {
+    const mapMO = ITEM_LOCATION[map.id];
+    if (!mapMO) return;
 
-    return mapMissableObjs.map((data) => {
+    return mapMO.map((data) => {
       const config = ITEMS_DATABASE[data.category][data.key];
-      const item = new MissableObject({
-        key: data.key,
-        tileX: data.tileX,
-        tileY: data.tileY,
-        id: config.id,
-        category: data.category,
-        flagId: data.flagId,
-        name: config.name,
-      });
-      return this.currentMap.missableObjects.push(item);
+      const item = spawnMO(map, config, data);
+      return item;
     });
   }
 
@@ -73,7 +57,7 @@ export class MapManager {
     this.removeCurrentMapNpcs();
     this.removeCurrentMapMissableObjects();
     this.loadNpcs(map);
-    this.loadMissableObjs(map);
+    this.loadMO(map);
     this.filterMissableObjects();
   }
 

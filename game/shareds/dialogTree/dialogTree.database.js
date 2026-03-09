@@ -141,19 +141,13 @@ export const DIALOGS_TREE_DATABASE = {
         text: "Le laboratoire du PROF. CHEN\n m'a permis d'apprendre pleins\nde choses intérressantes \nsur les pokémons.",
       },
     },
-    oak: {
-      start: {
-        text: "PROF.CHEN : Et toi ! Halte !",
-        flagCheck: {
-          flag: "OAK_BLOCK_EXIT_DONE",
-          trueNode: "next",
-          falseNode: "start",
-        },
-      },
-      next: {
-        text: "PROF.CHEN : C'est dangereux \nde se balader dans les hau-\ntes-herbes sans POKEMON. \nViens ! Suis-moi.",
-        setFlag: "OAK_INTRO_LAB",
-      },
+    oakBlockRed: {
+      text: "CHEN : Et toi là ! Halte !\nNe part pas !",
+      next: "oakJoinedRed",
+    },
+
+    oakJoinedRed: {
+      text: "CHEN :\nDe justesse !\nC'est dangereux \nde se balader dans les hau-\ntes-herbes. Des POKEMON \nsauvages y vivent.\nViens ! Suis-moi.",
     },
   },
   oakLab: {
@@ -167,14 +161,44 @@ export const DIALOGS_TREE_DATABASE = {
         text: "Je travaille sur le POKEDEX.\nMais où est passé ce livre ?!",
       },
     },
-    oak: {
-      start: {
-        text: "PROF.CHEN : C'est mon labo. Tu m'as fait peur tout à lheure. Il te faut un POKEMON si tu veux rester en sécurité",
-        flagCheck: {
-          flag: "ENTERED_OAK_LAB",
-          trueNode: "next",
-          falseNode: "start",
-        },
+
+    oakWarn: {
+      text: "CHEN : C'est mon labo.\nJ'étudie les POKEMON\navec mes assistants.\nTu m'as fait peur tout à \nl'heure. Il te faudrait un POKE\nMON si tu veux rester en sé\ncurité.",
+      next: "oakInterrupted",
+    },
+
+    oakInterrupted: {
+      text: "BLUE : Pépé!\nJ'en ai marre d'attendre!",
+      next: "oakReply",
+    },
+
+    oakReply: {
+      text: "CHEN: Heu? Quoi?\nBLUE? Pourquoi es-tu déjà là?",
+      next: "oakExplain",
+    },
+
+    oakExplain: {
+      text: "CHEN : Regarde RED,\nVois-tu ces balls sur la table?",
+      next: "oakGiveChoice",
+    },
+
+    oakGiveChoice: {
+      text: "CHEN : Tu peux en avoir un.\nVas y!\nPrends-en une!",
+      action: (game) => {
+        game.flags.CAN_CHOOSE_STARTER = true;
+      },
+      next: "blueComplains",
+    },
+
+    blueComplains: {
+      text: "BLUE : Ben!\nPépé! Et moi?",
+      next: "oakWait",
+    },
+
+    oakWait: {
+      text: "CHEN: Patience, BLUE.\nTu en auras un tout à l'heure.",
+      action: (game) => {
+        game.flags.OAK_INTRO_DONE = true;
       },
     },
   },

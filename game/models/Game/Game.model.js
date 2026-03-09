@@ -32,7 +32,7 @@ export class Game {
     this.player = new Player(this, this.playedWith);
     this.flags = GAME_FLAGS;
     this.mapManager = new MapManager(this, MAPS);
-    this.scenarioManager = new ScenarioManager(this.mapManager.currentMap);
+    this.scenarioManager = new ScenarioManager(this);
     this.tileManager = new TileManager(TILES_SIZE);
     this.transition = new Fade(FADING_TIME);
     this.mainMenu = new MainMenu(this);
@@ -44,6 +44,7 @@ export class Game {
     this.save = null;
     this.pokemonViewer = null;
     this.activeNpc = null;
+    this.dialogCallback = null;
     this.isSaveCompleted = false;
     this.isAttemptSave = false;
     this.isPaused = false;
@@ -71,7 +72,7 @@ export class Game {
     this.state = "DIALOG";
     this.togglePause(true, false);
     if (dialogTree) this.openChoiceMenu(dialogTree);
-    if (callbackFn) callbackFn();
+    if (callbackFn) this.dialogCallback = callbackFn;
   }
 
   closeDialogBox() {
@@ -79,6 +80,12 @@ export class Game {
     if (this.activeNpc) this.activeNpc = null;
     this.state = "WORLD";
     this.togglePause(false, true);
+
+    if (this.dialogCallback) {
+      const cb = this.dialogCallback;
+      this.dialogCallback = null;
+      cb();
+    }
   }
 
   openTitleScreen() {

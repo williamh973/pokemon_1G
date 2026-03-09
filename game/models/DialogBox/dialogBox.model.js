@@ -77,7 +77,6 @@ export class DialogBox {
   }
 
   noMorePage() {
-    console.log("appelé !");
     return "END_DIALOG";
   }
 

@@ -2,6 +2,16 @@ import { CHARACTER_SPRITES } from "../sprite/characterSprite.database.js";
 import { DIALOGS_TREE_DATABASE } from "../../dialogTree/dialogTree.database.js";
 
 export const NPC_DATABASE = {
+  blue: {
+    sprites: {
+      idle: CHARACTER_SPRITES.blue.idle,
+      walk: CHARACTER_SPRITES.blue.walk,
+    },
+    name: "Blue",
+    dialogTree: DIALOGS_TREE_DATABASE.oakLab.blue,
+    behavior: "static",
+    facing: "up",
+  },
   guss: {
     sprites: {
       idle: CHARACTER_SPRITES.fatKid.idle,
@@ -11,12 +21,14 @@ export const NPC_DATABASE = {
     dialogTree: DIALOGS_TREE_DATABASE.palletTown.guss,
     behavior: "patrol",
     facing: "down",
-    patrolPath: [
-      ...Array(7).fill("right"),
-      ...Array(3).fill("down"),
-      ...Array(7).fill("left"),
-      ...Array(3).fill("up"),
-    ],
+    paths: {
+      patrolPath: [
+        ...Array(7).fill("right"),
+        ...Array(3).fill("down"),
+        ...Array(7).fill("left"),
+        ...Array(3).fill("up"),
+      ],
+    },
   },
   julio: {
     sprites: {
@@ -48,22 +60,32 @@ export const NPC_DATABASE = {
     behavior: "special",
     facing: "down",
     paths: {
-      fromLabToplayer_A: [
-        ...Array(4).fill("up"),
-        ...Array(1).fill("right"),
-        ...Array(1).fill("up"),
+      patrolPath: [
+        ...Array(7).fill("right"),
+        ...Array(3).fill("down"),
+        ...Array(7).fill("left"),
+        ...Array(3).fill("up"),
       ],
-      fromLabToplayer_B: [...Array(5).fill("up")],
-      escortPlayerToLab_A: [
-        ...Array(11).fill("down"),
-        ...Array(3).fill("right"),
-        ...Array(1).fill("up"),
-      ],
-      escortPlayerToLab_B: [
-        ...Array(11).fill("down"),
-        ...Array(4).fill("right"),
-        ...Array(1).fill("up"),
-      ],
+      scenarioPaths: {
+        palletTown: {
+          fromLabToplayer_A: [
+            ...Array(4).fill("up"),
+            ...Array(1).fill("right"),
+            ...Array(1).fill("up"),
+          ],
+          fromLabToplayer_B: [...Array(5).fill("up")],
+          escortPlayerToLab_A: [
+            ...Array(11).fill("down"),
+            ...Array(3).fill("right"),
+            ...Array(1).fill("up"),
+          ],
+          escortPlayerToLab_B: [
+            ...Array(11).fill("down"),
+            ...Array(4).fill("right"),
+            ...Array(1).fill("up"),
+          ],
+        },
+      },
     },
   },
   lisa: {
