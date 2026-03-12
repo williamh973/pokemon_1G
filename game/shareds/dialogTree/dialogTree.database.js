@@ -1,81 +1,18 @@
-const choices = [
-  { label: "OUI", next: "first" },
-  { label: "NON", next: "second" },
-];
+import { removeMObyItemId } from "../utils/list/list.utils.js";
+
+export const POSSIBLE_CHOICES_DATABASE = {
+  yes: { label: "OUI", next: "first" },
+  no: { label: "NON", next: "second" },
+  girl: { label: "FILLE", next: "second" },
+  boy: { label: "GARÇON", next: "first" },
+};
 
 export const DIALOGS_TREE_DATABASE = {
-  newGame: {
-    setDimension: { width: 100, height: 32 * 2.1 },
-    start: {
-      text: "Etes-vous un garçon ou une\nfille ?",
-      choices: choices,
-    },
-    first: {
-      text: "Un garçon, d'accord !",
-      action: (game) => {
-        game.playedWith = "red";
-      },
-    },
-    second: {
-      text: "Une fille, d'accord !",
-      action: (game) => {
-        game.playedWith = "lira";
-      },
-    },
-  },
-  newPokemon: {
-    setDimension: { width: 32 * 2.4, height: 32 * 2.1 },
-    start: {
-      text: "Veux-tu donner un surnom à\n",
-      choices: choices,
-    },
-    first: {
-      action: (game) => {
-        game.openNicknameMenu();
-      },
-    },
-    second: {
-      action: (game) => {
-        game.closeDialogBox();
-        game.closeChoiceMenu();
-      },
-    },
-  },
-  starter: {
-    setDimension: { width: 32 * 2.4, height: 32 * 2.1 },
-    start: {
-      choices: choices,
-    },
-    first: {
-      text: "Excellent choix ! Il sera \nun parfait compagnion !",
-      action: (game) => {
-        game.flags.STARTER_CHOSEN = true;
-        game.mapManager.currentMap.missableObjects =
-          game.mapManager.currentMap.missableObjects.filter((item) => {
-            return item.itemId !== game.player.starter.id;
-          });
-        game.player.team.add();
-      },
-    },
-    second: {
-      text: "Prend ton temps pour faire \nle bon choix",
-      action: (game) => {
-        game.closeChoiceMenu();
-        game.flags.STARTER_BULBASAUR_SELECTED =
-          game.flags.STARTER_CHARMANDER_SELECTED =
-          game.flags.STARTER_SQUIRTLE_SELECTED =
-            false;
-        game.mapManager.currentMap.missableObjects.forEach((item) => {
-          if (item.pokemonViewer) item.closePokemonViewer();
-        });
-      },
-    },
-  },
   saveSystem: {
     setDimension: { width: 32 * 2.4, height: 32 * 2.1 },
     start: {
       text: "Sauvegarder la partie ?",
-      choices: choices,
+      setChoices: [POSSIBLE_CHOICES_DATABASE.yes, POSSIBLE_CHOICES_DATABASE.no],
     },
     first: {
       text: "Sauvegarde en cours...",
@@ -100,23 +37,121 @@ export const DIALOGS_TREE_DATABASE = {
       },
     },
   },
+  selectGender: {
+    setDimension: { width: 100, height: 32 * 2.1 },
+    start: {
+      text: "Etes-vous un garçon ou une\nfille ?",
+      setChoices: [
+        POSSIBLE_CHOICES_DATABASE.boy,
+        POSSIBLE_CHOICES_DATABASE.girl,
+      ],
+    },
+    first: {
+      text: "Un garçon, d'accord !",
+      action: (game) => {
+        game.playedWith = "red";
+      },
+    },
+    second: {
+      text: "Une fille, d'accord !",
+      action: (game) => {
+        game.playedWith = "lira";
+      },
+    },
+  },
+
+  giveNicknameToNewPokemon: {
+    setDimension: { width: 32 * 2.4, height: 32 * 2.1 },
+    start: {
+      text: "Veux-tu donner un surnom à\n",
+      setChoices: [POSSIBLE_CHOICES_DATABASE.yes, POSSIBLE_CHOICES_DATABASE.no],
+    },
+    first: {
+      action: (game) => {
+        game.openNicknameMenu();
+      },
+    },
+    second: {
+      action: (game) => {
+        game.closeDialogBox();
+        game.closeChoiceMenu();
+      },
+    },
+  },
+
+  starter: {
+    setDimension: { width: 32 * 2.4, height: 32 * 2.1 },
+    start: {
+      setChoices: [POSSIBLE_CHOICES_DATABASE.yes, POSSIBLE_CHOICES_DATABASE.no],
+    },
+    first: {
+      text: "Excellent choix ! Il sera \nun parfait compagnion !",
+      action: (game) => {
+        const currentMap = game.mapManager.currentMap;
+        const starterId = game.player.starter.id;
+        game.mapManager.currentMap.missableObjects = removeMObyItemId(
+          currentMap,
+          starterId
+        );
+        game.player.team.add();
+        game.flags.scenarios.oakLab.STARTER_CHOSEN_DONE = true;
+      },
+    },
+    second: {
+      text: "Prend ton temps pour faire \nle bon choix",
+      action: (game) => {
+        game.closeChoiceMenu();
+        game.mapManager.currentMap.missableObjects.forEach((item) => {
+          if (item.pokemonViewer) item.closePokemonViewer();
+        });
+      },
+    },
+  },
+
+  oak: {
+    start: {
+      text: `CHEN : RED,\nquel POKéMON choisis-tu?`,
+      setFlag: "OAK_INTRO_LAB_DONE",
+      flagCheck: {
+        flag: "OAK_INTRO_LAB_DONE",
+        trueNode: "start",
+        falseNode: "start",
+      },
+    },
+    next: {
+      text: "CHEN : Ton POKéMON\nte protègera des\nPOKéMON sauvages!",
+      setFlag: "OAK_INTRO_LAB_DONE",
+      // flagCheck: {
+      //   flag: "OAK_INTRO_LAB_DONE",
+      //   trueNode: "repeat",
+      //   falseNode: "start",
+      // },
+    },
+    repeat: {
+      text: `Le monde est à toi RED.`,
+    },
+  },
+
   redHouse1F: {
-    mom: {
+    redMom: {
       start: {
         text: "Tous les garçons partent un\njour de la maison. J'ai déjà\nvu ça à la TV.",
+        setFlag: "TALKED_TO_MOM",
         flagCheck: {
           flag: "TALKED_TO_MOM",
           trueNode: "repeat",
           falseNode: "start",
         },
-        setFlag: "TALKED_TO_MOM",
-        next: "repeat",
+        action: (game) => {
+          game.flags[game.mapManager.currentMap.id].TALKED_TO_MOM = true;
+        },
       },
       repeat: {
         text: "N'oublie pas de dire bonjour\nau professeur Chen.",
       },
     },
   },
+
   palletTown: {
     guss: {
       start: {
@@ -128,17 +163,20 @@ export const DIALOGS_TREE_DATABASE = {
         },
       },
       next: {
-        text: "oh ! Mais c'est un pokémon !\nViens te battre !",
+        text: "Oh ! Mais c'est un POKéMON ?\n En garde!",
+      },
+      defeated: {
+        text: "Je me suis donc trompé\n Je continuerai à\nm'entrainer",
       },
     },
     julio: {
-      start: {
+      repeat: {
         text: "Mon frère est moi sommes inséparable !",
       },
     },
     lisa: {
-      start: {
-        text: "Le laboratoire du PROF. CHEN\n m'a permis d'apprendre pleins\nde choses intérressantes \nsur les pokémons.",
+      repeat: {
+        text: "Le laboratoire du PROF. CHEN\n m'a permis d'apprendre\npleins de choses intérressantes \nsur les pokémons.",
       },
     },
     oakBlockRed: {
@@ -150,7 +188,27 @@ export const DIALOGS_TREE_DATABASE = {
       text: "CHEN :\nDe justesse !\nC'est dangereux \nde se balader dans les hau-\ntes-herbes. Des POKEMON \nsauvages y vivent.\nViens ! Suis-moi.",
     },
   },
+
   oakLab: {
+    blue: {
+      start: {
+        text: "Je m'en fiche si tu choisis\nen premier, j'aurais aussi\nle mien.",
+        flagCheck: {
+          flag: "OAK_INTRO_LAB_DONE",
+          trueNode: "next",
+          falseNode: "start",
+        },
+      },
+      next: {
+        text: "Je m'en fiche si tu choisis\nen premier, j'aurais aussi\nle mien.",
+        flagCheck: {
+          flag: "OAK_ESCORT_DONE",
+          trueNode: "next",
+          falseNode: "start",
+        },
+      },
+    },
+
     luc: {
       start: {
         text: "Les Poké Balls sont de véri-\ntables chefs-d'œuvre techno-\nlogiques. Elles compressent\nles Pokémons en énergie pure.",
@@ -163,7 +221,7 @@ export const DIALOGS_TREE_DATABASE = {
     },
 
     oakWarn: {
-      text: "CHEN : C'est mon labo.\nJ'étudie les POKEMON\navec mes assistants.\nTu m'as fait peur tout à \nl'heure. Il te faudrait un POKE\nMON si tu veux rester en sé\ncurité.",
+      text: "CHEN : C'est mon labo.\nJ'étudie les POKEMON\navec mes assistants.\nTu m'as fait peur tout à \nl'heure. Il te faudrait un POKE\nMON si tu veux...",
       next: "oakInterrupted",
     },
 
@@ -173,7 +231,7 @@ export const DIALOGS_TREE_DATABASE = {
     },
 
     oakReply: {
-      text: "CHEN: Heu? Quoi?\nBLUE? Pourquoi es-tu déjà là?",
+      text: "CHEN: Heu? Quoi?\nBLUE? Pourquoi es-tu déjà là?\nJe t'avais dit d'attendre.\nEnfin bref...",
       next: "oakExplain",
     },
 
@@ -184,9 +242,6 @@ export const DIALOGS_TREE_DATABASE = {
 
     oakGiveChoice: {
       text: "CHEN : Tu peux en avoir un.\nVas y!\nPrends-en une!",
-      action: (game) => {
-        game.flags.CAN_CHOOSE_STARTER = true;
-      },
       next: "blueComplains",
     },
 
@@ -197,8 +252,31 @@ export const DIALOGS_TREE_DATABASE = {
 
     oakWait: {
       text: "CHEN: Patience, BLUE.\nTu en auras un tout à l'heure.",
+      next: "blueReaction",
+    },
+
+    blueReaction: {
+      text: `BLUE: Mmh...!`,
       action: (game) => {
         game.flags.OAK_INTRO_DONE = true;
+      },
+    },
+
+    blueChooseStarter: {
+      text: `BLUE: Alors je prend celui là !`,
+      action: (game) => {
+        const currentMap = game.mapManager.currentMap;
+        const starterId = game.player.starter.id;
+        const rivalStarter = {
+          BULBASAUR: "CHARMANDER",
+          CHARMANDER: "SQUIRTLE",
+          SQUIRTLE: "BULBASAUR",
+        };
+
+        currentMap.missableObjects = removeMObyItemId(
+          currentMap,
+          rivalStarter[starterId]
+        );
       },
     },
   },

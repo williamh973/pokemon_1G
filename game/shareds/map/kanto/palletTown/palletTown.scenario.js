@@ -1,4 +1,3 @@
-import { Npc } from "../../../../models/Character/Npc/npc.model.js";
 import { dialog } from "../../../../models/ScenarioManager/action/dialog.js";
 import { face } from "../../../../models/ScenarioManager/action/facing.js";
 import {
@@ -6,7 +5,6 @@ import {
   sequenceMove,
 } from "../../../../models/ScenarioManager/action/move.js";
 import { NPC_DATABASE } from "../../../character/npc/npc.database.js";
-import { NPC_LOCATION } from "../../../character/npc/npcLocation.database.js";
 import { DIALOGS_TREE_DATABASE } from "../../../dialogTree/dialogTree.database.js";
 import { spawnNpc } from "../../../utils/character/npc/spawnNpc.utils.js";
 
@@ -27,16 +25,16 @@ export const palletTownScenarios = [
         },
       ],
     },
-    condition: (game) => !game.flags.OAK_BLOCK_EXIT_DONE,
+    condition: (game) => !game.flags.PALLET_TOWN.OAK_BLOCK_EXIT_DONE,
     action: (game) => {
-      const FLAGS = game.flags;
+      const FLAGS = game.flags.PALLET_TOWN;
       const PALLET_TOWN = game.mapManager.currentMap;
       const PLAYER = game.player;
 
       const oakConfig = NPC_DATABASE["oak"];
       const oakDataLoc = { id: "oak", tileX: 8, tileY: 11 };
       const OAK = spawnNpc(oakConfig, oakDataLoc, PALLET_TOWN);
-      console.log(OAK);
+
       if (PLAYER.tileX === 8 && PLAYER.tileY === 6)
         game.scenarioManager.start([
           dialog(DIALOGS_TREE_DATABASE.palletTown.oakBlockRed),
@@ -46,6 +44,12 @@ export const palletTownScenarios = [
           face(PLAYER, OAK),
           face(OAK, PLAYER),
           dialog(DIALOGS_TREE_DATABASE.palletTown.oakJoinedRed),
+          sequenceMove(
+            OAK,
+            OAK.paths.scenarioPaths.palletTown.escortPlayerToLab_A,
+            PLAYER,
+            PLAYER.paths.scenarioPaths.palletTown.escortedByOak_A
+          ),
         ]);
       else if (PLAYER.tileX === 9 && PLAYER.tileY === 6)
         game.scenarioManager.start([
@@ -62,33 +66,8 @@ export const palletTownScenarios = [
           ),
         ]);
 
+      FLAGS.OAK_BLOCK_EXIT_DONE = true;
       FLAGS.OAK_ESCORT_DONE = true;
-      // OAK.addMovementCallback(() => {
-      //   PLAYER.setFacing(PLAYER.getFacingToward(OAK));
-      //   OAK.setFacing(OAK.getFacingToward(PLAYER));
-      //   FLAGS.OAK_JOIN_RED_DONE = true;
-
-      //   game.openDialogBox(
-      //     DIALOGS_TREE_DATABASE.palletTown.oak.next.text,
-      //     null,
-      //     () => {
-
-      //       OAK.addMovementCallback(() => {
-      //         NPC_LOCATION.PALLET_TOWN = NPC_LOCATION.PALLET_TOWN.filter(
-      //           (npc) => npc.id !== "oak"
-      //         );
-
-      //         game.mapManager.currentMap.npcs =
-      //           game.mapManager.currentMap.npcs.filter(
-      //             (npc) => npc.name !== "Oak"
-      //           );
-
-      //       });
-      //     }
-      //   );
-      // });
-
-      // FLAGS.OAK_BLOCK_EXIT_DONE = true;
     },
   },
 ];

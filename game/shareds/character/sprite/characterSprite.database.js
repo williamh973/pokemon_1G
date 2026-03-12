@@ -130,7 +130,7 @@ export const CHARACTER_SPRITES = {
       right: [walkPlayerRight_stepA, walkPlayerRight_stepB],
     },
   },
-  mom: {
+  redMom: {
     idle: {
       up: idleMomUp,
       down: idleMomDown,

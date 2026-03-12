@@ -1,4 +1,4 @@
-export const WORLDMAP_GRID = {
+export const WORLDMAP_SETTING = {
   width: 10,
   height: 9,
   tileSize: 32,

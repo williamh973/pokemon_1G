@@ -5,6 +5,6 @@ export class Team {
   }
 
   add() {
-    console.log(this.player.starter);
+    // console.log(this.player.starter);
   }
 }

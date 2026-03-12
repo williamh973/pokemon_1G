@@ -10,12 +10,14 @@ export class Npc extends Character {
     behavior = "static",
     paths = null,
     name = "NPC",
+    starter = null,
   }) {
     super({ tileX, tileY, sprites, facing });
     this.initialFacing = facing;
     this.name = name;
     this.behavior = behavior;
     this.dialogTree = dialogTree;
+    this.starter = starter;
     this.isInteracting = false;
     this.behaviorCooldown = 0;
     this.restoreTimeout = 0;
@@ -108,18 +110,35 @@ export class Npc extends Character {
     this.isInteracting = true;
     this.setFacing(this.getFacingToward(game.player));
 
-    let nodeKey = "start";
-    if (this.dialogTree.start.flagCheck) {
-      const { flag, trueNode, falseNode } = this.dialogTree.start.flagCheck;
-      nodeKey = game.flags[flag] ? trueNode : falseNode;
+    const node = this.getDialogNode(game);
+
+    if (!node) return;
+
+    game.openDialogBox(node.text, null, () => {
+      node.action?.(game);
+    });
+  }
+
+  getDialogNode(game) {
+    const tree = this.dialogTree;
+
+    if (!tree) return null;
+
+    const mapId = game.mapManager.currentMap.id;
+
+    let node = tree.start ?? tree.repeat ?? tree[Object.keys(tree)[0]];
+    if (node.flagCheck) {
+      const { flag, trueNode, falseNode } = node.flagCheck;
+
+      console.log(game.flags[mapId][flag]);
+      const nextKey = game.flags[mapId][flag] ? trueNode : falseNode;
+
+      node = tree[nextKey];
     }
 
-    const node = this.dialogTree[nodeKey];
+    if (node.setFlag) game.flags[mapId][node.setFlag] = true;
 
-    if (node.setFlag) game.flags[node.setFlag] = true;
-    if (node.action) node.action(game);
-
-    game.openDialogBox(node.text);
+    return node;
   }
 
   isInteractionFinished(game) {

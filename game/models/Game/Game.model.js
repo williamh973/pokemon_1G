@@ -17,11 +17,11 @@ import {
   loadGame,
   startTransitionBeforeOpenWorldMap,
 } from "../../logic/gameplay/game/game.gameplay.js";
-import { GAME_FLAGS } from "../../shareds/utils/game/game.utils.js";
 import { TILES_SIZE } from "../../shareds/utils/tile/tile.utils.js";
 import { FADING_TIME } from "../../shareds/utils/fade/fade.assets.js";
 import { Player } from "../Character/Player/Player.model.js";
 import { ScenarioManager } from "../ScenarioManager/ScenarioManager.model.js";
+import { GAME_FLAGS_DATABASE } from "../../shareds/flags/flags.database.js";
 
 export class Game {
   constructor() {
@@ -30,7 +30,7 @@ export class Game {
     this.camera = new Camera(this.canvas);
     this.playedWith = "red";
     this.player = new Player(this, this.playedWith);
-    this.flags = GAME_FLAGS;
+    this.flags = GAME_FLAGS_DATABASE;
     this.mapManager = new MapManager(this, MAPS);
     this.scenarioManager = new ScenarioManager(this);
     this.tileManager = new TileManager(TILES_SIZE);
@@ -50,7 +50,7 @@ export class Game {
     this.isPaused = false;
     this.isBattleMod = false;
     this.init();
-    // this.openTitleScreen();
+    this.openTitleScreen();
   }
 
   init() {
@@ -126,9 +126,13 @@ export class Game {
   }
 
   start() {
+    this.selectGender();
+  }
+
+  selectGender() {
     this.openDialogBox(
-      DIALOGS_TREE_DATABASE.newGame.start.text,
-      DIALOGS_TREE_DATABASE.newGame
+      DIALOGS_TREE_DATABASE.selectGender.start.text,
+      DIALOGS_TREE_DATABASE.selectGender
     );
   }
 
@@ -156,7 +160,6 @@ export class Game {
   }
 
   openInventory() {
-    console.log(this.player.pokedex);
     this.currentScreen = this.player.inventory;
     this.player.inventory.open();
     this.state = "INVENTORY";

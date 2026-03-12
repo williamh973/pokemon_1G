@@ -1,18 +1,22 @@
-export const GAME_FLAGS = {
-  OAK_BLOCK_EXIT_DONE: false,
-  OAK_JOIN_RED_DONE: false,
-  OAK_ESCORT_DONE: false,
-  OAK_INTRO_LAB: false,
-  CAN_CHOOSE_STARTER: false,
-  STARTER_BULBASAUR_SELECTED: false,
-  STARTER_CHARMANDER_SELECTED: false,
-  STARTER_SQUIRTLE_SELECTED: false,
-  STARTER_CHOSEN: false,
+export const GAME_FLAGS_DATABASE = {
+  PALLET_TOWN: {
+    OAK_BLOCK_EXIT_DONE: false,
+    OAK_ESCORT_DONE: false,
+    GOT_STARTER: false,
+  },
+  OAK_LAB: {
+    OAK_INTRO_LAB_DONE: false,
+    STARTER_CHOSEN_DONE: false,
+    POKEDEX_RECEIVED: false,
+  },
+  RED_HOUSE_1F: {
+    TALKED_TO_MOM: false,
+  },
+  RED_HOUSE_2F: {
+    GOT_POTION_REDHOUSE_2F: false,
+  },
   ENTERED_OAK_LAB: false,
   OAK_STOPPED_PLAYER: false,
-  GOT_STARTER: false,
-  GOT_POTION_REDHOUSE_2F: false,
-  TALKED_TO_MOM: false,
   GOT_SUPER_POTION_REDHOUSE_2F: false,
   GOT_POKEBALL_REDHOUSE_2F: false,
   GOT_POTION_2_REDHOUSE_2F: false,
@@ -22,7 +26,6 @@ export const GAME_FLAGS = {
   RIVAL_GOT_STARTER: false,
   FIRST_BATTLE_DONE: false,
   MOM_GAVE_POTION: false,
-  POKEDEX_RECEIVED: false,
   OAK_PARCEL_DELIVERED: false,
   OAK_PARCEL_RECEIVED: false,
   GOT_TOWN_MAP: false,

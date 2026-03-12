@@ -6,13 +6,12 @@ export class ChoiceMenu {
   constructor(game, dialogTree) {
     this.game = game;
     this.dialogTree = dialogTree;
-    this.items = dialogTree.start.choices;
-    this.canvas = this.game.canvas;
+    this.items = this.dialogTree.start.setChoices;
     this.width = this.dialogTree.setDimension.width;
     this.height = this.dialogTree.setDimension.height;
     this.position = {
       x: 0,
-      y: this.canvas.height - this.height * 2,
+      y: game.canvas.height - this.height * 2,
     };
     this.isOpen = false;
     this.hasFocus = false;

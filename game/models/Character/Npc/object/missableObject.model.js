@@ -1,6 +1,7 @@
 import { DIALOGS_TREE_DATABASE } from "../../../../shareds/dialogTree/dialogTree.database.js";
 import { ITEMS_DATABASE } from "../../../../shareds/items/items.database.js";
 import { OBJECT_SPRITES } from "../../../../shareds/items/sprite/itemsSprite.database.js";
+import { removeMObyFlagId } from "../../../../shareds/utils/list/list.utils.js";
 import { PokemonViewer } from "../../../PokemonViewer/PokemonViewer.model.js";
 import { Npc } from "../npc.model.js";
 
@@ -34,12 +35,12 @@ export class MissableObject extends Npc {
   }
 
   isStarterPokemon(game, starter) {
-    game.flags[this.flagId] = true;
+    // game.flags[this.flagId] = true;
     game.player.starter = starter;
 
     this.openPokemonViewer(game, starter);
 
-    if (game.flags.STARTER_CHOSEN) return;
+    if (game.flags.scenarios.oakLab.STARTER_CHOSEN_DONE) return;
     return game.openDialogBox(
       `Veux-tu ${starter.name} ?\nc'est ${starter.desc}`,
       DIALOGS_TREE_DATABASE.starter
@@ -54,22 +55,21 @@ export class MissableObject extends Npc {
 
   interact(game) {
     const item = this.getItemInDatabase();
+    const mapId = game.mapManager.currentMap.id;
 
-    if (item.isPokemon && !game.flags.STARTER_CHOSEN)
+    if (item.isPokemon && !game.flags["OAK_LAB"].STARTER_CHOSEN_DONE)
       return this.isStarterPokemon(game, item);
 
-    if (game.flags.STARTER_CHOSEN) return;
+    if (game.flags["OAK_LAB"].STARTER_CHOSEN_DONE) return;
 
-    game.flags[this.flagId] = true;
+    game.flags[mapId][this.flagId] = true;
     game.openDialogBox(`${game.player.nickname} obtient ${item.name} !`, null);
-    this.remove(game);
-    game.player.inventory.add(item, this.category);
-  }
 
-  remove(game) {
-    game.mapManager.currentMap.missableObjects =
-      game.mapManager.currentMap.missableObjects.filter(
-        (item) => item.flagId !== this.flagId
-      );
+    game.mapManager.currentMap.missableObjects = removeMObyFlagId(
+      game,
+      this.flagId
+    );
+
+    game.player.inventory.add(item, this.category);
   }
 }

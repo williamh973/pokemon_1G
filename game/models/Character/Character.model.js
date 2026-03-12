@@ -71,7 +71,7 @@ export class Character {
 
   draw(canvas, camera) {
     const screenX = this.position.x + camera.offsetX;
-    const screenY = this.position.y + camera.offsetY;
+    const screenY = this.position.y + camera.offsetY - 5;
     const frameWidth = this.image.width / this.framesMax;
 
     canvas.context.drawImage(
@@ -128,6 +128,12 @@ export class Character {
     });
   }
 
+  moInFrontOfPlayer(game, targetX, targetY) {
+    return game.mapManager.currentMap.missableObjects?.some((mo) => {
+      return mo.tileX === targetX && mo.tileY === targetY;
+    });
+  }
+
   playerInFrontOfPnc(game, targetX, targetY) {
     return game.player.tileX === targetX && game.player.tileY === targetY;
   }
@@ -176,6 +182,7 @@ export class Character {
       this.checkCliffTrigger(game, targetX, targetY) ||
       !this.walkableTile(game, targetX, targetY) ||
       this.npcInFrontOfPlayer(game, targetX, targetY) ||
+      this.moInFrontOfPlayer(game, targetX, targetY) ||
       this.playerInFrontOfPnc(game, targetX, targetY)
     )
       return;

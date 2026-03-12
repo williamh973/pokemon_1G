@@ -10,7 +10,7 @@ export class MapManager {
   constructor(game, maps) {
     this.game = game;
     this.maps = maps;
-    this.currentMap = this.maps["PALLET_TOWN"]; // "OAK_LAB",
+    this.currentMap = this.maps["RED_HOUSE_2F"]; // "PALLET_TOWN", "OAK_LAB", "RED_HOUSE_1F",
     this.loadMap(this.currentMap);
   }
 
@@ -36,15 +36,14 @@ export class MapManager {
     });
   }
 
-  filterMissableObjects() {
+  filterMissableObjects(mapId) {
     this.currentMap.missableObjects = this.currentMap.missableObjects.filter(
       (object) => {
         if (!object.flagId) return true;
-        return !this.game.flags[object.flagId];
+        return !this.game.flags[mapId][object.flagId];
       }
     );
   }
-
   removeCurrentMapNpcs() {
     return (this.currentMap.npcs = []);
   }
@@ -58,7 +57,7 @@ export class MapManager {
     this.removeCurrentMapMissableObjects();
     this.loadNpcs(map);
     this.loadMO(map);
-    this.filterMissableObjects();
+    this.filterMissableObjects(map.id);
   }
 
   checkWarp(player) {

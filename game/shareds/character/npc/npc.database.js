@@ -11,6 +11,17 @@ export const NPC_DATABASE = {
     dialogTree: DIALOGS_TREE_DATABASE.oakLab.blue,
     behavior: "static",
     facing: "up",
+    paths: {
+      scenarioPaths: {
+        oakLab: {
+          fromLabToplayer_A: [
+            ...Array(4).fill("up"),
+            ...Array(1).fill("right"),
+            ...Array(1).fill("up"),
+          ],
+        },
+      },
+    },
   },
   guss: {
     sprites: {
@@ -40,13 +51,13 @@ export const NPC_DATABASE = {
     behavior: "wander",
     facing: "up",
   },
-  mom: {
+  redMom: {
     sprites: {
-      idle: CHARACTER_SPRITES.mom.idle,
-      walk: CHARACTER_SPRITES.mom.walk,
+      idle: CHARACTER_SPRITES.redMom.idle,
+      walk: CHARACTER_SPRITES.redMom.walk,
     },
     name: "Mom",
-    dialogTree: DIALOGS_TREE_DATABASE.redHouse1F.mom,
+    dialogTree: DIALOGS_TREE_DATABASE.redHouse1F.redMom,
     behavior: "static",
     facing: "left",
   },
@@ -56,7 +67,7 @@ export const NPC_DATABASE = {
       walk: CHARACTER_SPRITES.oak.walk,
     },
     name: "Oak",
-    dialogTree: DIALOGS_TREE_DATABASE.palletTown.oak,
+    dialogTree: DIALOGS_TREE_DATABASE.oak,
     behavior: "special",
     facing: "down",
     paths: {

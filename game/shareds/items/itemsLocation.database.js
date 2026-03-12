@@ -18,7 +18,7 @@ export const ITEM_LOCATION = {
       tileY: 3,
       id: "BULBASAUR",
       category: "starter",
-      flagId: "STARTER_BULBASAUR_SELECTED",
+      flagId: "",
     },
     {
       key: "charmander",
@@ -26,7 +26,7 @@ export const ITEM_LOCATION = {
       tileY: 3,
       id: "CHARMANDER",
       category: "starter",
-      flagId: "STARTER_CHARMANDER_SELECTED",
+      flagId: "",
     },
     {
       key: "squirtle",
@@ -34,7 +34,7 @@ export const ITEM_LOCATION = {
       tileY: 3,
       id: "SQUIRTLE",
       category: "starter",
-      flagId: "STARTER_SQUIRTLE_SELECTED",
+      flagId: "",
     },
   ],
 };
