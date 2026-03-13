@@ -35,16 +35,17 @@ export class MissableObject extends Npc {
   }
 
   isStarterPokemon(game, starter) {
-    // game.flags[this.flagId] = true;
+    if (!game.flags["OAK_LAB"].OAK_INTRO_LAB_DONE)
+      return game.openDialogBox(DIALOGS_TREE_DATABASE.oakLab.story.repeat.text);
+
     game.player.starter = starter;
 
-    this.openPokemonViewer(game, starter);
-
-    if (game.flags.scenarios.oakLab.STARTER_CHOSEN_DONE) return;
-    return game.openDialogBox(
+    game.openDialogBox(
       `Veux-tu ${starter.name} ?\nc'est ${starter.desc}`,
       DIALOGS_TREE_DATABASE.starter
     );
+
+    this.openPokemonViewer(game, starter);
   }
 
   getItemInDatabase() {
@@ -57,19 +58,22 @@ export class MissableObject extends Npc {
     const item = this.getItemInDatabase();
     const mapId = game.mapManager.currentMap.id;
 
-    if (item.isPokemon && !game.flags["OAK_LAB"].STARTER_CHOSEN_DONE)
+    if (item.isPokemon) {
       return this.isStarterPokemon(game, item);
+    } else {
+      game.flags[mapId][this.flagId] = true;
 
-    if (game.flags["OAK_LAB"].STARTER_CHOSEN_DONE) return;
+      game.mapManager.currentMap.missableObjects = removeMObyFlagId(
+        game,
+        this.flagId
+      );
 
-    game.flags[mapId][this.flagId] = true;
-    game.openDialogBox(`${game.player.nickname} obtient ${item.name} !`, null);
+      game.player.inventory.add(item, this.category);
 
-    game.mapManager.currentMap.missableObjects = removeMObyFlagId(
-      game,
-      this.flagId
-    );
-
-    game.player.inventory.add(item, this.category);
+      game.openDialogBox(
+        `${game.player.nickname} obtient ${item.name} !`,
+        null
+      );
+    }
   }
 }

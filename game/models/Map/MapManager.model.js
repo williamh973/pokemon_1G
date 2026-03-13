@@ -5,12 +5,13 @@ import { ITEM_LOCATION } from "../../shareds/items/itemsLocation.database.js";
 import { spawnMO } from "../../shareds/utils/character/npc/spawnMissableObject.utils.js";
 import { spawnNpc } from "../../shareds/utils/character/npc/spawnNpc.utils.js";
 import { TILES_SIZE } from "../../shareds/utils/tile/tile.utils.js";
+import { move } from "../ScenarioManager/action/move.js";
 
 export class MapManager {
   constructor(game, maps) {
     this.game = game;
     this.maps = maps;
-    this.currentMap = this.maps["RED_HOUSE_2F"]; // "PALLET_TOWN", "OAK_LAB", "RED_HOUSE_1F",
+    this.currentMap = this.maps["PALLET_TOWN"]; // "PALLET_TOWN", "OAK_LAB", "RED_HOUSE_1F",
     this.loadMap(this.currentMap);
   }
 
@@ -181,6 +182,15 @@ export class MapManager {
       ) {
         scenario.hasTriggered = true;
         scenario.action(this.game);
+
+        if (
+          this.game.flags[this.currentMap.id].OAK_INTRO_LAB_DONE &&
+          this.game.flags[this.currentMap.id].PLAYER_TRY_TO_LEAVE &&
+          !this.game.flags[this.currentMap.id].BLUE_STARTER_CHOSEN_DONE
+        ) {
+          player.startForcedMovement(Array(1).fill("up"));
+          scenario.hasTriggered = false;
+        }
       }
     });
   }

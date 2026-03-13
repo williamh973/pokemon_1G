@@ -15,11 +15,11 @@ export const oakLabScenarios = [
       positions: [
         {
           tileX: 4,
-          tileY: 7,
+          tileY: 6,
         },
         {
           tileX: 5,
-          tileY: 7,
+          tileY: 6,
         },
       ],
     },
@@ -38,11 +38,11 @@ export const oakLabScenarios = [
 
       FLAGS.OAK_INTRO_LAB_DONE = true;
 
-      if (PLAYER.tileX === 4 && PLAYER.tileY === 7)
+      if (PLAYER.tileX === 4 && PLAYER.tileY === 6)
         game.scenarioManager.start([
           move(PLAYER, "up", 1),
           move(PLAYER, "right", 1),
-          move(PLAYER, "up", 2),
+          move(PLAYER, "up", 1),
           face(PLAYER, OAK),
           face(OAK, PLAYER),
           dialog(DIALOGS_TREE_DATABASE.oakLab.oakWarn),
@@ -56,9 +56,9 @@ export const oakLabScenarios = [
           dialog(DIALOGS_TREE_DATABASE.oakLab.blueReaction),
           behavior(BLUE, "lookAround"),
         ]);
-      else if (PLAYER.tileX === 5 && PLAYER.tileY === 7)
+      else if (PLAYER.tileX === 5 && PLAYER.tileY === 6)
         game.scenarioManager.start([
-          move(PLAYER, "up", 3),
+          move(PLAYER, "up", 2),
           face(PLAYER, OAK),
           face(OAK, PLAYER),
           dialog(DIALOGS_TREE_DATABASE.oakLab.oakWarn),
@@ -94,19 +94,15 @@ export const oakLabScenarios = [
         },
       ],
     },
-    condition: (game) => game.flags.OAK_LAB.STARTER_CHOSEN_DONE,
+    condition: (game) => game.flags.OAK_LAB.PLAYER_STARTER_CHOSEN_DONE,
     action: (game) => {
-      console.log("passe dans le scénario");
-
       const FLAGS = game.flags;
-      const OAK_LAB = game.mapManager.currentMap;
       const PLAYER = game.player;
-      const OAK = game.mapManager.currentMap.npcs.find(
-        (npc) => npc.name === "Oak"
-      );
       const BLUE = game.mapManager.currentMap.npcs.find(
         (npc) => npc.name === "Blue"
       );
+
+      FLAGS.OAK_LAB.BLUE_STARTER_CHOSEN_DONE = true;
 
       if (PLAYER.tileX === 6 && PLAYER.tileY === 4)
         game.scenarioManager.start([
@@ -134,6 +130,47 @@ export const oakLabScenarios = [
           move(BLUE, "up", 1),
           dialog(DIALOGS_TREE_DATABASE.oakLab.blueChooseStarter),
           behavior(BLUE, "lookAround"),
+        ]);
+    },
+  },
+  {
+    id: "PLAYER_TRY_TO_LEAVE",
+    hasTriggered: false,
+    trigger: {
+      type: "POSITION",
+      positions: [
+        {
+          tileX: 4,
+          tileY: 7,
+        },
+        {
+          tileX: 5,
+          tileY: 7,
+        },
+      ],
+    },
+    condition: (game) => game.flags.OAK_LAB.OAK_INTRO_LAB_DONE,
+    action: (game) => {
+      const FLAGS = game.flags;
+      const PLAYER = game.player;
+
+      FLAGS.OAK_LAB.PLAYER_TRY_TO_LEAVE = true;
+
+      if (
+        PLAYER.tileX === 4 &&
+        PLAYER.tileY === 7 &&
+        !FLAGS.OAK_LAB.BLUE_STARTER_CHOSEN_DONE
+      )
+        game.scenarioManager.start([
+          dialog(DIALOGS_TREE_DATABASE.oakLab.playerTryToExit),
+        ]);
+      else if (
+        PLAYER.tileX === 5 &&
+        PLAYER.tileY === 7 &&
+        !FLAGS.OAK_LAB.BLUE_STARTER_CHOSEN_DONE
+      )
+        game.scenarioManager.start([
+          dialog(DIALOGS_TREE_DATABASE.oakLab.playerTryToExit),
         ]);
     },
   },

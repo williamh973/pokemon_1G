@@ -85,7 +85,7 @@ export const DIALOGS_TREE_DATABASE = {
       setChoices: [POSSIBLE_CHOICES_DATABASE.yes, POSSIBLE_CHOICES_DATABASE.no],
     },
     first: {
-      text: "Excellent choix ! Il sera \nun parfait compagnion !",
+      text: "CHEN : Excellent choix !\nIl sera un parfait\ncompagnion !",
       action: (game) => {
         const currentMap = game.mapManager.currentMap;
         const starterId = game.player.starter.id;
@@ -94,11 +94,11 @@ export const DIALOGS_TREE_DATABASE = {
           starterId
         );
         game.player.team.add();
-        game.flags.scenarios.oakLab.STARTER_CHOSEN_DONE = true;
+        game.flags.OAK_LAB.PLAYER_STARTER_CHOSEN_DONE = true;
       },
     },
     second: {
-      text: "Prend ton temps pour faire \nle bon choix",
+      text: "CHEN : Prend ton temps pour\nfaire le bon choix.",
       action: (game) => {
         game.closeChoiceMenu();
         game.mapManager.currentMap.missableObjects.forEach((item) => {
@@ -111,21 +111,19 @@ export const DIALOGS_TREE_DATABASE = {
   oak: {
     start: {
       text: `CHEN : RED,\nquel POKéMON choisis-tu?`,
-      setFlag: "OAK_INTRO_LAB_DONE",
       flagCheck: {
         flag: "OAK_INTRO_LAB_DONE",
         trueNode: "start",
-        falseNode: "start",
+        falseNode: "next",
       },
     },
     next: {
       text: "CHEN : Ton POKéMON\nte protègera des\nPOKéMON sauvages!",
-      setFlag: "OAK_INTRO_LAB_DONE",
-      // flagCheck: {
-      //   flag: "OAK_INTRO_LAB_DONE",
-      //   trueNode: "repeat",
-      //   falseNode: "start",
-      // },
+      flagCheck: {
+        flag: "OAK_INTRO_LAB_DONE",
+        trueNode: "repeat",
+        falseNode: "start",
+      },
     },
     repeat: {
       text: `Le monde est à toi RED.`,
@@ -190,9 +188,15 @@ export const DIALOGS_TREE_DATABASE = {
   },
 
   oakLab: {
+    story: {
+      repeat: {
+        text: "Ce sont les 3 derniers\nPOKéMON du professeur CHEN.",
+      },
+    },
+
     blue: {
       start: {
-        text: "Je m'en fiche si tu choisis\nen premier, j'aurais aussi\nle mien.",
+        text: "",
         flagCheck: {
           flag: "OAK_INTRO_LAB_DONE",
           trueNode: "next",
@@ -202,7 +206,24 @@ export const DIALOGS_TREE_DATABASE = {
       next: {
         text: "Je m'en fiche si tu choisis\nen premier, j'aurais aussi\nle mien.",
         flagCheck: {
-          flag: "OAK_ESCORT_DONE",
+          flag: "BLUE_STARTER_CHOSEN_DONE",
+          trueNode: "next2",
+          falseNode: "start",
+        },
+      },
+      next2: {
+        text: "Mon POKéMON est meilleur.",
+        flagCheck: {
+          flag: "PLAYER_STARTER_CHOSEN_DONE",
+          trueNode: "next3",
+          falseNode: "start",
+        },
+      },
+
+      next3: {
+        text: "titi",
+        flagCheck: {
+          flag: "PLAYER_STARTER_CHOSEN_DONE",
           trueNode: "next",
           falseNode: "start",
         },
@@ -214,6 +235,7 @@ export const DIALOGS_TREE_DATABASE = {
         text: "Les Poké Balls sont de véri-\ntables chefs-d'œuvre techno-\nlogiques. Elles compressent\nles Pokémons en énergie pure.",
       },
     },
+
     noah: {
       start: {
         text: "Je travaille sur le POKEDEX.\nMais où est passé ce livre ?!",
@@ -260,6 +282,10 @@ export const DIALOGS_TREE_DATABASE = {
       action: (game) => {
         game.flags.OAK_INTRO_DONE = true;
       },
+    },
+
+    playerTryToExit: {
+      text: "CHEN: Attend! \nTu ne peux pas partir sans\nPOKéMON!",
     },
 
     blueChooseStarter: {

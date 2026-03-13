@@ -6,8 +6,10 @@ export const GAME_FLAGS_DATABASE = {
   },
   OAK_LAB: {
     OAK_INTRO_LAB_DONE: false,
-    STARTER_CHOSEN_DONE: false,
+    PLAYER_STARTER_CHOSEN_DONE: false,
+    BLUE_STARTER_CHOSEN_DONE: false,
     POKEDEX_RECEIVED: false,
+    PLAYER_TRY_TO_LEAVE: false,
   },
   RED_HOUSE_1F: {
     TALKED_TO_MOM: false,
