@@ -4,7 +4,7 @@ import { redHouse_1F } from "./kanto/palletTown/redHouse/1F/redHouse1F.data.js";
 import { redHouse_2F } from "./kanto/palletTown/redHouse/2F/redHouse2F.data.js";
 import { kantoRoute1 } from "./kanto/kantoRoute1/kantoRoute1.data.js";
 
-export const MAPS = {
+export const MAPS_DATABASE = {
   PALLET_TOWN: palletTown,
   OAK_LAB: oakLab,
   RED_HOUSE_1F: redHouse_1F,

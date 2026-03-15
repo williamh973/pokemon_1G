@@ -88,12 +88,12 @@ export const DIALOGS_TREE_DATABASE = {
       text: "CHEN : Excellent choix !\nIl sera un parfait\ncompagnion !",
       action: (game) => {
         const currentMap = game.mapManager.currentMap;
-        const starterId = game.player.starter.id;
+        const starter = game.player.starter;
         game.mapManager.currentMap.missableObjects = removeMObyItemId(
           currentMap,
-          starterId
+          starter.id
         );
-        game.player.team.add();
+        game.player.team.add(starter);
         game.flags.OAK_LAB.PLAYER_STARTER_CHOSEN_DONE = true;
       },
     },

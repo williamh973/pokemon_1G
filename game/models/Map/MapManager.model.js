@@ -1,3 +1,4 @@
+import { SCENARIO_SCRIPTS } from "../../logic/gameplay/scenarios/scenario.scripts.js";
 import { NPC_DATABASE } from "../../shareds/character/npc/npc.database.js";
 import { NPC_LOCATION } from "../../shareds/character/npc/npcLocation.database.js";
 import { ITEMS_DATABASE } from "../../shareds/items/items.database.js";
@@ -5,21 +6,22 @@ import { ITEM_LOCATION } from "../../shareds/items/itemsLocation.database.js";
 import { spawnMO } from "../../shareds/utils/character/npc/spawnMissableObject.utils.js";
 import { spawnNpc } from "../../shareds/utils/character/npc/spawnNpc.utils.js";
 import { TILES_SIZE } from "../../shareds/utils/tile/tile.utils.js";
-import { move } from "../ScenarioManager/action/move.js";
 
 export class MapManager {
-  constructor(game, maps) {
+  constructor(game, mapsDatabase) {
     this.game = game;
-    this.maps = maps;
-    this.currentMap = this.maps["PALLET_TOWN"]; // "PALLET_TOWN", "OAK_LAB", "RED_HOUSE_1F",
-    this.loadMap(this.currentMap);
+    this.mapsDatabase = mapsDatabase;
+    this.currentMap = this.mapsDatabase["PALLET_TOWN"]; // "PALLET_TOWN", "OAK_LAB", "RED_HOUSE_1F",
+    this.npcLocation = NPC_LOCATION[this.currentMap.id];
+    this.moLocation = ITEM_LOCATION[this.currentMap.id];
+    this.loadMap(this.currentMap.id); // pour dev uniquement
   }
 
   loadNpcs(map) {
-    const mapNpcs = NPC_LOCATION[map.id];
-    if (!mapNpcs) return;
+    this.npcLocation = NPC_LOCATION[map.id];
+    if (!this.npcLocation) return;
 
-    return mapNpcs.map((data) => {
+    return this.npcLocation.map((data) => {
       const config = NPC_DATABASE[data.id];
       const npc = spawnNpc(config, data, map);
       return npc;
@@ -27,10 +29,10 @@ export class MapManager {
   }
 
   loadMO(map) {
-    const mapMO = ITEM_LOCATION[map.id];
-    if (!mapMO) return;
+    this.moLocation = ITEM_LOCATION[map.id];
+    if (!this.moLocation) return;
 
-    return mapMO.map((data) => {
+    return this.moLocation.map((data) => {
       const config = ITEMS_DATABASE[data.category][data.key];
       const item = spawnMO(map, config, data);
       return item;
@@ -53,12 +55,14 @@ export class MapManager {
     return (this.currentMap.missableObjects = []);
   }
 
-  loadMap(map) {
+  loadMap(mapId) {
+    const map = this.mapsDatabase[mapId];
+    this.currentMap = map;
     this.removeCurrentMapNpcs();
     this.removeCurrentMapMissableObjects();
     this.loadNpcs(map);
     this.loadMO(map);
-    this.filterMissableObjects(map.id);
+    this.filterMissableObjects(mapId);
   }
 
   checkWarp(player) {
@@ -82,7 +86,7 @@ export class MapManager {
   checkTransition(game, warp) {
     if (!warp.transition) {
       this.setCurrentMap(warp);
-      this.loadMap(this.currentMap);
+      this.loadMap(this.currentMap.id);
       this.updatePlayerPositionWithFacing(game, true, warp);
     } else this.startTransition(game, warp);
   }
@@ -100,11 +104,10 @@ export class MapManager {
 
   startTransition(game, warp) {
     game.togglePause(true, false);
-
     game.transition.start(
       () => {
         this.setCurrentMap(warp);
-        this.loadMap(this.currentMap);
+        this.loadMap(this.currentMap.id);
         this.updatePlayerPositionWithFacing(game, false, warp);
       },
       () => {
@@ -116,7 +119,7 @@ export class MapManager {
   }
 
   setCurrentMap(warp) {
-    return (this.currentMap = this.maps[warp.toMap]);
+    return (this.currentMap = this.mapsDatabase[warp.toMap]);
   }
 
   staticInteraction(front) {
@@ -171,6 +174,17 @@ export class MapManager {
     });
   }
 
+  runScript(script) {
+    const foundedScript = SCENARIO_SCRIPTS[this.currentMap.id][script];
+
+    if (!foundedScript) {
+      console.warn(`Script ${script} not found`);
+      return;
+    }
+
+    foundedScript(this.game);
+  }
+
   checkScenarios(player) {
     const scenarios = this.currentMap.scenarios;
 
@@ -178,10 +192,11 @@ export class MapManager {
       if (
         !scenario.hasTriggered &&
         this.matchTrigger(scenario.trigger, player) &&
-        scenario.condition(this.game)
+        scenario.condition(this.game) &&
+        scenario.script
       ) {
+        this.runScript(scenario.script);
         scenario.hasTriggered = true;
-        scenario.action(this.game);
 
         if (
           this.game.flags[this.currentMap.id].OAK_INTRO_LAB_DONE &&

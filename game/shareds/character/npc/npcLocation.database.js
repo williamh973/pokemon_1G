@@ -1,6 +1,6 @@
 export const NPC_LOCATION = {
   PALLET_TOWN: [
-    { id: "guss", tileX: 10, tileY: 15 },
+    // { id: "guss", tileX: 10, tileY: 15 },
     { id: "julio", tileX: 13, tileY: 19 },
     { id: "lisa", tileX: 4, tileY: 13 },
   ],

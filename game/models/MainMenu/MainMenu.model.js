@@ -27,17 +27,21 @@ export class MainMenu {
     this.currentIndex = 0;
     this.baseY = 21;
     this.cursor = new Cursor();
-    this.checkItems();
   }
 
   checkItems() {
     const pokedex = { id: "POKEDEX", name: "POKEDEX" };
     const pokemon = { id: "POKEMON", name: "POKEMON" };
+    const PLAYER = this.game.player;
 
-    if (this.game.player.gotPokedex) this.items.splice(0, 0, pokedex);
+    const foundedPokedex = this.items.find((item) => item.id === pokedex.id);
+    const foundedPokemon = this.items.find((item) => item.id === pokemon.id);
 
-    if (this.game.player.team.pokemons?.length > 0)
+    if (PLAYER.gotPokedex && !foundedPokedex) this.items.splice(0, 0, pokedex);
+
+    if (PLAYER.team.pokemons.length > 0 && !foundedPokemon) {
       this.items.splice(1, 0, pokemon);
+    }
 
     this.updateHeight();
   }
@@ -73,6 +77,7 @@ export class MainMenu {
   }
 
   open() {
+    this.checkItems();
     this.isOpen = true;
     this.cursor.isVisible = true;
     this.hasFocus = true;

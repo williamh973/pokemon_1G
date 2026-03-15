@@ -4,7 +4,8 @@ export class Team {
     this.pokemons = [];
   }
 
-  add() {
-    // console.log(this.player.starter);
+  add(pokemon) {
+    this.pokemons.push(pokemon);
+    console.log(this.pokemons);
   }
 }

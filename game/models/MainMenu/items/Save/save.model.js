@@ -1,3 +1,4 @@
+import { SCENARIOS_DATABASE } from "../../../../shareds/scenarios/scenarios.database.js";
 import { serialize } from "../../../../shareds/utils/font/font.utils.js";
 import { getItemById } from "../../../../shareds/utils/save/save.utils.js";
 import { TILES_SIZE } from "../../../../shareds/utils/tile/tile.utils.JS";
@@ -11,12 +12,18 @@ export class Save {
     this.currentMapId = null;
     this.flags = null;
     this.inventory = { categories: {} };
+    this.map = {
+      npcLocation: [],
+      npcs: [],
+      triggeredScenarios: [],
+    };
   }
 
   capture(game) {
     this.player.tileX = game.player.tileX;
     this.player.tileY = game.player.tileY;
     this.currentMapId = game.mapManager.currentMap.id;
+
     this.flags = game.flags;
 
     const categories = {
@@ -25,8 +32,13 @@ export class Save {
       keys: serialize(game.player.inventory.keys),
       cTcS: serialize(game.player.inventory.cTcS),
     };
-
     this.inventory.categories = categories;
+
+    this.map = {
+      npcLocation: game.mapManager.npcLocation,
+      npcs: game.mapManager.currentMap.npcs,
+      // triggeredScenarios: foundTriggeredScenarios,
+    };
   }
 
   write(game) {
@@ -52,40 +64,46 @@ export class Save {
       y: TILES_SIZE * game.player.tileY,
     };
 
-    const map = game.mapManager.maps[this.currentMapId];
-    game.mapManager.currentMap = map;
     game.flags = this.flags;
 
-    const rebuild = (savedList, categoryKey) => {
-      const rebuilt = [];
-
-      savedList.forEach((savedItem) => {
-        const baseItem = getItemById(categoryKey, savedItem.id);
-
-        rebuilt.push({
-          ...baseItem,
-          count: savedItem.count,
-        });
-      });
-
-      rebuilt.push(game.player.inventory.CANCEL_ITEM);
-
-      return rebuilt;
-    };
-
-    game.player.inventory.cares = rebuild(
+    game.player.inventory.cares = this.rebuild(
+      game,
       this.inventory.categories.cares,
       "care"
     );
-    game.player.inventory.balls = rebuild(
+    game.player.inventory.balls = this.rebuild(
+      game,
       this.inventory.categories.balls,
       "ball"
     );
-    game.player.inventory.keys = rebuild(this.inventory.categories.keys, "key");
-    game.player.inventory.cTcS = rebuild(
+    game.player.inventory.keys = this.rebuild(
+      game,
+      this.inventory.categories.keys,
+      "key"
+    );
+    game.player.inventory.cTcS = this.rebuild(
+      game,
       this.inventory.categories.cTcS,
       "CTCS"
     );
+    game.mapManager.loadMap(this.currentMapId);
+  }
+
+  rebuild(game, savedList, categoryKey) {
+    const rebuilt = [];
+
+    savedList.forEach((savedItem) => {
+      const baseItem = getItemById(categoryKey, savedItem.id);
+
+      rebuilt.push({
+        ...baseItem,
+        count: savedItem.count,
+      });
+    });
+
+    rebuilt.push(game.player.inventory.CANCEL_ITEM);
+
+    return rebuilt;
   }
 }
 

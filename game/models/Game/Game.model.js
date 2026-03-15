@@ -9,7 +9,7 @@ import { MainMenu } from "../MainMenu/MainMenu.model.js";
 import { InputManager } from "../InputManager/InputManager.model.js";
 import { Save } from "../MainMenu/items/Save/save.model.js";
 import { TitleScreen } from "../TitleScreen/TitleScreen.model.js";
-import { MAPS } from "../../shareds/map/maps.registry.js";
+import { MAPS_DATABASE } from "../../shareds/map/maps.database.js";
 import { ChoiceMenu } from "../ChoiceMenu/ChoiceMenu.model.js";
 import { DIALOGS_TREE_DATABASE } from "../../shareds/dialogTree/dialogTree.database.js";
 import {
@@ -31,7 +31,7 @@ export class Game {
     this.playedWith = "red";
     this.player = new Player(this, this.playedWith);
     this.flags = GAME_FLAGS_DATABASE;
-    this.mapManager = new MapManager(this, MAPS);
+    this.mapManager = new MapManager(this, MAPS_DATABASE);
     this.scenarioManager = new ScenarioManager(this);
     this.tileManager = new TileManager(TILES_SIZE);
     this.transition = new Fade(FADING_TIME);
