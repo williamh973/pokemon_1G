@@ -22,14 +22,15 @@ export const dispatchMenuSelection = (game, itemId, source) => {
 
 export const startTransitionBeforeOpenWorldMap = (game) => {
   game.transition.start(
-    () => {
+    () => {},
+    (done) => {
       const pokemon = game.currentScreen.pokemonList.selectedPokemon;
       game.currentScreen = new WorldMap(game, "ENCOUNTER");
       game.currentScreen.open(pokemon);
       game.state = "WORLDMAP";
       game.mainMenu.close();
+      done();
     },
-    () => {},
     () => {}
   );
 };

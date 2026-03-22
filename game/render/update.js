@@ -39,6 +39,7 @@ export const update = (game) => {
         return;
       }
       game.player.update(game, action);
+      game.mapNameWindow.update(game.canvas.context);
       break;
     case "DIALOG":
       const event = game.dialogBox?.update(game.canvas.context, action);

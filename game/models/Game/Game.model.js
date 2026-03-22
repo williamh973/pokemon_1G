@@ -23,6 +23,7 @@ import { Player } from "../Character/Player/Player.model.js";
 import { ScenarioManager } from "../ScenarioManager/ScenarioManager.model.js";
 import { GAME_FLAGS_DATABASE } from "../../shareds/flags/flags.database.js";
 import { TRIGGERED_SCENARIOS_DATABASE } from "../../shareds/scenarios/triggeredScenarios.database.js";
+import { MapNameWindow } from "../Map/MapNameWindow.model.js";
 
 export class Game {
   constructor() {
@@ -42,7 +43,7 @@ export class Game {
     this.input = new InputManager();
     this.choiceMenu = null;
     this.currentScreen = null;
-    this.mapNameWindow = null;
+    this.mapNameWindow = new MapNameWindow(this);
     this.save = null;
     this.pokemonViewer = null;
     this.activeNpc = null;
@@ -52,7 +53,7 @@ export class Game {
     this.isPaused = false;
     this.isBattleMod = false;
     this.init();
-    this.openTitleScreen();
+    // this.openTitleScreen();
   }
 
   init() {

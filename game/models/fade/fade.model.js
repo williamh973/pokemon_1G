@@ -39,7 +39,6 @@ export class Fade {
   update() {
     if (!this.active) return;
     this.progress++;
-    console.log(this.progress);
 
     if (this.phase === "start") {
       const phaseDuration = this.duration / 2;

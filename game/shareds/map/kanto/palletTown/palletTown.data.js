@@ -6,6 +6,7 @@ import { PALLET_TOWN_NPCs } from "./palletTown.npc.js";
 
 export const palletTown = {
   id: "PALLET_TOWN",
+  mapNameWindow: "Bourg Palette",
   layout: palletTownLayout,
   collision: palletTownCollide,
   interactions: palletTownInteractions,

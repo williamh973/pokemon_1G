@@ -20,7 +20,6 @@ export const palletTownWarps = [
     toMap: "KANTO_ROUTE_1",
     from: { x: 8, y: 5 },
     to: { x: 8, y: 35 },
-    facing: "up",
     transition: false,
   },
   {
@@ -28,7 +27,6 @@ export const palletTownWarps = [
     toMap: "KANTO_ROUTE_1",
     from: { x: 9, y: 5 },
     to: { x: 9, y: 35 },
-    facing: "up",
     transition: false,
   },
 ];
