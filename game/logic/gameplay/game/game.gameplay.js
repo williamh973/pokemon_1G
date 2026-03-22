@@ -29,15 +29,18 @@ export const startTransitionBeforeOpenWorldMap = (game) => {
       game.state = "WORLDMAP";
       game.mainMenu.close();
     },
+    () => {},
     () => {}
   );
 };
 
 export const loadGame = (game) => {
-  const save = Save.load();
+  const save = Save.loadLS();
   if (!save) return;
 
-  save.apply(game);
-  game.isLoaded = true;
+  const data = save.apply(game);
+  console.log(data);
+  game.mapManager.loadMap(data.map.id, data);
+
   game.closeTitleScreen();
 };

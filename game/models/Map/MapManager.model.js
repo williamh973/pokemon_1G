@@ -1,4 +1,5 @@
-import { SCENARIO_SCRIPTS } from "../../logic/gameplay/scenarios/scenario.scripts.js";
+import { checkInteractions } from "../../logic/gameplay/mapManager/interactions.gameplay.js";
+import { checkScenarios } from "../../logic/gameplay/mapManager/scenarios.gameplay.js";
 import { NPC_DATABASE } from "../../shareds/character/npc/npc.database.js";
 import { NPC_LOCATION } from "../../shareds/character/npc/npcLocation.database.js";
 import { ITEMS_DATABASE } from "../../shareds/items/items.database.js";
@@ -12,20 +13,24 @@ export class MapManager {
     this.game = game;
     this.mapsDatabase = mapsDatabase;
     this.currentMap = this.mapsDatabase["PALLET_TOWN"]; // "PALLET_TOWN", "OAK_LAB", "RED_HOUSE_1F",
-    this.npcLocation = NPC_LOCATION[this.currentMap.id];
     this.moLocation = ITEM_LOCATION[this.currentMap.id];
-    this.loadMap(this.currentMap.id); // pour dev uniquement
   }
 
-  loadNpcs(map) {
-    this.npcLocation = NPC_LOCATION[map.id];
-    if (!this.npcLocation) return;
+  loadNpcs(map, saveData) {
+    const npcLocation = NPC_LOCATION[map.id];
+    if (!npcLocation) return;
 
-    return this.npcLocation.map((data) => {
-      const config = NPC_DATABASE[data.id];
-      const npc = spawnNpc(config, data, map);
-      return npc;
-    });
+    saveData
+      ? saveData.map.npcs.forEach((data) => {
+          const config = NPC_DATABASE[data.id];
+          const npc = spawnNpc(config, data, map);
+          return npc;
+        })
+      : npcLocation.map((data) => {
+          const config = NPC_DATABASE[data.id];
+          const npc = spawnNpc(config, data, map);
+          return npc;
+        });
   }
 
   loadMO(map) {
@@ -55,12 +60,12 @@ export class MapManager {
     return (this.currentMap.missableObjects = []);
   }
 
-  loadMap(mapId) {
+  loadMap(mapId, saveData) {
     const map = this.mapsDatabase[mapId];
     this.currentMap = map;
     this.removeCurrentMapNpcs();
     this.removeCurrentMapMissableObjects();
-    this.loadNpcs(map);
+    this.loadNpcs(map, saveData);
     this.loadMO(map);
     this.filterMissableObjects(mapId);
   }
@@ -103,17 +108,20 @@ export class MapManager {
   }
 
   startTransition(game, warp) {
-    game.togglePause(true, false);
     game.transition.start(
       () => {
+        game.togglePause(true, false);
+      },
+      (done) => {
         this.setCurrentMap(warp);
         this.loadMap(this.currentMap.id);
         this.updatePlayerPositionWithFacing(game, false, warp);
+        if (!this.currentMap.isIndoor)
+          game.player.startForcedMovement(game.player.paths.exit);
+        done();
       },
       () => {
         game.togglePause(false, true);
-        if (!this.currentMap.isIndoor)
-          game.player.startForcedMovement(game.player.paths.exit);
       }
     );
   }
@@ -122,91 +130,11 @@ export class MapManager {
     return (this.currentMap = this.mapsDatabase[warp.toMap]);
   }
 
-  staticInteraction(front) {
-    if (this.currentMap.interactions) {
-      const interaction = this.currentMap.interactions.find(
-        (i) => i.tile.x === front.x && i.tile.y === front.y
-      );
-      return interaction;
-    }
-  }
-
-  npcInFrontOf(front) {
-    return this.currentMap.npcs?.find(
-      (npc) => npc.tileX === front.x && npc.tileY === front.y
-    );
-  }
-
-  missableObjInFrontOf(front) {
-    return this.currentMap.missableObjects?.find(
-      (missableObj) =>
-        missableObj.tileX === front.x && missableObj.tileY === front.y
-    );
-  }
-
   checkInteraction(player) {
-    const front = player.getFrontTile();
-
-    const staticInteraction = this.staticInteraction(front);
-    if (staticInteraction)
-      return this.triggerInteraction(staticInteraction, player);
-
-    const npc = this.npcInFrontOf(front);
-    if (npc) return npc.interact(this.game);
-
-    const missableObj = this.missableObjInFrontOf(front);
-    if (missableObj) return missableObj.interact(this.game);
+    checkInteractions(this.game, player);
   }
 
-  triggerInteraction(staticInteraction, player) {
-    if (
-      staticInteraction.type === "sign" &&
-      player.facing === staticInteraction.facing[player.facing]
-    )
-      this.game.openDialogBox(staticInteraction.text);
-  }
-
-  matchTrigger(trigger, player) {
-    return trigger.positions.some((triggerPos) => {
-      return (
-        triggerPos.tileX === player.tileX && triggerPos.tileY === player.tileY
-      );
-    });
-  }
-
-  runScript(script) {
-    const foundedScript = SCENARIO_SCRIPTS[this.currentMap.id][script];
-
-    if (!foundedScript) {
-      console.warn(`Script ${script} not found`);
-      return;
-    }
-
-    foundedScript(this.game);
-  }
-
-  checkScenarios(player) {
-    const scenarios = this.currentMap.scenarios;
-
-    scenarios?.forEach((scenario) => {
-      if (
-        !scenario.hasTriggered &&
-        this.matchTrigger(scenario.trigger, player) &&
-        scenario.condition(this.game) &&
-        scenario.script
-      ) {
-        this.runScript(scenario.script);
-        scenario.hasTriggered = true;
-
-        if (
-          this.game.flags[this.currentMap.id].OAK_INTRO_LAB_DONE &&
-          this.game.flags[this.currentMap.id].PLAYER_TRY_TO_LEAVE &&
-          !this.game.flags[this.currentMap.id].BLUE_STARTER_CHOSEN_DONE
-        ) {
-          player.startForcedMovement(Array(1).fill("up"));
-          scenario.hasTriggered = false;
-        }
-      }
-    });
+  checkScenarios(game) {
+    checkScenarios(game);
   }
 }

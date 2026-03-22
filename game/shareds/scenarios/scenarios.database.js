@@ -1,27 +1,20 @@
 export const SCENARIOS_DATABASE = {
   PALLET_TOWN: {
     OAK_BLOCK_EXIT: {
-      hasTriggered: false,
       trigger: {
         type: "POSITION",
         positions: [
-          {
-            tileX: 8,
-            tileY: 6,
-          },
-          {
-            tileX: 9,
-            tileY: 6,
-          },
+          { tileX: 8, tileY: 6 },
+          { tileX: 9, tileY: 6 },
         ],
       },
       condition: (game) => !game.flags.PALLET_TOWN.OAK_BLOCK_EXIT_DONE,
       script: "oakBlockExit",
+      repeat: false,
     },
   },
   OAK_LAB: {
     OAK_INTRO_LAB: {
-      hasTriggered: false,
       trigger: {
         type: "POSITION",
         positions: [
@@ -29,12 +22,11 @@ export const SCENARIOS_DATABASE = {
           { tileX: 5, tileY: 6 },
         ],
       },
-
-      condition: (game) => !game.flags.OAK_LAB.OAK_ESCORT_DONE,
+      condition: (game) => game.flags.PALLET_TOWN.OAK_ESCORT_DONE,
       script: "oakIntroLab",
+      repeat: false,
     },
     BLUE_CHOOSEN_STARTER: {
-      hasTriggered: false,
       trigger: {
         type: "POSITION",
         positions: [
@@ -43,12 +35,11 @@ export const SCENARIOS_DATABASE = {
           { tileX: 8, tileY: 4 },
         ],
       },
-
       condition: (game) => game.flags.OAK_LAB.PLAYER_STARTER_CHOSEN_DONE,
       script: "blueChooseStarter",
+      repeat: false,
     },
     PLAYER_TRY_TO_LEAVE_WITHOUT_STARTER: {
-      hasTriggered: false,
       trigger: {
         type: "POSITION",
         positions: [
@@ -56,9 +47,19 @@ export const SCENARIOS_DATABASE = {
           { tileX: 5, tileY: 7 },
         ],
       },
-
-      condition: (game) => game.flags.OAK_LAB.OAK_INTRO_LAB_DONE,
+      condition: (game) => {
+        if (
+          game.flags.OAK_LAB.OAK_INTRO_LAB_DONE &&
+          !game.flags.OAK_LAB.BLUE_STARTER_CHOSEN_DONE
+        )
+          return true;
+        else return false;
+      },
       script: "playerTryToLeaveWithoutStarter",
+      repeat: true,
     },
   },
+  RED_HOUSE_1F: {},
+  RED_HOUSE_2F: {},
+  KANTO_ROUTE_1: {},
 };

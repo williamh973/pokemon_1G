@@ -22,6 +22,7 @@ import { FADING_TIME } from "../../shareds/utils/fade/fade.assets.js";
 import { Player } from "../Character/Player/Player.model.js";
 import { ScenarioManager } from "../ScenarioManager/ScenarioManager.model.js";
 import { GAME_FLAGS_DATABASE } from "../../shareds/flags/flags.database.js";
+import { TRIGGERED_SCENARIOS_DATABASE } from "../../shareds/scenarios/triggeredScenarios.database.js";
 
 export class Game {
   constructor() {
@@ -33,6 +34,7 @@ export class Game {
     this.flags = GAME_FLAGS_DATABASE;
     this.mapManager = new MapManager(this, MAPS_DATABASE);
     this.scenarioManager = new ScenarioManager(this);
+    this.triggeredScenarios = TRIGGERED_SCENARIOS_DATABASE;
     this.tileManager = new TileManager(TILES_SIZE);
     this.transition = new Fade(FADING_TIME);
     this.mainMenu = new MainMenu(this);
@@ -45,8 +47,8 @@ export class Game {
     this.pokemonViewer = null;
     this.activeNpc = null;
     this.dialogCallback = null;
-    this.isSaveCompleted = false;
     this.isAttemptSave = false;
+    this.isSaveCompleted = false;
     this.isPaused = false;
     this.isBattleMod = false;
     this.init();
@@ -129,10 +131,15 @@ export class Game {
     this.selectGender();
   }
 
+  load() {
+    loadGame(this);
+  }
+
   selectGender() {
     this.openDialogBox(
       DIALOGS_TREE_DATABASE.selectGender.start.text,
-      DIALOGS_TREE_DATABASE.selectGender
+      DIALOGS_TREE_DATABASE.selectGender,
+      () => this.mapManager.loadMap(this.mapManager.currentMap.id)
     );
   }
 
@@ -163,10 +170,6 @@ export class Game {
     this.currentScreen = this.player.inventory;
     this.player.inventory.open();
     this.state = "INVENTORY";
-  }
-
-  load() {
-    loadGame(this);
   }
 
   resetCurrentScreen() {

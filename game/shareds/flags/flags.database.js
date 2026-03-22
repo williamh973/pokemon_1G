@@ -9,7 +9,7 @@ export const GAME_FLAGS_DATABASE = {
     PLAYER_STARTER_CHOSEN_DONE: false,
     BLUE_STARTER_CHOSEN_DONE: false,
     POKEDEX_RECEIVED: false,
-    PLAYER_TRY_TO_LEAVE: false,
+    PLAYER_TRY_TO_LEAVE_WITHOUT_STARTER: false,
   },
   RED_HOUSE_1F: {
     TALKED_TO_MOM: false,

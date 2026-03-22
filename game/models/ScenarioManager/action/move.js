@@ -1,7 +1,6 @@
 export const move = (character, direction, steps = 1) => {
   return (game, done) => {
     const path = Array(steps).fill(direction);
-
     character.startForcedMovement(path);
 
     character.addMovementCallback(() => {

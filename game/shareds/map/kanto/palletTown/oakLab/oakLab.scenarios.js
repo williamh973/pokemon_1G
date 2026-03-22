@@ -1,7 +1,0 @@
-import { SCENARIOS_DATABASE } from "../../../../scenarios/scenarios.database.js";
-
-export const oakLabScenarios = [
-  SCENARIOS_DATABASE.OAK_LAB.OAK_INTRO_LAB,
-  SCENARIOS_DATABASE.OAK_LAB.BLUE_CHOOSEN_STARTER,
-  SCENARIOS_DATABASE.OAK_LAB.PLAYER_TRY_TO_LEAVE_WITHOUT_STARTER,
-];

@@ -2,7 +2,6 @@ import { oakLabCollision } from "./oakLab.collide.js";
 import { oakLabLayout } from "./oakLab.layout.js";
 import { OAK_LAB_MISSABLE_OBJECTS } from "./oakLab.missableObject.js";
 import { OAKLAB_NPCs } from "./oakLab.npc.js";
-import { oakLabScenarios } from "./oakLab.scenarios.js";
 import { oakLabWarps } from "./oakLab.warp.js";
 
 export const oakLab = {
@@ -16,5 +15,4 @@ export const oakLab = {
   missableObjects: OAK_LAB_MISSABLE_OBJECTS,
   isFlayable: false,
   isIndoor: true,
-  scenarios: oakLabScenarios,
 };

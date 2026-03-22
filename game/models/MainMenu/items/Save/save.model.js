@@ -1,4 +1,4 @@
-import { SCENARIOS_DATABASE } from "../../../../shareds/scenarios/scenarios.database.js";
+import { NPC_LOCATION } from "../../../../shareds/character/npc/npcLocation.database.js";
 import { serialize } from "../../../../shareds/utils/font/font.utils.js";
 import { getItemById } from "../../../../shareds/utils/save/save.utils.js";
 import { TILES_SIZE } from "../../../../shareds/utils/tile/tile.utils.JS";
@@ -9,20 +9,21 @@ export class Save {
       tileX: 0,
       tileY: 0,
     };
-    this.currentMapId = null;
+
     this.flags = null;
     this.inventory = { categories: {} };
     this.map = {
+      id: undefined,
       npcLocation: [],
       npcs: [],
       triggeredScenarios: [],
     };
+    this.npcLocation = null;
   }
 
   capture(game) {
     this.player.tileX = game.player.tileX;
     this.player.tileY = game.player.tileY;
-    this.currentMapId = game.mapManager.currentMap.id;
 
     this.flags = game.flags;
 
@@ -34,11 +35,27 @@ export class Save {
     };
     this.inventory.categories = categories;
 
+    const npcs = game.mapManager.currentMap.npcs.map((npc) => ({
+      id: npc.id,
+      tileX: npc.tileX,
+      tileY: npc.tileY,
+      sprites: npc.sprites,
+      facing: npc.facing,
+      name: npc.name,
+      dialogTree: npc.dialogTree,
+      behavior: npc.behavior,
+      paths: npc.paths,
+    }));
+
+    const foundTriggeredScenarios = game.triggeredScenarios;
+
     this.map = {
-      npcLocation: game.mapManager.npcLocation,
-      npcs: game.mapManager.currentMap.npcs,
-      // triggeredScenarios: foundTriggeredScenarios,
+      id: game.mapManager.currentMap.id,
+      npcs: npcs,
+      triggeredScenarios: foundTriggeredScenarios,
     };
+
+    this.npcLocation = NPC_LOCATION;
   }
 
   write(game) {
@@ -49,7 +66,7 @@ export class Save {
     // console.log(raw);
   }
 
-  static load() {
+  static loadLS() {
     const raw = localStorage.getItem("POKEMON_SAVE");
     if (!raw) return null;
     const data = JSON.parse(raw);
@@ -86,7 +103,10 @@ export class Save {
       this.inventory.categories.cTcS,
       "CTCS"
     );
-    game.mapManager.loadMap(this.currentMapId);
+
+    game.triggeredScenarios = this.map.triggeredScenarios;
+
+    return this;
   }
 
   rebuild(game, savedList, categoryKey) {

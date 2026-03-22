@@ -3,7 +3,6 @@ import { palletTownCollide } from "./palletTown.collide.js";
 import { palletTownInteractions } from "./palletTown.interaction.js";
 import { palletTownLayout } from "./palletTown.layout.js";
 import { PALLET_TOWN_NPCs } from "./palletTown.npc.js";
-import { palletTownScenarios } from "./palletTown.scenario.js";
 
 export const palletTown = {
   id: "PALLET_TOWN",
@@ -17,5 +16,4 @@ export const palletTown = {
   isFlyable: true,
   isIndoor: false,
   npcs: PALLET_TOWN_NPCs,
-  scenarios: palletTownScenarios,
 };

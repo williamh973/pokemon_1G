@@ -32,7 +32,7 @@ export const update = (game) => {
 
   switch (game.state) {
     case "WORLD":
-      if (!game.player.isMoving) game.mapManager.checkScenarios?.(game.player);
+      if (!game.player.isMoving) game.mapManager.checkScenarios?.(game);
 
       if (action === "MENU") {
         openMenu(game);
@@ -59,7 +59,7 @@ export const update = (game) => {
     case "TITLE":
       game.currentScreen.update(game.canvas.context, action);
       break;
-    case "BATTLE":
+    case "FIGHT":
       game.currentScreen.update(game.canvas.context, action);
       break;
     case "INVENTORY":

@@ -2,6 +2,7 @@ import { Npc } from "../../../../models/Character/Npc/npc.model.js";
 
 export const spawnNpc = (npcConfig, mapNpcs, map) => {
   const npc = new Npc({
+    id: mapNpcs.id,
     tileX: mapNpcs.tileX,
     tileY: mapNpcs.tileY,
     sprites: npcConfig.sprites,

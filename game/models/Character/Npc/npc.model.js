@@ -2,6 +2,7 @@ import { Character } from "../Character.model.js";
 
 export class Npc extends Character {
   constructor({
+    id,
     tileX,
     tileY,
     sprites,
@@ -12,7 +13,8 @@ export class Npc extends Character {
     name = "NPC",
     starter = null,
   }) {
-    super({ tileX, tileY, sprites, facing });
+    super({ id, tileX, tileY, sprites, facing });
+    this.id = id;
     this.initialFacing = facing;
     this.name = name;
     this.behavior = behavior;

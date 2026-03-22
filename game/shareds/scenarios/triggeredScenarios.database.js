@@ -1,0 +1,4 @@
+export const TRIGGERED_SCENARIOS_DATABASE = {
+  PALLET_TOWN: [],
+  OAK_LAB: [],
+};

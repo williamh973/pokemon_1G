@@ -6,6 +6,7 @@ import {
   sequenceMove,
 } from "../../../models/ScenarioManager/action/move.js";
 import { NPC_DATABASE } from "../../../shareds/character/npc/npc.database.js";
+import { NPC_LOCATION } from "../../../shareds/character/npc/npcLocation.database.js";
 import { DIALOGS_TREE_DATABASE } from "../../../shareds/dialogTree/dialogTree.database.js";
 import { spawnNpc } from "../../../shareds/utils/character/npc/spawnNpc.utils.js";
 
@@ -20,7 +21,7 @@ export const SCENARIO_SCRIPTS = {
       const oakDataLoc = { id: "oak", tileX: 8, tileY: 11 };
       const OAK = spawnNpc(oakConfig, oakDataLoc, PALLET_TOWN);
 
-      if (PLAYER.tileX === 8 && PLAYER.tileY === 6)
+      if (PLAYER.tileX === 8 && PLAYER.tileY === 6) {
         game.scenarioManager.start([
           dialog(DIALOGS_TREE_DATABASE.palletTown.oakBlockRed),
           move(OAK, "up", 4),
@@ -36,7 +37,7 @@ export const SCENARIO_SCRIPTS = {
             PLAYER.paths.scenarioPaths.palletTown.escortedByOak_A
           ),
         ]);
-      else if (PLAYER.tileX === 9 && PLAYER.tileY === 6)
+      } else if (PLAYER.tileX === 9 && PLAYER.tileY === 6)
         game.scenarioManager.start([
           dialog(DIALOGS_TREE_DATABASE.palletTown.oakBlockRed),
           move(OAK, "up", 5),
@@ -63,12 +64,11 @@ export const SCENARIO_SCRIPTS = {
       const OAK = game.mapManager.currentMap.npcs.find(
         (npc) => npc.name === "Oak"
       );
-
+      const npcLocation = NPC_LOCATION[MAP.id];
       const blueConfig = NPC_DATABASE["blue"];
       const blueDataLoc = { id: "blue", tileX: 4, tileY: 11 };
+      npcLocation.push(blueDataLoc);
       const BLUE = spawnNpc(blueConfig, blueDataLoc, MAP);
-
-      game.mapManager.npcLocation.push(blueDataLoc);
 
       FLAGS.OAK_INTRO_LAB_DONE = true;
 
@@ -150,7 +150,7 @@ export const SCENARIO_SCRIPTS = {
       const FLAGS = game.flags;
       const PLAYER = game.player;
 
-      FLAGS.OAK_LAB.PLAYER_TRY_TO_LEAVE = true;
+      FLAGS.OAK_LAB.PLAYER_TRY_TO_LEAVE_WITHOUT_STARTER = true;
 
       if (
         PLAYER.tileX === 4 &&
@@ -159,6 +159,7 @@ export const SCENARIO_SCRIPTS = {
       )
         game.scenarioManager.start([
           dialog(DIALOGS_TREE_DATABASE.oakLab.playerTryToExit),
+          move(PLAYER, "up"),
         ]);
       else if (
         PLAYER.tileX === 5 &&
@@ -167,6 +168,7 @@ export const SCENARIO_SCRIPTS = {
       )
         game.scenarioManager.start([
           dialog(DIALOGS_TREE_DATABASE.oakLab.playerTryToExit),
+          move(PLAYER, "up"),
         ]);
     },
   },
