@@ -24,6 +24,7 @@ const handleDialogState = (game, event) => {
 export const update = (game) => {
   // console.log(game.state);
   // console.log("tileX", game.player.tileX, "tileY", game.player.tileY);
+  // console.log(game.mapManager.previousMap);
 
   game.tileManager.update();
   const action = game.input.consume();

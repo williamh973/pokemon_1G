@@ -8,7 +8,7 @@ import { kantoRoute1Warps } from "./kantoRoute1.warp.js";
 export const kantoRoute1 = {
   id: "KANTO_ROUTE_1",
   mapNameWindow: "Route 1",
-  layout: kantoRoute1Layout,
+  backgLayout: kantoRoute1Layout,
   collision: kantoRoute1Collide,
   interactions: kantoRoute1Interactions,
   width: kantoRoute1Collide[0].length,

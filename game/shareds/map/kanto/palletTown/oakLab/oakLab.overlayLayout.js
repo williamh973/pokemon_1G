@@ -1,0 +1,16 @@
+export const oakLabOverlayLayout = [
+  [null, null, null, null, null, null, null, null, null, 5016, 5015],
+  [5029, 5032, 5027, 5026, 5025, 5024, 5020, 5020, 5018, 5013, 5014],
+  [null, 5031, 5023, 5022, 5023, 5022, null, null, null, 5012, 5011],
+  [null, null, 5040, 5039, null, null, null, null, null, null, null],
+  [null, null, null, null, null, null, null, null, null, null, null],
+  [null, null, null, null, null, null, null, null, null, null, null],
+  [5010, 5016, 5015, null, null, null, null, null, 5016, 5015, 5010],
+  [null, null, null, null, null, null, null, null, null, null, null],
+  [null, null, null, null, null, null, null, null, null, null, null],
+  [null, null, null, null, null, null, null, null, null, null, null],
+  [null, null, null, null, null, null, null, null, null, null, null],
+  [5007, null, null, null, null, null, null, null, null, null, 5007],
+  [null, null, null, null, null, null, null, null, null, null, null],
+  [null, null, null, null, null, null, null, null, null, null, null],
+];

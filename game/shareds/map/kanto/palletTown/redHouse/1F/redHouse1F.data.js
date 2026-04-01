@@ -6,7 +6,7 @@ import { redHouse_1F_Warps } from "./redHouse1F.warp.js";
 
 export const redHouse_1F = {
   id: "RED_HOUSE_1F",
-  layout: redHouse_1F_Layout,
+  backgLayout: redHouse_1F_Layout,
   collision: redHouse_1F_Collide,
   interactions: redHouse_1F_Interactions,
   width: redHouse_1F_Collide[0].length,

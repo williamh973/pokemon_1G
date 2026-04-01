@@ -70,17 +70,19 @@ export class MapManager {
     this.filterMissableObjects(mapId);
   }
 
-  checkWarp(player) {
+  checkWarp(player, transition) {
     const warp = this.currentMap.warps.find(
       (w) =>
         w.fromMap === this.currentMap.id &&
         w.from.x === player.tileX &&
-        w.from.y === player.tileY
+        w.from.y === player.tileY &&
+        w.transition === transition &&
+        (!w.facing || w.facing === player.facing)
     );
 
-    if (!warp) return;
-
+    if (!warp) return false;
     this.triggerWarp(warp);
+    return true;
   }
 
   triggerWarp(warp) {
@@ -121,8 +123,12 @@ export class MapManager {
         this.setCurrentMap(warp);
         this.loadMap(this.currentMap.id);
         this.updatePlayer(game, false, warp);
+
         if (!this.currentMap.isIndoor)
-          game.player.startForcedMovement(game.player.paths.exit);
+          game.player.startForcedMovement([
+            ...Array(1).fill(game.player.facing),
+          ]);
+
         done();
       },
       () => {

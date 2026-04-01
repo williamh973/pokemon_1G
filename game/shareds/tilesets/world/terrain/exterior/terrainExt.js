@@ -1,147 +1,17 @@
-// 1 - 100
+import { BUSH_TILESETS } from "./bush.tilesets.js";
+import { CAVE_TILESETS } from "./cave/cave.tilesets.js";
+import { CLIFF_TILESETS } from "./cliffs/cliff.tilesets.js";
+import { FLOWER_TILESETS } from "./flower.tilesets.js";
+import { GROUND_TILESETS } from "./ground/ground.tilesets.js";
+import { TREE_TILESETS } from "./trees/tree.tilesets.js";
+import { WATER_TILESETS } from "./water.tilesets.js";
+
 export const TERRAIN_EXT = {
-  1: {
-    name: "grass",
-    type: "ground",
-    src: "game/assets/images/tilesets/world/terrain/grass/grass.png",
-  },
-  2: {
-    name: "tall_grass",
-    type: "ground",
-    src: "game/assets/images/tilesets/world/terrain/grass/tall_grass.png",
-  },
-  3: {
-    name: "white_ground_w_blacks_point",
-    type: "path",
-    src: "game/assets/images/tilesets/world/terrain/path/white_ground_w_blacks_point.png",
-  },
-  4: {
-    name: "white_ground",
-    type: "path",
-    src: "game/assets/images/tilesets/world/terrain/path/white_ground.png",
-  },
-  5: {
-    name: "white_ground_w_blacks_point_2",
-    type: "ground",
-    src: "game/assets/images/tilesets/world/terrain/path/white_ground_w_blacks_point_2.png",
-  },
-  6: {
-    name: "grass_w_flower",
-    type: "ground",
-    src: "game/assets/images/tilesets/world/terrain/grass/grass_w_flower.png",
-    animated: true,
-    frames: 2,
-    frameDuration: 70,
-  },
-  7: {
-    name: "grass_w_flower_reversed",
-    type: "ground",
-    src: "game/assets/images/tilesets/world/terrain/grass/grass_w_flower._reversed.png",
-    animated: true,
-    frames: 2,
-    frameDuration: 70,
-  },
-  8: {
-    name: "border_left_water",
-    type: "ground",
-    src: "game/assets/images/tilesets/world/terrain/water/border_left.png",
-    animated: true,
-    frames: 7,
-    frameDuration: 35,
-  },
-  9: {
-    name: "border_right_water",
-    type: "ground",
-    src: "game/assets/images/tilesets/world/terrain/water/border_right.png",
-    animated: true,
-    frames: 7,
-    frameDuration: 35,
-  },
-  10: {
-    name: "border_top_center_water",
-    type: "ground",
-    src: "game/assets/images/tilesets/world/terrain/water/border_top_center.png",
-    animated: true,
-    frames: 7,
-    frameDuration: 35,
-  },
-  11: {
-    name: "border_top_left_water",
-    type: "ground",
-    src: "game/assets/images/tilesets/world/terrain/water/border_top_left.png",
-    animated: true,
-    frames: 7,
-    frameDuration: 35,
-  },
-  12: {
-    name: "border_top_right_water",
-    type: "ground",
-    src: "game/assets/images/tilesets/world/terrain/water/border_top_right.png",
-    animated: true,
-    frames: 7,
-    frameDuration: 35,
-  },
-  13: {
-    name: "middle_water",
-    type: "ground",
-    src: "game/assets/images/tilesets/world/terrain/water/middle.png",
-    animated: true,
-    frames: 7,
-    frameDuration: 35,
-  },
-  14: {
-    name: "bush",
-    type: "ground",
-    src: "game/assets/images/tilesets/world/terrain/bush/bush.png",
-  },
-  15: {
-    name: "small_tree",
-    type: "ground",
-    src: "game/assets/images/tilesets/world/terrain/tree/small_tree.png",
-  },
-  16: {
-    name: "top_left_big_tree",
-    type: "ground",
-    src: "game/assets/images/tilesets/world/terrain/tree/top_left_big_tree.png",
-  },
-  17: {
-    name: "top_right_big_tree",
-    type: "ground",
-    src: "game/assets/images/tilesets/world/terrain/tree/top_right_big_tree.png",
-  },
-  18: {
-    name: "bottom_left_big_tree",
-    type: "ground",
-    src: "game/assets/images/tilesets/world/terrain/tree/bottom_left_big_tree.png",
-  },
-  19: {
-    name: "bottom_right_big_tree",
-    type: "ground",
-    src: "game/assets/images/tilesets/world/terrain/tree/bottom_right_big_tree.png",
-  },
-  20: {
-    name: "tall_grass_2",
-    type: "ground",
-    src: "game/assets/images/tilesets/world/terrain/grass/tall_grass_2.png",
-  },
-  21: {
-    name: "white_w_brown_cliff_ledge",
-    type: "ground",
-    src: "game/assets/images/tilesets/world/terrain/path/white_cliff_ledge.png",
-  },
-  22: {
-    name: "grass_w_brown_cliff_ledge",
-    type: "ground",
-    src: "game/assets/images/tilesets/world/terrain/path/grass_cliff_ledge.png",
-  },
-  23: {
-    name: "grass_w_brown_path",
-    type: "ground",
-    src: "game/assets/images/tilesets/world/terrain/path/grass_w_brown_path.png",
-  },
-  24: {
-    name: "grass_w_brown_cliff_ledge_left_side",
-    type: "ground",
-    src: "game/assets/images/tilesets/world/terrain/path/grass_w_brown_cliff_ledge_left_side.png",
-  },
+  ...GROUND_TILESETS,
+  ...FLOWER_TILESETS, // 100 - 106
+  ...BUSH_TILESETS, // 107
+  ...TREE_TILESETS, // 108 - 119
+  ...CLIFF_TILESETS, // 120 - 125
+  ...CAVE_TILESETS, // 126 - 141
+  ...WATER_TILESETS, // 142 - 154
 };

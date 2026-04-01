@@ -35,4 +35,11 @@ export const TILE_TYPES = {
     direction: "down",
     surfable: false,
   },
+  9: {
+    walkable: true,
+    encounter: false,
+    terrain: "ground",
+    trigger: "changeMap",
+    warp: true,
+  },
 };

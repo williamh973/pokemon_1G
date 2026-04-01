@@ -3,11 +3,13 @@ import { palletTownCollide } from "./palletTown.collide.js";
 import { palletTownInteractions } from "./palletTown.interaction.js";
 import { palletTownLayout } from "./palletTown.layout.js";
 import { PALLET_TOWN_NPCs } from "./palletTown.npc.js";
+import { palletTownOverlayLayout } from "./oakLab/palletTown.overlayLayout.js";
 
 export const palletTown = {
   id: "PALLET_TOWN",
   mapNameWindow: "Bourg Palette",
-  layout: palletTownLayout,
+  backgLayout: palletTownLayout,
+  overlayLayout: palletTownOverlayLayout,
   collision: palletTownCollide,
   interactions: palletTownInteractions,
   width: palletTownCollide[0].length,

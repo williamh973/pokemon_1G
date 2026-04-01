@@ -1,12 +1,14 @@
 import { oakLabCollision } from "./oakLab.collide.js";
-import { oakLabLayout } from "./oakLab.layout.js";
+import { oakLabBGLayout } from "./oakLab.layout.js";
 import { OAK_LAB_MISSABLE_OBJECTS } from "./oakLab.missableObject.js";
 import { OAKLAB_NPCs } from "./oakLab.npc.js";
+import { oakLabOverlayLayout } from "./oakLab.overlayLayout.js";
 import { oakLabWarps } from "./oakLab.warp.js";
 
 export const oakLab = {
   id: "OAK_LAB",
-  layout: oakLabLayout,
+  backgLayout: oakLabBGLayout,
+  overlayLayout: oakLabOverlayLayout,
   collision: oakLabCollision,
   width: oakLabCollision[0].length,
   height: oakLabCollision.length,

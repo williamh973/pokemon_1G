@@ -7,7 +7,7 @@ import { REDHOUSE_2F_MISSABLE_OBJECTS } from "./redHouse2F.missableObject.js";
 
 export const redHouse_2F = {
   id: "RED_HOUSE_2F",
-  layout: redHouse_2F_Layout,
+  backgLayout: redHouse_2F_Layout,
   collision: redHouse_2F_Collide,
   width: redHouse_2F_Collide[0].length,
   height: redHouse_2F_Collide.length,

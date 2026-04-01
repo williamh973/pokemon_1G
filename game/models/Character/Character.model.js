@@ -1,6 +1,10 @@
 import { TILE_TYPES } from "../../shareds/tile/tile.type.js";
 import { TILES_SIZE } from "../../shareds/utils/tile/tile.utils.js";
 import { CHARACTER_STATE } from "../../shareds/utils/character/character.utils.js";
+import { moveToTile } from "../../logic/gameplay/character/moveToTile.gameplay.js";
+import { attemptMove } from "../../logic/gameplay/character/attemptMove.gameplay.js";
+import { checkCliffTrigger } from "../../logic/gameplay/character/checkCliffTrigger.gameplay.js";
+import { update } from "../../logic/gameplay/character/update.gameplay.js";
 
 export class Character {
   constructor({ id, tileX, tileY, sprites, facing = "down" }) {
@@ -52,27 +56,13 @@ export class Character {
     this.updateSprite();
   }
 
-  moveToTile(dx, dy, game) {
-    this.isMoving = true;
-    this.state = CHARACTER_STATE.WALK;
-    this.step = 1 - this.step;
-    this.framesMax = this.frames.walk.max;
-    this.image = this.sprites.walk[this.facing][this.step];
-    this.moveProgress = 0;
-
-    this.tileX += dx;
-    this.tileY += dy;
-
-    this.startX = this.position.x;
-    this.startY = this.position.y;
-
-    this.targetX = this.tileX * TILES_SIZE;
-    this.targetY = this.tileY * TILES_SIZE;
+  moveToTile(dx, dy) {
+    moveToTile(this, dx, dy);
   }
 
   draw(canvas, camera) {
     const screenX = this.position.x + camera.offsetX;
-    const screenY = this.position.y + camera.offsetY - 5;
+    const screenY = this.position.y + camera.offsetY;
     const frameWidth = this.image.width / this.framesMax;
 
     canvas.context.drawImage(
@@ -144,13 +134,7 @@ export class Character {
   }
 
   checkCliffTrigger(game, targetX, targetY) {
-    const targetTile = game.mapManager.currentMap.collision[targetY][targetX];
-    const collision = TILE_TYPES[targetTile];
-    if (collision.terrain === "cliff")
-      if (this.facing === "down") {
-        this.startForcedMovement([...Array(2).fill(this.facing)]);
-        this.isJumping = true;
-      }
+    checkCliffTrigger(this, game, targetX, targetY);
   }
 
   walkableTile(game, targetX, targetY) {
@@ -168,28 +152,7 @@ export class Character {
   }
 
   attemptMove(dx, dy, game) {
-    if (this.isMoving || this.forcedMovements.length > 0 || game.isPaused)
-      return;
-
-    this.setFacing(this.getFacingFromDelta(dx, dy));
-    this.updateSprite();
-
-    const targetX = this.tileX + dx;
-    const targetY = this.tileY + dy;
-
-    if (this.outOfMap(targetX, targetY, game.mapManager.currentMap)) return;
-
-    if (
-      this.checkCliffTrigger(game, targetX, targetY) ||
-      !this.walkableTile(game, targetX, targetY) ||
-      this.npcInFrontOfPlayer(game, targetX, targetY) ||
-      this.moInFrontOfPlayer(game, targetX, targetY) ||
-      this.playerInFrontOfPnc(game, targetX, targetY)
-    )
-      return;
-
-    this.moveToTile(dx, dy, game);
-    return true;
+    attemptMove(this, dx, dy, game);
   }
 
   addMovementCallback(callback) {
@@ -197,50 +160,6 @@ export class Character {
   }
 
   update(game) {
-    if (this.isCanMove && this.isMoving) {
-      this.moveProgress++;
-      this.animateFrames();
-
-      const t = this.moveProgress / this.moveDuration;
-      this.position.x = this.startX + (this.targetX - this.startX) * t;
-      this.position.y = this.startY + (this.targetY - this.startY) * t;
-
-      if (this.moveProgress >= this.moveDuration) {
-        this.position.x = this.targetX;
-        this.position.y = this.targetY;
-
-        this.isMoving = false;
-        this.framesCurrent = 0;
-        this.framesMax = this.frames.idle.max;
-        this.image = this.sprites.idle[this.facing];
-
-        if (!this.isMoving && this.forcedMovements.length === 0) {
-          if (this.movementCallbacks.length > 0) {
-            const callBackFn = this.movementCallbacks.shift();
-            callBackFn();
-          }
-        }
-      }
-    }
-
-    this.state = CHARACTER_STATE.IDLE;
-
-    if (!this.isMoving && this.forcedMovements.length > 0) {
-      const nextDirection = this.forcedMovements.shift();
-
-      const directions = {
-        up: { dx: 0, dy: -1 },
-        down: { dx: 0, dy: 1 },
-        left: { dx: -1, dy: 0 },
-        right: { dx: 1, dy: 0 },
-      };
-
-      const dir = directions[nextDirection];
-
-      this.setFacing(nextDirection);
-      this.moveToTile(dir.dx, dir.dy, game);
-    }
-
-    this.draw(game.canvas, game.camera);
+    update(this, game);
   }
 }

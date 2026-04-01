@@ -1,11 +1,5 @@
-import { TERRAIN_EXT } from "../../shareds/tilesets/world/terrain/exterior/terrainExt.js";
-import { OAKLAB_EXT } from "../../shareds/tilesets/world/building/oak_labo/oakLabExt.js";
-import { PROPS } from "../../shareds/tilesets/world/props/props.js";
-import { RED_HOUSE_EXT } from "../../shareds/tilesets/world/building/house/redHouse/ext/redHouseExt.js";
-import { RED_HOUSE_1F } from "../../shareds/tilesets/world/building/house/redHouse/int/redHouse1F.js";
-import { OAKLAB_INT } from "../../shareds/tilesets/world/building/oak_labo/oakLabInt.js";
-import { RED_HOUSE_2F } from "../../shareds/tilesets/world/building/house/redHouse/int/redHouse2F.js";
 import { drawDebugCollisionSquare } from "../../shareds/utils/tile/tile.utils.js";
+import { TILESETS_DATABASE } from "../../shareds/tilesets/tilesets.database.js";
 
 // animation = les secondes qui passent
 // frameDuration = combien de secondes tu restes sur une image
@@ -29,19 +23,9 @@ export class TileManager {
   }
 
   load() {
-    const allTilesets = {
-      ...TERRAIN_EXT,
-      ...RED_HOUSE_EXT,
-      ...RED_HOUSE_1F,
-      ...RED_HOUSE_2F,
-      ...OAKLAB_EXT,
-      ...OAKLAB_INT,
-      ...PROPS,
-    };
+    this.tilesets = TILESETS_DATABASE;
 
-    this.tilesets = allTilesets;
-
-    Object.entries(allTilesets).forEach(([id, tile]) => {
+    Object.entries(TILESETS_DATABASE).forEach(([id, tile]) => {
       const img = new Image();
       img.src = tile.src;
       this.images[id] = img;
@@ -52,7 +36,7 @@ export class TileManager {
     return this.images[tileId];
   }
 
-  drawMap(context, layout, cameraPosX, cameraPosY) {
+  drawMap(context, layout, cameraPosX, cameraPosY, tileType) {
     for (let y = 0; y < layout.length; y++) {
       for (let x = 0; x < layout[y].length; x++) {
         const tileId = layout[y][x];
@@ -60,6 +44,10 @@ export class TileManager {
         const tileData = this.tilesets[tileId];
 
         if (!img) continue;
+
+        const isOverlay = tileData.type === "overlay";
+        if (tileType === "background" && isOverlay) continue;
+        if (tileType === "overlay" && !isOverlay) continue;
 
         const tile = {
           position: {
@@ -85,11 +73,11 @@ export class TileManager {
           16,
           dx,
           dy,
-          this.tileSize,
-          this.tileSize
+          this.tileSize + 0.5,
+          this.tileSize + 0.5
         );
 
-        drawDebugCollisionSquare(tile, context, true);
+        drawDebugCollisionSquare(tile, context, false);
       }
     }
   }

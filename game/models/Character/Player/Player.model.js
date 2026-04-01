@@ -4,6 +4,7 @@ import { CHARACTER_SPRITES } from "../../../shareds/character/sprite/characterSp
 import { Team } from "../../Team/Team.model.js";
 import { Inventory } from "../../MainMenu/items/Inventory/Inventory.model.js";
 import { Pokedex } from "../../MainMenu/items/pokedex/pokedex.model.js";
+import { PLAYER_PATHS } from "../../../logic/gameplay/character/player/paths.gameplay.js";
 
 export class Player extends Character {
   constructor(game, playedWith) {
@@ -13,8 +14,8 @@ export class Player extends Character {
     };
 
     super({
-      tileX: 8,
-      tileY: 8,
+      tileX: 10,
+      tileY: 16,
       sprites: playerSprites,
     });
     this.name = "red";
@@ -28,25 +29,7 @@ export class Player extends Character {
     this.team = new Team(this);
     this.inventory = new Inventory(game);
     this.trainerCard = {};
-    this.paths = {
-      exit: [...Array(1).fill(this.facing)],
-      scenarioPaths: {
-        palletTown: {
-          escortedByOak_A: [
-            ...Array(1).fill("right"),
-            ...Array(11).fill("down"),
-            ...Array(3).fill("right"),
-            ...Array(1).fill("up"),
-          ],
-          escortedByOak_B: [
-            ...Array(1).fill("left"),
-            ...Array(11).fill("down"),
-            ...Array(4).fill("right"),
-            ...Array(1).fill("up"),
-          ],
-        },
-      },
-    };
+    this.paths = PLAYER_PATHS;
   }
 
   update(game, action) {
@@ -59,7 +42,6 @@ export class Player extends Character {
     }
     const wasMoving = this.isMoving;
     super.update(game);
-
-    if (wasMoving && !this.isMoving) game.mapManager.checkWarp(this);
+    if (wasMoving && !this.isMoving) game.mapManager.checkWarp(this, true);
   }
 }
