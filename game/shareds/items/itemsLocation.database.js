@@ -1,5 +1,14 @@
 export const ITEM_LOCATION = {
-  PALLET_TOWN: [],
+  PALLET_TOWN: [
+    {
+      key: "potion",
+      tileX: 15,
+      tileY: 26,
+      id: "POTION",
+      category: "care",
+      flagId: "GOT_POTION_PALLET_TOWN",
+    },
+  ],
   RED_HOUSE_1F: [],
   RED_HOUSE_2F: [
     {

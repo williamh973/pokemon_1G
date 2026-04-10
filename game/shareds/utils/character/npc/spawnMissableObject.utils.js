@@ -11,6 +11,5 @@ export const spawnMO = (map, config, data) => {
     name: config.name,
   });
   map.missableObjects.push(item);
-
   return item;
 };

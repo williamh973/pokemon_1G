@@ -12,8 +12,7 @@ export class MapManager {
   constructor(game, mapsDatabase) {
     this.game = game;
     this.mapsDatabase = mapsDatabase;
-    this.currentMap = this.mapsDatabase["PALLET_TOWN"]; // "PALLET_TOWN", "OAK_LAB", "RED_HOUSE_1F",
-    this.moLocation = ITEM_LOCATION[this.currentMap.id];
+    this.currentMap = this.mapsDatabase["KANTO_ROUTE_1"]; // "PALLET_TOWN", "OAK_LAB", "RED_HOUSE_1F",
   }
 
   loadNpcs(map, saveData) {
@@ -34,10 +33,10 @@ export class MapManager {
   }
 
   loadMO(map) {
-    this.moLocation = ITEM_LOCATION[map.id];
-    if (!this.moLocation) return;
+    const moLocation = ITEM_LOCATION[map.id];
+    if (!moLocation) return;
 
-    return this.moLocation.map((data) => {
+    moLocation.map((data) => {
       const config = ITEMS_DATABASE[data.category][data.key];
       const item = spawnMO(map, config, data);
       return item;
@@ -52,6 +51,7 @@ export class MapManager {
       }
     );
   }
+
   removeCurrentMapNpcs() {
     return (this.currentMap.npcs = []);
   }

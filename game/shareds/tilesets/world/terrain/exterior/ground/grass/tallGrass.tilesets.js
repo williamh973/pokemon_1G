@@ -11,12 +11,12 @@ export const TALL_GRASS = {
   },
   23: {
     name: "big_tall_grass_top",
-    type: "ground",
+    type: "overlay",
     src: "game/assets/images/tilesets/world/terrain/grass/big_tall_grass_top.png",
   },
   24: {
     name: "big_tall_grass_bottom",
-    type: "ground",
+    type: "overlay",
     src: "game/assets/images/tilesets/world/terrain/grass/big_tall_grass_bottom.png",
   },
 };

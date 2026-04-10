@@ -1,0 +1,1 @@
+export const PALLET_TOWN_MISSABLES_OBJECTS = [];

@@ -1,5 +1,7 @@
+import { PUDDLE_TILESETS } from "./ground/puddle/puddle.tilesets.js";
+
 export const WATER_TILESETS = {
-  142: {
+  166: {
     name: "light_blue_water_top_left",
     type: "water",
     src: "game/assets/images/tilesets/world/terrain/water/light_blue_water_top_left.png",
@@ -7,7 +9,7 @@ export const WATER_TILESETS = {
     // frames: 7,
     // frameDuration: 35,
   },
-  143: {
+  167: {
     name: "light_blue_water_top_center",
     type: "ground",
     src: "game/assets/images/tilesets/world/terrain/water/light_blue_water_top_center.png",
@@ -15,7 +17,7 @@ export const WATER_TILESETS = {
     // frames: 7,
     // frameDuration: 35,
   },
-  144: {
+  168: {
     name: "light_blue_water_top_right",
     type: "ground",
     src: "game/assets/images/tilesets/world/terrain/water/light_blue_water_top_right.png",
@@ -23,7 +25,7 @@ export const WATER_TILESETS = {
     // frames: 7,
     // frameDuration: 35,
   },
-  145: {
+  169: {
     name: "light_blue_water_middle_left",
     type: "ground",
     src: "game/assets/images/tilesets/world/terrain/water/light_blue_water_middle_left.png",
@@ -31,7 +33,7 @@ export const WATER_TILESETS = {
     // frames: 7,
     // frameDuration: 35,
   },
-  146: {
+  170: {
     name: "light_blue_water_middle_center",
     type: "ground",
     src: "game/assets/images/tilesets/world/terrain/water/light_blue_water_middle_center.png",
@@ -39,7 +41,7 @@ export const WATER_TILESETS = {
     // frames: 7,
     // frameDuration: 35,
   },
-  147: {
+  171: {
     name: "light_blue_water_middle_right",
     type: "ground",
     src: "game/assets/images/tilesets/world/terrain/water/light_blue_water_middle_right.png",
@@ -47,39 +49,6 @@ export const WATER_TILESETS = {
     // frames: 7,
     // frameDuration: 35,
   },
-  148: {
-    name: "puddle_border_top_right",
-    type: "ground",
-    src: "game/assets/images/tilesets/world/terrain/water/puddle_border_top_right.png",
-  },
-  149: {
-    name: "puddle_border_top_left",
-    type: "ground",
-    src: "game/assets/images/tilesets/world/terrain/water/puddle_border_top_left.png",
-  },
-  150: {
-    name: "puddle_border_bottom_left",
-    type: "ground",
-    src: "game/assets/images/tilesets/world/terrain/water/puddle_border_bottom_left.png",
-  },
-  151: {
-    name: "puddle_border_bottom_right",
-    type: "ground",
-    src: "game/assets/images/tilesets/world/terrain/water/puddle_border_bottom_right.png",
-  },
-  152: {
-    name: "puddle_any_border",
-    type: "ground",
-    src: "game/assets/images/tilesets/world/terrain/water/puddle_any_border.png",
-  },
-  153: {
-    name: "puddle_left",
-    type: "ground",
-    src: "game/assets/images/tilesets/world/terrain/water/puddle_left.png",
-  },
-  154: {
-    name: "puddle_right",
-    type: "ground",
-    src: "game/assets/images/tilesets/world/terrain/water/puddle_right.png",
-  },
+
+  ...PUDDLE_TILESETS, // 200 -
 };

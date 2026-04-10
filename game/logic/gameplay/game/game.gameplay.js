@@ -40,7 +40,7 @@ export const loadGame = (game) => {
   if (!save) return;
 
   const data = save.apply(game);
-  console.log(data);
+  // console.log(data);
   game.mapManager.loadMap(data.map.id, data);
 
   game.closeTitleScreen();

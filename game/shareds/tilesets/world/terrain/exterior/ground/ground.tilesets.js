@@ -2,7 +2,7 @@ import { GRASS_TILESETS } from "./grass/grass.tilesets.js";
 import { BORDERS_TILESETS } from "./borders/borders.tilesets.js";
 
 export const GROUND_TILESETS = {
-  ...GRASS_TILESETS,
+  ...GRASS_TILESETS, // 12 - 26
   27: {
     name: "sand",
     type: "background",
@@ -14,5 +14,5 @@ export const GROUND_TILESETS = {
     src: "game/assets/images/tilesets/world/terrain/earth/earth.png",
   },
 
-  ...BORDERS_TILESETS,
+  ...BORDERS_TILESETS, // 29 - 76
 };

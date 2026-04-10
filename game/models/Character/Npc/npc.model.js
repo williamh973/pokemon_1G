@@ -132,7 +132,6 @@ export class Npc extends Character {
     if (node.flagCheck) {
       const { flag, trueNode, falseNode } = node.flagCheck;
 
-      console.log(game.flags[mapId][flag]);
       const nextKey = game.flags[mapId][flag] ? trueNode : falseNode;
 
       node = tree[nextKey];

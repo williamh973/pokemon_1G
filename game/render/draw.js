@@ -8,8 +8,22 @@ export const draw = (game, tileManager) => {
         game.camera.offsetY,
         "background"
       );
-      game.mapManager.currentMap.npcs.forEach((npc) =>
+
+      if (game.mapManager.currentMap.foregroundLayout) {
+        tileManager.drawMap(
+          game.canvas.context,
+          game.mapManager.currentMap.foregroundLayout,
+          game.camera.offsetX,
+          game.camera.offsetY,
+          "foreground"
+        );
+      }
+
+      game.mapManager.currentMap.npcs?.forEach((npc) =>
         npc.draw(game.canvas, game.camera)
+      );
+      game.mapManager.currentMap.missableObjects?.forEach((mo) =>
+        mo.draw(game.canvas, game.camera)
       );
       game.player.draw(game.canvas, game.camera);
 

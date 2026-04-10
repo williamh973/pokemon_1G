@@ -3,6 +3,7 @@ export const GAME_FLAGS_DATABASE = {
     OAK_BLOCK_EXIT_DONE: false,
     OAK_ESCORT_DONE: false,
     GOT_STARTER: false,
+    GOT_POTION_PALLET_TOWN: false,
   },
   OAK_LAB: {
     OAK_INTRO_LAB_DONE: false,

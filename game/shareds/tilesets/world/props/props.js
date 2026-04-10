@@ -54,4 +54,20 @@ export const PROPS = {
     type: "background",
     src: "game/assets/images/tilesets/world/props/pannel_2.png",
   },
+
+  5012: {
+    name: "lantern_top",
+    type: "overlay",
+    src: "game/assets/images/tilesets/world/props/lantern_top.png",
+  },
+  5013: {
+    name: "lantern_bottom_style_2",
+    type: "background",
+    src: "game/assets/images/tilesets/world/props/lantern_bottom_style_2.png",
+  },
+  5014: {
+    name: "lantern_bottom_w_grass",
+    type: "background",
+    src: "game/assets/images/tilesets/world/props/lantern_bottom_w_grass.png",
+  },
 };

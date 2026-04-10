@@ -46,7 +46,12 @@ export class TileManager {
         if (!img) continue;
 
         const isOverlay = tileData.type === "overlay";
-        if (tileType === "background" && isOverlay) continue;
+        if (
+          (tileType === "background" && isOverlay) ||
+          (tileType === "foreground" && isOverlay)
+        )
+          continue;
+
         if (tileType === "overlay" && !isOverlay) continue;
 
         const tile = {

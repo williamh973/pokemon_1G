@@ -1,0 +1,16 @@
+export const oakLabForegroundLayout = [
+  [],
+  [],
+  [],
+  [],
+  [],
+  [],
+  [],
+  [],
+  [],
+  [],
+  [],
+  [],
+  [3507, null, null, null, 3504, 3505, 3506, null, null, null, 3507],
+  [null, null, null, null, 3503, 3502, 3501, null, null, null, null],
+];
