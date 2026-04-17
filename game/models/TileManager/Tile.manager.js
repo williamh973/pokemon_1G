@@ -18,8 +18,12 @@ export class TileManager {
     this.animation++;
   }
 
-  getAnimatedFrame(tiles) {
-    return Math.floor(this.animation / tiles.frameDuration) % tiles.frames;
+  getAnimatedFrame(tileData) {
+    const frame = Math.floor(this.animation / tileData.frameDuration);
+
+    if (tileData.loop === false) return Math.min(frame, tileData.frames - 1); // STOP à la dernière frame
+
+    return frame % tileData.frames;
   }
 
   load() {

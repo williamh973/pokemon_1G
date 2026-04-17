@@ -16,16 +16,17 @@ export const attemptMove = (character, dx, dy, game) => {
 
   if (character.outOfMap(targetX, targetY, game.mapManager.currentMap)) return;
 
+  const tile = character.walkableTile(game, targetX, targetY);
   if (
     character.checkCliffTrigger(game, targetX, targetY) ||
-    !character.walkableTile(game, targetX, targetY) ||
+    !tile.walkable ||
     character.npcInFrontOfPlayer(game, targetX, targetY) ||
     character.moInFrontOfPlayer(game, targetX, targetY) ||
     character.playerInFrontOfPnc(game, targetX, targetY)
   )
     return;
 
-  character.moveToTile(dx, dy, game);
+  character.moveToTile(character, dx, dy, game);
 
   return true;
 };

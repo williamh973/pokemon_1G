@@ -44,6 +44,6 @@ export const update = (character, game) => {
     const dir = directions[nextDirection];
 
     character.setFacing(nextDirection);
-    character.moveToTile(dir.dx, dir.dy, game);
+    character.moveToTile(character, dir.dx, dir.dy, game);
   }
 };

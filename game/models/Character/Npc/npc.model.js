@@ -63,7 +63,7 @@ export class Npc extends Character {
     const currentDirection = patrolPath[this.patrolIndex];
     const dir = directions[currentDirection];
 
-    const moved = this.attemptMove(dir.dx, dir.dy, game);
+    const moved = this.attemptMove(game, dir.dx, dir.dy);
 
     if (moved) this.patrolIndex = (this.patrolIndex + 1) % patrolPath.length;
   }

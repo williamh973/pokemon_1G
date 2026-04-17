@@ -9,6 +9,7 @@ import { PALLET_TOWN_MISSABLES_OBJECTS } from "./palletTown.missableObjects.js";
 export const palletTown = {
   id: "PALLET_TOWN",
   mapNameWindow: "Bourg Palette",
+  weathers: ["rain", "sun"],
   backgLayout: palletTownLayout,
   overlayLayout: palletTownOverlayLayout,
   collision: palletTownCollide,

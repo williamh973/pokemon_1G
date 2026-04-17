@@ -12,7 +12,7 @@ export class MapManager {
   constructor(game, mapsDatabase) {
     this.game = game;
     this.mapsDatabase = mapsDatabase;
-    this.currentMap = this.mapsDatabase["KANTO_ROUTE_1"]; // "PALLET_TOWN", "OAK_LAB", "RED_HOUSE_1F",
+    this.currentMap = this.mapsDatabase["PALLET_TOWN"]; // "PALLET_TOWN", "OAK_LAB", "RED_HOUSE_1F", "KANTO_ROUTE_1"
   }
 
   loadNpcs(map, saveData) {
@@ -95,6 +95,7 @@ export class MapManager {
       this.loadMap(this.currentMap.id);
       this.updatePlayer(game, true, warp);
       this.openMapNameWindow(game);
+      this.checkWeather(game);
     } else this.startTransition(game, warp);
   }
 
@@ -147,5 +148,11 @@ export class MapManager {
 
   checkScenarios(game) {
     checkScenarios(game);
+  }
+
+  checkWeather(game) {
+    game.rainSystem.stop();
+    let randomN = Math.random();
+    if (randomN >= 0.64) game.rainSystem.start(1);
   }
 }

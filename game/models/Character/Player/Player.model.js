@@ -14,8 +14,8 @@ export class Player extends Character {
     };
 
     super({
-      tileX: 17,
-      tileY: 38,
+      tileX: 7,
+      tileY: 6,
       sprites: playerSprites,
     });
     this.name = "red";

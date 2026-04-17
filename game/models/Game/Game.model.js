@@ -24,6 +24,8 @@ import { ScenarioManager } from "../ScenarioManager/ScenarioManager.model.js";
 import { GAME_FLAGS_DATABASE } from "../../shareds/flags/flags.database.js";
 import { TRIGGERED_SCENARIOS_DATABASE } from "../../shareds/scenarios/triggeredScenarios.database.js";
 import { MapNameWindow } from "../Map/MapNameWindow.model.js";
+import { RainSystem } from "../weather/rain/RainSystem/RainSystem.model.js";
+import { SplashSystem } from "../weather/rain/SplashSystem/SplashSystem.model.js";
 
 export class Game {
   constructor() {
@@ -41,6 +43,8 @@ export class Game {
     this.mainMenu = new MainMenu(this);
     this.dialogBox = new DialogBox(this);
     this.input = new InputManager();
+    this.rainSystem = new RainSystem(this.canvas);
+    this.splashSystem = new SplashSystem();
     this.choiceMenu = null;
     this.currentScreen = null;
     this.mapNameWindow = new MapNameWindow(this);

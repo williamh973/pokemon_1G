@@ -1,24 +1,43 @@
+const drawBackTiles = (game, tileManager) => {
+  tileManager.drawMap(
+    game.canvas.context,
+    game.mapManager.currentMap.backgLayout,
+    game.camera.offsetX,
+    game.camera.offsetY,
+    "background"
+  );
+};
+
+const drawForegroundTiles = (game, tileManager) => {
+  if (game.mapManager.currentMap.foregroundLayout) {
+    tileManager.drawMap(
+      game.canvas.context,
+      game.mapManager.currentMap.foregroundLayout,
+      game.camera.offsetX,
+      game.camera.offsetY,
+      "foreground"
+    );
+  }
+};
+
+const drawOverlayTiles = (game, tileManager) => {
+  if (game.mapManager.currentMap.overlayLayout) {
+    tileManager.drawMap(
+      game.canvas.context,
+      game.mapManager.currentMap.overlayLayout,
+      game.camera.offsetX,
+      game.camera.offsetY,
+      "overlay"
+    );
+  }
+};
+
 export const draw = (game, tileManager) => {
+  drawBackTiles(game, tileManager);
+  drawForegroundTiles(game, tileManager);
+
   switch (game.state) {
     case "WORLD":
-      tileManager.drawMap(
-        game.canvas.context,
-        game.mapManager.currentMap.backgLayout,
-        game.camera.offsetX,
-        game.camera.offsetY,
-        "background"
-      );
-
-      if (game.mapManager.currentMap.foregroundLayout) {
-        tileManager.drawMap(
-          game.canvas.context,
-          game.mapManager.currentMap.foregroundLayout,
-          game.camera.offsetX,
-          game.camera.offsetY,
-          "foreground"
-        );
-      }
-
       game.mapManager.currentMap.npcs?.forEach((npc) =>
         npc.draw(game.canvas, game.camera)
       );
@@ -27,15 +46,6 @@ export const draw = (game, tileManager) => {
       );
       game.player.draw(game.canvas, game.camera);
 
-      if (game.mapManager.currentMap.overlayLayout) {
-        tileManager.drawMap(
-          game.canvas.context,
-          game.mapManager.currentMap.overlayLayout,
-          game.camera.offsetX,
-          game.camera.offsetY,
-          "overlay"
-        );
-      }
       break;
     case "DIALOG":
       game.player.draw(game.canvas, game.camera);
@@ -54,4 +64,6 @@ export const draw = (game, tileManager) => {
       game.mainMenu?.draw(game.canvas.context, null);
       break;
   }
+
+  drawOverlayTiles(game, tileManager);
 };

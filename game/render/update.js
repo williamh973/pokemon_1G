@@ -21,6 +21,16 @@ const handleDialogState = (game, event) => {
   if (event === "END_DIALOG") game.closeDialogBox();
 };
 
+const weather = (game) => {
+  if (
+    game.mapManager.currentMap.weathers?.includes("rain") &&
+    (game.rainSystem.active || game.rainSystem.intensity > 0)
+  ) {
+    game.splashSystem.update(game.canvas.context);
+    game.rainSystem.update(game.canvas.context);
+  }
+};
+
 export const update = (game) => {
   // console.log(game.state);
   // console.log("tileX", game.player.tileX, "tileY", game.player.tileY);
@@ -68,6 +78,8 @@ export const update = (game) => {
       game.currentScreen.update(game.canvas.context, action);
       break;
   }
+
+  weather(game);
 
   game.transition.update();
 };

@@ -56,8 +56,8 @@ export class Character {
     this.updateSprite();
   }
 
-  moveToTile(dx, dy) {
-    moveToTile(this, dx, dy);
+  moveToTile(character, dx, dy, game) {
+    moveToTile(character, dx, dy, game);
   }
 
   draw(canvas, camera) {
@@ -140,7 +140,16 @@ export class Character {
   walkableTile(game, targetX, targetY) {
     const tile = game.mapManager.currentMap.collision[targetY][targetX];
     const collision = TILE_TYPES[tile];
-    return collision.walkable;
+    return collision;
+  }
+
+  walkingOnTallGrass(game, targetX, targetY) {
+    const animableTile = this.walkableTile(game, targetX, targetY);
+    const tallGrassCrushedTileIndex = 25;
+    if (animableTile.terrain !== "tallGrass") return;
+
+    // game.mapManager.currentMap.overlayLayout[targetY][targetX] =
+    //   tallGrassCrushedTileIndex;
   }
 
   getFacingToward(target) {

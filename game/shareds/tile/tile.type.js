@@ -1,5 +1,5 @@
 export const TILE_TYPES = {
-  1: { walkable: true, encounter: true, terrain: "ground" },
+  1: { walkable: true, encounter: true, terrain: "tallGrass" },
   2: { walkable: true, encounter: false, terrain: "ground" },
   3: { walkable: false, encounter: false, terrain: "solid" },
   4: {
