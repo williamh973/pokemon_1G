@@ -24,7 +24,7 @@ const handleDialogState = (game, event) => {
 const weather = (game) => {
   if (
     game.mapManager.currentMap.weathers?.includes("rain") &&
-    (game.rainSystem.active || game.rainSystem.intensity > 0)
+    game.rainSystem.active
   ) {
     game.splashSystem.update(game.canvas.context);
     game.rainSystem.update(game.canvas.context);

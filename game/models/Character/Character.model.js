@@ -5,6 +5,8 @@ import { moveToTile } from "../../logic/gameplay/character/moveToTile.gameplay.j
 import { attemptMove } from "../../logic/gameplay/character/attemptMove.gameplay.js";
 import { checkCliffTrigger } from "../../logic/gameplay/character/checkCliffTrigger.gameplay.js";
 import { update } from "../../logic/gameplay/character/update.gameplay.js";
+import { moveEffects } from "../../logic/gameplay/character/moveEffects.gameplay.js";
+import { walkingOnTallGrass } from "../../logic/gameplay/character/tileEffects/walkingOnGrass.gameplay.js";
 
 export class Character {
   constructor({ id, tileX, tileY, sprites, facing = "down" }) {
@@ -13,6 +15,7 @@ export class Character {
     this.height = 32;
     this.tileX = tileX;
     this.tileY = tileY;
+    this.previousTile = {};
     this.frames = {
       idle: { max: 1 },
       walk: { max: 2 },
@@ -143,13 +146,18 @@ export class Character {
     return collision;
   }
 
-  walkingOnTallGrass(game, targetX, targetY) {
-    const animableTile = this.walkableTile(game, targetX, targetY);
-    const tallGrassCrushedTileIndex = 25;
-    if (animableTile.terrain !== "tallGrass") return;
+  backgLayoutTile(game, targetX, targetY) {
+    const tile = game.mapManager.currentMap.backgLayout[targetY][targetX];
+    const layout = game.tileManager.tilesets[tile];
+    return layout;
+  }
 
-    // game.mapManager.currentMap.overlayLayout[targetY][targetX] =
-    //   tallGrassCrushedTileIndex;
+  tileEffects(game, character) {
+    walkingOnTallGrass(game, character);
+  }
+
+  moveEffects(game, footX, footY) {
+    moveEffects(game, footX, footY);
   }
 
   getFacingToward(target) {

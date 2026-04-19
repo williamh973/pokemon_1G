@@ -38,7 +38,6 @@ export class RainSystem {
       this.active = false;
       return;
     }
-
     this.updateRain();
     this.updateLightning();
     this.draw(context);
