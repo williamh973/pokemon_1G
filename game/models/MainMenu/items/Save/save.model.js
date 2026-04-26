@@ -105,7 +105,8 @@ export class Save {
     );
 
     game.triggeredScenarios = this.map.triggeredScenarios;
-
+    game.flags.weather = this.flags.weather;
+    console.log("dans save", game.flags.weather);
     return this;
   }
 

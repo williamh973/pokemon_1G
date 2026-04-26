@@ -34,4 +34,9 @@ export const PUDDLE_TILESETS = {
     type: "ground",
     src: "game/assets/images/tilesets/world/terrain/water/puddle_right.png",
   },
+  179: {
+    name: "puddle_little",
+    type: "ground",
+    src: "game/assets/images/tilesets/world/terrain/water/puddle_little.png",
+  },
 };

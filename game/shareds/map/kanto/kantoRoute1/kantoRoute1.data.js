@@ -4,6 +4,7 @@ import { kantoRoute1Interactions } from "./kantoRoute1.interaction.js";
 import { kantoRoute1Layout } from "./kantoRoute1.layout.js";
 import { KANTO_ROUTE_1_NPCS } from "./kantoRoute1.npc.js";
 import { kantoRoute1OverlayLayout } from "./kantoRoute1.overlayLayout.js";
+import { kantoRoute1PuddlesLayout } from "./kantoRoute1.puddlesLayout.js";
 import { kantoRoute1Warps } from "./kantoRoute1.warp.js";
 
 export const kantoRoute1 = {
@@ -12,6 +13,7 @@ export const kantoRoute1 = {
   weathers: ["sun", "rain"],
   backgLayout: kantoRoute1Layout,
   overlayLayout: kantoRoute1OverlayLayout,
+  puddlesLayout: kantoRoute1PuddlesLayout,
   collision: kantoRoute1Collide,
   interactions: kantoRoute1Interactions,
   width: kantoRoute1Collide[0].length,

@@ -26,7 +26,7 @@ export class SplashSystem {
 
       context.globalAlpha = p.life / 20;
       context.fillStyle = "#a8d0ff";
-      context.fillRect(p.x, p.y, 4, 4);
+      context.fillRect(p.x, p.y, 3, 4);
     });
 
     context.globalAlpha = 1;

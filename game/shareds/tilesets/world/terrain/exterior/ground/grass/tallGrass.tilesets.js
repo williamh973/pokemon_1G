@@ -24,7 +24,7 @@ export const TALL_GRASS = {
     type: "overlay",
     src: "game/assets/images/tilesets/world/terrain/grass/tall_grass_crushed_w_leaves.png",
     animated: true,
-    loop: false,
+    loop: true,
     frames: 4,
     frameDuration: 10,
   },

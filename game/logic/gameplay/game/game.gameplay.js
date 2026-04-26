@@ -42,6 +42,6 @@ export const loadGame = (game) => {
   const data = save.apply(game);
   // console.log(data);
   game.mapManager.loadMap(data.map.id, data);
-
+  game.mapManager.getSavedWeather(game);
   game.closeTitleScreen();
 };

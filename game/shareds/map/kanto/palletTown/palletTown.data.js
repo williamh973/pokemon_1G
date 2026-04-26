@@ -5,6 +5,7 @@ import { palletTownLayout } from "./palletTown.layout.js";
 import { PALLET_TOWN_NPCs } from "./palletTown.npc.js";
 import { palletTownOverlayLayout } from "./oakLab/palletTown.overlayLayout.js";
 import { PALLET_TOWN_MISSABLES_OBJECTS } from "./palletTown.missableObjects.js";
+import { palletTownPuddlesLayout } from "./palletTown.puddlesLayout.js";
 
 export const palletTown = {
   id: "PALLET_TOWN",
@@ -12,6 +13,7 @@ export const palletTown = {
   weathers: ["rain", "sun"],
   backgLayout: palletTownLayout,
   overlayLayout: palletTownOverlayLayout,
+  puddlesLayout: palletTownPuddlesLayout,
   collision: palletTownCollide,
   interactions: palletTownInteractions,
   width: palletTownCollide[0].length,

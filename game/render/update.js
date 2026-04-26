@@ -24,7 +24,8 @@ const handleDialogState = (game, event) => {
 const weather = (game) => {
   if (
     game.mapManager.currentMap.weathers?.includes("rain") &&
-    game.rainSystem.active
+    game.rainSystem.active &&
+    game.flags.weather.rain
   ) {
     game.splashSystem.update(game.canvas.context);
     game.rainSystem.update(game.canvas.context);
@@ -36,8 +37,13 @@ export const update = (game) => {
   // console.log("tileX", game.player.tileX, "tileY", game.player.tileY);
   // console.log(game.mapManager.previousMap);
 
+  console.log();
   game.tileManager.update();
+  game.timeManager.update();
+  game.dayNightCycle.update(game.canvas, game.timeManager);
+
   const action = game.input.consume();
+
   NPCs(game);
   missableObjects(game);
 

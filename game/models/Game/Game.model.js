@@ -26,6 +26,8 @@ import { TRIGGERED_SCENARIOS_DATABASE } from "../../shareds/scenarios/triggeredS
 import { MapNameWindow } from "../Map/MapNameWindow.model.js";
 import { RainSystem } from "../weather/rain/RainSystem/RainSystem.model.js";
 import { SplashSystem } from "../weather/rain/SplashSystem/SplashSystem.model.js";
+import { DayNightCycle } from "../DayNightCycle/DayNightCycle.model.js";
+import { TimeManager } from "../TimeManager/TimeManager.model.js";
 
 export class Game {
   constructor() {
@@ -45,6 +47,8 @@ export class Game {
     this.input = new InputManager();
     this.rainSystem = new RainSystem(this.canvas);
     this.splashSystem = new SplashSystem();
+    this.timeManager = new TimeManager();
+    this.dayNightCycle = new DayNightCycle();
     this.choiceMenu = null;
     this.currentScreen = null;
     this.mapNameWindow = new MapNameWindow(this);

@@ -50,5 +50,5 @@ export const WATER_TILESETS = {
     // frameDuration: 35,
   },
 
-  ...PUDDLE_TILESETS, // 200 -
+  ...PUDDLE_TILESETS, // 172 -
 };

@@ -31,7 +31,7 @@ export const TILE_TYPES = {
   8: {
     walkable: false,
     encounter: false,
-    terrain: "cliff",
+    terrain: "cliff_down",
     direction: "down",
     surfable: false,
   },

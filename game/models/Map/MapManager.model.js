@@ -150,9 +150,26 @@ export class MapManager {
     checkScenarios(game);
   }
 
-  checkWeather(game) {
+  startRain(game) {
+    game.rainSystem.start(1);
+  }
+
+  stopRain(game) {
     game.rainSystem.stop();
+  }
+
+  getSavedWeather(game) {
+    if (game.flags.weather.rain) this.startRain(game);
+    else this.stopRain(game);
+  }
+
+  checkWeather(game) {
+    this.stopRain(game);
+    game.flags.weather.rain = false;
     let randomN = Math.random();
-    if (randomN >= 0.64) game.rainSystem.start(1);
+    if (randomN >= 0.5) {
+      this.startRain(game);
+      game.flags.weather.rain = true;
+    }
   }
 }

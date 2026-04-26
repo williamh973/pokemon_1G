@@ -4,6 +4,11 @@ import { GRASS_W_SHADOW } from "./grassWithShadow.tilesets.js";
 import { TALL_GRASS } from "./tallGrass.tilesets.js";
 
 export const GRASS_TILESETS = {
+  9: {
+    name: "tall_grass_crushed_overlay",
+    type: "overlay",
+    src: "game/assets/images/tilesets/world/terrain/grass/tall_grass_crushed_overlay.png",
+  },
   10: {
     name: "mown_grass",
     type: "background",

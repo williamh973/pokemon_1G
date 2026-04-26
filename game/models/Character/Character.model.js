@@ -6,7 +6,7 @@ import { attemptMove } from "../../logic/gameplay/character/attemptMove.gameplay
 import { checkCliffTrigger } from "../../logic/gameplay/character/checkCliffTrigger.gameplay.js";
 import { update } from "../../logic/gameplay/character/update.gameplay.js";
 import { moveEffects } from "../../logic/gameplay/character/moveEffects.gameplay.js";
-import { walkingOnTallGrass } from "../../logic/gameplay/character/tileEffects/walkingOnGrass.gameplay.js";
+import { walkingOnTallGrass } from "../../logic/gameplay/character/tileEffects/walkingOnGrass/walkingOnGrass.gameplay.js";
 
 export class Character {
   constructor({ id, tileX, tileY, sprites, facing = "down" }) {
@@ -136,8 +136,8 @@ export class Character {
     this.forcedMovements = [...path];
   }
 
-  checkCliffTrigger(game, targetX, targetY) {
-    checkCliffTrigger(this, game, targetX, targetY);
+  checkCliffTrigger(targetTile) {
+    checkCliffTrigger(targetTile, this);
   }
 
   walkableTile(game, targetX, targetY) {
@@ -148,6 +148,12 @@ export class Character {
 
   backgLayoutTile(game, targetX, targetY) {
     const tile = game.mapManager.currentMap.backgLayout[targetY][targetX];
+    const layout = game.tileManager.tilesets[tile];
+    return layout;
+  }
+
+  overlayLayoutTile(game, targetX, targetY) {
+    const tile = game.mapManager.currentMap.overlayLayout[targetY][targetX];
     const layout = game.tileManager.tilesets[tile];
     return layout;
   }
