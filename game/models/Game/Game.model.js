@@ -28,6 +28,7 @@ import { RainSystem } from "../weather/rain/RainSystem/RainSystem.model.js";
 import { SplashSystem } from "../weather/rain/SplashSystem/SplashSystem.model.js";
 import { DayNightCycle } from "../DayNightCycle/DayNightCycle.model.js";
 import { TimeManager } from "../TimeManager/TimeManager.model.js";
+import { EncounterManager } from "../encounterManager/encounterManager.model.js";
 
 export class Game {
   constructor() {
@@ -49,6 +50,7 @@ export class Game {
     this.splashSystem = new SplashSystem();
     this.timeManager = new TimeManager();
     this.dayNightCycle = new DayNightCycle();
+    this.encounterManager = new EncounterManager();
     this.choiceMenu = null;
     this.currentScreen = null;
     this.mapNameWindow = new MapNameWindow(this);

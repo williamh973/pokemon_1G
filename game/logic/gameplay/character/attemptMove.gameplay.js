@@ -18,7 +18,7 @@ export const attemptMove = (character, dx, dy, game) => {
 
   const tile = character.walkableTile(game, targetX, targetY);
   if (
-    character.checkCliffTrigger(tile) ||
+    character.checkCliffTrigger(game, tile) ||
     !tile.walkable ||
     character.npcInFrontOfPlayer(game, targetX, targetY) ||
     character.moInFrontOfPlayer(game, targetX, targetY) ||
@@ -27,6 +27,12 @@ export const attemptMove = (character, dx, dy, game) => {
     return;
 
   character.moveToTile(character, dx, dy, game);
+
+  game.encounterManager.getEncounter(
+    game.mapManager.currentMap,
+    tile,
+    game.timeManager
+  );
 
   return true;
 };

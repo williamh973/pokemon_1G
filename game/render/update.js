@@ -37,10 +37,9 @@ export const update = (game) => {
   // console.log("tileX", game.player.tileX, "tileY", game.player.tileY);
   // console.log(game.mapManager.previousMap);
 
-  console.log();
   game.tileManager.update();
   game.timeManager.update();
-  game.dayNightCycle.update(game.canvas, game.timeManager);
+  game.dayNightCycle.update(game);
 
   const action = game.input.consume();
 

@@ -19,13 +19,4 @@ export const TALL_GRASS = {
     type: "overlay",
     src: "game/assets/images/tilesets/world/terrain/grass/big_tall_grass_bottom.png",
   },
-  25: {
-    name: "tall_grass_crushed_w_leaves",
-    type: "overlay",
-    src: "game/assets/images/tilesets/world/terrain/grass/tall_grass_crushed_w_leaves.png",
-    animated: true,
-    loop: true,
-    frames: 4,
-    frameDuration: 10,
-  },
 };

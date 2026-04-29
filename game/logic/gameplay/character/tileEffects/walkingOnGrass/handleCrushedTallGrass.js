@@ -6,11 +6,11 @@ export const handleCrushedTallGrass = (game, character, map, x, y) => {
 
     if (map.backgLayout[ly]) map.backgLayout[ly][lx] = originalIndex;
   }
-  const backgLayoutTile = character.backgLayoutTile(game, x, y);
-  if (backgLayoutTile.name !== "tall_grass") return;
+  const backgLayoutTile = character.getTileData(game, x, y, map.backgLayout);
+  if (backgLayoutTile && backgLayoutTile.name !== "tall_grass") return;
 
   const crushedIndex = 22;
-  const crushedAnimationIndex = 25;
+  const crushedAnimationIndex = 6003;
   const crushedOverlayIndex = 9;
 
   const tileData = game.tileManager.tilesets[crushedAnimationIndex];

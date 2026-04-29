@@ -20,6 +20,7 @@ export const kantoRoute1 = {
   height: kantoRoute1Collide.length,
   warps: kantoRoute1Warps,
   encounter: kantoRoute1Encounters,
+  encounterRate: 30,
   worldMap: { x: 3, y: 5, w: 1, h: 3 },
   isFlyable: false,
   isIndoor: false,

@@ -60,7 +60,7 @@ export const draw = (game, tileManager) => {
       game.player.draw(game.canvas, game.camera);
 
       drawOverlayTiles(game, tileManager);
-      game.dayNightCycle.draw(game.canvas, game.timeManager);
+      game.dayNightCycle.draw(game);
       game.timeManager.draw(game.canvas);
       break;
     case "DIALOG":
@@ -73,7 +73,7 @@ export const draw = (game, tileManager) => {
       game.player.draw(game.canvas, game.camera);
 
       drawOverlayTiles(game, tileManager);
-      game.dayNightCycle.draw(game.canvas, game.timeManager);
+      game.dayNightCycle.draw(game);
       game.timeManager.draw(game.canvas);
 
       if (!game.isAttemptSave) return;
@@ -90,7 +90,7 @@ export const draw = (game, tileManager) => {
       game.player.draw(game.canvas, game.camera);
 
       drawOverlayTiles(game, tileManager);
-      game.dayNightCycle.draw(game.canvas, game.timeManager);
+      game.dayNightCycle.draw(game);
       game.timeManager.draw(game.canvas);
       break;
 
@@ -104,7 +104,7 @@ export const draw = (game, tileManager) => {
       game.player.draw(game.canvas, game.camera);
 
       drawOverlayTiles(game, tileManager);
-      game.dayNightCycle.draw(game.canvas, game.timeManager);
+      game.dayNightCycle.draw(game);
       game.timeManager.draw(game.canvas);
 
       game.dialogBox?.draw(game.canvas.context);

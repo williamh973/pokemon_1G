@@ -82,7 +82,7 @@ export class Npc extends Character {
 
     const randomDir = directions[Math.floor(Math.random() * directions.length)];
     this.attemptMove(randomDir.dx, randomDir.dy, game);
-    this.behaviorCooldown = 60 + Math.floor(Math.random() * 180);
+    this.behaviorCooldown = 60 + Math.floor(Math.random() * 173);
   }
 
   updateLookAround(game) {

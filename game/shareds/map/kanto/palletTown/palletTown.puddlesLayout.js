@@ -61,8 +61,8 @@ export const palletTownPuddlesLayout = [
     null,
     null,
     null,
-    173,
-    172,
+    181,
+    180,
   ],
   [
     null,
@@ -87,8 +87,8 @@ export const palletTownPuddlesLayout = [
     null,
     null,
     null,
-    174,
-    175,
+    182,
+    183,
   ],
   [],
 ];

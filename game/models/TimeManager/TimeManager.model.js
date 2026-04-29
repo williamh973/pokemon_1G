@@ -1,12 +1,13 @@
 export class TimeManager {
   constructor() {
-    this.time = 0;
+    this.time = 1950;
     this.dayDuration = 3600;
-    this.speed = 0.5; // 0.001 équivaut à  30 mn in game
+    this.speed = 0.001; // 0.001 équivaut à  30 mn in game
+    this.active = true;
   }
 
   update() {
-    this.time = (this.time + this.speed) % this.dayDuration;
+    if (this.active) this.time = (this.time + this.speed) % this.dayDuration;
   }
 
   draw(canvas) {
@@ -38,16 +39,8 @@ export class TimeManager {
     return `${h}:${m}`;
   }
 
-  isMorning() {
-    return this.hours >= 6 && this.hours < 12;
-  }
-
   isDay() {
     return this.hours >= 12 && this.hours < 18;
-  }
-
-  isSunset() {
-    return this.hours >= 18 && this.hours < 20;
   }
 
   isNight() {

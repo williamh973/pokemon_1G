@@ -5,8 +5,8 @@ import { moveToTile } from "../../logic/gameplay/character/moveToTile.gameplay.j
 import { attemptMove } from "../../logic/gameplay/character/attemptMove.gameplay.js";
 import { checkCliffTrigger } from "../../logic/gameplay/character/checkCliffTrigger.gameplay.js";
 import { update } from "../../logic/gameplay/character/update.gameplay.js";
-import { moveEffects } from "../../logic/gameplay/character/moveEffects.gameplay.js";
 import { walkingOnTallGrass } from "../../logic/gameplay/character/tileEffects/walkingOnGrass/walkingOnGrass.gameplay.js";
+import { walkingOnPuddles } from "../../logic/gameplay/character/tileEffects/walkingOnPuddles/walkingOnPuddles.gameplay.js";
 
 export class Character {
   constructor({ id, tileX, tileY, sprites, facing = "down" }) {
@@ -16,6 +16,7 @@ export class Character {
     this.tileX = tileX;
     this.tileY = tileY;
     this.previousTile = {};
+    this.shadow = {};
     this.frames = {
       idle: { max: 1 },
       walk: { max: 2 },
@@ -136,8 +137,8 @@ export class Character {
     this.forcedMovements = [...path];
   }
 
-  checkCliffTrigger(targetTile) {
-    checkCliffTrigger(targetTile, this);
+  checkCliffTrigger(game, targetTile) {
+    checkCliffTrigger(game, targetTile, this);
   }
 
   walkableTile(game, targetX, targetY) {
@@ -146,24 +147,19 @@ export class Character {
     return collision;
   }
 
-  backgLayoutTile(game, targetX, targetY) {
-    const tile = game.mapManager.currentMap.backgLayout[targetY][targetX];
-    const layout = game.tileManager.tilesets[tile];
-    return layout;
-  }
-
-  overlayLayoutTile(game, targetX, targetY) {
-    const tile = game.mapManager.currentMap.overlayLayout[targetY][targetX];
+  getTileData(game, x, y, mapLayout) {
+    const tile = mapLayout[y][x];
     const layout = game.tileManager.tilesets[tile];
     return layout;
   }
 
   tileEffects(game, character) {
-    walkingOnTallGrass(game, character);
-  }
+    const map = game.mapManager.currentMap;
+    const x = character.tileX;
+    const y = character.tileY;
 
-  moveEffects(game, footX, footY) {
-    moveEffects(game, footX, footY);
+    walkingOnTallGrass(game, character, map, x, y);
+    walkingOnPuddles(game, character, map, x, y);
   }
 
   getFacingToward(target) {

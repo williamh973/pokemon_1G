@@ -18,9 +18,5 @@ export const moveToTile = (character, dx, dy, game) => {
   character.targetX = character.tileX * TILES_SIZE;
   character.targetY = character.tileY * TILES_SIZE;
 
-  const footX = character.position.x + game.camera.offsetX + 13;
-  const footY = character.position.y + game.camera.offsetY + 30;
-
   character.tileEffects(game, character);
-  character.moveEffects(game, footX, footY);
 };

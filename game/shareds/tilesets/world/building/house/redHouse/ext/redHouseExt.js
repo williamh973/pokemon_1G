@@ -1,4 +1,3 @@
-// 120 -130
 export const RED_HOUSE_EXT = {
   2028: {
     name: "left_roof_house",
