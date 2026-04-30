@@ -4,6 +4,7 @@ import { kantoRoute1Interactions } from "./kantoRoute1.interaction.js";
 import { kantoRoute1Layout } from "./kantoRoute1.layout.js";
 import { KANTO_ROUTE_1_NPCS } from "./kantoRoute1.npc.js";
 import { kantoRoute1OverlayLayout } from "./kantoRoute1.overlayLayout.js";
+import { kantoRoute1OverworldPokemons } from "./kantoRoute1.overworldPokemons.js";
 import { kantoRoute1PuddlesLayout } from "./kantoRoute1.puddlesLayout.js";
 import { kantoRoute1Warps } from "./kantoRoute1.warp.js";
 
@@ -20,7 +21,8 @@ export const kantoRoute1 = {
   height: kantoRoute1Collide.length,
   warps: kantoRoute1Warps,
   encounter: kantoRoute1Encounters,
-  encounterRate: 30,
+  encounterRate: 15,
+  overworldPokemons: kantoRoute1OverworldPokemons,
   worldMap: { x: 3, y: 5, w: 1, h: 3 },
   isFlyable: false,
   isIndoor: false,

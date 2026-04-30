@@ -15,6 +15,7 @@ export class Npc extends Character {
   }) {
     super({ id, tileX, tileY, sprites, facing });
     this.id = id;
+    this.entityType = "NPC";
     this.initialFacing = facing;
     this.name = name;
     this.behavior = behavior;

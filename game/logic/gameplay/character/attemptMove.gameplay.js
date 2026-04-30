@@ -28,11 +28,10 @@ export const attemptMove = (character, dx, dy, game) => {
 
   character.moveToTile(character, dx, dy, game);
 
-  game.encounterManager.getEncounter(
-    game.mapManager.currentMap,
-    tile,
-    game.timeManager
-  );
+  const map = game.mapManager.currentMap;
+
+  if (character.entityType === "PLAYER" && map.overworldPokemons.length <= 2)
+    game.encounterManager.getEncounter(game, tile, game.timeManager);
 
   return true;
 };

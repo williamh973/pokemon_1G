@@ -44,6 +44,40 @@ const drawOverlayTiles = (game, tileManager) => {
   }
 };
 
+const npcs = (game) => {
+  game.mapManager.currentMap.npcs?.forEach((npc) =>
+    npc.draw(game.canvas, game.camera)
+  );
+};
+
+const MO = (game) => {
+  game.mapManager.currentMap.missableObjects?.forEach((mo) =>
+    mo.draw(game.canvas, game.camera)
+  );
+};
+
+const OP = (game) => {
+  game.mapManager.currentMap.overworldPokemons?.forEach((OP) =>
+    OP.draw(game.canvas, game.camera)
+  );
+};
+
+const player = (game) => {
+  game.player.draw(game.canvas, game.camera);
+};
+
+const dayNightCycle = (game) => {
+  game.dayNightCycle.draw(game);
+};
+
+const timeManager = (game) => {
+  game.timeManager.draw(game.canvas);
+};
+
+const mainMenu = (game) => {
+  game.mainMenu?.draw(game.canvas.context, null);
+};
+
 export const draw = (game, tileManager) => {
   drawBackTiles(game, tileManager);
   drawPuddleTiles(game, tileManager);
@@ -51,66 +85,50 @@ export const draw = (game, tileManager) => {
 
   switch (game.state) {
     case "WORLD":
-      game.mapManager.currentMap.npcs?.forEach((npc) =>
-        npc.draw(game.canvas, game.camera)
-      );
-      game.mapManager.currentMap.missableObjects?.forEach((mo) =>
-        mo.draw(game.canvas, game.camera)
-      );
-      game.player.draw(game.canvas, game.camera);
-
+      npcs(game);
+      MO(game);
+      OP(game);
+      player(game);
       drawOverlayTiles(game, tileManager);
-      game.dayNightCycle.draw(game);
-      game.timeManager.draw(game.canvas);
+      dayNightCycle(game);
+      timeManager(game);
       break;
     case "DIALOG":
-      game.mapManager.currentMap.npcs?.forEach((npc) =>
-        npc.draw(game.canvas, game.camera)
-      );
-      game.mapManager.currentMap.missableObjects?.forEach((mo) =>
-        mo.draw(game.canvas, game.camera)
-      );
-      game.player.draw(game.canvas, game.camera);
-
+      npcs(game);
+      MO(game);
+      OP(game);
+      player(game);
       drawOverlayTiles(game, tileManager);
-      game.dayNightCycle.draw(game);
-      game.timeManager.draw(game.canvas);
+      dayNightCycle(game);
+      timeManager(game);
 
       if (!game.isAttemptSave) return;
-      game.mainMenu?.draw(game.canvas.context, null);
+      mainMenu(game);
 
       break;
     case "MENU":
-      game.mapManager.currentMap.npcs?.forEach((npc) =>
-        npc.draw(game.canvas, game.camera)
-      );
-      game.mapManager.currentMap.missableObjects?.forEach((mo) =>
-        mo.draw(game.canvas, game.camera)
-      );
-      game.player.draw(game.canvas, game.camera);
-
+      npcs(game);
+      MO(game);
+      OP(game);
+      player(game);
       drawOverlayTiles(game, tileManager);
-      game.dayNightCycle.draw(game);
-      game.timeManager.draw(game.canvas);
+      dayNightCycle(game);
+      timeManager(game);
       break;
 
     case "CHOICE_MENU":
-      game.mapManager.currentMap.npcs?.forEach((npc) =>
-        npc.draw(game.canvas, game.camera)
-      );
-      game.mapManager.currentMap.missableObjects?.forEach((mo) =>
-        mo.draw(game.canvas, game.camera)
-      );
-      game.player.draw(game.canvas, game.camera);
-
+      npcs(game);
+      MO(game);
+      OP(game);
+      player(game);
       drawOverlayTiles(game, tileManager);
-      game.dayNightCycle.draw(game);
-      game.timeManager.draw(game.canvas);
+      dayNightCycle(game);
+      timeManager(game);
 
       game.dialogBox?.draw(game.canvas.context);
 
       if (!game.isAttemptSave) return;
-      game.mainMenu?.draw(game.canvas.context, null);
+      mainMenu(game);
       break;
   }
 };

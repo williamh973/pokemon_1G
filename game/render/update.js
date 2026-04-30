@@ -9,6 +9,12 @@ const NPCs = (game) => {
   });
 };
 
+const OverwoldP = (game) => {
+  game.mapManager.currentMap.overworldPokemons?.forEach((OP) => {
+    OP.update(game);
+  });
+};
+
 const missableObjects = (game) => {
   game.mapManager.currentMap.missableObjects?.forEach((object) => {
     object.update(game, null);
@@ -45,6 +51,7 @@ export const update = (game) => {
 
   NPCs(game);
   missableObjects(game);
+  OverwoldP(game);
 
   switch (game.state) {
     case "WORLD":

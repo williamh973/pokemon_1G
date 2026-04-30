@@ -18,6 +18,7 @@ export class Player extends Character {
       tileY: 6,
       sprites: playerSprites,
     });
+    this.entityType = "PLAYER";
     this.name = "red";
     this.nickname = "RED";
     this.abilities = "";
