@@ -17,4 +17,11 @@ export const OP_DATABASE = {
     behavior: "wander",
     facing: "up",
   },
+  zubat: {
+    sprites: {
+      walk: OP_SPRITES.zubat.walk,
+    },
+    behavior: "wander",
+    facing: "up",
+  },
 };

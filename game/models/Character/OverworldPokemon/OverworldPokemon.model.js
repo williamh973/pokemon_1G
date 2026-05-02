@@ -2,26 +2,24 @@ import { Character } from "../Character.model.js";
 
 export class OverworldPokemon extends Character {
   constructor({ id, tileX, tileY, sprites, facing, behavior, level }) {
-    super({ id, tileX, tileY, sprites, behavior, facing });
+    super({ id, tileX, tileY, sprites, facing });
 
     this.entityType = "OP";
-    this.tileX = tileX;
-    this.tileY = tileY;
     this.behavior = behavior;
     this.level = level;
-
+    this.state = "walk";
     this.spawnTime = 0;
     this.lifetime = 500;
     this.behaviorCooldown = 0;
   }
 
   update(game) {
-    super.update(game);
-
     this.spawnTime++;
 
     this.handleLifetime(game);
+    if (this.spawnTime >= this.lifetime) return;
     this.handleBehavior(game);
+    super.update(game);
   }
 
   handleLifetime(game) {
@@ -29,11 +27,23 @@ export class OverworldPokemon extends Character {
   }
 
   despawn(game) {
-    const list = game.mapManager.currentMap.overworldPokemons;
+    const map = game.mapManager.currentMap;
+    const list = map.overworldPokemons;
+    const index = list.indexOf(this);
 
-    game.mapManager.currentMap.overworldPokemons = list.filter(
-      (p) => p !== this
-    );
+    if (index !== -1) {
+      list.splice(index, 1);
+      this.resetTileOriginalIndex(map);
+    }
+  }
+
+  resetTileOriginalIndex(map) {
+    if (this.previousTile) {
+      const { x, y, originalIndex } = this.previousTile;
+      console.log(x, y, originalIndex);
+      if (!originalIndex) return;
+      map.backgLayout[y][x] = originalIndex;
+    }
   }
 
   handleBehavior(game) {

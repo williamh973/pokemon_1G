@@ -1,10 +1,10 @@
 import { OverworldPokemon } from "../../../../models/Character/OverworldPokemon/OverworldPokemon.model.js";
 
-export const spawnOP = (OPConfig, chosenPokemon, map) => {
+export const spawnOP = (position, OPConfig, chosenPokemon, map) => {
   const OP = new OverworldPokemon({
     id: chosenPokemon.id,
-    tileX: chosenPokemon.tileX,
-    tileY: chosenPokemon.tileY,
+    tileX: position.x,
+    tileY: position.y,
     sprites: OPConfig.sprites,
     facing: OPConfig.facing ?? "down",
     behavior: OPConfig.behavior,
@@ -17,10 +17,10 @@ export const spawnOP = (OPConfig, chosenPokemon, map) => {
 export const getSpawnAroundPlayer = (game, player) => {
   const map = game.mapManager.currentMap;
   const offsets = [
-    { x: 1, y: 0 },
-    { x: -1, y: 0 },
-    { x: 0, y: 1 },
-    { x: 0, y: -1 },
+    { x: 2, y: 0 },
+    { x: -2, y: 0 },
+    { x: 0, y: 2 },
+    { x: 0, y: -2 },
   ];
 
   const shuffled = offsets.sort(() => Math.random() - 0.5);
@@ -34,6 +34,7 @@ export const getSpawnAroundPlayer = (game, player) => {
     const tile = player.walkableTile(game, x, y);
 
     if (!tile.walkable) continue;
+    if (!tile.encounter) continue;
 
     if (
       player.npcInFrontOfPlayer(game, x, y) ||
@@ -43,6 +44,4 @@ export const getSpawnAroundPlayer = (game, player) => {
 
     return { x, y };
   }
-
-  return null;
 };

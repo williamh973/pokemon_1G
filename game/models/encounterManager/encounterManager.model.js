@@ -9,57 +9,40 @@ export class EncounterManager {
     if (!tile.encounter) return;
 
     const map = game.mapManager.currentMap;
-    const zone = map.encounter[tile.terrain];
-    const encounters = this.getEncountersForTime(zone, timeManager);
+    const tileType = map.encounter[tile.terrain];
+    const encounters = this.getEncountersForTime(tileType, timeManager);
 
     return this.rollEncounter(encounters, game);
   }
 
-  getEncountersForTime(encounters, timeManager) {
-    if (timeManager.isNight()) return encounters.night ?? encounters.day;
+  getEncountersForTime(tile, timeManager) {
+    if (timeManager.isNight()) return tile.night ?? tile.day;
 
-    return encounters.day;
+    return tile.day;
   }
 
   getRandomN() {
-    return Math.random() * 100;
+    return Math.random();
   }
 
-  getRandomLevel(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+  choosePokemonToEncounter(encounters, game, player, map) {
+    const randomN = Math.floor(this.getRandomN() * encounters.length);
+    const chosenPokemon = encounters[randomN];
+    if (!chosenPokemon) return;
+
+    const position = getSpawnAroundPlayer(game, player);
+    if (!position) return;
+
+    const config = OP_DATABASE[chosenPokemon.id];
+    return spawnOP(position, config, chosenPokemon, map);
   }
 
   rollEncounter(encounters, game) {
     const map = game.mapManager.currentMap;
     const player = game.player;
 
-    let randomN = this.getRandomN();
-    console.log(randomN);
-    if (randomN >= map.encounterRate) return;
+    if (this.getRandomN() * 100 >= map.encounterRate) return;
 
-    let sum = 0;
-
-    for (const encounter of encounters) {
-      sum += encounter.rate;
-
-      if (this.getRandomN() <= sum) {
-        const position = getSpawnAroundPlayer(game, player);
-        if (!position) return;
-
-        const chosenPokemon = {
-          ...encounter,
-          level: this.getRandomLevel(encounter.minLevel, encounter.maxLevel),
-          tileX: position.x,
-          tileY: position.y,
-        };
-
-        if (chosenPokemon) {
-          const config = OP_DATABASE[chosenPokemon.id];
-          return spawnOP(config, chosenPokemon, map);
-        }
-      }
-    }
-
-    return null;
+    this.choosePokemonToEncounter(encounters, game, player, map);
   }
 }

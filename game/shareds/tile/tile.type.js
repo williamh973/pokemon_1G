@@ -3,17 +3,16 @@ export const TILE_TYPES = {
   2: { walkable: true, encounter: false, terrain: "ground" },
   3: { walkable: false, encounter: false, terrain: "solid" },
   4: {
-    walkable: false,
+    walkable: true,
     encounter: true,
     terrain: "water",
     surfable: true,
   },
   5: {
-    walkable: true,
-    encounter: false,
-    terrain: "ground",
-    trigger: "door",
-    warp: true,
+    walkable: false,
+    encounter: true,
+    terrain: "borderWater",
+    surfable: true,
   },
   6: {
     walkable: true,
@@ -23,10 +22,11 @@ export const TILE_TYPES = {
     warp: false,
   },
   7: {
-    walkable: false,
+    walkable: true,
     encounter: false,
-    terrain: "water",
-    surfable: true,
+    terrain: "ground",
+    trigger: "door",
+    warp: true,
   },
   8: {
     walkable: false,

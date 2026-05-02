@@ -70,14 +70,16 @@ export class MapManager {
     this.filterMissableObjects(mapId);
   }
 
-  checkWarp(player, transition) {
+  checkWarp(character, transition) {
+    if (character.entityType !== "PLAYER") return;
+
     const warp = this.currentMap.warps.find(
       (w) =>
         w.fromMap === this.currentMap.id &&
-        w.from.x === player.tileX &&
-        w.from.y === player.tileY &&
+        w.from.x === character.tileX &&
+        w.from.y === character.tileY &&
         w.transition === transition &&
-        (!w.facing || w.facing === player.facing)
+        (!w.facing || w.facing === character.facing)
     );
 
     if (!warp) return false;

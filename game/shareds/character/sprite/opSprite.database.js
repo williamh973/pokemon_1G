@@ -26,6 +26,16 @@ import {
   walkRattataUp_stepA,
   walkRattataUp_stepB,
 } from "../../../assets/images/pokemons/1G/overworld/rattata/rattata.assets.js";
+import {
+  walkZubatDown_stepA,
+  walkZubatDown_stepB,
+  walkZubatLeft_stepA,
+  walkZubatLeft_stepB,
+  walkZubatRight_stepA,
+  walkZubatRight_stepB,
+  walkZubatUp_stepA,
+  walkZubatUp_stepB,
+} from "../../../assets/images/pokemons/1G/overworld/zubat/zubat.assets.js";
 
 export const OP_SPRITES = {
   pidgey: {
@@ -54,6 +64,14 @@ export const OP_SPRITES = {
       down: [walkRattataDown_stepA, walkRattataDown_stepB],
       left: [walkRattataLeft_stepA, walkRattataLeft_stepB],
       right: [walkRattataRight_stepA, walkRattataRight_stepB],
+    },
+  },
+  zubat: {
+    walk: {
+      up: [walkZubatUp_stepA, walkZubatUp_stepB],
+      down: [walkZubatDown_stepA, walkZubatDown_stepB],
+      left: [walkZubatLeft_stepA, walkZubatLeft_stepB],
+      right: [walkZubatRight_stepA, walkZubatRight_stepB],
     },
   },
 };

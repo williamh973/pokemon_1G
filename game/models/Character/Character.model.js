@@ -51,8 +51,20 @@ export class Character {
   }
 
   updateSprite() {
-    this.image = this.sprites[this.state][this.facing];
-    this.framesMax = this.frames[this.state].max;
+    const hasIdle = this.sprites.idle;
+
+    // fallback : si pas de idle → utiliser walk
+    const state = hasIdle ? this.state : "walk";
+
+    this.image = this.sprites[state][this.facing];
+
+    // si walk = tableau (animation)
+    if (Array.isArray(this.image)) {
+      this.framesMax = this.image.length;
+      this.image = this.image[this.framesCurrent % this.framesMax];
+    } else {
+      this.framesMax = 1;
+    }
   }
 
   setFacing(facing) {

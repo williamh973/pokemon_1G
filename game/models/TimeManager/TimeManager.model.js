@@ -1,8 +1,8 @@
 export class TimeManager {
   constructor() {
-    this.time = 1950;
+    this.time = 1500; // 2950 = 19h45
     this.dayDuration = 3600;
-    this.speed = 0.001; // 0.001 équivaut à  30 mn in game
+    this.speed = 0.1; // 0.001 équivaut à  30 mn in game
     this.active = true;
   }
 

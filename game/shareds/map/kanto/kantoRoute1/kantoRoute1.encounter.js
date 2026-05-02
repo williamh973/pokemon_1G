@@ -1,12 +1,18 @@
 export const kantoRoute1Encounters = {
   tallGrass: {
     day: [
-      { id: "rattata", minLevel: 2, maxLevel: 4, rate: 50 },
-      { id: "pidgey", minLevel: 2, maxLevel: 4, rate: 50 },
+      { id: "pidgey", level: 3 },
+      { id: "rattata", level: 3 },
+      { id: "rattata", level: 3 },
+      { id: "rattata", level: 2 },
+      { id: "pidgey", level: 2 },
+      { id: "pidgey", level: 3 },
+      { id: "pidgey", level: 3 },
+      { id: "rattata", level: 4 },
+      { id: "pidgey", level: 4 },
+      { id: "pidgey", level: 5 },
+      // { id: "zubat", level: 3 },
     ],
-    night: [{ id: "zubat", minLevel: 3, maxLevel: 5, rate: 100 }],
+    night: [{ id: "zubat", level: 3 }],
   },
-  //   rain : {
-
-  //   } pour plus tard, je veux rester simple pour l'instant
 };
