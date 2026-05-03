@@ -7,6 +7,10 @@ import { checkCliffTrigger } from "../../logic/gameplay/character/checkCliffTrig
 import { update } from "../../logic/gameplay/character/update.gameplay.js";
 import { walkingOnTallGrass } from "../../logic/gameplay/character/tileEffects/walkingOnGrass/walkingOnGrass.gameplay.js";
 import { walkingOnPuddles } from "../../logic/gameplay/character/tileEffects/walkingOnPuddles/walkingOnPuddles.gameplay.js";
+import { getFacingToward } from "../../logic/gameplay/character/getFacingToward.gameplay.js";
+import { updateSprite } from "../../logic/gameplay/character/updateSprite.gameplay.js";
+import { isEntityAt } from "../../logic/gameplay/character/isEntityAt.gameplay.js";
+import { getFrontTile } from "../../logic/gameplay/character/getFrontTile.gameplay.js";
 
 export class Character {
   constructor({ id, tileX, tileY, sprites, facing = "down" }) {
@@ -41,6 +45,7 @@ export class Character {
     this.isMoving = false;
     this.isJumping = false;
     this.justStartedMoving = false;
+    this.alwaysAnimate = false;
     this.state = CHARACTER_STATE.IDLE;
     this.sprites = sprites;
     this.facing = facing;
@@ -51,20 +56,7 @@ export class Character {
   }
 
   updateSprite() {
-    const hasIdle = this.sprites.idle;
-
-    // fallback : si pas de idle → utiliser walk
-    const state = hasIdle ? this.state : "walk";
-
-    this.image = this.sprites[state][this.facing];
-
-    // si walk = tableau (animation)
-    if (Array.isArray(this.image)) {
-      this.framesMax = this.image.length;
-      this.image = this.image[this.framesCurrent % this.framesMax];
-    } else {
-      this.framesMax = 1;
-    }
+    updateSprite(this);
   }
 
   setFacing(facing) {
@@ -77,9 +69,11 @@ export class Character {
   }
 
   draw(canvas, camera) {
-    const screenX = this.position.x + camera.offsetX;
-    const screenY = this.position.y + camera.offsetY;
+    const screenX = this.position.x + camera.offsetX + 2;
+    let screenY = this.position.y + camera.offsetY;
     const frameWidth = this.image.width / this.framesMax;
+
+    if (this.movementType === "fly") screenY -= 15;
 
     canvas.context.drawImage(
       this.image,
@@ -118,30 +112,14 @@ export class Character {
   }
 
   getFrontTile() {
-    let x = this.tileX;
-    let y = this.tileY;
-
-    if (this.facing === "up") y--;
-    if (this.facing === "down") y++;
-    if (this.facing === "left") x--;
-    if (this.facing === "right") x++;
-
-    return { x, y };
+    return getFrontTile(this);
   }
 
-  npcInFrontOfPlayer(game, targetX, targetY) {
-    return game.mapManager.currentMap.npcs?.some((npc) => {
-      return npc.tileX === targetX && npc.tileY === targetY;
-    });
+  isEntityAt(game, x, y, filterFn = null) {
+    return isEntityAt(game, x, y, (filterFn = null), this);
   }
 
-  moInFrontOfPlayer(game, targetX, targetY) {
-    return game.mapManager.currentMap.missableObjects?.some((mo) => {
-      return mo.tileX === targetX && mo.tileY === targetY;
-    });
-  }
-
-  playerInFrontOfPnc(game, targetX, targetY) {
+  isPlayerAt(game, targetX, targetY) {
     return game.player.tileX === targetX && game.player.tileY === targetY;
   }
 
@@ -166,20 +144,17 @@ export class Character {
   }
 
   tileEffects(game, character) {
+    if (this.movementType === "fly") return;
+
     const map = game.mapManager.currentMap;
     const x = character.tileX;
     const y = character.tileY;
-
     walkingOnTallGrass(game, character, map, x, y);
     walkingOnPuddles(game, character, map, x, y);
   }
 
   getFacingToward(target) {
-    const dx = target.tileX - this.tileX;
-    const dy = target.tileY - this.tileY;
-
-    if (Math.abs(dx) > Math.abs(dy)) return dx > 0 ? "right" : "left";
-    else return dy > 0 ? "down" : "up";
+    return getFacingToward(this, target);
   }
 
   attemptMove(dx, dy, game) {

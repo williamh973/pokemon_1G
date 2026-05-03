@@ -56,8 +56,14 @@ const MO = (game) => {
   );
 };
 
-const OP = (game) => {
-  game.mapManager.currentMap.overworldPokemons?.forEach((OP) =>
+const walkingOP = (game) => {
+  game.mapManager.currentMap.overworldPokemons?.walking?.forEach((OP) =>
+    OP.draw(game.canvas, game.camera)
+  );
+};
+
+const flyingOP = (game) => {
+  game.mapManager.currentMap.overworldPokemons?.flying?.forEach((OP) =>
     OP.draw(game.canvas, game.camera)
   );
 };
@@ -87,18 +93,20 @@ export const draw = (game, tileManager) => {
     case "WORLD":
       npcs(game);
       MO(game);
-      OP(game);
+      walkingOP(game);
       player(game);
       drawOverlayTiles(game, tileManager);
+      flyingOP(game);
       dayNightCycle(game);
       timeManager(game);
       break;
     case "DIALOG":
       npcs(game);
       MO(game);
-      OP(game);
+      walkingOP(game);
       player(game);
       drawOverlayTiles(game, tileManager);
+      flyingOP(game);
       dayNightCycle(game);
       timeManager(game);
 
@@ -109,9 +117,10 @@ export const draw = (game, tileManager) => {
     case "MENU":
       npcs(game);
       MO(game);
-      OP(game);
+      walkingOP(game);
       player(game);
       drawOverlayTiles(game, tileManager);
+      flyingOP(game);
       dayNightCycle(game);
       timeManager(game);
       break;
@@ -119,9 +128,10 @@ export const draw = (game, tileManager) => {
     case "CHOICE_MENU":
       npcs(game);
       MO(game);
-      OP(game);
+      walkingOP(game);
       player(game);
       drawOverlayTiles(game, tileManager);
+      flyingOP(game);
       dayNightCycle(game);
       timeManager(game);
 

@@ -28,6 +28,7 @@ export class EncounterManager {
   choosePokemonToEncounter(encounters, game, player, map) {
     const randomN = Math.floor(this.getRandomN() * encounters.length);
     const chosenPokemon = encounters[randomN];
+
     if (!chosenPokemon) return;
 
     const position = getSpawnAroundPlayer(game, player);

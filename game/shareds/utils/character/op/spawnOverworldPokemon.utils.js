@@ -9,18 +9,24 @@ export const spawnOP = (position, OPConfig, chosenPokemon, map) => {
     facing: OPConfig.facing ?? "down",
     behavior: OPConfig.behavior,
     level: chosenPokemon.level,
+    movementType: OPConfig.movementType,
   });
-  map.overworldPokemons.push(OP);
+
+  OP.movementType === "fly"
+    ? map.overworldPokemons.flying.push(OP)
+    : map.overworldPokemons.walking.push(OP);
   return OP;
 };
 
 export const getSpawnAroundPlayer = (game, player) => {
   const map = game.mapManager.currentMap;
+  const randomN = Math.floor(Math.random() * 3 + 1);
+
   const offsets = [
-    { x: 2, y: 0 },
-    { x: -2, y: 0 },
-    { x: 0, y: 2 },
-    { x: 0, y: -2 },
+    { x: randomN, y: 0 },
+    { x: -randomN, y: 0 },
+    { x: 0, y: randomN },
+    { x: 0, y: -randomN },
   ];
 
   const shuffled = offsets.sort(() => Math.random() - 0.5);
@@ -37,8 +43,8 @@ export const getSpawnAroundPlayer = (game, player) => {
     if (!tile.encounter) continue;
 
     if (
-      player.npcInFrontOfPlayer(game, x, y) ||
-      player.moInFrontOfPlayer(game, x, y)
+      player.isEntityAt(game, x, y, (e) => e.entityType === "MO") ||
+      player.isEntityAt(game, x, y, (e) => e.entityType === "NPC")
     )
       continue;
 

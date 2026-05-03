@@ -15,6 +15,8 @@ export class MissableObject extends Npc {
       },
       facing: "down",
     });
+
+    this.entityType = "MO";
     this.itemId = id;
     this.flagId = flagId;
     this.itemKey = key;

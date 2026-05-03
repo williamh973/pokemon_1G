@@ -9,10 +9,16 @@ const NPCs = (game) => {
   });
 };
 
-const OverwoldP = (game) => {
-  game.mapManager.currentMap.overworldPokemons?.forEach((OP) => {
-    OP.update(game);
-  });
+const walkingOP = (game) => {
+  game.mapManager.currentMap.overworldPokemons?.walking?.forEach((OP) =>
+    OP.update(game)
+  );
+};
+
+const flyingOP = (game) => {
+  game.mapManager.currentMap.overworldPokemons?.flying?.forEach((OP) =>
+    OP.update(game)
+  );
 };
 
 const missableObjects = (game) => {
@@ -51,7 +57,8 @@ export const update = (game) => {
 
   NPCs(game);
   missableObjects(game);
-  OverwoldP(game);
+  walkingOP(game);
+  flyingOP(game);
 
   switch (game.state) {
     case "WORLD":

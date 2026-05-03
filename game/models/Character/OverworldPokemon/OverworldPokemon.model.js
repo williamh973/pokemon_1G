@@ -1,16 +1,26 @@
 import { Character } from "../Character.model.js";
 
 export class OverworldPokemon extends Character {
-  constructor({ id, tileX, tileY, sprites, facing, behavior, level }) {
+  constructor({
+    id,
+    tileX,
+    tileY,
+    sprites,
+    facing,
+    behavior,
+    level,
+    movementType,
+  }) {
     super({ id, tileX, tileY, sprites, facing });
 
     this.entityType = "OP";
     this.behavior = behavior;
     this.level = level;
-    this.state = "walk";
+    this.movementType = movementType;
     this.spawnTime = 0;
-    this.lifetime = 500;
+    this.lifetime = Math.floor(Math.random() * 500 + 100);
     this.behaviorCooldown = 0;
+    this.alwaysAnimate = true;
   }
 
   update(game) {
@@ -18,6 +28,7 @@ export class OverworldPokemon extends Character {
 
     this.handleLifetime(game);
     if (this.spawnTime >= this.lifetime) return;
+
     this.handleBehavior(game);
     super.update(game);
   }
@@ -28,19 +39,24 @@ export class OverworldPokemon extends Character {
 
   despawn(game) {
     const map = game.mapManager.currentMap;
-    const list = map.overworldPokemons;
-    const index = list.indexOf(this);
+    const OP_FLYING_list = map.overworldPokemons.flying;
+    const OP_WALKING_list = map.overworldPokemons.walking;
 
-    if (index !== -1) {
-      list.splice(index, 1);
-      this.resetTileOriginalIndex(map);
-    }
+    if (this.movementType === "fly") this.removeOP(OP_FLYING_list);
+    else this.removeOP(OP_WALKING_list);
+
+    this.resetTileOriginalIndex(map);
+  }
+
+  removeOP(list) {
+    const index = list.indexOf(this);
+    if (index !== -1) list.splice(index, 1);
   }
 
   resetTileOriginalIndex(map) {
     if (this.previousTile) {
       const { x, y, originalIndex } = this.previousTile;
-      console.log(x, y, originalIndex);
+
       if (!originalIndex) return;
       map.backgLayout[y][x] = originalIndex;
     }

@@ -17,8 +17,11 @@ export const update = (character, game) => {
 
       character.isMoving = false;
       character.framesCurrent = 0;
-      character.framesMax = character.frames.idle.max;
-      character.image = character.sprites.idle[character.facing];
+
+      if (character.sprites.idle && !character.alwaysAnimate) {
+        character.framesMax = character.frames.idle.max;
+        character.image = character.sprites.idle[character.facing];
+      } else character.state = CHARACTER_STATE.WALK;
 
       if (!character.isMoving && character.forcedMovements.length === 0) {
         if (character.movementCallbacks.length > 0) {
@@ -29,7 +32,13 @@ export const update = (character, game) => {
     }
   }
 
-  character.state = CHARACTER_STATE.IDLE;
+  if (!character.isMoving && character.alwaysAnimate) {
+    character.animateFrames();
+  }
+
+  if (!character.alwaysAnimate && character.sprites.idle)
+    character.state = CHARACTER_STATE.IDLE;
+  else character.state = CHARACTER_STATE.WALK;
 
   if (!character.isMoving && character.forcedMovements.length > 0) {
     const nextDirection = character.forcedMovements.shift();

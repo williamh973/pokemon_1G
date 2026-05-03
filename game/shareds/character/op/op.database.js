@@ -8,6 +8,7 @@ export const OP_DATABASE = {
     },
     behavior: "wander",
     facing: "up",
+    movementType: "walk",
   },
   pidgey: {
     sprites: {
@@ -16,6 +17,7 @@ export const OP_DATABASE = {
     },
     behavior: "wander",
     facing: "up",
+    movementType: "walk",
   },
   zubat: {
     sprites: {
@@ -23,5 +25,6 @@ export const OP_DATABASE = {
     },
     behavior: "wander",
     facing: "up",
+    movementType: "fly",
   },
 };

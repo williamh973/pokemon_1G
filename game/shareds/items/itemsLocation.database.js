@@ -23,22 +23,22 @@ export const ITEM_LOCATION = {
   OAK_LAB: [
     {
       key: "bulbasaur",
-      tileX: 6,
-      tileY: 3,
+      tileX: 7,
+      tileY: 4,
       id: "BULBASAUR",
       category: "starter",
     },
     {
       key: "charmander",
-      tileX: 7,
-      tileY: 3,
+      tileX: 8,
+      tileY: 4,
       id: "CHARMANDER",
       category: "starter",
     },
     {
       key: "squirtle",
-      tileX: 8,
-      tileY: 3,
+      tileX: 9,
+      tileY: 4,
       id: "SQUIRTLE",
       category: "starter",
     },

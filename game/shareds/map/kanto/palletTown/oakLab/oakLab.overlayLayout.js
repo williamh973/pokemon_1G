@@ -10,7 +10,7 @@ export const oakLabOverlayLayout = [
   [null, null, null, null, null, null, null, null, null, null, null],
   [null, null, null, null, null, null, null, null, null, null, null],
   [null, null, null, null, null, null, null, null, null, null, null],
-  [3508, null, null, null, null, null, null, null, null, null, 3508],
+  [3559, null, null, null, null, null, null, null, null, null, 3559],
   [null, null, null, null, null, null, null, null, null, null, null],
   [null, null, null, null, null, null, null, null, null, null, null],
 ];

@@ -14,10 +14,14 @@ export class Player extends Character {
     };
 
     super({
+      id: "PLAYER",
       tileX: 7,
       tileY: 6,
       sprites: playerSprites,
     });
+
+    this.width = 29;
+    this.height = 33;
     this.entityType = "PLAYER";
     this.name = "red";
     this.nickname = "RED";

@@ -15,6 +15,10 @@ export class MapManager {
     this.currentMap = this.mapsDatabase["PALLET_TOWN"]; // "PALLET_TOWN", "OAK_LAB", "RED_HOUSE_1F", "KANTO_ROUTE_1"
   }
 
+  getEntities(map) {
+    return [...map.npcs, ...map.missableObjects];
+  }
+
   loadNpcs(map, saveData) {
     const npcLocation = NPC_LOCATION[map.id];
     if (!npcLocation) return;
