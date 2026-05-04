@@ -26,23 +26,35 @@ export const attemptMove = (character, dx, dy, game) => {
       game,
       targetX,
       targetY,
-      (e) => e.entityType === "MO"
+      (e) => e.entityType === "NPC",
+      character
     ) ||
-    character.isEntityAt(game, targetX, targetY, (e) => e.entityType === "NPC")
+    character.isEntityAt(
+      game,
+      targetX,
+      targetY,
+      (e) => e.entityType === "MO",
+      character
+    )
   )
     return;
 
-  character.moveToTile(character, dx, dy, game);
+  const targetOp = character.isEntityAt(
+    game,
+    targetX,
+    targetY,
+    (e) => e.entityType === "OP",
+    character
+  );
 
-  const map = game.mapManager.currentMap;
-  const OP_FLYING = map.overworldPokemons?.flying;
-  const OP_WALKING = map.overworldPokemons?.walking;
+  if (targetOp) return console.log("battle");
 
-  if (
-    character.entityType === "PLAYER" &&
-    (OP_FLYING?.length <= 1 || OP_WALKING?.length <= 1)
-  )
+  const OP = game.mapManager.currentMap.overworldPokemons;
+
+  if (character.entityType === "PLAYER" && OP.length <= 2)
     game.encounterManager.getEncounter(game, tile, game.timeManager);
+
+  character.moveToTile(character, dx, dy, game);
 
   return true;
 };

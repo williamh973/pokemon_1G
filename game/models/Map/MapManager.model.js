@@ -16,7 +16,7 @@ export class MapManager {
   }
 
   getEntities(map) {
-    return [...map.npcs, ...map.missableObjects];
+    return [...map.npcs, ...map.missableObjects, ...map.overworldPokemons];
   }
 
   loadNpcs(map, saveData) {

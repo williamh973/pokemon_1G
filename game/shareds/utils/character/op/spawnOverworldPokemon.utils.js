@@ -12,9 +12,7 @@ export const spawnOP = (position, OPConfig, chosenPokemon, map) => {
     movementType: OPConfig.movementType,
   });
 
-  OP.movementType === "fly"
-    ? map.overworldPokemons.flying.push(OP)
-    : map.overworldPokemons.walking.push(OP);
+  map.overworldPokemons.push(OP);
   return OP;
 };
 

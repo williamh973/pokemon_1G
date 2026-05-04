@@ -56,16 +56,20 @@ const MO = (game) => {
   );
 };
 
-const walkingOP = (game) => {
-  game.mapManager.currentMap.overworldPokemons?.walking?.forEach((OP) =>
-    OP.draw(game.canvas, game.camera)
-  );
+const drawWalkingOP = (game) => {
+  const allOP = game.mapManager.currentMap.overworldPokemons ?? [];
+
+  allOP
+    .filter((op) => op.movementType !== "fly")
+    .forEach((op) => op.draw(game.canvas, game.camera));
 };
 
-const flyingOP = (game) => {
-  game.mapManager.currentMap.overworldPokemons?.flying?.forEach((OP) =>
-    OP.draw(game.canvas, game.camera)
-  );
+const drawFlyingOP = (game) => {
+  const allOP = game.mapManager.currentMap.overworldPokemons ?? [];
+
+  allOP
+    .filter((op) => op.movementType === "fly")
+    .forEach((op) => op.draw(game.canvas, game.camera));
 };
 
 const player = (game) => {
@@ -93,20 +97,20 @@ export const draw = (game, tileManager) => {
     case "WORLD":
       npcs(game);
       MO(game);
-      walkingOP(game);
+      drawWalkingOP(game);
       player(game);
       drawOverlayTiles(game, tileManager);
-      flyingOP(game);
+      drawFlyingOP(game);
       dayNightCycle(game);
       timeManager(game);
       break;
     case "DIALOG":
       npcs(game);
       MO(game);
-      walkingOP(game);
+      drawWalkingOP(game);
       player(game);
       drawOverlayTiles(game, tileManager);
-      flyingOP(game);
+      drawFlyingOP(game);
       dayNightCycle(game);
       timeManager(game);
 
@@ -117,10 +121,10 @@ export const draw = (game, tileManager) => {
     case "MENU":
       npcs(game);
       MO(game);
-      walkingOP(game);
+      drawWalkingOP(game);
       player(game);
       drawOverlayTiles(game, tileManager);
-      flyingOP(game);
+      drawFlyingOP(game);
       dayNightCycle(game);
       timeManager(game);
       break;
@@ -128,10 +132,10 @@ export const draw = (game, tileManager) => {
     case "CHOICE_MENU":
       npcs(game);
       MO(game);
-      walkingOP(game);
+      drawWalkingOP(game);
       player(game);
       drawOverlayTiles(game, tileManager);
-      flyingOP(game);
+      drawFlyingOP(game);
       dayNightCycle(game);
       timeManager(game);
 

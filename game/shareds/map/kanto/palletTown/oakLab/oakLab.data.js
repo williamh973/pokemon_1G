@@ -16,6 +16,7 @@ export const oakLab = {
   height: oakLabCollision.length,
   warps: oakLabWarps,
   npcs: OAKLAB_NPCs,
+  overworldPokemons: [],
   missableObjects: OAK_LAB_MISSABLE_OBJECTS,
   isFlayable: false,
   isIndoor: true,

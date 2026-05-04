@@ -1,4 +1,1 @@
-export const kantoRoute1OverworldPokemons = {
-  flying: [],
-  walking: [],
-};
+export const kantoRoute1OverworldPokemons = [];

@@ -39,12 +39,9 @@ export class OverworldPokemon extends Character {
 
   despawn(game) {
     const map = game.mapManager.currentMap;
-    const OP_FLYING_list = map.overworldPokemons.flying;
-    const OP_WALKING_list = map.overworldPokemons.walking;
+    const OP_list = map.overworldPokemons;
 
-    if (this.movementType === "fly") this.removeOP(OP_FLYING_list);
-    else this.removeOP(OP_WALKING_list);
-
+    this.removeOP(OP_list);
     this.resetTileOriginalIndex(map);
   }
 

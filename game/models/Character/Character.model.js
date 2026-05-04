@@ -115,8 +115,8 @@ export class Character {
     return getFrontTile(this);
   }
 
-  isEntityAt(game, x, y, filterFn = null) {
-    return isEntityAt(game, x, y, (filterFn = null), this);
+  isEntityAt(game, x, y, filterFn) {
+    return isEntityAt(game, x, y, filterFn, this);
   }
 
   isPlayerAt(game, targetX, targetY) {
