@@ -5,9 +5,7 @@ import {
 } from "../../shareds/utils/character/op/spawnOverworldPokemon.utils.js";
 
 export class EncounterManager {
-  getEncounter(game, tile, timeManager) {
-    if (!tile.encounter) return;
-
+  tryDoWildEncounter(game, tile, timeManager) {
     const map = game.mapManager.currentMap;
     const tileType = map.encounter[tile.terrain];
     const encounters = this.getEncountersForTime(tileType, timeManager);

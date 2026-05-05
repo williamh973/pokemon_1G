@@ -1,3 +1,44 @@
+import { generateWildPokemon } from "../encounters/generateWildPokemon.gameplay.js";
+
+const checkSolidAt = (game, tile, character, targetX, targetY) => {
+  return (
+    !tile.walkable ||
+    character.checkCliffTrigger(game, tile) ||
+    character.isPlayerAt(game, targetX, targetY) ||
+    character.isEntityAt(
+      game,
+      targetX,
+      targetY,
+      (e) => e.entityType === "NPC",
+      character
+    ) ||
+    character.isEntityAt(
+      game,
+      targetX,
+      targetY,
+      (e) => e.entityType === "MO",
+      character
+    )
+  );
+};
+
+const checkOPAt = (game, character, targetX, targetY) => {
+  return character.isEntityAt(
+    game,
+    targetX,
+    targetY,
+    (e) => e.entityType === "OP",
+    character
+  );
+};
+
+const attemptEncounterWildPokemon = (game, character, tile) => {
+  const OP = game.mapManager.currentMap.overworldPokemons;
+
+  if (character.entityType === "PLAYER" && tile.encounter && OP.length <= 2)
+    game.encounterManager.tryDoWildEncounter(game, tile, game.timeManager);
+};
+
 export const attemptMove = (character, dx, dy, game) => {
   if (
     character.isMoving ||
@@ -18,41 +59,13 @@ export const attemptMove = (character, dx, dy, game) => {
 
   const tile = character.walkableTile(game, targetX, targetY);
 
-  if (
-    character.checkCliffTrigger(game, tile) ||
-    !tile.walkable ||
-    character.isPlayerAt(game, targetX, targetY) ||
-    character.isEntityAt(
-      game,
-      targetX,
-      targetY,
-      (e) => e.entityType === "NPC",
-      character
-    ) ||
-    character.isEntityAt(
-      game,
-      targetX,
-      targetY,
-      (e) => e.entityType === "MO",
-      character
-    )
-  )
-    return;
+  const isSolidAt = checkSolidAt(game, tile, character, targetX, targetY);
+  if (isSolidAt) return;
 
-  const targetOp = character.isEntityAt(
-    game,
-    targetX,
-    targetY,
-    (e) => e.entityType === "OP",
-    character
-  );
+  const targetOP = checkOPAt(game, character, targetX, targetY);
+  if (targetOP) return generateWildPokemon(targetOP);
 
-  if (targetOp) return console.log("battle");
-
-  const OP = game.mapManager.currentMap.overworldPokemons;
-
-  if (character.entityType === "PLAYER" && OP.length <= 2)
-    game.encounterManager.getEncounter(game, tile, game.timeManager);
+  attemptEncounterWildPokemon(game, character, tile);
 
   character.moveToTile(character, dx, dy, game);
 
