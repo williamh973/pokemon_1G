@@ -11,7 +11,6 @@ export const spawnOP = (position, OPConfig, chosenPokemon, map) => {
     level: chosenPokemon.level,
     movementType: OPConfig.movementType,
   });
-
   map.overworldPokemons.push(OP);
   return OP;
 };

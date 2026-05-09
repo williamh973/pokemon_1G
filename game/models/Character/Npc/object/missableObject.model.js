@@ -1,8 +1,10 @@
 import { DIALOGS_TREE_DATABASE } from "../../../../shareds/dialogTree/dialogTree.database.js";
 import { ITEMS_DATABASE } from "../../../../shareds/items/items.database.js";
 import { OBJECT_SPRITES } from "../../../../shareds/items/sprite/itemsSprite.database.js";
+import { SPECIES_DATABASE } from "../../../../shareds/pokemon/species/species.database.js";
 import { removeMObyFlagId } from "../../../../shareds/utils/list/list.utils.js";
 import { PokemonViewer } from "../../../PokemonViewer/PokemonViewer.model.js";
+import { Slot } from "../../../battle/BattleManager/BattleSlot/BattleSlot.model.js";
 import { Npc } from "../npc.model.js";
 
 export class MissableObject extends Npc {
@@ -23,10 +25,11 @@ export class MissableObject extends Npc {
     this.category = category;
     this.name = name;
     this.pokemonViewer = null;
+    this.slot = new Slot(112, 95, 95, 100);
   }
 
   openPokemonViewer(game, starter) {
-    this.pokemonViewer = new PokemonViewer(game, starter);
+    this.pokemonViewer = new PokemonViewer(game, starter, this.slot, "front");
     this.pokemonViewer.isOpen = true;
   }
 
@@ -47,7 +50,9 @@ export class MissableObject extends Npc {
       DIALOGS_TREE_DATABASE.starter
     );
 
-    this.openPokemonViewer(game, starter);
+    // A tester
+    const foundedStarter = SPECIES_DATABASE[starter.id];
+    this.openPokemonViewer(game, foundedStarter);
   }
 
   getItemInDatabase() {

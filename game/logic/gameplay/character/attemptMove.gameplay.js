@@ -63,7 +63,7 @@ export const attemptMove = (character, dx, dy, game) => {
   if (isSolidAt) return;
 
   const targetOP = checkOPAt(game, character, targetX, targetY);
-  if (targetOP) return generateWildPokemon(targetOP);
+  if (targetOP) return game.encounterManager.startWildBattle(game, targetOP);
 
   attemptEncounterWildPokemon(game, character, tile);
 

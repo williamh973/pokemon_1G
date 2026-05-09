@@ -25,7 +25,10 @@ export const POKEDEX_DATABASE = [
     worldMap: [palletTown.worldMap, kantoRoute1.worldMap],
     print: bulbasaurPrint,
     animations: {
-      idle: "bulbasaur_front_idle",
+      idle: {
+        front: "bulbasaur_front_idle",
+        back: "bulbasaur_back_idle",
+      },
     },
   },
   {
@@ -40,7 +43,10 @@ export const POKEDEX_DATABASE = [
     area: ["KANTO_ROUTE_1"],
     print: "",
     animations: {
-      idle: "ivysaur_front_idle",
+      idle: {
+        front: "ivysaur_front_idle",
+        back: "ivysaur_back_idle",
+      },
     },
   },
   {
@@ -55,13 +61,16 @@ export const POKEDEX_DATABASE = [
     worldMap: [kantoRoute1.worldMap],
     print: bulbasaurPrint,
     animations: {
-      idle: "venusaur_front_idle",
+      idle: {
+        front: "venusaur_front_idle",
+        back: "venusaur_back_idle",
+      },
     },
   },
   {
     id: "004",
     name: "SALAMÈCHE",
-    species: "Pokémon Lézard",
+    species: "Lézard",
     height: "0.6",
     weight: "8.5",
     desc: "Il préfère les endroits \nchauds. La flamme de sa \nqueue indique sa vitalité. \nIl est souvent curieux et \nintrépide.",
@@ -70,13 +79,16 @@ export const POKEDEX_DATABASE = [
     worldMap: [palletTown.worldMap, kantoRoute1.worldMap],
     print: bulbasaurPrint,
     animations: {
-      idle: "charmander_front_idle",
+      idle: {
+        front: "charmander_front_idle",
+        back: "charmander_back_idle",
+      },
     },
   },
   {
     id: "005",
     name: "REPTINCEL",
-    species: "Pokémon Flamme",
+    species: "Flamme",
     height: "1.1",
     weight: "19.0",
     desc: "Sa queue enflammée brûle avec intensité lorsqu'il se bat. Il adore affronter des adversaires forts. Sa puissance augmente avec l’expérience.",
@@ -85,7 +97,10 @@ export const POKEDEX_DATABASE = [
     area: ["KANTO_ROUTE_1"],
     print: "",
     animations: {
-      idle: "charmeleon_front_idle",
+      idle: {
+        front: "charmeleon_front_idle",
+        back: "charmeleon_back_idle",
+      },
     },
   },
   {
@@ -100,7 +115,10 @@ export const POKEDEX_DATABASE = [
     area: ["KANTO_ROUTE_1"],
     print: charizardPrint,
     animations: {
-      idle: "charizard_front_idle",
+      idle: {
+        front: "charizard_front_idle",
+        back: "charizard_back_idle",
+      },
     },
   },
   {
@@ -115,13 +133,16 @@ export const POKEDEX_DATABASE = [
     worldMap: [palletTown.worldMap, kantoRoute1.worldMap],
     print: charizardPrint,
     animations: {
-      idle: "squirtle_front_idle",
+      idle: {
+        front: "squirtle_front_idle",
+        back: "squirtle_back_idle",
+      },
     },
   },
   {
     id: "008",
     name: "CARABAFF",
-    species: "Pokémon Tortue",
+    species: "Tortue",
     height: "1.0",
     weight: "22.5",
     desc: "Sa carapace s’est renforcée avec l’âge. Il utilise des attaques d’eau puissantes et rapides. Fidèle et protecteur envers ses alliés.",
@@ -133,7 +154,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "009",
     name: "TORTANK",
-    species: "Pokémon Tortue",
+    species: "Tortue",
     height: "1.6",
     weight: "85.5",
     desc: "Ses canons d’eau tirent des jets à grande pression. Il détruit des obstacles massifs et protège ses alliés. Sa puissance est redoutée dans toutes les batailles.",
@@ -154,7 +175,10 @@ export const POKEDEX_DATABASE = [
     worldMap: [kantoRoute1.worldMap],
     print: bulbasaurPrint,
     animations: {
-      idle: "caterpie_front_idle",
+      idle: {
+        front: "caterpie_front_idle",
+        back: "caterpie_back_idle",
+      },
     },
   },
   {
@@ -169,13 +193,16 @@ export const POKEDEX_DATABASE = [
     worldMap: [kantoRoute1.worldMap],
     print: bulbasaurPrint,
     animations: {
-      idle: "metapod_front_idle",
+      idle: {
+        front: "metapod_front_idle",
+        back: "metapod_back_idle",
+      },
     },
   },
   {
     id: "012",
     name: "PAPILUSION",
-    species: "Pokémon Papillon",
+    species: "Papillon",
     height: "1.0",
     weight: "32.0",
     desc: "Ses grandes ailes colorées lui permettent de voler gracieusement. Il fend l’air avec agilité et esquive aisément ses ennemis. Sa beauté attire souvent l’attention.",
@@ -184,13 +211,16 @@ export const POKEDEX_DATABASE = [
     area: ["KANTO_ROUTE_1"],
     print: "",
     animations: {
-      idle: "butterfree_front_idle",
+      idle: {
+        front: "butterfree_front_idle",
+        back: "butterfree_back_idle",
+      },
     },
   },
   {
     id: "013",
     name: "ASPICOT",
-    species: "Pokémon Pique",
+    species: "Pique",
     height: "0.3",
     weight: "3.5",
     desc: "Ce petit Pokémon pique avec ses épines quand on l’approche. Il explore sans cesse la végétation. Sa vitesse surprend souvent ses ennemis.",
@@ -202,7 +232,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "014",
     name: "COCONFORT",
-    species: "Pokémon Pique",
+    species: "Pique",
     height: "0.6",
     weight: "16.0",
     desc: "Son corps est couvert d’épines tranchantes. Il peut se défendre avec rapidité. Il se déplace agilement sur le terrain herbeux.",
@@ -214,7 +244,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "015",
     name: "DARDARGNAN",
-    species: "Pokémon Pique",
+    species: "Pique",
     height: "1.0",
     weight: "29.5",
     desc: "Rapide et dangereux, il attaque avec ses dards. Il chasse en essaim et submerge ses proies par le nombre. Il inspire la peur dans les hautes herbes.",
@@ -234,7 +264,10 @@ export const POKEDEX_DATABASE = [
     worldMap: [palletTown.worldMap, kantoRoute1.worldMap],
     print: bulbasaurPrint,
     animations: {
-      idle: "pidgey_front_idle",
+      idle: {
+        front: "pidgey_front_idle",
+        back: "pidgey_back_idle",
+      },
     },
   },
   {
@@ -273,13 +306,16 @@ export const POKEDEX_DATABASE = [
     worldMap: [kantoRoute1.worldMap],
     print: bulbasaurPrint,
     animations: {
-      idle: "rattata_front_idle",
+      idle: {
+        front: "rattata_front_idle",
+        back: "rattata_back_idle",
+      },
     },
   },
   {
     id: "020",
     name: "RATTATAC",
-    species: "Pokémon Souris",
+    species: "Souris",
     height: "0.7",
     weight: "18.5",
     desc: "Il a des incisives très puissantes. Il est capable de ronger des objets très durs. Sa vitesse et son agressivité sont redoutables.",
@@ -291,7 +327,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "021",
     name: "PIAFABEC",
-    species: "Pokémon Oiseau",
+    species: "Oiseau",
     height: "0.3",
     weight: "1.8",
     desc: "Petit mais courageux, il attaque en piqué. Il vit en petites bandes et se nourrit de graines. Agile et rapide, il échappe facilement aux prédateurs.",
@@ -303,7 +339,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "022",
     name: "RAPASDEPIC",
-    species: "Pokémon Oiseau",
+    species: "Oiseau",
     height: "0.7",
     weight: "30.0",
     desc: "Sa vision perçante lui permet de repérer les proies de très loin. Il attaque avec des coups rapides de bec et de serres. Agile et stratégique, il chasse en solitaire.",
@@ -315,7 +351,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "023",
     name: "ABO",
-    species: "Pokémon Serpent",
+    species: "Serpent",
     height: "2.0",
     weight: "6.9",
     desc: "Il attaque en sifflant et en enroulant sa proie. Il est prudent et préfère se cacher dans l’herbe. Ses yeux rouges font peur aux adversaires.",
@@ -327,7 +363,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "024",
     name: "ARBOK",
-    species: "Pokémon Serpent",
+    species: "Serpent",
     height: "3.5",
     weight: "65.0",
     desc: "Sa morsure est redoutable et il est très territorial. Le dessin sur son ventre effraie ses ennemis. Il se déplace silencieusement dans les herbes.",
@@ -339,7 +375,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "025",
     name: "PIKACHU",
-    species: "Pokémon Souris",
+    species: "Souris",
     height: "0.4",
     weight: "6.0",
     desc: "Il stocke l’électricité dans ses joues. Lorsque sa queue brille, il est prêt à attaquer. Très attaché à son dresseur, il est courageux malgré sa taille.",
@@ -348,13 +384,16 @@ export const POKEDEX_DATABASE = [
     worldMap: [kantoRoute1.worldMap],
     print: bulbasaurPrint,
     animations: {
-      idle: "pikachu_front_idle",
+      idle: {
+        front: "pikachu_front_idle",
+        back: "pikachu_back_idle",
+      },
     },
   },
   {
     id: "026",
     name: "RAICHU",
-    species: "Pokémon Souris",
+    species: "Souris",
     height: "0.8",
     weight: "30.0",
     desc: "Il libère de puissantes décharges électriques. Sa queue sert aussi d’antenne pour se repérer. Redoutable en combat, il maîtrise parfaitement l’électricité.",
@@ -366,7 +405,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "027",
     name: "SABELETTE",
-    species: "Pokémon Souris",
+    species: "Souris",
     height: "0.5",
     weight: "12.0",
     desc: "Il vit dans le désert et creuse des terriers. Ses griffes sont puissantes pour creuser ou attaquer. Craintif, il se protège rapidement.",
@@ -378,7 +417,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "028",
     name: "SABLAIREAU",
-    species: "Pokémon Taupe",
+    species: "Taupe",
     height: "1.0",
     weight: "29.5",
     desc: "Il creuse des tunnels avec aisance. Il attaque en surgissant de terre. Très territorial, il protège son domaine contre tout intrus.",
@@ -390,7 +429,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "029",
     name: "NIDORAN♀",
-    species: "Pokémon Petit Poison",
+    species: "Petit Poison",
     height: "0.4",
     weight: "7.0",
     desc: "Petit et agile, il attaque avec ses piquants. Il vit en groupes et se protège mutuellement. Ses attaques sont précises mais pas très puissantes.",
@@ -402,7 +441,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "030",
     name: "NIDORINA",
-    species: "Pokémon Petit Poison",
+    species: "Petit Poison",
     height: "0.8",
     weight: "20.0",
     desc: "Elle est plus forte et rapide que Nidoran♀. Elle utilise ses cornes pour attaquer efficacement. Protégée et prudente, elle évite les dangers.",
@@ -414,7 +453,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "031",
     name: "NIDOQUEEN",
-    species: "Pokémon Big Poison",
+    species: "Big Poison",
     height: "1.3",
     weight: "60.0",
     desc: "Puissante et protectrice, elle maîtrise parfaitement ses attaques. Son corps est recouvert d’une carapace solide. Redoutable contre tout adversaire.",
@@ -426,7 +465,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "032",
     name: "NIDORAN♂",
-    species: "Pokémon Petit Poison",
+    species: "Petit Poison",
     height: "0.5",
     weight: "9.0",
     desc: "Agressif et rapide, il utilise ses cornes pour se défendre. Il est souvent seul et patrouille son territoire. Ses attaques sont rapides et précises.",
@@ -438,7 +477,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "033",
     name: "NIDORINO",
-    species: "Pokémon Petit Poison",
+    species: "Petit Poison",
     height: "0.9",
     weight: "19.5",
     desc: "Plus rapide et plus agressif que Nidoran♂. Il attaque sans hésitation pour protéger son territoire. Ses cornes sont redoutables.",
@@ -450,7 +489,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "034",
     name: "NIDOKING",
-    species: "Pokémon Grand Poison",
+    species: "Grand Poison",
     height: "1.4",
     weight: "62.0",
     desc: "Il est puissant et impressionne par sa force. Ses attaques de poison sont redoutables. Roi de son territoire, il inspire respect et crainte.",
@@ -462,7 +501,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "035",
     name: "MELOFEE",
-    species: "Pokémon Étoile",
+    species: "Étoile",
     height: "0.6",
     weight: "7.5",
     desc: "Il adore chanter et danser. Ses mains sont sensibles et agiles. Il attire les Pokémon et les humains par sa gentillesse.",
@@ -474,7 +513,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "036",
     name: "MELODELFE",
-    species: "Pokémon Étoile",
+    species: "Étoile",
     height: "1.1",
     weight: "40.0",
     desc: "Élégant et gracieux, il utilise ses pouvoirs pour protéger ses alliés. Son chant apaise ceux qui l’entourent. Très intelligent et sensible.",
@@ -486,7 +525,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "037",
     name: "GOUPIX",
-    species: "Pokémon Renard",
+    species: "Renard",
     height: "0.6",
     weight: "9.9",
     desc: "Il a une queue magnifique et peut lancer des flammes de petite intensité. Rusé et agile, il aime explorer son environnement. Ses flammes sont un avertissement pour les intrus.",
@@ -498,7 +537,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "038",
     name: "FEUNARD",
-    species: "Pokémon Renard",
+    species: "Renard",
     height: "1.0",
     weight: "19.9",
     desc: "Majestueux et puissant, il peut maîtriser des flammes très fortes. Intelligent et rapide, il élabore des stratégies pour se défendre. Il inspire la crainte grâce à sa vitesse et sa puissance.",
@@ -510,7 +549,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "039",
     name: "RONDOUDOU",
-    species: "Pokémon Boule",
+    species: "Boule",
     height: "0.5",
     weight: "5.5",
     desc: "Il chante pour endormir ses ennemis. Il peut gonfler son corps pour se défendre. Il aime la compagnie et la musique.",
@@ -522,7 +561,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "040",
     name: "GRODOUDOU",
-    species: "Pokémon Boule",
+    species: "Boule",
     height: "1.0",
     weight: "12.0",
     desc: "Avec sa taille imposante, il intimide ses adversaires. Son chant puissant endort tout autour. Il aime la tranquillité et les câlins.",
@@ -534,19 +573,25 @@ export const POKEDEX_DATABASE = [
   {
     id: "041",
     name: "NOSFERAPTI",
-    species: "Pokémon Chauve-Souris",
+    species: "Chauve-Souris",
     height: "0.8",
     weight: "7.5",
-    desc: "Il attaque la nuit et se cache dans des grottes le jour. Agile, il se déplace silencieusement. Ses crocs sont très acérés.",
+    desc: "Il attaque la nuit et se \ncache dans des grottes le \njour. Agile, il se déplace \nsilencieusement. Ses crocs \nsont très acérés.",
     img: "pokemon041Img",
     cry: "pokemon041Cry",
-    area: ["KANTO_ROUTE_1"],
-    print: "",
+    worldMap: [kantoRoute1.worldMap],
+    print: bulbasaurPrint,
+    animations: {
+      idle: {
+        front: "zubat_front_idle",
+        back: "zubat_back_idle",
+      },
+    },
   },
   {
     id: "042",
     name: "NOSFERALTO",
-    species: "Pokémon Chauve-Souris",
+    species: "Chauve-Souris",
     height: "1.6",
     weight: "55.0",
     desc: "Il attaque en essaim et utilise l’écho pour localiser sa proie. Puissant et rapide, il est difficile à attraper. Il est craint par les autres Pokémon nocturnes.",
@@ -558,7 +603,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "043",
     name: "MYSTHERBE",
-    species: "Pokémon Graine",
+    species: "Graine",
     height: "0.5",
     weight: "6.4",
     desc: "Sa tête est recouverte de feuilles et il peut libérer des spores toxiques. Il vit dans les forêts humides et ombragées. Sa patience est sa force.",
@@ -570,7 +615,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "044",
     name: "ORTIDE",
-    species: "Pokémon Graine",
+    species: "Graine",
     height: "0.8",
     weight: "13.0",
     desc: "Ses pétales puissants attaquent lorsqu’il est menacé. Il absorbe la lumière du soleil pour se renforcer. Il est très stable et résistant.",
@@ -582,7 +627,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "045",
     name: "RAFFLESIA",
-    species: "Pokémon Graine",
+    species: "Graine",
     height: "1.0",
     weight: "25.0",
     desc: "Sa grande fleur diffuse une odeur nauséabonde pour éloigner les ennemis. Il attaque avec ses lianes massives. Il est lent mais très puissant.",
@@ -594,7 +639,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "046",
     name: "PARAS",
-    species: "Pokémon Champignon",
+    species: "Champignon",
     height: "0.3",
     weight: "5.4",
     desc: "Il est recouvert de champignons qui lui fournissent de l’énergie. Il attaque en piquant ses ennemis avec ses pattes. Il se déplace lentement mais sûrement.",
@@ -606,7 +651,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "047",
     name: "PARASECT",
-    species: "Pokémon Champignon",
+    species: "Champignon",
     height: "1.0",
     weight: "29.5",
     desc: "Le champignon sur son dos domine son corps. Il contrôle ce Pokémon avec ses spores. Très fort et résistant, il attaque rapidement quand il le faut.",
@@ -618,7 +663,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "048",
     name: "MIMITOSS",
-    species: "Pokémon Insecte",
+    species: "Insecte",
     height: "0.6",
     weight: "12.5",
     desc: "Il est couvert de poils urticants et de spores toxiques. Il attaque en lançant des piqûres et des spores. Il est souvent mal vu par les autres Pokémon.",
@@ -630,7 +675,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "049",
     name: "AEROMITE",
-    species: "Pokémon Insecte",
+    species: "Insecte",
     height: "1.0",
     weight: "31.5",
     desc: "Ses ailes lui permettent de voler avec précision. Il attaque avec des piqûres rapides et des spores. Très vif et difficile à toucher.",
@@ -642,7 +687,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "050",
     name: "TAUPIQUEUR",
-    species: "Pokémon Taupe",
+    species: "Taupe",
     height: "0.5",
     weight: "15.0",
     desc: "Il creuse des tunnels pour se cacher ou surprendre ses ennemis. Ses griffes sont puissantes. Il est très prudent et stratégique.",
@@ -654,7 +699,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "051",
     name: "TRIOPIKEUR",
-    species: "Pokémon Taupe",
+    species: "Taupe",
     height: "1.0",
     weight: "40.8",
     desc: "Il creuse rapidement pour attaquer ses adversaires. Puissant et agressif, il domine ses terriers. Ses attaques sont précises et rapides.",
@@ -666,7 +711,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "052",
     name: "MIAOUSS",
-    species: "Pokémon Chat",
+    species: "Chat",
     height: "0.4",
     weight: "4.2",
     desc: "Il adore l’or et chasse pour le collectionner. Agile et rusé, il peut grimper facilement. Il utilise ses griffes pour défendre ses trésors.",
@@ -678,7 +723,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "053",
     name: "PERSIAN",
-    species: "Pokémon Chat",
+    species: "Chat",
     height: "1.0",
     weight: "32.0",
     desc: "Élégant et rapide, il attaque avec ses griffes tranchantes. Il protège son territoire avec fierté. Sa vitesse et sa souplesse sont redoutables.",
@@ -690,7 +735,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "054",
     name: "PSYKOKWAK",
-    species: "Pokémon Canard",
+    species: "Canard",
     height: "0.8",
     weight: "19.6",
     desc: "Il garde constamment la tête vide et souffre de maux de tête. Ses attaques sont imprévisibles. Sa maladresse le rend attachant mais dangereux en combat.",
@@ -702,7 +747,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "055",
     name: "AKWAKWAK",
-    species: "Pokémon Canard",
+    species: "Canard",
     height: "1.6",
     weight: "76.6",
     desc: "Il attaque avec ses pouvoirs psychiques et ses attaques d’eau. Les maux de tête peuvent parfois le rendre incontrôlable. Intelligent et puissant, il reste imprévisible.",
@@ -714,7 +759,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "056",
     name: "FEROSINGE",
-    species: "Pokémon Singe",
+    species: "Singe",
     height: "0.9",
     weight: "30.0",
     desc: "Toujours prêt à se battre, il utilise ses poings pour attaquer. Il est agile et rapide. Son tempérament agressif peut lui causer des ennuis.",
@@ -724,7 +769,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "057",
     name: "COLOSSINGE",
-    species: "Pokémon Porsinge",
+    species: "Porsinge",
     height: "1.0",
     weight: "32.0",
     desc: "Toujours furieux, il attaque sans réfléchir. Sa colère ne retombe jamais. Même inconscient, ses muscles restent tendus.",
@@ -736,7 +781,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "058",
     name: "CANINOS",
-    species: "Pokémon Chiot",
+    species: "Chiot",
     height: "0.7",
     weight: "19.0",
     desc: "Fidèle et courageux, il protège son dresseur à tout prix. Son odorat est extrêmement développé. Il aboie pour intimider ses ennemis.",
@@ -748,7 +793,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "059",
     name: "ARCANIN",
-    species: "Pokémon Légendaire",
+    species: "Légendaire",
     height: "1.9",
     weight: "155.0",
     desc: "Sa vitesse est impressionnante. Il parcourt de longues distances en peu de temps. Ce Pokémon inspire le respect et l’admiration.",
@@ -760,7 +805,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "060",
     name: "PTITARD",
-    species: "Pokémon Têtard",
+    species: "Têtard",
     height: "0.6",
     weight: "12.4",
     desc: "Sa spirale ventrale est un organe interne visible. Il nage très bien malgré ses petites pattes. Il préfère vivre près de l’eau.",
@@ -772,7 +817,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "061",
     name: "TETARTE",
-    species: "Pokémon Têtard",
+    species: "Têtard",
     height: "1.0",
     weight: "20.0",
     desc: "Ses membres se sont développés pour le combat. Il peut vivre aussi bien sur terre que dans l’eau. Il est très résistant.",
@@ -784,7 +829,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "062",
     name: "TARTARD",
-    species: "Pokémon Têtard",
+    species: "Têtard",
     height: "1.3",
     weight: "54.0",
     desc: "Expert en arts martiaux aquatiques, il frappe rapidement. Ses muscles sont extrêmement développés. Il excelle en combat rapproché.",
@@ -796,7 +841,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "063",
     name: "ABRA",
-    species: "Pokémon Psy",
+    species: "Psy",
     height: "0.9",
     weight: "19.5",
     desc: "Il dort presque en permanence. Même endormi, il peut se téléporter pour fuir le danger. Il est difficile à attraper.",
@@ -808,7 +853,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "064",
     name: "KADABRA",
-    species: "Pokémon Psy",
+    species: "Psy",
     height: "1.3",
     weight: "56.5",
     desc: "Ses pouvoirs psychiques se sont développés. Il attaque avec des ondes mentales puissantes. Sa cuillère amplifie ses capacités.",
@@ -820,7 +865,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "065",
     name: "ALAKAZAM",
-    species: "Pokémon Psy",
+    species: "Psy",
     height: "1.5",
     weight: "48.0",
     desc: "Son intelligence dépasse celle d’un superordinateur. Il anticipe les attaques ennemies. Sa mémoire est infaillible.",
@@ -832,7 +877,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "066",
     name: "MACHOC",
-    species: "Pokémon Colosse",
+    species: "Colosse",
     height: "0.8",
     weight: "19.5",
     desc: "Il s’entraîne sans relâche pour devenir plus fort. Son corps est déjà très robuste. Il adore tester sa force.",
@@ -844,7 +889,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "067",
     name: "MACHOPEUR",
-    species: "Pokémon Colosse",
+    species: "Colosse",
     height: "1.5",
     weight: "70.5",
     desc: "Ses muscles sont extrêmement puissants. Il peut soulever des objets très lourds. Il aime les combats équitables.",
@@ -856,7 +901,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "068",
     name: "MACKOGNEUR",
-    species: "Pokémon Colosse",
+    species: "Colosse",
     height: "1.6",
     weight: "130.0",
     desc: "Il maîtrise toutes les techniques de combat. Ses quatre bras attaquent sans relâche. Il est craint par tous les combattants.",
@@ -868,7 +913,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "069",
     name: "CHETIFLOR",
-    species: "Pokémon Fleur",
+    species: "Fleur",
     height: "0.7",
     weight: "4.0",
     desc: "Il se nourrit de petits insectes. Sa liane est très flexible. Il préfère les zones humides et ensoleillées.",
@@ -880,7 +925,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "070",
     name: "BOUSTIFLOR",
-    species: "Pokémon Carnivore",
+    species: "Carnivore",
     height: "1.0",
     weight: "6.4",
     desc: "Il piège ses proies avec sa bouche béante. Ses attaques sont rapides et imprévisibles. Il est difficile à approcher.",
@@ -892,7 +937,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "071",
     name: "EMPIFLOR",
-    species: "Pokémon Carnivore",
+    species: "Carnivore",
     height: "1.7",
     weight: "15.5",
     desc: "Il avale ses proies entières. Ses lianes sont tranchantes. Une fois attrapé, il est presque impossible de s’échapper.",
@@ -904,7 +949,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "072",
     name: "TENTACOOL",
-    species: "Pokémon Mollusque",
+    species: "Mollusque",
     height: "0.9",
     weight: "45.5",
     desc: "Il flotte dans les mers peu profondes. Ses tentacules sont venimeux. Il est souvent confondu avec une méduse.",
@@ -916,7 +961,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "073",
     name: "TENTACRUEL",
-    species: "Pokémon Mollusque",
+    species: "Mollusque",
     height: "1.6",
     weight: "55.0",
     desc: "Ses tentacules sont extrêmement puissants. Il attaque les navires imprudents. Très intelligent, il chasse en stratégie.",
@@ -936,13 +981,16 @@ export const POKEDEX_DATABASE = [
     worldMap: [palletTown.worldMap, kantoRoute1.worldMap],
     print: "",
     animations: {
-      idle: "geodude_front_idle",
+      idle: {
+        front: "geodude_front_idle",
+        back: "geodude_back_idle",
+      },
     },
   },
   {
     id: "075",
     name: "GRAVALANCH",
-    species: "Pokémon Roche",
+    species: "Roche",
     height: "1.0",
     weight: "105.0",
     desc: "Il dévale les montagnes en roulant. Il détruit tout sur son passage. Son corps devient de plus en plus solide.",
@@ -954,7 +1002,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "076",
     name: "GROLEM",
-    species: "Pokémon Mégatonne",
+    species: "Mégatonne",
     height: "1.4",
     weight: "300.0",
     desc: "Il s’enroule et se laisse rouler comme un boulet. Son corps est aussi dur que l’acier. Il est presque indestructible.",
@@ -966,7 +1014,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "077",
     name: "PONYTA",
-    species: "Pokémon Cheval Feu",
+    species: "Cheval Feu",
     height: "1.0",
     weight: "30.0",
     desc: "Il galope à grande vitesse. Ses flammes ne brûlent que ses ennemis. Il est très méfiant envers les étrangers.",
@@ -978,7 +1026,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "078",
     name: "GALOPA",
-    species: "Pokémon Cheval Feu",
+    species: "Cheval Feu",
     height: "1.7",
     weight: "95.0",
     desc: "Il court plus vite qu’une voiture. Sa crinière enflammée est impressionnante. Il aime les grandes plaines.",
@@ -990,7 +1038,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "079",
     name: "RAMOLOSS",
-    species: "Pokémon Crétin",
+    species: "Crétin",
     height: "1.2",
     weight: "36.0",
     desc: "Très lent, il ne ressent la douleur qu’après un long moment. Il pêche en laissant tremper sa queue. Son air absent est trompeur.",
@@ -1002,7 +1050,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "080",
     name: "FLAGADOSS",
-    species: "Pokémon Symbiose",
+    species: "Symbiose",
     height: "1.6",
     weight: "78.5",
     desc: "L’interaction avec le Kokiyas a éveillé son intelligence. Il est maintenant capable d’utiliser de puissants pouvoirs psychiques.",
@@ -1014,7 +1062,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "081",
     name: "MAGNETI",
-    species: "Pokémon Magnétique",
+    species: "Magnétique",
     height: "0.3",
     weight: "6.0",
     desc: "Il flotte en utilisant le magnétisme. Il se colle aux lignes électriques. Il émet de faibles ondes magnétiques.",
@@ -1026,7 +1074,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "082",
     name: "MAGNETON",
-    species: "Pokémon Magnétique",
+    species: "Magnétique",
     height: "1.0",
     weight: "60.0",
     desc: "Formé de trois Magnéti, il émet de puissantes ondes. Il perturbe les appareils électroniques. Il est instable par nature.",
@@ -1038,7 +1086,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "083",
     name: "CANARTICHO",
-    species: "Pokémon Canard Fou",
+    species: "Canard Fou",
     height: "0.8",
     weight: "15.0",
     desc: "Il se bat avec un poireau. Cet objet améliore ses attaques. Il est rare et difficile à trouver.",
@@ -1050,7 +1098,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "084",
     name: "DODUO",
-    species: "Pokémon Duoiseau",
+    species: "Duoiseau",
     height: "1.4",
     weight: "39.2",
     desc: "Ses deux têtes pensent indépendamment. Il court très vite. Il fuit plutôt que voler.",
@@ -1062,7 +1110,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "085",
     name: "DODRIO",
-    species: "Pokémon Trioiseau",
+    species: "Trioiseau",
     height: "1.8",
     weight: "85.2",
     desc: "Ses trois têtes attaquent à tour de rôle. Il est extrêmement agressif. Sa vitesse est impressionnante.",
@@ -1074,7 +1122,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "086",
     name: "OTARIA",
-    species: "Pokémon Otarie",
+    species: "Otarie",
     height: "1.1",
     weight: "90.0",
     desc: "Il adore les eaux froides. Son épaisse couche de graisse le protège. Il nage avec élégance.",
@@ -1086,7 +1134,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "087",
     name: "LAMANTINE",
-    species: "Pokémon Otarie",
+    species: "Otarie",
     height: "1.7",
     weight: "120.0",
     desc: "Il nage gracieusement dans les eaux glacées. Sa corne est très dure. Il protège les siens avec calme.",
@@ -1098,7 +1146,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "088",
     name: "TADMORV",
-    species: "Pokémon Dégueu",
+    species: "Dégueu",
     height: "0.9",
     weight: "30.0",
     desc: "Il se nourrit de déchets toxiques. Son corps est composé de boue polluée. Il dégage une odeur insupportable.",
@@ -1110,7 +1158,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "089",
     name: "GROTADMORV",
-    species: "Pokémon Dégueu",
+    species: "Dégueu",
     height: "1.2",
     weight: "30.0",
     desc: "Encore plus toxique, il est extrêmement dangereux. Le simple contact est fatal. Il contamine tout ce qu’il touche.",
@@ -1122,7 +1170,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "090",
     name: "KOKIYAS",
-    species: "Pokémon Bivalve",
+    species: "Bivalve",
     height: "0.3",
     weight: "4.0",
     desc: "Sa coquille est très résistante. Il se protège en se refermant. Il utilise sa langue pour attaquer.",
@@ -1134,7 +1182,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "091",
     name: "CRUSTABRI",
-    species: "Pokémon Bivalve",
+    species: "Bivalve",
     height: "1.5",
     weight: "132.5",
     desc: "Sa coquille est plus dure que le diamant. Il attaque en libérant des pics glacés. Il est très agressif.",
@@ -1146,7 +1194,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "092",
     name: "FANTOMINUS",
-    species: "Pokémon Gaz",
+    species: "Gaz",
     height: "1.3",
     weight: "0.1",
     desc: "Composé de gaz toxique, il effraie ses ennemis. Il se cache dans l’ombre. Il adore jouer des tours.",
@@ -1158,7 +1206,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "093",
     name: "SPECTRUM",
-    species: "Pokémon Gaz",
+    species: "Gaz",
     height: "1.6",
     weight: "0.1",
     desc: "Il se faufile dans les murs. Il observe ses proies avant d’attaquer. Son regard glace le sang.",
@@ -1170,7 +1218,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "094",
     name: "ECTOPLASMA",
-    species: "Pokémon Ombre",
+    species: "Ombre",
     height: "1.5",
     weight: "40.5",
     desc: "Il se cache dans l’ombre des gens. Il attaque en aspirant l’énergie vitale. Son rire est terrifiant.",
@@ -1191,13 +1239,16 @@ export const POKEDEX_DATABASE = [
     worldMap: [palletTown.worldMap, kantoRoute1.worldMap],
     print: bulbasaurPrint,
     animations: {
-      idle: "onix_front_idle",
+      idle: {
+        front: "onix_front_idle",
+        back: "onix_back_idle",
+      },
     },
   },
   {
     id: "096",
     name: "SOPORIFIK",
-    species: "Pokémon Hypnose",
+    species: "Hypnose",
     height: "1.0",
     weight: "32.4",
     desc: "Il endort ses ennemis grâce à son pendule. Il se nourrit de rêves. Il est surtout actif la nuit.",
@@ -1209,7 +1260,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "097",
     name: "HYPNOMADE",
-    species: "Pokémon Hypnose",
+    species: "Hypnose",
     height: "1.6",
     weight: "75.6",
     desc: "Il contrôle totalement l’esprit de ses victimes. Son regard est hypnotique. Il manipule les rêves à volonté.",
@@ -1221,7 +1272,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "098",
     name: "KRABBY",
-    species: "Pokémon Doux Crabe",
+    species: "Doux Crabe",
     height: "0.4",
     weight: "6.5",
     desc: "Ses pinces sont puissantes malgré sa petite taille. Il vit sur les plages. Il se défend férocement.",
@@ -1233,7 +1284,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "099",
     name: "KRABBOSS",
-    species: "Pokémon Pince",
+    species: "Pince",
     height: "1.3",
     weight: "60.0",
     desc: "Sa pince géante est dévastatrice. Il domine les plages. Peu d’ennemis osent l’affronter.",
@@ -1245,7 +1296,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "100",
     name: "VOLTORBE",
-    species: "Pokémon Balle",
+    species: "Balle",
     height: "0.5",
     weight: "10.4",
     desc: "Il ressemble à une Poké Ball. Il explose au moindre choc. Il est souvent confondu avec un objet.",
@@ -1257,7 +1308,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "101",
     name: "ELECTRODE",
-    species: "Pokémon Balle",
+    species: "Balle",
     height: "1.2",
     weight: "66.6",
     desc: "Il emmagasine une grande quantité d’énergie électrique. Il explose facilement.",
@@ -1269,7 +1320,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "102",
     name: "NOEUNOEUF",
-    species: "Pokémon Œuf",
+    species: "Œuf",
     height: "0.4",
     weight: "2.5",
     desc: "Ces six œufs communiquent entre eux par télépathie. Ils forment une équipe très soudée.",
@@ -1281,7 +1332,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "103",
     name: "NOADKOKO",
-    species: "Pokémon Fruitpalme",
+    species: "Fruitpalme",
     height: "2.0",
     weight: "120.0",
     desc: "On dit que si une de ses têtes tombe, elle se transforme en NOEUNOEUF.",
@@ -1293,7 +1344,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "104",
     name: "OSSELAIT",
-    species: "Pokémon Solitaire",
+    species: "Solitaire",
     height: "0.4",
     weight: "6.5",
     desc: "Il porte le crâne de sa mère décédée. Il pleure souvent la nuit.",
@@ -1305,7 +1356,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "105",
     name: "OSSATUEUR",
-    species: "Pokémon Gard'Os",
+    species: "Gard'Os",
     height: "1.0",
     weight: "45.0",
     desc: "Il est devenu féroce en évoluant. Il est très habile avec son os.",
@@ -1317,7 +1368,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "106",
     name: "KICKLEE",
-    species: "Pokémon Latteur",
+    species: "Latteur",
     height: "1.5",
     weight: "49.8",
     desc: "Il peut allonger ses jambes à volonté. Ses coups de pied sont redoutables.",
@@ -1329,7 +1380,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "107",
     name: "TYGNON",
-    species: "Pokémon Puncheur",
+    species: "Puncheur",
     height: "1.4",
     weight: "50.2",
     desc: "Il frappe plus vite que l’ombre. Ses poings deviennent invisibles.",
@@ -1341,7 +1392,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "108",
     name: "EXCELANGUE",
-    species: "Pokémon Lécheur",
+    species: "Lécheur",
     height: "1.2",
     weight: "65.5",
     desc: "Sa langue mesure plus de deux mètres. Elle peut paralyser ses ennemis.",
@@ -1353,7 +1404,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "109",
     name: "SMOGO",
-    species: "Pokémon Gaz",
+    species: "Gaz",
     height: "0.6",
     weight: "1.0",
     desc: "Il flotte dans l’air rempli de gaz toxiques. Il sent très mauvais.",
@@ -1365,7 +1416,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "110",
     name: "SMOGOGO",
-    species: "Pokémon Gaz",
+    species: "Gaz",
     height: "1.2",
     weight: "9.5",
     desc: "Ses deux corps peuvent se gonfler indépendamment. Il est extrêmement toxique.",
@@ -1377,7 +1428,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "111",
     name: "RHINOCORNE",
-    species: "Pokémon Piquant",
+    species: "Piquant",
     height: "1.0",
     weight: "115.0",
     desc: "Son cerveau est très peu développé. Il charge droit devant lui sans réfléchir.",
@@ -1386,13 +1437,16 @@ export const POKEDEX_DATABASE = [
     worldMap: [kantoRoute1.worldMap],
     print: bulbasaurPrint,
     animations: {
-      idle: "rhyhorn_front_idle",
+      idle: {
+        front: "rhyhorn_front_idle",
+        back: "rhyhorn_back_idle",
+      },
     },
   },
   {
     id: "112",
     name: "RHINOFEROS",
-    species: "Pokémon Perceur",
+    species: "Perceur",
     height: "1.9",
     weight: "120.0",
     desc: "Sa peau est si dure qu’elle peut résister à un boulet de canon.",
@@ -1404,7 +1458,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "113",
     name: "LEVEINARD",
-    species: "Pokémon Œuf",
+    species: "Œuf",
     height: "1.1",
     weight: "34.6",
     desc: "Il pond plusieurs œufs par jour. Ils sont riches en nutriments.",
@@ -1416,7 +1470,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "114",
     name: "SAQUEDENEU",
-    species: "Pokémon Vigne",
+    species: "Vigne",
     height: "1.0",
     weight: "35.0",
     desc: "Son corps est recouvert de lianes. On ne sait jamais ce qu’il cache dessous.",
@@ -1428,7 +1482,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "115",
     name: "KANGOUREX",
-    species: "Pokémon Maternel",
+    species: "Maternel",
     height: "2.2",
     weight: "80.0",
     desc: "Il élève son petit dans sa poche ventrale et le protège farouchement.",
@@ -1440,7 +1494,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "116",
     name: "HYPOTREMPE",
-    species: "Pokémon Dragon",
+    species: "Dragon",
     height: "0.4",
     weight: "8.0",
     desc: "Il vit dans les mers calmes. Il se laisse porter par les courants.",
@@ -1452,7 +1506,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "117",
     name: "HYPOCEAN",
-    species: "Pokémon Dragon",
+    species: "Dragon",
     height: "1.2",
     weight: "25.0",
     desc: "Il peut nager à reculons en battant rapidement ses nageoires.",
@@ -1464,7 +1518,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "118",
     name: "POISSIRENE",
-    species: "Pokémon Poisson",
+    species: "Poisson",
     height: "0.6",
     weight: "15.0",
     desc: "Ses nageoires et sa queue sont magnifiques mais fragiles.",
@@ -1476,7 +1530,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "119",
     name: "POISSOROY",
-    species: "Pokémon Poisson",
+    species: "Poisson",
     height: "1.3",
     weight: "39.0",
     desc: "Il est très agressif durant la saison des amours.",
@@ -1488,7 +1542,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "120",
     name: "STARI",
-    species: "Pokémon Étoile",
+    species: "Étoile",
     height: "0.8",
     weight: "34.5",
     desc: "Son cœur brillant clignote de différentes couleurs.",
@@ -1500,7 +1554,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "121",
     name: "STAROSS",
-    species: "Pokémon Mystérieux",
+    species: "Mystérieux",
     height: "1.1",
     weight: "80.0",
     desc: "Son cœur brille de sept couleurs différentes selon son humeur.",
@@ -1512,7 +1566,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "122",
     name: "M.MIME",
-    species: "Pokémon Bloqueur",
+    species: "Bloqueur",
     height: "1.3",
     weight: "54.5",
     desc: "Il crée des murs invisibles grâce à ses gestes de mime.",
@@ -1533,13 +1587,16 @@ export const POKEDEX_DATABASE = [
     worldMap: [palletTown.worldMap, kantoRoute1.worldMap],
     print: "",
     animations: {
-      idle: "scyther_front_idle",
+      idle: {
+        front: "scyther_front_idle",
+        back: "scyther_back_idle",
+      },
     },
   },
   {
     id: "124",
     name: "LIPPOUTOU",
-    species: "Pokémon Humanoïde",
+    species: "Humanoïde",
     height: "1.4",
     weight: "40.6",
     desc: "Il communique par des gestes qui hypnotisent ses ennemis.",
@@ -1551,7 +1608,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "125",
     name: "ELEKTEK",
-    species: "Pokémon Électrique",
+    species: "Électrique",
     height: "1.1",
     weight: "30.0",
     desc: "Il apparaît souvent près des centrales électriques.",
@@ -1563,7 +1620,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "126",
     name: "MAGMAR",
-    species: "Pokémon Crache-Feu",
+    species: "Crache-Feu",
     height: "1.3",
     weight: "44.5",
     desc: "Il vit près des volcans. Son corps brûle à plus de 1 200 degrés.",
@@ -1575,7 +1632,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "127",
     name: "SCARABRUTE",
-    species: "Pokémon Scarabée",
+    species: "Scarabée",
     height: "1.5",
     weight: "55.0",
     desc: "Il serre ses ennemis avec ses cornes puissantes.",
@@ -1607,7 +1664,10 @@ export const POKEDEX_DATABASE = [
     cry: "pokemon129Cry",
     print: "",
     animations: {
-      idle: "magikarp_front_idle",
+      idle: {
+        front: "magikarp_front_idle",
+        back: "magikarp_back_idle",
+      },
     },
   },
   {
@@ -1622,13 +1682,16 @@ export const POKEDEX_DATABASE = [
     worldMap: [kantoRoute1.worldMap],
     print: bulbasaurPrint,
     animations: {
-      idle: "gyarados_front_idle",
+      idle: {
+        front: "gyarados_front_idle",
+        back: "gyarados_back_idle",
+      },
     },
   },
   {
     id: "131",
     name: "LOKHLASS",
-    species: "Pokémon Transport",
+    species: "Transport",
     height: "2.5",
     weight: "220.0",
     desc: "Il est intelligent et comprend le langage humain. Il aime transporter les gens sur son dos.",
@@ -1640,7 +1703,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "132",
     name: "METAMORPH",
-    species: "Pokémon Morphing",
+    species: "Morphing",
     height: "0.3",
     weight: "4.0",
     desc: "Il peut modifier sa structure cellulaire pour prendre l’apparence de n’importe quel Pokémon.",
@@ -1652,7 +1715,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "133",
     name: "EVOLI",
-    species: "Pokémon Évolutif",
+    species: "Évolutif",
     height: "0.3",
     weight: "6.5",
     desc: "Il possède une structure génétique instable qui lui permet d’évoluer de différentes façons.",
@@ -1664,7 +1727,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "134",
     name: "AQUALI",
-    species: "Pokémon Bulleur",
+    species: "Bulleur",
     height: "1.0",
     weight: "29.0",
     desc: "Il vit près de l’eau. Sa queue ressemble à celle d’un poisson.",
@@ -1676,7 +1739,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "135",
     name: "VOLTALI",
-    species: "Pokémon Orage",
+    species: "Orage",
     height: "0.8",
     weight: "24.5",
     desc: "Il peut libérer des décharges électriques capables de raser une ville.",
@@ -1688,7 +1751,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "136",
     name: "PYROLI",
-    species: "Pokémon Flamme",
+    species: "Flamme",
     height: "0.9",
     weight: "25.0",
     desc: "Il stocke la chaleur dans son corps et peut atteindre 900 degrés.",
@@ -1700,7 +1763,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "137",
     name: "PORYGON",
-    species: "Pokémon Virtuel",
+    species: "Virtuel",
     height: "0.8",
     weight: "36.5",
     desc: "C’est un Pokémon artificiel créé à partir de programmes informatiques.",
@@ -1712,7 +1775,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "138",
     name: "AMONITA",
-    species: "Pokémon Spirale",
+    species: "Spirale",
     height: "0.4",
     weight: "7.5",
     desc: "Un Pokémon préhistorique ressuscité à partir d’un fossile.",
@@ -1724,7 +1787,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "139",
     name: "AMONISTAR",
-    species: "Pokémon Spirale",
+    species: "Spirale",
     height: "1.0",
     weight: "35.0",
     desc: "Il utilisait ses tentacules pour capturer ses proies.",
@@ -1736,7 +1799,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "140",
     name: "KABUTO",
-    species: "Pokémon Carapace",
+    species: "Carapace",
     height: "0.5",
     weight: "11.5",
     desc: "Un Pokémon ancien qui vivait dans les océans préhistoriques.",
@@ -1748,7 +1811,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "141",
     name: "KABUTOPS",
-    species: "Pokémon Carapace",
+    species: "Carapace",
     height: "1.3",
     weight: "40.5",
     desc: "Il déchiquette ses proies grâce à ses faucilles acérées.",
@@ -1760,7 +1823,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "142",
     name: "PTERA",
-    species: "Pokémon Fossile",
+    species: "Fossile",
     height: "1.8",
     weight: "59.0",
     desc: "Un Pokémon féroce qui survolait les cieux à l’époque préhistorique.",
@@ -1772,7 +1835,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "143",
     name: "RONFLEX",
-    species: "Pokémon Somnolence",
+    species: "Somnolence",
     height: "2.1",
     weight: "460.0",
     desc: "Il ne se réveille que pour manger. Il dort presque toute la journée.",
@@ -1784,7 +1847,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "144",
     name: "ARTIKODIN",
-    species: "Pokémon Glaciaire",
+    species: "Glaciaire",
     height: "1.7",
     weight: "55.4",
     desc: "Un Pokémon légendaire capable de contrôler la glace.",
@@ -1796,7 +1859,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "145",
     name: "ELECTHOR",
-    species: "Pokémon Électrique",
+    species: "Électrique",
     height: "1.6",
     weight: "52.6",
     desc: "Il apparaît lors des orages. Il maîtrise la foudre.",
@@ -1808,7 +1871,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "146",
     name: "SULFURA",
-    species: "Pokémon Flamme",
+    species: "Flamme",
     height: "2.0",
     weight: "60.0",
     desc: "Il bat des ailes flamboyantes et illumine le ciel.",
@@ -1820,7 +1883,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "147",
     name: "MINIDRACO",
-    species: "Pokémon Dragon",
+    species: "Dragon",
     height: "1.8",
     weight: "3.3",
     desc: "Il mue constamment. On dit qu’il vit dans les mers.",
@@ -1832,7 +1895,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "148",
     name: "DRACO",
-    species: "Pokémon Dragon",
+    species: "Dragon",
     height: "4.0",
     weight: "16.5",
     desc: "Il vit dans les océans et contrôle le climat.",
@@ -1844,7 +1907,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "149",
     name: "DRACOLOSSE",
-    species: "Pokémon Dragon",
+    species: "Dragon",
     height: "2.2",
     weight: "210.0",
     desc: "Il vole autour du globe en aidant les navires perdus.",
@@ -1856,7 +1919,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "150",
     name: "MEWTWO",
-    species: "Pokémon Génétique",
+    species: "Génétique",
     height: "2.0",
     weight: "122.0",
     desc: "Créé par manipulation génétique, il possède une puissance terrifiante.",
@@ -1868,7 +1931,7 @@ export const POKEDEX_DATABASE = [
   {
     id: "151",
     name: "MEW",
-    species: "Pokémon Nouveau",
+    species: "Nouveau",
     height: "0.4",
     weight: "4.0",
     desc: "Il possède l’ADN de tous les Pokémon.",

@@ -7,16 +7,10 @@ import { Fade } from "../Fade/fade.model.js";
 import { DialogBox } from "../DialogBox/dialogBox.model.js";
 import { MainMenu } from "../MainMenu/MainMenu.model.js";
 import { InputManager } from "../InputManager/InputManager.model.js";
-import { Save } from "../MainMenu/items/Save/save.model.js";
 import { TitleScreen } from "../TitleScreen/TitleScreen.model.js";
 import { MAPS_DATABASE } from "../../shareds/map/maps.database.js";
 import { ChoiceMenu } from "../ChoiceMenu/ChoiceMenu.model.js";
-import { DIALOGS_TREE_DATABASE } from "../../shareds/dialogTree/dialogTree.database.js";
-import {
-  dispatchMenuSelection,
-  loadGame,
-  startTransitionBeforeOpenWorldMap,
-} from "../../logic/gameplay/game/game.gameplay.js";
+import { loadGame } from "../../logic/gameplay/game/loadGame.gameplay.js";
 import { TILES_SIZE } from "../../shareds/utils/tile/tile.utils.js";
 import { FADING_TIME } from "../../shareds/utils/fade/fade.assets.js";
 import { Player } from "../Character/Player/Player.model.js";
@@ -29,6 +23,14 @@ import { SplashSystem } from "../weather/rain/SplashSystem/SplashSystem.model.js
 import { DayNightCycle } from "../DayNightCycle/DayNightCycle.model.js";
 import { TimeManager } from "../TimeManager/TimeManager.model.js";
 import { EncounterManager } from "../encounterManager/encounterManager.model.js";
+import { dispatchMenuSelection } from "../../logic/gameplay/game/dispatchMenuSelection.gameplay.js";
+import { startTransitionBeforeOpenWorldMap } from "../../logic/gameplay/game/worldMap/startTransitionBeforeOpenWorldMap.gameplay.js";
+import { closeWorldMap } from "../../logic/gameplay/game/worldMap/closeWorldMap.gameplay.js";
+import { closeDialogBox } from "../../logic/gameplay/game/dialogBox/closeDialogBox.gameplay.js";
+import { openDialogBox } from "../../logic/gameplay/game/dialogBox/openDialogBox.gameplay.js";
+import { attemptSave } from "../../logic/gameplay/game/attemptSave.gameplay.js";
+import { selectGender } from "../../logic/gameplay/game/selectGender.gameplay.js";
+import { togglePause } from "../../logic/gameplay/game/togglePause.gameplay.js";
 
 export class Game {
   constructor() {
@@ -51,9 +53,10 @@ export class Game {
     this.timeManager = new TimeManager();
     this.dayNightCycle = new DayNightCycle();
     this.encounterManager = new EncounterManager();
+    this.mapNameWindow = new MapNameWindow(this);
+    this.battleManager = null;
     this.choiceMenu = null;
     this.currentScreen = null;
-    this.mapNameWindow = new MapNameWindow(this);
     this.save = null;
     this.pokemonViewer = null;
     this.activeNpc = null;
@@ -68,37 +71,25 @@ export class Game {
 
   init() {
     this.tileManager.load();
-
     animate(this, this.tileManager);
   }
 
+  activateBattleState() {
+    this.currentScreen = this.battleManager;
+    this.currentScreen.open();
+    this.state = "BATTLE";
+  }
+
   togglePause(isPaused, isCanMove) {
-    this.isPaused = isPaused;
-    this.player.isCanMove = isCanMove;
-    this.mapManager.currentMap.npcs.forEach(
-      (npc) => (npc.isCanMove = isCanMove)
-    );
+    togglePause(isPaused, isCanMove, this);
   }
 
   openDialogBox(text, dialogTree, callbackFn) {
-    this.dialogBox.open(text, false);
-    this.state = "DIALOG";
-    this.togglePause(true, false);
-    if (dialogTree) this.openChoiceMenu(dialogTree);
-    if (callbackFn) this.dialogCallback = callbackFn;
+    openDialogBox(text, dialogTree, callbackFn, this);
   }
 
   closeDialogBox() {
-    this.dialogBox.close();
-    if (this.activeNpc) this.activeNpc = null;
-    this.state = "WORLD";
-    this.togglePause(false, true);
-
-    if (this.dialogCallback) {
-      const cb = this.dialogCallback;
-      this.dialogCallback = null;
-      cb();
-    }
+    closeDialogBox(this);
   }
 
   openTitleScreen() {
@@ -147,20 +138,11 @@ export class Game {
   }
 
   selectGender() {
-    this.openDialogBox(
-      DIALOGS_TREE_DATABASE.selectGender.start.text,
-      DIALOGS_TREE_DATABASE.selectGender,
-      () => this.mapManager.loadMap(this.mapManager.currentMap.id)
-    );
+    selectGender(this);
   }
 
   attemptSave() {
-    this.isAttemptSave = true;
-    this.save = new Save(this);
-    this.openDialogBox(
-      DIALOGS_TREE_DATABASE.saveSystem.start.text,
-      DIALOGS_TREE_DATABASE.saveSystem
-    );
+    attemptSave(this);
   }
 
   openPokedex() {
@@ -197,18 +179,7 @@ export class Game {
   }
 
   closeWorldMap() {
-    const worldMap = this.currentScreen;
-    switch (worldMap.mod) {
-      case "ENCOUNTER":
-        this.openPokedex();
-        break;
-      case "FLY":
-        break;
-      case "PLAYER_POSITION":
-        break;
-      default:
-        break;
-    }
+    closeWorldMap();
   }
 
   openPokemonDetail() {

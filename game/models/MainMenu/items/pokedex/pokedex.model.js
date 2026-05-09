@@ -55,6 +55,7 @@ export class Pokedex {
   resetCurrentScreen() {
     this.game.resetCurrentScreen();
   }
+
   draw(context) {
     context.fillStyle = "white";
     drawBox(

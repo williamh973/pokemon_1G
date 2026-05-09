@@ -73,16 +73,20 @@ export const update = (game) => {
         return;
       }
       game.player.update(game, action);
+      weather(game);
       game.mapNameWindow.update(game.canvas.context);
       break;
     case "DIALOG":
+      weather(game);
       const event = game.dialogBox?.update(game.canvas.context, action);
       handleDialogState(game, event);
       break;
     case "MENU":
+      weather(game);
       game.mainMenu?.update(game.canvas.context, action);
       break;
     case "CHOICE_MENU":
+      weather(game);
       game.choiceMenu?.update(game.canvas.context, action);
       break;
     case "POKEDEX":
@@ -94,15 +98,13 @@ export const update = (game) => {
     case "TITLE":
       game.currentScreen.update(game.canvas.context, action);
       break;
-    case "FIGHT":
+    case "BATTLE":
       game.currentScreen.update(game.canvas.context, action);
       break;
     case "INVENTORY":
       game.currentScreen.update(game.canvas.context, action);
       break;
   }
-
-  weather(game);
 
   game.transition.update();
 };

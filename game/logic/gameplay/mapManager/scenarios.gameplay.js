@@ -4,7 +4,7 @@ export const checkScenarios = (game) => {
   const scenarios = SCENARIOS_DATABASE[game.mapManager.currentMap.id];
 
   Object.entries(scenarios).forEach(([scenarioId, scenario]) => {
-    addScenarioToTriggered(game, scenarioId); // pour dev sans scenario, a enlever
+    // addScenarioToTriggered(game, scenarioId); // pour dev sans scenario, a enlever
     const alreadyTriggered =
       game.triggeredScenarios[game.mapManager.currentMap.id].includes(
         scenarioId

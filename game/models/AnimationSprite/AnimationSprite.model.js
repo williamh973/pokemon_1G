@@ -1,29 +1,21 @@
 export class AnimatedSprite {
-  constructor(game, config) {
-    this.setPosition(game, config);
+  constructor(config) {
+    this.config = config;
+    this.position = {
+      x: this.config.x,
+      y: this.config.y,
+    };
     this.image = new Image();
-    this.image.src = config.src;
+    this.image.src = this.config.src;
 
-    this.frameWidth = config.frameWidth;
-    this.frameHeight = config.frameHeight;
-    this.frameCount = config.frames;
-    this.frameDelay = config.frameDelay;
-    this.scale = config.scale;
-    this.loop = config.loop ?? true;
+    this.frameWidth = this.config.frameWidth;
+    this.frameHeight = this.config.frameHeight;
+    this.frameCount = this.config.frames;
+    this.frameDelay = this.config.frameDelay;
+    this.scale = this.config.scale;
+    this.loop = this.config.loop ?? true;
     this.currentFrame = 0;
     this.counter = 0;
-  }
-
-  setPosition(game, config) {
-    game.currentScreen?.name === "POKEDEX"
-      ? (this.position = {
-          x: config.positionX,
-          y: config.positionY,
-        })
-      : (this.position = {
-          x: config.positionX + 90,
-          y: config.positionY + 70,
-        });
   }
 
   update(context) {

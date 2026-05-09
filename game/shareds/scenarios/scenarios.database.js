@@ -4,8 +4,8 @@ export const SCENARIOS_DATABASE = {
       trigger: {
         type: "POSITION",
         positions: [
-          { tileX: 8, tileY: 6 },
-          { tileX: 9, tileY: 6 },
+          { tileX: 12, tileY: 5 },
+          { tileX: 13, tileY: 5 },
         ],
       },
       condition: (game) => !game.flags.PALLET_TOWN.OAK_BLOCK_EXIT_DONE,

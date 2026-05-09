@@ -4,35 +4,71 @@ import { drawBox } from "../../shareds/utils/box/box.utils.js";
 import { AnimatedSprite } from "../AnimationSprite/AnimationSprite.model.js";
 
 export class PokemonViewer {
-  constructor(game, selectedPokemon = null) {
+  constructor(game, selectedPokemon = null, slot, key) {
     this.isOpen = false;
     this.game = game;
-    this.pokemon = this.getSelectedPokemonInPokedexDB(selectedPokemon);
-    this.animKey = this.pokemon.animations?.idle;
-    this.animObject = Object.assign(
-      POKEMON_IDLE_ANIMATIONS[this.pokemon.id][this.animKey]
+    const pokemon = this.getSelectedPokemonFromPokedexDB(selectedPokemon);
+
+    this.animKey = pokemon.animations?.idle[key];
+    this.animeConfig = POKEMON_IDLE_ANIMATIONS[pokemon.id][this.animKey];
+
+    const getSlotCenterPositions = slot.center(
+      this.animeConfig.frameWidth,
+      this.animeConfig.frameHeight
     );
-    this.pokemonSprite = new AnimatedSprite(game, this.animObject);
+    this.setPositions(this.game, getSlotCenterPositions);
   }
 
-  getSelectedPokemonInPokedexDB(selectedPokemon) {
-    this.pokemon = POKEDEX_DATABASE.find((pokemon) => {
-      return pokemon.name === selectedPokemon.name;
+  spritePosition(posX = 0, posY = 0) {
+    this.pokemonSprite = new AnimatedSprite({
+      ...this.animeConfig,
+      x: posX,
+      y: posY,
     });
-    return this.pokemon;
+  }
+
+  setPositions(game, positions) {
+    switch (game.currentScreen?.name) {
+      case "POKEDEX":
+        this.spritePosition(positions.x, positions.y);
+        break;
+      case "BATTLE":
+        this.spritePosition(positions.x, positions.y);
+        break;
+      default:
+        this.spritePosition(positions.x, positions.y);
+        break;
+    }
+  }
+
+  getSelectedPokemonFromPokedexDB(selectedPokemon) {
+    const foundedPokemon = POKEDEX_DATABASE.find((pokemon) => {
+      return pokemon.id === selectedPokemon.id;
+    });
+    return foundedPokemon;
   }
 
   update(context) {
     if (!this.isOpen) return;
+
     this.draw(context);
     this.pokemonSprite.update(context);
   }
 
   draw(context) {
-    context.globalAlpha = 0.8;
-    this.game.currentScreen?.name === "POKEDEX"
-      ? drawBox(context, 15, 15, 120, 120, "black", "black")
-      : drawBox(context, 112, 95, 95, 100, "purple", "black");
+    switch (this.game.currentScreen.name) {
+      case "POKEDEX":
+        context.globalAlpha = 0.8;
+        drawBox(context, 15, 15, 120, 120, "black", "black"); // dessine un fond derriere le sprite
+        break;
+      case "BATTLE":
+        // Pas de fond. Ca fonctionne
+        break;
+      default:
+        context.globalAlpha = 0.8;
+        drawBox(context, 112, 95, 95, 100, "purple", "black"); // dessine un fond derriere le sprite
+        break;
+    }
     context.globalAlpha = 1;
   }
 }

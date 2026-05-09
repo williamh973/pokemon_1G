@@ -1,5 +1,6 @@
 import { drawBox } from "../../../../../../shareds/utils/box/box.utils.js";
 import { PokemonViewer } from "../../../../../PokemonViewer/PokemonViewer.model.js";
+import { Slot } from "../../../../../battle/BattleManager/BattleSlot/BattleSlot.model.js";
 
 export class PokemonDetail {
   constructor(pokemonList, game, pokemon = "") {
@@ -14,10 +15,16 @@ export class PokemonDetail {
     this.height = this.game.canvas.height;
     this.isOpen = false;
     this.pokemonViewer = null;
+    this.slot = new Slot(15, 15, 120, 120);
   }
 
   openPokemonViewer() {
-    this.pokemonViewer = new PokemonViewer(this.game, this.pokemon);
+    this.pokemonViewer = new PokemonViewer(
+      this.game,
+      this.pokemon,
+      this.slot,
+      "front"
+    );
     this.pokemonViewer.isOpen = true;
   }
 

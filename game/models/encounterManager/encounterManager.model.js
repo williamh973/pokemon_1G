@@ -1,8 +1,10 @@
+import { generateWildPokemon } from "../../logic/gameplay/encounters/generateWildPokemon.gameplay.js";
 import { OP_DATABASE } from "../../shareds/character/op/op.database.js";
 import {
   getSpawnAroundPlayer,
   spawnOP,
 } from "../../shareds/utils/character/op/spawnOverworldPokemon.utils.js";
+import { BattleManager } from "../battle/BattleManager/BattleManager.model.js";
 
 export class EncounterManager {
   tryDoWildEncounter(game, tile, timeManager) {
@@ -43,5 +45,21 @@ export class EncounterManager {
     if (this.getRandomN() * 100 >= map.encounterRate) return;
 
     this.choosePokemonToEncounter(encounters, game, player, map);
+  }
+
+  startWildBattle(game, targetOP) {
+    game.transition.start(
+      () => {
+        game.togglePause(true, false);
+      },
+      (done) => {
+        game.togglePause(true, false);
+        const wildPokemon = generateWildPokemon(targetOP);
+        game.battleManager = new BattleManager(game, false, wildPokemon);
+        game.activateBattleState();
+        done();
+      },
+      () => {}
+    );
   }
 }

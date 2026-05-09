@@ -2,8 +2,6 @@ export const POKEMON_IDLE_ANIMATIONS = {
   "001": {
     bulbasaur_front_idle: {
       src: "game/assets/images/pokemons/1G/front/bulbasaur/idle/bulbasaur_idle.png",
-      positionX: 40,
-      positionY: 40,
       frameWidth: 40,
       frameHeight: 40,
       frames: 11,
@@ -13,8 +11,6 @@ export const POKEMON_IDLE_ANIMATIONS = {
     },
     bulbasaur_back_idle: {
       src: "game/assets/images/pokemons/1G/back/bulbasaur/idle/bulbasaur_idle.png",
-      positionX: 40,
-      positionY: 40,
       frameWidth: 40,
       frameHeight: 40,
       frames: 11,
@@ -26,8 +22,6 @@ export const POKEMON_IDLE_ANIMATIONS = {
   "002": {
     ivysaur_front_idle: {
       src: "game/assets/images/pokemons/1G/front/ivysaur/idle/ivysaur_idle.png",
-      positionX: 40,
-      positionY: 40,
       frameWidth: 60,
       frameHeight: 60,
       frames: 30,
@@ -37,8 +31,6 @@ export const POKEMON_IDLE_ANIMATIONS = {
     },
     ivysaur_back_idle: {
       src: "game/assets/images/pokemons/1G/back/ivysaur/idle/ivysaur_idle.png",
-      positionX: 40,
-      positionY: 40,
       frameWidth: 40,
       frameHeight: 40,
       frames: 11,
@@ -50,8 +42,6 @@ export const POKEMON_IDLE_ANIMATIONS = {
   "003": {
     venusaur_front_idle: {
       src: "game/assets/images/pokemons/1G/front/venusaur/idle/venusaur_idle.png",
-      positionX: 20,
-      positionY: 20,
       frameWidth: 90,
       frameHeight: 81,
       frames: 18,
@@ -61,8 +51,6 @@ export const POKEMON_IDLE_ANIMATIONS = {
     },
     venusaur_back_idle: {
       src: "game/assets/images/pokemons/1G/back/venusaur/idle/venusaur_idle.png",
-      positionX: 20,
-      positionY: 20,
       frameWidth: 90,
       frameHeight: 81,
       frames: 15,
@@ -74,8 +62,6 @@ export const POKEMON_IDLE_ANIMATIONS = {
   "004": {
     charmander_front_idle: {
       src: "game/assets/images/pokemons/1G/front/charmander/idle/charmander_idle.png",
-      positionX: 40,
-      positionY: 40,
       frameWidth: 50,
       frameHeight: 50,
       frames: 27,
@@ -85,8 +71,6 @@ export const POKEMON_IDLE_ANIMATIONS = {
     },
     charmander_back_idle: {
       src: "game/assets/images/pokemons/1G/back/charmander/idle/charmander_idle.png",
-      positionX: 20,
-      positionY: 20,
       frameWidth: 50,
       frameHeight: 50,
       frames: 27,
@@ -98,8 +82,6 @@ export const POKEMON_IDLE_ANIMATIONS = {
   "005": {
     charmeleon_front_idle: {
       src: "game/assets/images/pokemons/1G/front/charmeleon/idle/charmeleon_idle.png",
-      positionX: 20,
-      positionY: 20,
       frameWidth: 78,
       frameHeight: 70,
       frames: 46,
@@ -109,8 +91,6 @@ export const POKEMON_IDLE_ANIMATIONS = {
     },
     charmeleon_back_idle: {
       src: "game/assets/images/pokemons/1G/back/charmeleon/idle/charmeleon_idle.png",
-      positionX: 20,
-      positionY: 20,
       frameWidth: 78,
       frameHeight: 70,
       frames: 33,
@@ -122,8 +102,6 @@ export const POKEMON_IDLE_ANIMATIONS = {
   "006": {
     charizard_front_idle: {
       src: "game/assets/images/pokemons/1G/front/charizard/idle/charizard_idle.png",
-      positionX: 20,
-      positionY: 20,
       frameWidth: 100,
       frameHeight: 100,
       frames: 18,
@@ -133,8 +111,6 @@ export const POKEMON_IDLE_ANIMATIONS = {
     },
     charizard_back_idle: {
       src: "game/assets/images/pokemons/1G/back/charizard/idle/charizard_idle.png",
-      positionX: 20,
-      positionY: 20,
       frameWidth: 100,
       frameHeight: 100,
       frames: 18,
@@ -146,8 +122,6 @@ export const POKEMON_IDLE_ANIMATIONS = {
   "007": {
     squirtle_front_idle: {
       src: "game/assets/images/pokemons/1G/front/squirtle/idle/squirtle_idle.png",
-      positionX: 40,
-      positionY: 40,
       frameWidth: 53,
       frameHeight: 53,
       frames: 5,
@@ -157,8 +131,6 @@ export const POKEMON_IDLE_ANIMATIONS = {
     },
     squirtle_back_idle: {
       src: "game/assets/images/pokemons/1G/back/squirtle/idle/squirtle_idle.png",
-      positionX: 40,
-      positionY: 40,
       frameWidth: 45,
       frameHeight: 45,
       frames: 5,
@@ -170,8 +142,6 @@ export const POKEMON_IDLE_ANIMATIONS = {
   "010": {
     caterpie_front_idle: {
       src: "game/assets/images/pokemons/1G/front/caterpie/idle/caterpie_idle.png",
-      positionX: 20,
-      positionY: 20,
       frameWidth: 40,
       frameHeight: 40,
       frames: 8,
@@ -181,8 +151,6 @@ export const POKEMON_IDLE_ANIMATIONS = {
     },
     caterpie_back_idle: {
       src: "game/assets/images/pokemons/1G/back/caterpie/idle/caterpie_idle.png",
-      positionX: 20,
-      positionY: 20,
       frameWidth: 40,
       frameHeight: 40,
       frames: 8,
@@ -194,8 +162,6 @@ export const POKEMON_IDLE_ANIMATIONS = {
   "011": {
     metapod_front_idle: {
       src: "game/assets/images/pokemons/1G/front/metapod/idle/metapod_idle.png",
-      positionX: 20,
-      positionY: 20,
       frameWidth: 40,
       frameHeight: 40,
       frames: 14,
@@ -205,8 +171,6 @@ export const POKEMON_IDLE_ANIMATIONS = {
     },
     metapod_back_idle: {
       src: "game/assets/images/pokemons/1G/back/metapod/idle/metapod_idle.png",
-      positionX: 20,
-      positionY: 20,
       frameWidth: 46,
       frameHeight: 49,
       frames: 14,
@@ -218,8 +182,6 @@ export const POKEMON_IDLE_ANIMATIONS = {
   "012": {
     butterfree_front_idle: {
       src: "game/assets/images/pokemons/1G/front/butterfree/idle/butterfree_idle.png",
-      positionX: 20,
-      positionY: 20,
       frameWidth: 63,
       frameHeight: 61,
       frames: 30,
@@ -229,8 +191,6 @@ export const POKEMON_IDLE_ANIMATIONS = {
     },
     butterfree_back_idle: {
       src: "game/assets/images/pokemons/1G/back/butterfree/idle/butterfree_idle.png",
-      positionX: 20,
-      positionY: 20,
       frameWidth: 63,
       frameHeight: 61,
       frames: 14,
@@ -242,8 +202,6 @@ export const POKEMON_IDLE_ANIMATIONS = {
   "016": {
     pidgey_front_idle: {
       src: "game/assets/images/pokemons/1G/front/pidgey/idle/pidgey_idle.png",
-      positionX: 40,
-      positionY: 40,
       frameWidth: 48,
       frameHeight: 48,
       frames: 20,
@@ -253,8 +211,6 @@ export const POKEMON_IDLE_ANIMATIONS = {
     },
     pidgey_back_idle: {
       src: "game/assets/images/pokemons/1G/back/pidgey/idle/pidgey_idle.png",
-      positionX: 40,
-      positionY: 40,
       frameWidth: 48,
       frameHeight: 48,
       frames: 20,
@@ -266,19 +222,14 @@ export const POKEMON_IDLE_ANIMATIONS = {
   "019": {
     rattata_front_idle: {
       src: "game/assets/images/pokemons/1G/front/rattata/idle/rattata_idle.png",
-      positionX: 40,
-      positionY: 40,
       frameWidth: 53,
       frameHeight: 53,
       frames: 15,
       frameDelay: 6,
-      scale: 1.2,
       loop: true,
     },
     rattata_back_idle: {
       src: "game/assets/images/pokemons/1G/back/rattata/idle/rattata_idle.png",
-      positionX: 40,
-      positionY: 40,
       frameWidth: 64,
       frameHeight: 54,
       frames: 6,
@@ -290,8 +241,6 @@ export const POKEMON_IDLE_ANIMATIONS = {
   "025": {
     pikachu_front_idle: {
       src: "game/assets/images/pokemons/1G/front/pikachu/idle/pikachu_idle.png",
-      positionX: 40,
-      positionY: 40,
       frameWidth: 52,
       frameHeight: 54,
       frames: 30,
@@ -301,8 +250,6 @@ export const POKEMON_IDLE_ANIMATIONS = {
     },
     pikachu_back_idle: {
       src: "game/assets/images/pokemons/1G/back/pikachu/idle/pikachu_idle.png",
-      positionX: 40,
-      positionY: 40,
       frameWidth: 52,
       frameHeight: 54,
       frames: 27,
@@ -311,11 +258,29 @@ export const POKEMON_IDLE_ANIMATIONS = {
       loop: true,
     },
   },
+  "041": {
+    zubat_front_idle: {
+      src: "game/assets/images/pokemons/1G/front/zubat/idle/zubat_idle.png",
+      frameWidth: 60,
+      frameHeight: 60,
+      frames: 27,
+      frameDelay: 6,
+      scale: 1.2,
+      loop: true,
+    },
+    zubat_back_idle: {
+      src: "game/assets/images/pokemons/1G/back/zubat/idle/zubat_idle.png",
+      frameWidth: 60,
+      frameHeight: 60,
+      frames: 18,
+      frameDelay: 6,
+      scale: 1.2,
+      loop: true,
+    },
+  },
   "074": {
     geodude_front_idle: {
       src: "game/assets/images/pokemons/1G/front/geodude/idle/geodude_idle.png",
-      positionX: 20,
-      positionY: 20,
       frameWidth: 72,
       frameHeight: 72,
       frames: 24,
@@ -325,8 +290,6 @@ export const POKEMON_IDLE_ANIMATIONS = {
     },
     geodude_back_idle: {
       src: "game/assets/images/pokemons/1G/back/geodude/idle/geodude_idle.png",
-      positionX: 20,
-      positionY: 20,
       frameWidth: 72,
       frameHeight: 72,
       frames: 22,
@@ -338,8 +301,6 @@ export const POKEMON_IDLE_ANIMATIONS = {
   "095": {
     onix_front_idle: {
       src: "game/assets/images/pokemons/1G/front/onix/idle/onix_idle.png",
-      positionX: 20,
-      positionY: 20,
       frameWidth: 88,
       frameHeight: 88,
       frames: 14,
@@ -349,8 +310,6 @@ export const POKEMON_IDLE_ANIMATIONS = {
     },
     onix_back_idle: {
       src: "game/assets/images/pokemons/1G/back/onix/idle/onix_idle.png",
-      positionX: 20,
-      positionY: 20,
       frameWidth: 100,
       frameHeight: 100,
       frames: 14,
@@ -362,8 +321,6 @@ export const POKEMON_IDLE_ANIMATIONS = {
   123: {
     scyther_front_idle: {
       src: "game/assets/images/pokemons/1G/front/scyther/idle/scyther_idle.png",
-      positionX: 20,
-      positionY: 20,
       frameWidth: 68,
       frameHeight: 68,
       frames: 9,
@@ -373,8 +330,6 @@ export const POKEMON_IDLE_ANIMATIONS = {
     },
     scyther_back_idle: {
       src: "game/assets/images/pokemons/1G/back/scyther/idle/scyther_idle.png",
-      positionX: 20,
-      positionY: 20,
       frameWidth: 68,
       frameHeight: 68,
       frames: 9,
@@ -386,8 +341,6 @@ export const POKEMON_IDLE_ANIMATIONS = {
   111: {
     rhyhorn_front_idle: {
       src: "game/assets/images/pokemons/1G/front/rhyhorn/idle/rhyhorn_idle.png",
-      positionX: 40,
-      positionY: 40,
       frameWidth: 76,
       frameHeight: 76,
       frames: 11,
@@ -397,8 +350,6 @@ export const POKEMON_IDLE_ANIMATIONS = {
     },
     rhyhorn_back_idle: {
       src: "game/assets/images/pokemons/1G/back/rhyhorn/idle/rhyhorn_idle.png",
-      positionX: 40,
-      positionY: 40,
       frameWidth: 76,
       frameHeight: 76,
       frames: 12,
@@ -410,8 +361,6 @@ export const POKEMON_IDLE_ANIMATIONS = {
   129: {
     magikarp_front_idle: {
       src: "game/assets/images/pokemons/1G/front/magikarp/idle/magikarp_idle.png",
-      positionX: 20,
-      positionY: 20,
       frameWidth: 62,
       frameHeight: 67,
       frames: 18,
@@ -421,8 +370,6 @@ export const POKEMON_IDLE_ANIMATIONS = {
     },
     magikarp_back_idle: {
       src: "game/assets/images/pokemons/1G/back/magikarp/idle/magikarp_idle.png",
-      positionX: 20,
-      positionY: 20,
       frameWidth: 62,
       frameHeight: 67,
       frames: 19,
@@ -434,8 +381,6 @@ export const POKEMON_IDLE_ANIMATIONS = {
   130: {
     gyarados_front_idle: {
       src: "game/assets/images/pokemons/1G/front/gyarados/idle/gyarados_idle.png",
-      positionX: 20,
-      positionY: 20,
       frameWidth: 109,
       frameHeight: 94,
       frames: 12,
@@ -445,13 +390,11 @@ export const POKEMON_IDLE_ANIMATIONS = {
     },
     gyarados_back_idle: {
       src: "game/assets/images/pokemons/1G/back/gyarados/idle/gyarados_idle.png",
-      positionX: 20,
-      positionY: 20,
       frameWidth: 109,
       frameHeight: 94,
       frames: 12,
       frameDelay: 8,
-      scale: 1,
+      scale: 1.2,
       loop: true,
     },
   },

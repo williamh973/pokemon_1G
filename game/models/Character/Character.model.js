@@ -11,6 +11,7 @@ import { getFacingToward } from "../../logic/gameplay/character/getFacingToward.
 import { updateSprite } from "../../logic/gameplay/character/updateSprite.gameplay.js";
 import { isEntityAt } from "../../logic/gameplay/character/isEntityAt.gameplay.js";
 import { getFrontTile } from "../../logic/gameplay/character/getFrontTile.gameplay.js";
+import { draw } from "../../logic/gameplay/character/draw.gameplay.js";
 
 export class Character {
   constructor({ id, tileX, tileY, sprites, facing = "down" }) {
@@ -69,23 +70,7 @@ export class Character {
   }
 
   draw(canvas, camera) {
-    const screenX = this.position.x + camera.offsetX + 2;
-    let screenY = this.position.y + camera.offsetY;
-    const frameWidth = this.image.width / this.framesMax;
-
-    if (this.movementType === "fly") screenY -= 15;
-
-    canvas.context.drawImage(
-      this.image,
-      this.framesCurrent * frameWidth,
-      0,
-      frameWidth,
-      this.image.height,
-      screenX,
-      screenY,
-      this.width,
-      this.height
-    );
+    draw(canvas, camera, this);
   }
 
   animateFrames() {

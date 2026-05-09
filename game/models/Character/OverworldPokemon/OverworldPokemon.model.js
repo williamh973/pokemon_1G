@@ -14,6 +14,7 @@ export class OverworldPokemon extends Character {
     super({ id, tileX, tileY, sprites, facing });
 
     this.entityType = "OP";
+    this.name = id;
     this.behavior = behavior;
     this.level = level;
     this.movementType = movementType;
@@ -21,20 +22,25 @@ export class OverworldPokemon extends Character {
     this.lifetime = Math.floor(Math.random() * 500 + 100);
     this.behaviorCooldown = 0;
     this.alwaysAnimate = true;
+    this.isCatched = false;
+    this.isDead = false;
   }
 
   update(game) {
     this.spawnTime++;
 
     this.handleLifetime(game);
-    if (this.spawnTime >= this.lifetime) return;
+
+    if (this.isDead || this.isCatched || this.spawnTime >= this.lifetime)
+      return;
 
     this.handleBehavior(game);
     super.update(game);
   }
 
   handleLifetime(game) {
-    if (this.spawnTime >= this.lifetime) this.despawn(game);
+    if (this.spawnTime >= this.lifetime || this.isCatched || this.isDead)
+      this.despawn(game);
   }
 
   despawn(game) {
@@ -54,7 +60,7 @@ export class OverworldPokemon extends Character {
     if (this.previousTile) {
       const { x, y, originalIndex } = this.previousTile;
 
-      if (!originalIndex) return;
+      if (originalIndex === undefined || originalIndex === null) return;
       map.backgLayout[y][x] = originalIndex;
     }
   }
