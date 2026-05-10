@@ -1,17 +1,20 @@
+import { battleBackgGrassImg } from "../../../assets/images/ui/ui.asset.js";
 import { backgroundBox } from "../../../render/battle/battleRenderer/background.render.js";
-import { drawHpBar } from "../../../render/battle/battleRenderer/hpBars.render.js";
-import { HUD } from "../../../render/battle/battleRenderer/huds.render.js";
-import { drawBox } from "../../../shareds/utils/box/box.utils.js";
+import { BATTLE_BACKGROUND_DATABASE } from "../../../shareds/battle/background/battleBackground.database.js";
 import { PokemonViewer } from "../../PokemonViewer/PokemonViewer.model.js";
-import { Slot } from "./BattleSlot/BattleSlot.model.js";
+import { HUD } from "./Hud/HUD.model.js";
+import { Slot } from "./slot/Slot.model.js";
 
 export class BattleManager {
   constructor(
     game,
     isTrainerBattle = false,
     wildPokemon = null,
-    trainer = null
+    trainer = null,
+    tile
   ) {
+    this.backgImage = null;
+    this.setBattleBackImg(tile);
     this.position = {
       x: 0,
       y: 0,
@@ -22,6 +25,8 @@ export class BattleManager {
     this.width = this.canvas.width;
     this.height = this.canvas.height;
     this.isOpen = false;
+    this.music = null;
+    this.isSlideAnimationFinished = false;
     this.isTrainerBattle = isTrainerBattle;
     this.weather = this.game.flags.weather;
     this.frontViewer = null; // sprite du dresseur ou pokemon adverse
@@ -30,11 +35,25 @@ export class BattleManager {
     this.trainer = trainer; // dresseur adverse rencontré
     this.frontSlot = new Slot(180, 10, 120, 120);
     this.backSlot = new Slot(20, 130, 120, 120);
+
+    this.frontHUD = new HUD(this.enemy, {
+      x: 10,
+      y: 10,
+      width: 130,
+      height: 60,
+    });
+    this.backHUD = new HUD(this.enemy, {
+      x: 180,
+      y: 150,
+      width: 130,
+      height: 60,
+    });
   }
 
   open() {
     this.isOpen = true;
     this.openPokemonViewer();
+    this.setSpriteInitalPosition();
     this.openDialogBox();
   }
 
@@ -66,6 +85,11 @@ export class BattleManager {
     this.isOpen = false;
   }
 
+  setBattleBackImg(tile) {
+    const background = BATTLE_BACKGROUND_DATABASE[tile.terrain];
+    if (background) this.backgImage = background.image;
+  }
+
   // closePokemonViewer() {
   //   this.frontViewer.isOpen = false;
   //   this.frontViewer.pokemonSprite = null;
@@ -82,38 +106,28 @@ export class BattleManager {
 
   draw(context) {
     context.fillStyle = "white";
-
-    this.backgroundBox(context);
-    this.pokemonHuds(context);
+    if (this.backgImage !== null) this.backgroundBox(context);
+    this.slideAnimation();
   }
 
-  fontParams(context, weight) {
-    context.font = `${weight}px PixelOperator `;
+  setSpriteInitalPosition() {
+    this.frontViewer.pokemonSprite.position.x =
+      0 - this.frontViewer.pokemonSprite.config.frameWidth;
   }
 
-  pokemonHuds(context) {
-    this.fontParams(context, "18");
-    context.fillStyle = "black";
-    this.HUDs(context);
-  }
-
-  HUDs(context) {
-    HUD(context, this);
-  }
-
-  drawHpBar(context, x, y, width, height, currentHp, maxHp) {
-    drawHpBar(context, x, y, width, height, currentHp, maxHp);
+  spriteFinalPosition() {
+    return (
+      this.frontViewer.pokemonSprite.position.x >=
+      this.frontSlot.x +
+        (this.frontSlot.width - this.frontViewer.pokemonSprite.frameWidth) / 2
+    );
   }
 
   slideAnimation() {
-    // const finalPosX = this.frontViewer.pokemonSprite.position.x;
-    // console.log(finalPosX);
-    // this.frontViewer.pokemonSprite.position.x =
-    //   0 - this.frontViewer.pokemonSprite.config.frameWidth;
-    // if (this.frontViewer.pokemonSprite.position.x < finalPosX) {
-    //   this.frontViewer.pokemonSprite.position.x += 2;
-    // }
-    // console.log(this.frontViewer.pokemonSprite);
+    if (this.spriteFinalPosition())
+      return (this.isSlideAnimationFinished = true);
+
+    this.frontViewer.pokemonSprite.position.x += 4;
   }
 
   update(context, action) {
@@ -122,7 +136,10 @@ export class BattleManager {
     this.frontViewer?.update(context, null);
     this.backViewer?.update(context, null);
 
-    this.slideAnimation();
+    if (this.isSlideAnimationFinished) {
+      this.frontHUD?.update(context);
+      this.backHUD?.update(context);
+    }
 
     if (this.game.dialogBox.isOpen) {
       const result = this.game.dialogBox.update(

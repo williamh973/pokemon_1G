@@ -9,7 +9,7 @@ export const generateWildPokemon = (target) => {
   const gender = generatePID(species);
   const IVs = generateIVs();
   const EVs = 0;
-  const getStats = calculateStats(baseStats, IVs, EVs, target.level);
+  let getStats = calculateStats(baseStats, IVs, EVs, target.level);
 
   const POKEMON = {
     id: target.id,
@@ -19,8 +19,10 @@ export const generateWildPokemon = (target) => {
     level: target.level,
     baseStats,
     IVs,
-    stats: getStats,
-    maxHp: getStats.hp,
+    stats: (getStats = {
+      ...getStats,
+      maxHp: getStats.hp,
+    }),
   };
 
   return POKEMON;

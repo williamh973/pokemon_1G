@@ -47,7 +47,7 @@ export class EncounterManager {
     this.choosePokemonToEncounter(encounters, game, player, map);
   }
 
-  startWildBattle(game, targetOP) {
+  startWildBattle(game, targetOP, tile) {
     game.transition.start(
       () => {
         game.togglePause(true, false);
@@ -55,7 +55,13 @@ export class EncounterManager {
       (done) => {
         game.togglePause(true, false);
         const wildPokemon = generateWildPokemon(targetOP);
-        game.battleManager = new BattleManager(game, false, wildPokemon);
+        game.battleManager = new BattleManager(
+          game,
+          false,
+          wildPokemon,
+          null,
+          tile
+        );
         game.activateBattleState();
         done();
       },

@@ -4,7 +4,7 @@ import { OBJECT_SPRITES } from "../../../../shareds/items/sprite/itemsSprite.dat
 import { SPECIES_DATABASE } from "../../../../shareds/pokemon/species/species.database.js";
 import { removeMObyFlagId } from "../../../../shareds/utils/list/list.utils.js";
 import { PokemonViewer } from "../../../PokemonViewer/PokemonViewer.model.js";
-import { Slot } from "../../../battle/BattleManager/BattleSlot/BattleSlot.model.js";
+import { Slot } from "../../../battle/BattleManager/slot/Slot.model.js";
 import { Npc } from "../npc.model.js";
 
 export class MissableObject extends Npc {

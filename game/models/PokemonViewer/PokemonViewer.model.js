@@ -43,7 +43,7 @@ export class PokemonViewer {
 
   getSelectedPokemonFromPokedexDB(selectedPokemon) {
     const foundedPokemon = POKEDEX_DATABASE.find((pokemon) => {
-      return pokemon.id === selectedPokemon.id;
+      return pokemon.id === selectedPokemon.pokedexId;
     });
     return foundedPokemon;
   }

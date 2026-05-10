@@ -1,6 +1,6 @@
 import { drawBox } from "../../../../../../shareds/utils/box/box.utils.js";
 import { PokemonViewer } from "../../../../../PokemonViewer/PokemonViewer.model.js";
-import { Slot } from "../../../../../battle/BattleManager/BattleSlot/BattleSlot.model.js";
+import { Slot } from "../../../../../battle/BattleManager/slot/Slot.model.js";
 
 export class PokemonDetail {
   constructor(pokemonList, game, pokemon = "") {

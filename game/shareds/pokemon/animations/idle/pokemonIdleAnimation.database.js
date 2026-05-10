@@ -226,6 +226,7 @@ export const POKEMON_IDLE_ANIMATIONS = {
       frameHeight: 53,
       frames: 15,
       frameDelay: 6,
+      scale: 1.2,
       loop: true,
     },
     rattata_back_idle: {
