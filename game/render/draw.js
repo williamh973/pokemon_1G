@@ -9,7 +9,10 @@ const drawBackTiles = (game, tileManager) => {
 };
 
 const drawPuddleTiles = (game, tileManager) => {
-  if (game.mapManager.currentMap.puddlesLayout && game.flags.weather?.rain) {
+  if (
+    game.mapManager.currentMap.puddlesLayout &&
+    game.weatherManager.rainSystem?.active
+  ) {
     tileManager.drawMap(
       game.canvas.context,
       game.mapManager.currentMap.puddlesLayout,

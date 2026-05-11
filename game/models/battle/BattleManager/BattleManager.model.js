@@ -38,7 +38,7 @@ export class BattleManager {
     this.music = null;
     this.isSlideAnimationFinished = false;
     this.isTrainerBattle = isTrainerBattle;
-    this.weather = this.game.flags.weather;
+    this.weather = null;
     this.enemy = wildPokemon; // pokemon sauvage généré pendant une rencontre
     this.trainer = trainer; // dresseur adverse rencontré
     this.frontSlot = new Slot(180, 10, 120, 120);
@@ -75,14 +75,18 @@ export class BattleManager {
 
   open() {
     this.isOpen = true;
+    this.startIntroSequence();
+  }
+
+  startIntroSequence() {
     this.openPokemonViewer();
     this.setSpriteInitalPosition();
     this.openDialogBox();
   }
 
   openDialogBox() {
-    // this.game.dialogBox.open(this.enemy, true);
-    // this.game.dialogBox.hasFocus = true;
+    this.game.dialogBox.open(`Un ${this.enemy.name} sauvage apparait!`, true);
+    this.game.dialogBox.hasFocus = true;
   }
 
   openPokemonViewer() {
@@ -94,6 +98,10 @@ export class BattleManager {
     this.closePokemonViewer();
     this.game.dialogBox.close();
     this.isOpen = false;
+  }
+
+  closeDialogBox() {
+    this.game.closeDialogBox(this.game);
   }
 
   setBattleBackImg(tile) {
@@ -157,6 +165,9 @@ export class BattleManager {
         this.game.canvas.context,
         action
       );
+
+      // pour dev, fermeture de la boite à l'action de la touche A
+      if (result === this.game.dialogBox.noMorePage()) this.closeDialogBox();
     }
   }
 }

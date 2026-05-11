@@ -52,13 +52,12 @@ export class HUD {
   }
 
   drawGender(context) {
+    const paddingX = 5;
     const nameWidth = context.measureText(this.pokemon.name).width;
-    const paddingX = 25;
     const paddingY = 9;
-
     context.fillText(
       this.pokemon.gender,
-      this.position.x + paddingX + nameWidth,
+      this.position.x + paddingX + nameWidth + 25,
       this.position.y + paddingY
     );
   }

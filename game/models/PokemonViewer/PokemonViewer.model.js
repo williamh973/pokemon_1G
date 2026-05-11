@@ -28,7 +28,6 @@ export class PokemonViewer {
   }
 
   setPositions(game, positions) {
-    console.log(game.state);
     switch (game.currentScreen?.name) {
       case "POKEDEX":
         this.spritePosition(positions.x, positions.y);

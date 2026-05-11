@@ -101,7 +101,7 @@ export class MapManager {
       this.loadMap(this.currentMap.id);
       this.updatePlayer(game, true, warp);
       this.openMapNameWindow(game);
-      this.checkWeather(game);
+      game.weatherManager.onMapChanged(this.currentMap);
     } else this.startTransition(game, warp);
   }
 
@@ -154,28 +154,5 @@ export class MapManager {
 
   checkScenarios(game) {
     checkScenarios(game);
-  }
-
-  startRain(game) {
-    game.rainSystem.start(1);
-  }
-
-  stopRain(game) {
-    game.rainSystem.stop();
-  }
-
-  getSavedWeather(game) {
-    if (game.flags.weather?.rain) this.startRain(game);
-    else this.stopRain(game);
-  }
-
-  checkWeather(game) {
-    this.stopRain(game);
-    game.flags.weather.rain = false;
-    let randomN = Math.random();
-    if (randomN >= 0.5) {
-      this.startRain(game);
-      game.flags.weather.rain = true;
-    }
   }
 }

@@ -7,11 +7,12 @@ import { kantoRoute1OverlayLayout } from "./kantoRoute1.overlayLayout.js";
 import { kantoRoute1OverworldPokemons } from "./kantoRoute1.overworldPokemons.js";
 import { kantoRoute1PuddlesLayout } from "./kantoRoute1.puddlesLayout.js";
 import { kantoRoute1Warps } from "./kantoRoute1.warp.js";
+import { kantoRoute1Weathers } from "./kantoRoute1.weather.js";
 
 export const kantoRoute1 = {
   id: "KANTO_ROUTE_1",
   mapNameWindow: "Route 1",
-  weathers: ["sun", "rain"],
+  weathers: kantoRoute1Weathers,
   backgLayout: kantoRoute1Layout,
   overlayLayout: kantoRoute1OverlayLayout,
   puddlesLayout: kantoRoute1PuddlesLayout,

@@ -117,7 +117,6 @@ export class Save {
     game.player.team.pokemons = this.team.pokemons;
 
     game.triggeredScenarios = this.map.triggeredScenarios;
-    game.flags.weather = this.flags.weather;
     return this;
   }
 

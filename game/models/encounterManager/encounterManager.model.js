@@ -21,12 +21,8 @@ export class EncounterManager {
     return tile.day;
   }
 
-  getRandomN() {
-    return Math.random();
-  }
-
   choosePokemonToEncounter(encounters, game, player, map) {
-    const randomN = Math.floor(this.getRandomN() * encounters.length);
+    const randomN = Math.floor(Math.random() * encounters.length);
     const chosenPokemon = encounters[randomN];
 
     if (!chosenPokemon) return;
@@ -42,7 +38,7 @@ export class EncounterManager {
     const map = game.mapManager.currentMap;
     const player = game.player;
 
-    if (this.getRandomN() * 100 >= map.encounterRate) return;
+    if (Math.random() * 100 >= map.encounterRate) return;
 
     this.choosePokemonToEncounter(encounters, game, player, map);
   }

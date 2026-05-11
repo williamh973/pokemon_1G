@@ -29,9 +29,10 @@ export const walkingOnPuddles = (game, character, map, x, y) => {
   );
 
   const spawnSplash = setTimeout(() => {
-    game.splashSystem.spawn(footX, footY);
+    game.weatherManager.splashSystem.spawn(footX, footY);
     clearTimeout(spawnSplash);
   }, 200);
 
-  if (game.rainSystem?.active && playerWalkingOnPuddleTile) spawnSplash;
+  if (game.weatherManager.rainSystem?.active && playerWalkingOnPuddleTile)
+    spawnSplash;
 };

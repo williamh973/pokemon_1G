@@ -37,17 +37,6 @@ const handleDialogState = (game, event) => {
   if (event === "END_DIALOG") game.closeDialogBox();
 };
 
-const weather = (game) => {
-  if (
-    game.mapManager.currentMap.weathers?.includes("rain") &&
-    game.rainSystem.active &&
-    game.flags.weather.rain
-  ) {
-    game.splashSystem.update(game.canvas.context);
-    game.rainSystem.update(game.canvas.context);
-  }
-};
-
 export const update = (game) => {
   // console.log(game.state);
   // console.log("tileX", game.player.tileX, "tileY", game.player.tileY);
@@ -73,20 +62,20 @@ export const update = (game) => {
         return;
       }
       game.player.update(game, action);
-      weather(game);
+      game.weatherManager.update(game);
       game.mapNameWindow.update(game.canvas.context);
       break;
     case "DIALOG":
-      weather(game);
+      game.weatherManager.update(game);
       const event = game.dialogBox?.update(game.canvas.context, action);
       handleDialogState(game, event);
       break;
     case "MENU":
-      weather(game);
+      game.weatherManager.update(game);
       game.mainMenu?.update(game.canvas.context, action);
       break;
     case "CHOICE_MENU":
-      weather(game);
+      game.weatherManager.update(game);
       game.choiceMenu?.update(game.canvas.context, action);
       break;
     case "POKEDEX":

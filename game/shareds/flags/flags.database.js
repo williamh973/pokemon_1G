@@ -18,11 +18,6 @@ export const GAME_FLAGS_DATABASE = {
   RED_HOUSE_2F: {
     GOT_POTION_REDHOUSE_2F: false,
   },
-  WEATHER: {
-    RAIN: false,
-    SUNNY: false,
-    CLOUDY: false,
-  },
   ENTERED_OAK_LAB: false,
   OAK_STOPPED_PLAYER: false,
   GOT_SUPER_POTION_REDHOUSE_2F: false,

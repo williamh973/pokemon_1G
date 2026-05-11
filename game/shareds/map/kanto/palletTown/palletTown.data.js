@@ -9,11 +9,12 @@ import { palletTownPuddlesLayout } from "./palletTown.puddlesLayout.js";
 import { palletTownLights } from "./palletTown.lights.js";
 import { palletTownEncounters } from "./palletTown.encounters.js";
 import { palletTownOverworldPokemons } from "./palletTown.overworldPokemons.js";
+import { palletTownWeathers } from "./palletTown.weather.js";
 
 export const palletTown = {
   id: "PALLET_TOWN",
   mapNameWindow: "Bourg Palette",
-  weathers: ["rain", "sun"],
+  weathers: palletTownWeathers,
   backgLayout: palletTownLayout,
   overlayLayout: palletTownOverlayLayout,
   puddlesLayout: palletTownPuddlesLayout,

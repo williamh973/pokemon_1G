@@ -7,6 +7,7 @@ export const loadGame = (game) => {
   const data = save.apply(game);
   // console.log(data);
   game.mapManager.loadMap(data.map.id, data);
-  game.mapManager.getSavedWeather(game);
+  console.log(data.map);
+  game.weatherManager.onMapChanged(game.mapManager.currentMap);
   game.closeTitleScreen();
 };

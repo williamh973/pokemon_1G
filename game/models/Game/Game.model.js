@@ -18,8 +18,6 @@ import { ScenarioManager } from "../ScenarioManager/ScenarioManager.model.js";
 import { GAME_FLAGS_DATABASE } from "../../shareds/flags/flags.database.js";
 import { TRIGGERED_SCENARIOS_DATABASE } from "../../shareds/scenarios/triggeredScenarios.database.js";
 import { MapNameWindow } from "../Map/MapNameWindow.model.js";
-import { RainSystem } from "../weather/rain/RainSystem/RainSystem.model.js";
-import { SplashSystem } from "../weather/rain/SplashSystem/SplashSystem.model.js";
 import { DayNightCycle } from "../DayNightCycle/DayNightCycle.model.js";
 import { TimeManager } from "../TimeManager/TimeManager.model.js";
 import { EncounterManager } from "../encounterManager/encounterManager.model.js";
@@ -31,6 +29,7 @@ import { openDialogBox } from "../../logic/gameplay/game/dialogBox/openDialogBox
 import { attemptSave } from "../../logic/gameplay/game/attemptSave.gameplay.js";
 import { selectGender } from "../../logic/gameplay/game/selectGender.gameplay.js";
 import { togglePause } from "../../logic/gameplay/game/togglePause.gameplay.js";
+import { WeatherManager } from "../weather/WeatherManager/WeatherManager.model.js";
 
 export class Game {
   constructor() {
@@ -48,8 +47,7 @@ export class Game {
     this.mainMenu = new MainMenu(this);
     this.dialogBox = new DialogBox(this);
     this.input = new InputManager();
-    this.rainSystem = new RainSystem(this.canvas);
-    this.splashSystem = new SplashSystem();
+    this.weatherManager = new WeatherManager(this);
     this.timeManager = new TimeManager();
     this.dayNightCycle = new DayNightCycle();
     this.encounterManager = new EncounterManager();
