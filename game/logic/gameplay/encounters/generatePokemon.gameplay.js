@@ -1,15 +1,14 @@
 import { SPECIES_DATABASE } from "../../../shareds/pokemon/species/species.database.js";
 
-export const generateWildPokemon = (target) => {
-  if (target.entityType !== "OP") return;
+export const generatePokemon = (target) => {
+  // if (target.entityType !== "OP") return;
 
-  const baseStats = SPECIES_DATABASE[target.id].baseStats;
-  const species = SPECIES_DATABASE[target.id];
+  const species = SPECIES_DATABASE[target.id.toLowerCase()];
 
   const gender = generatePID(species);
   const IVs = generateIVs();
   const EVs = 0;
-  let getStats = calculateStats(baseStats, IVs, EVs, target.level);
+  let getStats = calculateStats(species.baseStats, IVs, EVs, target.level);
 
   const POKEMON = {
     id: target.id,
@@ -17,7 +16,7 @@ export const generateWildPokemon = (target) => {
     pokedexId: species.pokedexId,
     gender: gender,
     level: target.level,
-    baseStats,
+    baseStats: species.baseStats,
     IVs,
     stats: (getStats = {
       ...getStats,

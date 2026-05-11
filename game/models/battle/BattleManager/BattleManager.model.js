@@ -1,9 +1,18 @@
-import { battleBackgGrassImg } from "../../../assets/images/ui/ui.asset.js";
 import { backgroundBox } from "../../../render/battle/battleRenderer/background.render.js";
 import { BATTLE_BACKGROUND_DATABASE } from "../../../shareds/battle/background/battleBackground.database.js";
 import { PokemonViewer } from "../../PokemonViewer/PokemonViewer.model.js";
 import { HUD } from "./Hud/HUD.model.js";
 import { Slot } from "./slot/Slot.model.js";
+
+// - état du combat
+// - tours
+// - actions
+// - attaques
+// - dégâts
+// - KO
+// - capture
+// - victoire/défaite
+// - transitions de phase
 
 export class BattleManager {
   constructor(
@@ -13,6 +22,7 @@ export class BattleManager {
     trainer = null,
     tile
   ) {
+    console.log(game.player.team.pokemons[0], wildPokemon);
     this.backgImage = null;
     this.setBattleBackImg(tile);
     this.position = {
@@ -29,12 +39,25 @@ export class BattleManager {
     this.isSlideAnimationFinished = false;
     this.isTrainerBattle = isTrainerBattle;
     this.weather = this.game.flags.weather;
-    this.frontViewer = null; // sprite du dresseur ou pokemon adverse
-    this.backViewer = null; // sprite du joureur de dos ou de ses pokémons
     this.enemy = wildPokemon; // pokemon sauvage généré pendant une rencontre
     this.trainer = trainer; // dresseur adverse rencontré
     this.frontSlot = new Slot(180, 10, 120, 120);
     this.backSlot = new Slot(20, 130, 120, 120);
+
+    // sprite du dresseur ou pokemon adverse
+    this.frontViewer = new PokemonViewer(
+      this.game,
+      this.enemy,
+      this.frontSlot,
+      "front"
+    );
+    // sprite du joureur de dos ou de ses pokémons
+    this.backViewer = new PokemonViewer(
+      this.game,
+      game.player.team.pokemons[0],
+      this.backSlot,
+      "back"
+    );
 
     this.frontHUD = new HUD(this.enemy, {
       x: 10,
@@ -42,7 +65,7 @@ export class BattleManager {
       width: 130,
       height: 60,
     });
-    this.backHUD = new HUD(this.enemy, {
+    this.backHUD = new HUD(game.player.team.pokemons[0], {
       x: 180,
       y: 150,
       width: 130,
@@ -63,18 +86,6 @@ export class BattleManager {
   }
 
   openPokemonViewer() {
-    this.frontViewer = new PokemonViewer(
-      this.game,
-      this.enemy,
-      this.frontSlot,
-      "front"
-    );
-    this.backViewer = new PokemonViewer(
-      this.game,
-      this.enemy,
-      this.backSlot,
-      "back"
-    );
     this.frontViewer.isOpen = true;
     this.backViewer.isOpen = true;
   }

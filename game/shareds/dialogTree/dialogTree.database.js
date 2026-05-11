@@ -1,3 +1,4 @@
+import { generatePokemon } from "../../logic/gameplay/encounters/generatePokemon.gameplay.js";
 import { removeMObyItemId } from "../utils/list/list.utils.js";
 
 export const POSSIBLE_CHOICES_DATABASE = {
@@ -88,12 +89,22 @@ export const DIALOGS_TREE_DATABASE = {
       text: "CHEN : Excellent choix !\nIl sera un parfait\ncompagnion !",
       action: (game) => {
         const currentMap = game.mapManager.currentMap;
-        const starter = game.player.starter;
+        const player = game.player;
+        let focusedStarter = player.focusedStarter;
+
         game.mapManager.currentMap.missableObjects = removeMObyItemId(
           currentMap,
-          starter.id
+          focusedStarter.id
         );
-        game.player.team.add(starter);
+
+        focusedStarter = {
+          ...focusedStarter,
+          level: 5,
+        };
+
+        const starter = generatePokemon(focusedStarter);
+
+        player.team.add(starter);
         game.flags.OAK_LAB.PLAYER_STARTER_CHOSEN_DONE = true;
       },
     },

@@ -2,20 +2,14 @@ import { TILES_SIZE } from "../../shareds/utils/tile/tile.utils.js";
 import { drawBox } from "../../shareds/utils/box/box.utils.js";
 import { Cursor } from "../Cursor/Cursor.model.js";
 import { textParams } from "../../shareds/utils/font/font.utils.js";
-import { listSort } from "../../shareds/utils/list/list.utils.js";
 
 export class MainMenu {
   constructor(game) {
     this.game = game;
     this.canvas = this.game.canvas;
     this.width = this.canvas.width / 2 - TILES_SIZE;
-    this.items = [
-      { id: "SAC", name: "SAC" },
-      { id: "SACHA", name: "SACHA" },
-      { id: "SAUVER", name: "SAUVER" },
-      { id: "OPTIONS", name: "OPTIONS" },
-      { id: "RETOUR", name: "RETOUR" },
-    ];
+    this.items = [];
+    this.initItems();
     this.position = {
       x: this.canvas.width - this.width,
       y: 0,
@@ -29,35 +23,38 @@ export class MainMenu {
     this.cursor = new Cursor();
   }
 
-  checkItems() {
-    const pokedex = { id: "POKEDEX", name: "POKEDEX" };
-    const pokemon = { id: "POKEMON", name: "POKEMON" };
-    const PLAYER = this.game.player;
-
-    const foundedPokedex = this.items.find((item) => item.id === pokedex.id);
-    const foundedPokemon = this.items.find((item) => item.id === pokemon.id);
-
-    if (PLAYER.gotPokedex && !foundedPokedex) this.items.splice(0, 0, pokedex);
-
-    if (PLAYER.team.pokemons.length > 0 && !foundedPokemon) {
-      this.items.splice(1, 0, pokemon);
-    }
-
-    this.updateHeight();
+  initItems() {
+    const SAVE_DATA = this.game.save;
+    if (SAVE_DATA?.mainMenu.items) this.items = SAVE_DATA.mainMenu.items;
+    else
+      this.items = [
+        { id: "SAC", name: "SAC" },
+        { id: "SACHA", name: "SACHA" },
+        { id: "SAUVER", name: "SAUVER" },
+        { id: "OPTIONS", name: "OPTIONS" },
+        { id: "RETOUR", name: "RETOUR" },
+      ];
   }
 
-  draw(context) {
-    drawBox(
-      context,
-      this.position.x,
-      this.position.y,
-      this.width,
-      this.height,
-      "black",
-      "white"
-    );
-    this.drawItems(context);
-    this.showCursor(context);
+  addPokedexItem(player) {
+    const pokedex = { id: "POKEDEX", name: "POKEDEX" };
+    const foundedPokedex = this.items.find((item) => item.id === pokedex.id);
+    if (player.gotPokedex && !foundedPokedex) this.items.splice(0, 0, pokedex);
+  }
+
+  addPokemonItem(player) {
+    const pokemon = { id: "POKEMON", name: "POKEMON" };
+    const foundedPokemon = this.items.find((item) => item.id === pokemon.id);
+    if (player.team.pokemons.length > 0 && !foundedPokemon)
+      this.items.splice(1, 0, pokemon);
+  }
+
+  checkItems() {
+    const PLAYER = this.game.player;
+
+    this.addPokemonItem(PLAYER);
+    this.addPokedexItem(PLAYER);
+    this.updateHeight();
   }
 
   showCursor(context) {
@@ -96,6 +93,20 @@ export class MainMenu {
 
   updateHeight() {
     this.height = this.lineHeight * this.items.length;
+  }
+
+  draw(context) {
+    drawBox(
+      context,
+      this.position.x,
+      this.position.y,
+      this.width,
+      this.height,
+      "black",
+      "white"
+    );
+    this.drawItems(context);
+    this.showCursor(context);
   }
 
   update(context, action) {

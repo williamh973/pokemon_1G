@@ -43,16 +43,15 @@ export class MissableObject extends Npc {
     if (!game.flags["OAK_LAB"].OAK_INTRO_LAB_DONE)
       return game.openDialogBox(DIALOGS_TREE_DATABASE.oakLab.story.repeat.text);
 
-    game.player.starter = starter;
-
     game.openDialogBox(
       `Veux-tu ${starter.name} ?\nc'est ${starter.desc}`,
       DIALOGS_TREE_DATABASE.starter
     );
 
-    // A tester
-    const foundedStarter = SPECIES_DATABASE[starter.id];
-    this.openPokemonViewer(game, foundedStarter);
+    game.player.hasFocus(starter);
+
+    const starterSpecies = SPECIES_DATABASE[this.itemKey];
+    this.openPokemonViewer(game, starterSpecies);
   }
 
   getItemInDatabase() {

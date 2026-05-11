@@ -1,6 +1,5 @@
 export class Team {
-  constructor(player) {
-    this.player = player;
+  constructor() {
     this.pokemons = [];
   }
 

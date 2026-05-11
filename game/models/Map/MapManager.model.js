@@ -165,7 +165,7 @@ export class MapManager {
   }
 
   getSavedWeather(game) {
-    if (game.flags.weather.rain) this.startRain(game);
+    if (game.flags.weather?.rain) this.startRain(game);
     else this.stopRain(game);
   }
 

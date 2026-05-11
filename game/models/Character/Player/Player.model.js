@@ -28,13 +28,17 @@ export class Player extends Character {
     this.abilities = "";
     this.hasWon = false;
     this.hasLose = false;
-    this.starter = {};
+    this.focusedStarter = {};
     this.gotPokedex = true;
     this.pokedex = new Pokedex(game);
-    this.team = new Team(this);
+    this.team = new Team();
     this.inventory = new Inventory(game);
     this.trainerCard = {};
     this.paths = PLAYER_PATHS;
+  }
+
+  hasFocus(starter) {
+    this.focusedStarter = starter;
   }
 
   update(game, action) {

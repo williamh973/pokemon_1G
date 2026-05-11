@@ -16,9 +16,7 @@ export const checkScenarios = (game) => {
 
     if (!matchPosition(scenario.trigger, game.player)) return;
 
-    if (!scenario.repeat) {
-      addScenarioToTriggered(game, scenarioId);
-    }
+    if (!scenario.repeat) addScenarioToTriggered(game, scenarioId);
 
     runScenarioScript(game, scenario);
   });

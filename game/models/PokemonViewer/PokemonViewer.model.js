@@ -28,11 +28,15 @@ export class PokemonViewer {
   }
 
   setPositions(game, positions) {
+    console.log(game.state);
     switch (game.currentScreen?.name) {
       case "POKEDEX":
         this.spritePosition(positions.x, positions.y);
         break;
       case "BATTLE":
+        this.spritePosition(positions.x, positions.y);
+        break;
+      case "CHOICE_MENU":
         this.spritePosition(positions.x, positions.y);
         break;
       default:
@@ -64,9 +68,11 @@ export class PokemonViewer {
       case "BATTLE":
         // Pas de fond. Ca fonctionne
         break;
-      default:
+      case "TITLE":
         context.globalAlpha = 0.8;
-        drawBox(context, 112, 95, 95, 100, "purple", "black"); // dessine un fond derriere le sprite
+        drawBox(context, 112, 95, 95, 100, "purple", "black");
+        break;
+      default:
         break;
     }
     context.globalAlpha = 1;

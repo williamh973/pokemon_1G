@@ -1,4 +1,4 @@
-import { generateWildPokemon } from "../encounters/generateWildPokemon.gameplay.js";
+import { generatePokemon } from "../encounters/generatePokemon.gameplay.js";
 
 const checkSolidAt = (game, tile, character, targetX, targetY) => {
   return (

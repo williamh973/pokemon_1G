@@ -18,14 +18,14 @@ export const SCENARIO_SCRIPTS = {
       const PLAYER = game.player;
 
       const oakConfig = NPC_DATABASE["oak"];
-      const oakDataLoc = { id: "oak", tileX: 8, tileY: 11 };
+      const oakDataLoc = { id: "oak", tileX: 14, tileY: 11 };
       const OAK = spawnNpc(oakConfig, oakDataLoc, PALLET_TOWN);
 
-      if (PLAYER.tileX === 8 && PLAYER.tileY === 6) {
+      if (PLAYER.tileX === 12 && PLAYER.tileY === 5) {
         game.scenarioManager.start([
           dialog(DIALOGS_TREE_DATABASE.palletTown.oakBlockRed),
           move(OAK, "up", 4),
-          move(OAK, "right", 1),
+          move(OAK, "left", 2),
           move(OAK, "up", 1),
           face(PLAYER, OAK),
           face(OAK, PLAYER),
@@ -37,10 +37,12 @@ export const SCENARIO_SCRIPTS = {
             PLAYER.paths.scenarioPaths.palletTown.escortedByOak_A
           ),
         ]);
-      } else if (PLAYER.tileX === 9 && PLAYER.tileY === 6)
+      } else if (PLAYER.tileX === 13 && PLAYER.tileY === 5)
         game.scenarioManager.start([
           dialog(DIALOGS_TREE_DATABASE.palletTown.oakBlockRed),
-          move(OAK, "up", 5),
+          move(OAK, "up", 4),
+          move(OAK, "left", 1),
+          move(OAK, "up", 1),
           face(PLAYER, OAK),
           face(OAK, PLAYER),
           dialog(DIALOGS_TREE_DATABASE.palletTown.oakJoinedRed),
@@ -119,28 +121,29 @@ export const SCENARIO_SCRIPTS = {
 
       FLAGS.OAK_LAB.BLUE_STARTER_CHOSEN_DONE = true;
 
-      if (PLAYER.tileX === 6 && PLAYER.tileY === 4)
+      if (PLAYER.tileX === 7 && PLAYER.tileY === 5)
         game.scenarioManager.start([
           behavior(BLUE, "static"),
-          move(BLUE, "down", 1),
-          move(BLUE, "right", 3),
-          move(BLUE, "up", 1),
-          dialog(DIALOGS_TREE_DATABASE.oakLab.blueChooseStarter),
-          behavior(BLUE, "lookAround"),
-        ]);
-      else if (PLAYER.tileX === 7 && PLAYER.tileY === 4)
-        game.scenarioManager.start([
-          behavior(BLUE, "static"),
-          move(BLUE, "down", 1),
+          move(BLUE, "down", 2),
           move(BLUE, "right", 4),
           move(BLUE, "up", 1),
           dialog(DIALOGS_TREE_DATABASE.oakLab.blueChooseStarter),
           behavior(BLUE, "lookAround"),
         ]);
-      else if (PLAYER.tileX === 8 && PLAYER.tileY === 4)
+      else if (PLAYER.tileX === 8 && PLAYER.tileY === 5)
         game.scenarioManager.start([
           behavior(BLUE, "static"),
-          move(BLUE, "right", 2),
+          move(BLUE, "down", 2),
+          move(BLUE, "right", 5),
+          move(BLUE, "up", 1),
+          dialog(DIALOGS_TREE_DATABASE.oakLab.blueChooseStarter),
+          behavior(BLUE, "lookAround"),
+        ]);
+      else if (PLAYER.tileX === 9 && PLAYER.tileY === 5)
+        game.scenarioManager.start([
+          behavior(BLUE, "static"),
+          move(BLUE, "down", 1),
+          move(BLUE, "right", 3),
           face(BLUE, BULBASAUR),
           dialog(DIALOGS_TREE_DATABASE.oakLab.blueChooseStarter),
           behavior(BLUE, "lookAround"),

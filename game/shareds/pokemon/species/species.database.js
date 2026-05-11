@@ -1,4 +1,49 @@
 export const SPECIES_DATABASE = {
+  bulbasaur: {
+    id: 1,
+    pokedexId: "001",
+    name: "BULBIZARRE",
+    types: ["NORMAL"],
+    femaleRate: 50,
+    baseStats: {
+      hp: 45,
+      attack: 49,
+      defense: 49,
+      specialAtt: 65,
+      specialDef: 65,
+      speed: 45,
+    },
+  },
+  charmander: {
+    id: 4,
+    pokedexId: "004",
+    name: "SALAMÈCHE",
+    types: ["NORMAL"],
+    femaleRate: 50,
+    baseStats: {
+      hp: 39,
+      attack: 52,
+      defense: 43,
+      specialAtt: 60,
+      specialDef: 50,
+      speed: 65,
+    },
+  },
+  squirtle: {
+    id: 7,
+    pokedexId: "007",
+    name: "CARAPUCE",
+    types: ["NORMAL"],
+    femaleRate: 50,
+    baseStats: {
+      hp: 44,
+      attack: 48,
+      defense: 65,
+      specialAtt: 50,
+      specialDef: 64,
+      speed: 43,
+    },
+  },
   pidgey: {
     id: 16,
     pokedexId: "016",
@@ -32,7 +77,7 @@ export const SPECIES_DATABASE = {
   zubat: {
     id: 41,
     pokedexId: "041",
-    name: "nosferapti",
+    name: "NOSFERAPTI",
     types: ["NORMAL"],
     femaleRate: 50,
     baseStats: {

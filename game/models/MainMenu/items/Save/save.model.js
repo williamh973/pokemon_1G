@@ -9,9 +9,11 @@ export class Save {
       tileX: 0,
       tileY: 0,
     };
-
     this.flags = null;
     this.inventory = { categories: {} };
+    this.team = {
+      pokemons: null,
+    };
     this.map = {
       id: undefined,
       npcLocation: [],
@@ -19,6 +21,7 @@ export class Save {
       triggeredScenarios: [],
     };
     this.npcLocation = null;
+    this.mainMenu = {};
   }
 
   capture(game) {
@@ -34,6 +37,8 @@ export class Save {
       cTcS: serialize(game.player.inventory.cTcS),
     };
     this.inventory.categories = categories;
+
+    this.team.pokemons = game.player.team.pokemons;
 
     const npcs = game.mapManager.currentMap.npcs.map((npc) => ({
       id: npc.id,
@@ -56,6 +61,10 @@ export class Save {
     };
 
     this.npcLocation = NPC_LOCATION;
+    this.mainMenu = {
+      height: game.mainMenu.height,
+      items: game.mainMenu.items,
+    };
   }
 
   write(game) {
@@ -103,6 +112,9 @@ export class Save {
       this.inventory.categories.cTcS,
       "CTCS"
     );
+    game.mainMenu.items = this.mainMenu.items;
+
+    game.player.team.pokemons = this.team.pokemons;
 
     game.triggeredScenarios = this.map.triggeredScenarios;
     game.flags.weather = this.flags.weather;

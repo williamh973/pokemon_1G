@@ -1,4 +1,4 @@
-import { generateWildPokemon } from "../../logic/gameplay/encounters/generateWildPokemon.gameplay.js";
+import { generatePokemon } from "../../logic/gameplay/encounters/generatePokemon.gameplay.js";
 import { OP_DATABASE } from "../../shareds/character/op/op.database.js";
 import {
   getSpawnAroundPlayer,
@@ -54,7 +54,7 @@ export class EncounterManager {
       },
       (done) => {
         game.togglePause(true, false);
-        const wildPokemon = generateWildPokemon(targetOP);
+        const wildPokemon = generatePokemon(targetOP);
         game.battleManager = new BattleManager(
           game,
           false,
