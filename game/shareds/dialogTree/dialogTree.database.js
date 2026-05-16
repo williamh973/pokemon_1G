@@ -104,7 +104,7 @@ export const DIALOGS_TREE_DATABASE = {
 
         const starter = generatePokemon(focusedStarter);
 
-        player.team.add(starter);
+        player.party.addPokemonToFirstEmptySlot(starter);
         game.flags.OAK_LAB.PLAYER_STARTER_CHOSEN_DONE = true;
       },
     },

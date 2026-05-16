@@ -28,7 +28,7 @@ export class MapNameWindow {
   }
 
   drawText(context) {
-    textParams(context, "26px PixelOperator");
+    textParams(context, "26");
     const padding = 10;
 
     context.fillText(

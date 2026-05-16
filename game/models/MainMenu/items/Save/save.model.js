@@ -8,12 +8,12 @@ export class Save {
     this.player = {
       tileX: 0,
       tileY: 0,
+      party: {
+        slots: [],
+      },
     };
     this.flags = null;
     this.inventory = { categories: {} };
-    this.team = {
-      pokemons: null,
-    };
     this.map = {
       id: undefined,
       npcLocation: [],
@@ -38,7 +38,9 @@ export class Save {
     };
     this.inventory.categories = categories;
 
-    this.team.pokemons = game.player.team.pokemons;
+    this.player.party.slots = game.player.party.slots.map((slot) => ({
+      content: slot.content,
+    }));
 
     const npcs = game.mapManager.currentMap.npcs.map((npc) => ({
       id: npc.id,
@@ -114,7 +116,9 @@ export class Save {
     );
     game.mainMenu.items = this.mainMenu.items;
 
-    game.player.team.pokemons = this.team.pokemons;
+    game.player.party.slots.forEach((slot, index) => {
+      slot.content = this.player.party.slots[index]?.content ?? null;
+    });
 
     game.triggeredScenarios = this.map.triggeredScenarios;
     return this;
@@ -140,7 +144,7 @@ export class Save {
 
 // pour plus tard
 //   name: "",
-//   team: [],
+//   party: [],
 //   money: 0,
 // };
 // this.defeatedTrainers = [];
@@ -148,7 +152,7 @@ export class Save {
 //   seen: [],
 //   caught: [],
 // };
-// this.team = {};
+// this.party = {};
 // this.playTime = [];
 // this.time = {
 //   hour: 0,

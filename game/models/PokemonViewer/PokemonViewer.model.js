@@ -1,16 +1,17 @@
-import { POKEDEX_DATABASE } from "../../shareds/pokedex/pokedex.database.js";
 import { POKEMON_IDLE_ANIMATIONS } from "../../shareds/pokemon/animations/idle/pokemonIdleAnimation.database.js";
 import { drawBox } from "../../shareds/utils/box/box.utils.js";
 import { AnimatedSprite } from "../AnimationSprite/AnimationSprite.model.js";
 
 export class PokemonViewer {
   constructor(game, selectedPokemon = null, slot, key) {
+    console.log(selectedPokemon); // affiche null plutot que le content du slot
     this.isOpen = false;
     this.game = game;
-    const pokemon = this.getSelectedPokemonFromPokedexDB(selectedPokemon);
+    this.selectedPokemon = selectedPokemon;
+    this.animKey = this.selectedPokemon.animations?.idle[key];
 
-    this.animKey = pokemon.animations?.idle[key];
-    this.animeConfig = POKEMON_IDLE_ANIMATIONS[pokemon.id][this.animKey];
+    this.animeConfig = // l'id est le nom en anglais
+      POKEMON_IDLE_ANIMATIONS[this.selectedPokemon.id][this.animKey];
 
     const getSlotCenterPositions = slot.center(
       this.animeConfig.frameWidth,
@@ -42,13 +43,6 @@ export class PokemonViewer {
         this.spritePosition(positions.x, positions.y);
         break;
     }
-  }
-
-  getSelectedPokemonFromPokedexDB(selectedPokemon) {
-    const foundedPokemon = POKEDEX_DATABASE.find((pokemon) => {
-      return pokemon.id === selectedPokemon.pokedexId;
-    });
-    return foundedPokemon;
   }
 
   update(context) {

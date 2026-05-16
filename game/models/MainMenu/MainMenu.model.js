@@ -43,10 +43,15 @@ export class MainMenu {
   }
 
   addPokemonItem(player) {
-    const pokemon = { id: "POKEMON", name: "POKEMON" };
-    const foundedPokemon = this.items.find((item) => item.id === pokemon.id);
-    if (player.team.pokemons.length > 0 && !foundedPokemon)
-      this.items.splice(1, 0, pokemon);
+    const pokemonItem = { id: "POKEMON", name: "POKEMON" };
+    const isItemAlreadyExists = this.items.find(
+      (item) => item.id === pokemonItem.id
+    );
+    const hasPlayerPokemon = player.party.slots.find(
+      (slot) => slot.content !== null
+    );
+    if (hasPlayerPokemon && !isItemAlreadyExists)
+      this.items.splice(1, 0, pokemonItem);
   }
 
   checkItems() {
@@ -64,7 +69,7 @@ export class MainMenu {
 
   drawItems(context) {
     const padding = 15;
-    textParams(context, "25px PixelOperator");
+    textParams(context, "25");
 
     this.items.forEach((item, index) => {
       const positionX = this.position.x + padding + 20;

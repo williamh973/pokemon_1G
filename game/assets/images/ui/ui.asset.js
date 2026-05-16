@@ -4,3 +4,6 @@ export let newBarTown = createImg("game/assets/images/ui/new_bar_town.png");
 export let battleBackgGrassImg = createImg(
   "game/assets/images/ui/battle/background/grass.png"
 );
+export let partyBackgImg = createImg(
+  "game/assets/images/ui/party/party-backg.png"
+);

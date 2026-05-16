@@ -78,11 +78,11 @@ export class PokemonDetail {
 
     context.font = `25px PixelOperator `;
     this.name(context);
-    this.species(context);
+    this.category(context);
     this.pkheight(context);
     this.weight(context);
     context.font = `bold 25px PixelOperator `;
-    this.id(context);
+    this.number(context);
     this.unitSymb(context);
     this.footPrint(context);
   }
@@ -91,8 +91,8 @@ export class PokemonDetail {
     context.fillText(this.pokemon.name, 166, 10);
   }
 
-  species(context) {
-    context.fillText(this.pokemon.species, 166, 40);
+  category(context) {
+    context.fillText(this.pokemon.category, 166, 40);
   }
 
   pkheight(context) {
@@ -112,9 +112,9 @@ export class PokemonDetail {
     context.fillText("kg", 276, 100);
   }
 
-  id(context) {
+  number(context) {
     context.fillText("No. ", 40, 166);
-    context.fillText(this.pokemon.id, 70, 166);
+    context.fillText(this.pokemon.no, 70, 166);
   }
 
   footPrint(context) {

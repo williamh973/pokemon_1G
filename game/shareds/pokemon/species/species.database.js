@@ -1,44 +1,11 @@
-import { GROWTH_RATES_DATABASE } from "../experience/growthRates/growthRates.database";
+import { GROWTH_RATES_DATABASE } from "../experience/growthRates/growthRates.database.js";
+import { BULBASAUR_SPECIES } from "./pokemons/bulbasaur.species.js";
+import { PIDGEY_SPECIES } from "./pokemons/pidgey.species.js";
 
 export const SPECIES_DATABASE = {
-  bulbasaur: {
-    id: 1,
-    pokedexId: "001",
-    name: "BULBIZARRE",
-    types: ["NORMAL"],
-    femaleRate: 50,
-    catchRate: 45,
-    growthRate: GROWTH_RATES_DATABASE.MEDIUM_SLOW,
-    baseExp: 64,
-    baseStats: {
-      hp: 45,
-      attack: 49,
-      defense: 49,
-      specialAtt: 65,
-      specialDef: 65,
-      speed: 45,
-    },
-    learnsetLevel1: ["Charge", "Mimi-Queue", "NO_MOVE", "NO_MOVE"],
-    learnsetCTCS: [
-      "Danse Lames",
-      "Toxik",
-      "Plaquage",
-      "Bélier",
-      "Damoclès",
-      "Frénésie",
-      "Méga-Sangsue",
-      "Lance-Soleil",
-      "Copie",
-      "Double Équipe",
-      "Reflet",
-      "Patience",
-      "Repos",
-      "Clonage",
-      "Coupe",
-    ],
-  },
+  bulbasaur: BULBASAUR_SPECIES,
   charmander: {
-    id: 4,
+    id: "charmander",
     pokedexId: "004",
     name: "SALAMÈCHE",
     types: ["NORMAL"],
@@ -83,7 +50,7 @@ export const SPECIES_DATABASE = {
     ],
   },
   squirtle: {
-    id: 7,
+    id: "squirtle",
     pokedexId: "007",
     name: "CARAPUCE",
     types: ["NORMAL"],
@@ -127,44 +94,9 @@ export const SPECIES_DATABASE = {
       "Force",
     ],
   },
-  pidgey: {
-    id: 16,
-    pokedexId: "016",
-    name: "ROUCOOL",
-    types: ["NORMAL"],
-    femaleRate: 50,
-    catchRate: 255,
-    growthRate: GROWTH_RATES_DATABASE.FAST,
-    baseExp: 55,
-    baseStats: {
-      hp: 40,
-      attack: 45,
-      defense: 40,
-      specialAtt: 35,
-      specialDef: 35,
-      speed: 56,
-    },
-    learnsetLevel1: ["Tornade", "NO_MOVE", "NO_MOVE", "NO_MOVE"],
-    learnsetCTCS: [
-      "Coupe-Vent",
-      "Cyclone",
-      "Toxik",
-      "Bélier",
-      "Damoclès",
-      "Rage",
-      "Copie",
-      "Reflet",
-      "Protection",
-      "Patience",
-      "Météores",
-      "Piqué",
-      "Repos",
-      "Clonage",
-      "Vol",
-    ],
-  },
+  pidgey: PIDGEY_SPECIES,
   rattata: {
-    id: 19,
+    id: "rattata",
     pokedexId: "019",
     name: "RATTATA",
     types: ["NORMAL"],
@@ -179,6 +111,15 @@ export const SPECIES_DATABASE = {
       specialAtt: 25,
       specialDef: 35,
       speed: 72,
+    },
+    graphics: {
+      partyIcon: "game/assets/images/pokemons/1G/icons/rattata.png",
+    },
+    animations: {
+      idle: {
+        front: "rattata_front_idle",
+        back: "rattata_back_idle",
+      },
     },
     learnsetLevel1: ["Charge", "Mimi-Queue", "NO_MOVE", "NO_MOVE"],
     learnsetCTCS: [
@@ -203,7 +144,7 @@ export const SPECIES_DATABASE = {
     ],
   },
   zubat: {
-    id: 41,
+    id: "zubat",
     pokedexId: "041",
     name: "NOSFERAPTI",
     types: ["POISON", "FLYING"],
@@ -218,6 +159,15 @@ export const SPECIES_DATABASE = {
       specialAtt: 30,
       specialDef: 40,
       speed: 55,
+    },
+    graphics: {
+      partyIcon: "zubat",
+    },
+    animations: {
+      idle: {
+        front: "zubat_front_idle",
+        back: "zubat_back_idle",
+      },
     },
     learnsetLevel1: ["Vampirisme", "NO_MOVE", "NO_MOVE", "NO_MOVE"],
     learnsetCTCS: [

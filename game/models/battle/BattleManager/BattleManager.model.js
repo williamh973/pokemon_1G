@@ -1,3 +1,4 @@
+import { BATTLE_SLOT_CONFIG } from "../../../logic/gameplay/battleManager/slots/battleSlots.config.js";
 import { backgroundBox } from "../../../render/battle/battleRenderer/background.render.js";
 import { BATTLE_BACKGROUND_DATABASE } from "../../../shareds/battle/background/battleBackground.database.js";
 import { PokemonViewer } from "../../PokemonViewer/PokemonViewer.model.js";
@@ -22,7 +23,6 @@ export class BattleManager {
     trainer = null,
     tile
   ) {
-    console.log(game.player.team.pokemons[0], wildPokemon);
     this.backgImage = null;
     this.setBattleBackImg(tile);
     this.position = {
@@ -39,22 +39,22 @@ export class BattleManager {
     this.isSlideAnimationFinished = false;
     this.isTrainerBattle = isTrainerBattle;
     this.weather = null;
+    this.firstPlayerPokemon = this.game.player.party.slots[0].content;
     this.enemy = wildPokemon; // pokemon sauvage généré pendant une rencontre
     this.trainer = trainer; // dresseur adverse rencontré
-    this.frontSlot = new Slot(180, 10, 120, 120);
-    this.backSlot = new Slot(20, 130, 120, 120);
+    this.frontSlot = new Slot(BATTLE_SLOT_CONFIG.front);
+    this.backSlot = new Slot(BATTLE_SLOT_CONFIG.back);
 
-    // sprite du dresseur ou pokemon adverse
     this.frontViewer = new PokemonViewer(
       this.game,
       this.enemy,
       this.frontSlot,
       "front"
     );
-    // sprite du joureur de dos ou de ses pokémons
+
     this.backViewer = new PokemonViewer(
       this.game,
-      game.player.team.pokemons[0],
+      this.firstPlayerPokemon,
       this.backSlot,
       "back"
     );
@@ -64,12 +64,14 @@ export class BattleManager {
       y: 10,
       width: 130,
       height: 60,
+      isPlayerHUD: false,
     });
-    this.backHUD = new HUD(game.player.team.pokemons[0], {
+    this.backHUD = new HUD(this.firstPlayerPokemon, {
       x: 180,
       y: 150,
       width: 130,
       height: 60,
+      isPlayerHUD: true,
     });
   }
 
@@ -137,7 +139,7 @@ export class BattleManager {
   spriteFinalPosition() {
     return (
       this.frontViewer.pokemonSprite.position.x >=
-      this.frontSlot.x +
+      this.frontSlot.position.x +
         (this.frontSlot.width - this.frontViewer.pokemonSprite.frameWidth) / 2
     );
   }

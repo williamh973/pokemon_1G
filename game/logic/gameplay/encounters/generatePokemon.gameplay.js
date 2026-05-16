@@ -1,22 +1,24 @@
 import { SPECIES_DATABASE } from "../../../shareds/pokemon/species/species.database.js";
+import { getExpForLevel } from "../../../shareds/utils/pokemon/experience/experience.utils.js";
 
 export const generatePokemon = (target) => {
-  // if (target.entityType !== "OP") return;
-
   const species = SPECIES_DATABASE[target.id.toLowerCase()];
-
-  const gender = generatePID(species);
+  const GENDER = generatePID(species);
   const IVs = generateIVs();
   const EVs = 0;
   let getStats = calculateStats(species.baseStats, IVs, EVs, target.level);
+  const EXP = getExpForLevel(target.level, species.growthRate);
 
   const POKEMON = {
-    id: target.id,
+    id: species.id,
+    exp: EXP,
+    gender: GENDER,
     name: species.name,
     pokedexId: species.pokedexId,
-    gender: gender,
-    level: target.level,
     baseStats: species.baseStats,
+    growthRate: species.growthRate,
+    animations: species.animations,
+    level: target.level,
     IVs,
     stats: (getStats = {
       ...getStats,
@@ -47,10 +49,7 @@ const calculateStats = (baseStats, ivs, evs, level) => {
 };
 
 const calcStat = (base, iv, ev, level, isHP) => {
-  const sqrtEV = Math.ceil(Math.sqrt(ev));
-  const evTerm = Math.floor(sqrtEV / 4);
-
-  let value = ((2 * (base + iv) + evTerm) * level) / 100;
+  let value = ((2 * base + iv + ev / 4) * level) / 100 + 5;
 
   value = Math.floor(value);
 

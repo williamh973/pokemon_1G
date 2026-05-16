@@ -53,7 +53,7 @@ export class TitleScreen {
   drawText(context) {
     const paddingX = 35;
     const paddingY = 15;
-    textParams(context, "25px PixelOperator");
+    textParams(context, "25");
 
     this.items.forEach((item, index) => {
       const positionX = this.position.x + paddingX;

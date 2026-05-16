@@ -81,6 +81,9 @@ export const update = (game) => {
     case "POKEDEX":
       game.currentScreen.update(game.canvas.context, action);
       break;
+    case "PARTY":
+      game.currentScreen.update(game.canvas.context, action);
+      break;
     case "WORLDMAP":
       game.currentScreen.update(game, action);
       break;

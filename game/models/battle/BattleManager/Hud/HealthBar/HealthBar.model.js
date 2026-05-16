@@ -4,7 +4,7 @@ export class HealthBar {
     this.maxHp = maxHp;
     this.position = {
       x: hud.position.x + 55,
-      y: hud.position.y + 33,
+      y: hud.position.y + 29,
     };
     this.width = 70;
     this.height = 5;

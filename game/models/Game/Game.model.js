@@ -153,8 +153,16 @@ export class Game {
     this.currentScreen.close();
   }
 
-  openTeam() {
-    this.currentScreen = this.player.team;
+  openParty() {
+    this.currentScreen = this.player.party;
+    this.currentScreen.open();
+    this.state = "PARTY";
+  }
+
+  closeMenu() {
+    this.mainMenu.close();
+    this.state = "WORLD";
+    this.togglePause(false, true);
   }
 
   openInventory() {

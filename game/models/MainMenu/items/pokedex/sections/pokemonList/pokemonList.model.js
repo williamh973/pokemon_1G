@@ -64,7 +64,7 @@ export class PokemonList {
   }
 
   drawPokemonList(context) {
-    textParams(context, "27px PixelOperator");
+    textParams(context, "27");
 
     this.databases.forEach((pokemon, index) => {
       const paddingX = 30;
@@ -84,7 +84,7 @@ export class PokemonList {
 
   showPokemon(context, positionX, positionY, pokemon, index) {
     context.font = `23px PixelOperator`;
-    context.fillText(pokemon.id, positionX, positionY, this.width, 40 * index);
+    context.fillText(pokemon.no, positionX, positionY, this.width, 40 * index);
 
     context.fillText(
       pokemon.name,

@@ -1,3 +1,4 @@
+import { MO_SLOTS_CONFIG } from "../../../../logic/gameplay/character/missableObject/slot/moSlot.config.js";
 import { DIALOGS_TREE_DATABASE } from "../../../../shareds/dialogTree/dialogTree.database.js";
 import { ITEMS_DATABASE } from "../../../../shareds/items/items.database.js";
 import { OBJECT_SPRITES } from "../../../../shareds/items/sprite/itemsSprite.database.js";
@@ -25,7 +26,7 @@ export class MissableObject extends Npc {
     this.category = category;
     this.name = name;
     this.pokemonViewer = null;
-    this.slot = new Slot(112, 95, 95, 100);
+    this.slot = new Slot(MO_SLOTS_CONFIG);
   }
 
   openPokemonViewer(game, starter) {
@@ -50,8 +51,9 @@ export class MissableObject extends Npc {
 
     game.player.hasFocus(starter);
 
-    const starterSpecies = SPECIES_DATABASE[this.itemKey];
-    this.openPokemonViewer(game, starterSpecies);
+    starter = SPECIES_DATABASE[this.itemKey];
+
+    this.openPokemonViewer(game, starter);
   }
 
   getItemInDatabase() {

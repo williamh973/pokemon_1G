@@ -45,7 +45,7 @@ export class DialogBox {
   drawText(context) {
     const page = this.pages[this.currentPageIndex];
     const padding = 9;
-    textParams(context, "26px PixelOperator");
+    textParams(context, "26");
 
     page.forEach((line, index) => {
       context.fillText(

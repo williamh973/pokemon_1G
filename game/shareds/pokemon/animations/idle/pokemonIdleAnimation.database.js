@@ -1,5 +1,5 @@
 export const POKEMON_IDLE_ANIMATIONS = {
-  "001": {
+  bulbasaur: {
     bulbasaur_front_idle: {
       src: "game/assets/images/pokemons/1G/front/bulbasaur/idle/bulbasaur_idle.png",
       frameWidth: 40,
@@ -19,7 +19,7 @@ export const POKEMON_IDLE_ANIMATIONS = {
       loop: true,
     },
   },
-  "002": {
+  ivysaur: {
     ivysaur_front_idle: {
       src: "game/assets/images/pokemons/1G/front/ivysaur/idle/ivysaur_idle.png",
       frameWidth: 60,
@@ -39,7 +39,7 @@ export const POKEMON_IDLE_ANIMATIONS = {
       loop: true,
     },
   },
-  "003": {
+  venusaur: {
     venusaur_front_idle: {
       src: "game/assets/images/pokemons/1G/front/venusaur/idle/venusaur_idle.png",
       frameWidth: 90,
@@ -59,7 +59,7 @@ export const POKEMON_IDLE_ANIMATIONS = {
       loop: true,
     },
   },
-  "004": {
+  charmander: {
     charmander_front_idle: {
       src: "game/assets/images/pokemons/1G/front/charmander/idle/charmander_idle.png",
       frameWidth: 50,
@@ -73,13 +73,13 @@ export const POKEMON_IDLE_ANIMATIONS = {
       src: "game/assets/images/pokemons/1G/back/charmander/idle/charmander_idle.png",
       frameWidth: 50,
       frameHeight: 50,
-      frames: 27,
+      frames: 10,
       frameDelay: 8,
       scale: 1.2,
       loop: true,
     },
   },
-  "005": {
+  charmeleon: {
     charmeleon_front_idle: {
       src: "game/assets/images/pokemons/1G/front/charmeleon/idle/charmeleon_idle.png",
       frameWidth: 78,
@@ -99,7 +99,7 @@ export const POKEMON_IDLE_ANIMATIONS = {
       loop: true,
     },
   },
-  "006": {
+  charizard: {
     charizard_front_idle: {
       src: "game/assets/images/pokemons/1G/front/charizard/idle/charizard_idle.png",
       frameWidth: 100,
@@ -119,7 +119,7 @@ export const POKEMON_IDLE_ANIMATIONS = {
       loop: true,
     },
   },
-  "007": {
+  squirtle: {
     squirtle_front_idle: {
       src: "game/assets/images/pokemons/1G/front/squirtle/idle/squirtle_idle.png",
       frameWidth: 53,
@@ -139,7 +139,7 @@ export const POKEMON_IDLE_ANIMATIONS = {
       loop: true,
     },
   },
-  "010": {
+  caterpie: {
     caterpie_front_idle: {
       src: "game/assets/images/pokemons/1G/front/caterpie/idle/caterpie_idle.png",
       frameWidth: 40,
@@ -159,7 +159,7 @@ export const POKEMON_IDLE_ANIMATIONS = {
       loop: true,
     },
   },
-  "011": {
+  metapod: {
     metapod_front_idle: {
       src: "game/assets/images/pokemons/1G/front/metapod/idle/metapod_idle.png",
       frameWidth: 40,
@@ -179,7 +179,7 @@ export const POKEMON_IDLE_ANIMATIONS = {
       loop: true,
     },
   },
-  "012": {
+  butterfree: {
     butterfree_front_idle: {
       src: "game/assets/images/pokemons/1G/front/butterfree/idle/butterfree_idle.png",
       frameWidth: 63,
@@ -199,7 +199,7 @@ export const POKEMON_IDLE_ANIMATIONS = {
       loop: true,
     },
   },
-  "016": {
+  pidgey: {
     pidgey_front_idle: {
       src: "game/assets/images/pokemons/1G/front/pidgey/idle/pidgey_idle.png",
       frameWidth: 48,
@@ -219,7 +219,7 @@ export const POKEMON_IDLE_ANIMATIONS = {
       loop: true,
     },
   },
-  "019": {
+  rattata: {
     rattata_front_idle: {
       src: "game/assets/images/pokemons/1G/front/rattata/idle/rattata_idle.png",
       frameWidth: 53,
@@ -239,7 +239,7 @@ export const POKEMON_IDLE_ANIMATIONS = {
       loop: true,
     },
   },
-  "025": {
+  pikachu: {
     pikachu_front_idle: {
       src: "game/assets/images/pokemons/1G/front/pikachu/idle/pikachu_idle.png",
       frameWidth: 52,
@@ -259,7 +259,7 @@ export const POKEMON_IDLE_ANIMATIONS = {
       loop: true,
     },
   },
-  "041": {
+  zubat: {
     zubat_front_idle: {
       src: "game/assets/images/pokemons/1G/front/zubat/idle/zubat_idle.png",
       frameWidth: 60,
@@ -279,7 +279,7 @@ export const POKEMON_IDLE_ANIMATIONS = {
       loop: true,
     },
   },
-  "074": {
+  geodude: {
     geodude_front_idle: {
       src: "game/assets/images/pokemons/1G/front/geodude/idle/geodude_idle.png",
       frameWidth: 72,
@@ -299,7 +299,7 @@ export const POKEMON_IDLE_ANIMATIONS = {
       loop: true,
     },
   },
-  "095": {
+  onix: {
     onix_front_idle: {
       src: "game/assets/images/pokemons/1G/front/onix/idle/onix_idle.png",
       frameWidth: 88,
@@ -319,27 +319,7 @@ export const POKEMON_IDLE_ANIMATIONS = {
       loop: true,
     },
   },
-  123: {
-    scyther_front_idle: {
-      src: "game/assets/images/pokemons/1G/front/scyther/idle/scyther_idle.png",
-      frameWidth: 68,
-      frameHeight: 68,
-      frames: 9,
-      frameDelay: 6,
-      scale: 1.2,
-      loop: true,
-    },
-    scyther_back_idle: {
-      src: "game/assets/images/pokemons/1G/back/scyther/idle/scyther_idle.png",
-      frameWidth: 68,
-      frameHeight: 68,
-      frames: 9,
-      frameDelay: 6,
-      scale: 1.2,
-      loop: true,
-    },
-  },
-  111: {
+  rhyhorn: {
     rhyhorn_front_idle: {
       src: "game/assets/images/pokemons/1G/front/rhyhorn/idle/rhyhorn_idle.png",
       frameWidth: 76,
@@ -359,7 +339,27 @@ export const POKEMON_IDLE_ANIMATIONS = {
       loop: true,
     },
   },
-  129: {
+  scyther: {
+    scyther_front_idle: {
+      src: "game/assets/images/pokemons/1G/front/scyther/idle/scyther_idle.png",
+      frameWidth: 68,
+      frameHeight: 68,
+      frames: 9,
+      frameDelay: 6,
+      scale: 1.2,
+      loop: true,
+    },
+    scyther_back_idle: {
+      src: "game/assets/images/pokemons/1G/back/scyther/idle/scyther_idle.png",
+      frameWidth: 68,
+      frameHeight: 68,
+      frames: 9,
+      frameDelay: 6,
+      scale: 1.2,
+      loop: true,
+    },
+  },
+  magikarp: {
     magikarp_front_idle: {
       src: "game/assets/images/pokemons/1G/front/magikarp/idle/magikarp_idle.png",
       frameWidth: 62,
@@ -379,7 +379,7 @@ export const POKEMON_IDLE_ANIMATIONS = {
       loop: true,
     },
   },
-  130: {
+  gyarados: {
     gyarados_front_idle: {
       src: "game/assets/images/pokemons/1G/front/gyarados/idle/gyarados_idle.png",
       frameWidth: 109,

@@ -2,7 +2,7 @@ export const dispatchMenuSelection = (game, itemId, source) => {
   source.hasFocus = false;
   const itemsList = {
     POKEDEX: () => game.openPokedex(),
-    POKEMON: () => game.openTeam(),
+    POKEMON: () => game.openParty(),
     SAC: () => game.openInventory(),
     SAUVER: () => game.attemptSave(),
     OPTIONS: () => game.openOptionsScreen(),

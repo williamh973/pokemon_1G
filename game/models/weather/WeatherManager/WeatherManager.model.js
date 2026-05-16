@@ -10,7 +10,7 @@ export class WeatherManager {
   onMapChanged(map) {
     this.stopRain();
 
-    if (Math.random() * 100 >= map.weathers.rainRate || map.isIndoor) return;
+    if (Math.random() * 100 >= map.weathers?.rainRate || map.isIndoor) return;
 
     this.startRain();
   }

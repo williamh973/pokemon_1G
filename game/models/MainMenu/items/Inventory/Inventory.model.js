@@ -104,7 +104,7 @@ export class Inventory {
 
   drawCategoryLabel(context) {
     const padding = 15;
-    textParams(context, `25px PixelOperator `);
+    textParams(context, "25");
 
     context.fillText(
       this.categoryLabels[this.catCurrentIndex],

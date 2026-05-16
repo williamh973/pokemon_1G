@@ -1,7 +1,7 @@
-export const textParams = (context, font) => {
-  context.font = font;
-  context.fillStyle = "black";
+export const textParams = (context, weight, color = "black") => {
+  context.fillStyle = color;
   context.textBaseline = "top";
+  context.font = `${weight}px PixelOperator `;
 };
 
 export const serialize = (list) =>
