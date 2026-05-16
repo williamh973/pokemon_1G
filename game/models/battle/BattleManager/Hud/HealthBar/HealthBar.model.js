@@ -1,10 +1,12 @@
+import { textParams } from "../../../../../shareds/utils/font/font.utils.js";
+
 export class HealthBar {
   constructor(hud, currentHp, maxHp) {
     this.currentHp = currentHp;
     this.maxHp = maxHp;
     this.position = {
-      x: hud.position.x + 55,
-      y: hud.position.y + 29,
+      x: hud.x,
+      y: hud.y,
     };
     this.width = 70;
     this.height = 5;
@@ -23,8 +25,16 @@ export class HealthBar {
   }
 
   draw(context) {
-    context.fillStyle = "#3a3a3a";
+    context.strokeStyle = "white";
+    context.lineWidth = 2;
+    context.strokeRect(
+      this.position.x,
+      this.position.y,
+      this.width,
+      this.height
+    );
 
+    context.fillStyle = "#3a3a3a";
     context.beginPath();
     context.roundRect(
       this.position.x,
@@ -50,6 +60,31 @@ export class HealthBar {
       this.radius
     );
     context.fill();
+
+    this.drawHP(context);
+  }
+
+  drawHP(context) {
+    textParams(context, "18", "white");
+    context.fillText("PV", this.position.x - 20, this.position.y - 7);
+
+    const currentHpWidth = context.measureText(this.currentHp).width;
+
+    context.fillText(
+      this.currentHp,
+      this.position.x + this.width / 2 - currentHpWidth - 7,
+      this.position.y + 5
+    );
+    context.fillText(
+      "/",
+      this.position.x + this.width / 2 - 2,
+      this.position.y + 5
+    );
+    context.fillText(
+      this.maxHp,
+      this.position.x + this.width / 2 + 8,
+      this.position.y + 5
+    );
   }
 
   update(context) {

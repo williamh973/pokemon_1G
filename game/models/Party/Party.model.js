@@ -1,9 +1,6 @@
 import { partyBackgImg } from "../../assets/images/ui/ui.asset.js";
 import { PARTY_SLOT_CONFIG } from "../../logic/gameplay/character/player/party/partySlots.config.js";
-import { ICON_CONFIG_DATABASE } from "../../shareds/pokemon/configs/icons/iconConfig.database.js";
-import { createImg } from "../../shareds/utils/assets/assets.utils.js";
-import { textParams } from "../../shareds/utils/font/font.utils.js";
-import { Slot } from "../battle/BattleManager/slot/Slot.model.js";
+import { PokemonPartySlot } from "../Slot/PokemonPartySlot/PokemonPartySlot.model.js";
 
 export class Party {
   constructor(game) {
@@ -17,8 +14,7 @@ export class Party {
     this.width = this.canvas.width;
     this.isOpen = false;
     this.backgImg = partyBackgImg;
-    this.pokemons = [];
-    this.slots = []; // 6
+    this.slots = [];
     this.height = this.canvas.height;
     this.hasFocus = false;
     this.maxCount = 6;
@@ -29,12 +25,22 @@ export class Party {
   }
 
   initSlots() {
-    this.slots.push(new Slot(PARTY_SLOT_CONFIG.first, null)); // 2 slots pour l'instant, c'est volontaire
+    this.slots.push(
+      new PokemonPartySlot(PARTY_SLOT_CONFIG.first, null),
+      new PokemonPartySlot(PARTY_SLOT_CONFIG.second, null),
+      new PokemonPartySlot(PARTY_SLOT_CONFIG.third, null),
+      new PokemonPartySlot(PARTY_SLOT_CONFIG.fourth, null),
+      new PokemonPartySlot(PARTY_SLOT_CONFIG.fifth, null),
+      new PokemonPartySlot(PARTY_SLOT_CONFIG.sixth, null)
+    );
   }
 
   addPokemonToFirstEmptySlot(pokemon) {
-    let emptySlot = this.slots.find((slot) => slot.content === null);
-    emptySlot.content = pokemon;
+    const emptySlot = this.slots.find((slot) => slot.content === null);
+    if (!emptySlot) return false;
+
+    emptySlot.setPokemon(pokemon);
+    return true;
   }
 
   open() {
@@ -57,72 +63,26 @@ export class Party {
     this.game.resetCurrentScreen();
   }
 
-  // drawPokemons(context) {
-  //   textParams(context, "17", "whitesmoke");
-
-  //   this.slots.forEach((slot) => {
-  //     this.drawPokemon(context, slot);
-  //   });
-  // }
-
-  // drawPokemon(context, slot) {
-  //   if (!slot.content) return;
-  //   this.drawIcon(context, slot);
-  //   this.drawName(context, slot);
-  //   this.drawGender(context, slot);
-  //   this.drawLevel(context, slot);
-  // }
-
-  // drawIcon(context, slot) {
-  //   const pokemon = slot.content;
-
-  //   const configIcon = ICON_CONFIG_DATABASE[pokemon.id];
-  //   const image = configIcon.image;
-  //   context.drawImage(
-  //     image,
-  //     slot.position.x - 20,
-  //     slot.position.y - 20,
-  //     configIcon.width * configIcon.scale,
-  //     configIcon.height * configIcon.scale
-  //   );
-  // }
-
-  // drawName(context, slot) {
-  //   const pokemon = slot.content;
-  //   context.fillText(pokemon.name, slot.position.x + 15, slot.position.y + 25);
-  // }
-
-  // drawLevel(context, slot) {
-  //   const pokemon = slot.content;
-  //   context.fillText("N.", slot.position.x + 15, slot.position.y + 45);
-  //   context.fillText(pokemon.level, slot.position.x + 25, slot.position.y + 45);
-  // }
-
-  // drawGender(context, slot) {
-  //   const pokemon = slot.content;
-
-  //   context.fillText(
-  //     pokemon.gender,
-  //     slot.position.x + 80,
-  //     slot.position.y + 45
-  //   );
-  // }
-
   draw(context) {
-    // context.drawImage(
-    //   this.backgImg,
-    //   this.position.x,
-    //   this.position.y,
-    //   this.width,
-    //   this.height
-    // );
-    // this.drawPokemons(context);
+    this.drawBackgImage(context);
+  }
+
+  drawBackgImage(context) {
+    context.drawImage(
+      this.backgImg,
+      this.position.x,
+      this.position.y,
+      this.width,
+      this.height
+    );
   }
 
   update(context, action) {
     if (!this.isOpen) return;
     this.draw(context);
+
     this.slots.forEach((slot) => slot.update(context));
+
     if (!this.isOpen || !this.hasFocus) return;
 
     switch (action) {
@@ -131,7 +91,8 @@ export class Party {
         break;
 
       case "DOWN":
-        if (this.currentIndex < this.pokemons.length - 1) this.currentIndex++;
+        const filledSlots = this.slots.filter((slot) => slot.content);
+        if (this.currentIndex < filledSlots - 1) this.currentIndex++;
         break;
 
       case "ACTION":

@@ -4,7 +4,7 @@ import { AnimatedSprite } from "../AnimationSprite/AnimationSprite.model.js";
 
 export class PokemonViewer {
   constructor(game, selectedPokemon = null, slot, key) {
-    console.log(selectedPokemon); // affiche null plutot que le content du slot
+    // console.log(selectedPokemon); // affiche null plutot que le content du slot
     this.isOpen = false;
     this.game = game;
     this.selectedPokemon = selectedPokemon;

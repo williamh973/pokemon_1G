@@ -14,7 +14,10 @@ export class HUD {
     this.setHudHeight(hudParams);
     this.pokemon = pokemon;
     this.HPbar = new HealthBar(
-      this,
+      {
+        x: this.position.x + 55,
+        y: this.position.y + 29,
+      },
       this.pokemon.stats.hp,
       this.pokemon.stats.maxHp
     );
@@ -72,28 +75,9 @@ export class HUD {
     textParams(context, "18", "whitesmoke");
     this.drawName(context);
     this.drawLevel(context);
-    this.drawHP(context);
 
     textParams(context, "12", "whitesmoke");
     this.drawGender(context);
-  }
-
-  drawHP(context) {
-    context.fillText("PV", this.position.x + 32, this.position.y + 22);
-
-    const currentHpWidth = context.measureText(this.pokemon.stats.hp).width;
-
-    context.fillText(
-      this.pokemon.stats.hp,
-      this.position.x + 80 - currentHpWidth,
-      this.position.y + 35
-    );
-    context.fillText("/", this.position.x + 85, this.position.y + 35);
-    context.fillText(
-      this.pokemon.stats.maxHp,
-      this.position.x + 95,
-      this.position.y + 35
-    );
   }
 
   draw(context) {

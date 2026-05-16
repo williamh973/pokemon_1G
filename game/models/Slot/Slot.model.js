@@ -21,9 +21,6 @@ export class Slot {
   }
 
   draw(context) {
-    context.strokeStyle = "red";
-    context.lineWidth = 2;
-
     if (this.config.image) {
       context.drawImage(
         this.config.image,

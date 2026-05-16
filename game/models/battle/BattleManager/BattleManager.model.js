@@ -2,8 +2,8 @@ import { BATTLE_SLOT_CONFIG } from "../../../logic/gameplay/battleManager/slots/
 import { backgroundBox } from "../../../render/battle/battleRenderer/background.render.js";
 import { BATTLE_BACKGROUND_DATABASE } from "../../../shareds/battle/background/battleBackground.database.js";
 import { PokemonViewer } from "../../PokemonViewer/PokemonViewer.model.js";
+import { Slot } from "../../Slot/Slot.model.js";
 import { HUD } from "./Hud/HUD.model.js";
-import { Slot } from "./slot/Slot.model.js";
 
 // - état du combat
 // - tours
