@@ -118,6 +118,7 @@ export class Save {
 
     game.player.party.slots.forEach((slot, index) => {
       slot.content = this.player.party.slots[index]?.content ?? null;
+      // console.log(slot.content);
     });
 
     game.triggeredScenarios = this.map.triggeredScenarios;

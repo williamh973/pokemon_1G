@@ -11,6 +11,7 @@ export class Slot {
     this.hoveredImage = this.config.imageHovered;
     this.scale = this.config.scale;
     this.content = null;
+    this.isHovered = false;
   }
 
   center(spriteWidth, spriteHeight) {
@@ -21,9 +22,11 @@ export class Slot {
   }
 
   draw(context) {
-    if (this.config.image) {
+    const image = this.isHovered ? this.hoveredImage : this.image;
+
+    if (image) {
       context.drawImage(
-        this.config.image,
+        image,
         this.position.x,
         this.position.y,
         this.width * this.scale,

@@ -1,32 +1,34 @@
 import { TILES_SIZE } from "../../shareds/utils/tile/tile.utils.js";
 import { drawBox } from "../../shareds/utils/box/box.utils.js";
-import { Cursor } from "../Cursor/Cursor.model.js";
 import { textParams } from "../../shareds/utils/font/font.utils.js";
+import { Menu } from "../Menu/Menu.model.js";
 
-export class MainMenu {
+export class MainMenu extends Menu {
   constructor(game) {
-    this.game = game;
+    super(game);
+
     this.canvas = this.game.canvas;
+
     this.width = this.canvas.width / 2 - TILES_SIZE;
-    this.items = [];
-    this.initItems();
+
     this.position = {
       x: this.canvas.width - this.width,
       y: 0,
     };
+
     this.lineHeight = 40;
-    this.height = this.lineHeight * this.items.length;
-    this.isOpen = false;
-    this.hasFocus = false;
-    this.currentIndex = 0;
-    this.baseY = 21;
-    this.cursor = new Cursor();
+
+    this.initItems();
+
+    this.updateHeight();
   }
 
   initItems() {
     const SAVE_DATA = this.game.save;
-    if (SAVE_DATA?.mainMenu.items) this.items = SAVE_DATA.mainMenu.items;
-    else
+
+    if (SAVE_DATA?.mainMenu.items) {
+      this.items = SAVE_DATA.mainMenu.items;
+    } else {
       this.items = [
         { id: "SAC", name: "SAC" },
         { id: "SACHA", name: "SACHA" },
@@ -34,24 +36,35 @@ export class MainMenu {
         { id: "OPTIONS", name: "OPTIONS" },
         { id: "RETOUR", name: "RETOUR" },
       ];
+    }
+  }
+
+  updateHeight() {
+    this.height = this.lineHeight * this.items.length;
   }
 
   addPokedexItem(player) {
     const pokedex = { id: "POKEDEX", name: "POKEDEX" };
+
     const foundedPokedex = this.items.find((item) => item.id === pokedex.id);
+
     if (player.gotPokedex && !foundedPokedex) this.items.splice(0, 0, pokedex);
   }
 
   addPokemonItem(player) {
     const pokemonItem = { id: "POKEMON", name: "POKEMON" };
+
     const isItemAlreadyExists = this.items.find(
       (item) => item.id === pokemonItem.id
     );
+
     const hasPlayerPokemon = player.party.slots.find(
       (slot) => slot.content !== null
     );
-    if (hasPlayerPokemon && !isItemAlreadyExists)
+
+    if (hasPlayerPokemon && !isItemAlreadyExists) {
       this.items.splice(1, 0, pokemonItem);
+    }
   }
 
   checkItems() {
@@ -59,45 +72,34 @@ export class MainMenu {
 
     this.addPokemonItem(PLAYER);
     this.addPokedexItem(PLAYER);
+
     this.updateHeight();
-  }
-
-  showCursor(context) {
-    const cursorY = this.position.y + this.currentIndex * this.lineHeight + 20;
-    this.cursor.update(context, this.position.x + 10, cursorY);
-  }
-
-  drawItems(context) {
-    const padding = 15;
-    textParams(context, "25");
-
-    this.items.forEach((item, index) => {
-      const positionX = this.position.x + padding + 20;
-      const positionY = this.position.y + padding + index * this.lineHeight;
-      context.fillText(item.name, positionX, positionY);
-    });
   }
 
   open() {
     this.checkItems();
-    this.isOpen = true;
-    this.cursor.isVisible = true;
-    this.hasFocus = true;
+
+    super.open();
   }
 
-  close() {
-    this.isOpen = false;
-    this.cursor.isVisible = false;
-    this.hasFocus = false;
+  drawItems(context) {
+    const padding = 15;
+
+    textParams(context, "25");
+
+    this.items.forEach((item, index) => {
+      const positionX = this.position.x + padding + 20;
+
+      const positionY = this.position.y + padding + index * this.lineHeight;
+
+      context.fillText(item.name, positionX, positionY);
+    });
   }
 
-  openItem() {
-    const itemId = this.items[this.currentIndex].id;
-    this.game.handleMenuSelection(itemId, this);
-  }
+  showCursor(context) {
+    const cursorY = this.position.y + this.currentIndex * this.lineHeight + 20;
 
-  updateHeight() {
-    this.height = this.lineHeight * this.items.length;
+    this.cursor.update(context, this.position.x + 10, cursorY);
   }
 
   draw(context) {
@@ -110,25 +112,26 @@ export class MainMenu {
       "black",
       "white"
     );
+
     this.drawItems(context);
+
     this.showCursor(context);
   }
 
+  openItem() {
+    const itemId = this.items[this.currentIndex].id;
+
+    this.game.handleMenuSelection(itemId, this);
+  }
+
   update(context, action) {
+    super.update(action);
+
     if (!this.isOpen) return;
+
     this.draw(context);
 
-    if (!this.isOpen || !this.hasFocus) return;
-
     switch (action) {
-      case "UP":
-        if (this.currentIndex > 0) this.currentIndex--;
-        break;
-
-      case "DOWN":
-        if (this.currentIndex < this.items.length - 1) this.currentIndex++;
-        break;
-
       case "ACTION":
         this.openItem();
         break;

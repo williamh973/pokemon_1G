@@ -17,15 +17,13 @@ export const BULBASAUR_SPECIES = {
     specialDef: 65,
     speed: 45,
   },
-  graphics: {
-    partyIcon: "bulbasaur",
-  },
   animations: {
     idle: {
       front: "bulbasaur_front_idle",
       back: "bulbasaur_back_idle",
     },
   },
+  evolutions: [{ method: "level", level: 16, target: "ivysaur" }],
   learnset: {
     levelUp: [
       { level: 1, move: "Charge" },

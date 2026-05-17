@@ -6,6 +6,32 @@ import { Slot } from "../Slot.model.js";
 export class PokemonPartySlot extends Slot {
   constructor(config) {
     super(config);
+
+    this.HPbar = null;
+  }
+
+  initHPbar() {
+    this.HPbar = new HealthBar(
+      {
+        x: this.position.x + 179,
+        y: this.position.y + this.height / 2,
+      },
+      this.content?.stats.hp,
+      this.content?.stats.maxHp
+    );
+  }
+
+  setPokemon(pokemon) {
+    this.content = pokemon;
+
+    this.HPbar = new HealthBar(
+      {
+        x: this.position.x + 179,
+        y: this.position.y + this.height / 2,
+      },
+      pokemon.stats.hp,
+      pokemon.stats.maxHp
+    );
   }
 
   drawPokemon(context) {
@@ -65,23 +91,10 @@ export class PokemonPartySlot extends Slot {
     );
   }
 
-  setPokemon(pokemon) {
-    this.content = pokemon;
-
-    this.HPbar = new HealthBar(
-      {
-        x: this.position.x + 179,
-        y: this.position.y + this.height / 2,
-      },
-      pokemon.stats.hp,
-      pokemon.stats.maxHp
-    );
-  }
-
   update(context) {
     super.update(context);
 
     this.drawPokemon(context);
-    if (this.HPbar) this.HPbar?.update(context);
+    if (this.content && this.HPbar) this.HPbar?.update(context);
   }
 }

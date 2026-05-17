@@ -1,6 +1,6 @@
-import { partyBackgImg } from "../../assets/images/ui/ui.asset.js";
-import { PARTY_SLOT_CONFIG } from "../../logic/gameplay/character/player/party/partySlots.config.js";
-import { PokemonPartySlot } from "../Slot/PokemonPartySlot/PokemonPartySlot.model.js";
+import { partyBackgImg } from "../../../../assets/images/ui/ui.asset.js";
+import { PARTY_SLOT_CONFIG } from "../../../../logic/gameplay/character/player/party/partySlots.config.js";
+import { PokemonPartySlot } from "../../../Slot/PokemonPartySlot/PokemonPartySlot.model.js";
 
 export class Party {
   constructor(game) {
@@ -26,12 +26,12 @@ export class Party {
 
   initSlots() {
     this.slots.push(
-      new PokemonPartySlot(PARTY_SLOT_CONFIG.first, null),
-      new PokemonPartySlot(PARTY_SLOT_CONFIG.second, null),
-      new PokemonPartySlot(PARTY_SLOT_CONFIG.third, null),
-      new PokemonPartySlot(PARTY_SLOT_CONFIG.fourth, null),
-      new PokemonPartySlot(PARTY_SLOT_CONFIG.fifth, null),
-      new PokemonPartySlot(PARTY_SLOT_CONFIG.sixth, null)
+      new PokemonPartySlot(PARTY_SLOT_CONFIG.first),
+      new PokemonPartySlot(PARTY_SLOT_CONFIG.second),
+      new PokemonPartySlot(PARTY_SLOT_CONFIG.third),
+      new PokemonPartySlot(PARTY_SLOT_CONFIG.fourth),
+      new PokemonPartySlot(PARTY_SLOT_CONFIG.fifth),
+      new PokemonPartySlot(PARTY_SLOT_CONFIG.sixth)
     );
   }
 
@@ -83,16 +83,21 @@ export class Party {
 
     this.slots.forEach((slot) => slot.update(context));
 
-    if (!this.isOpen || !this.hasFocus) return;
+    this.slots.forEach((slot, index) => {
+      slot.isHovered = index === this.currentIndex;
+    });
 
+    if (!this.isOpen || !this.hasFocus) return;
     switch (action) {
       case "UP":
         if (this.currentIndex > 0) this.currentIndex--;
         break;
 
       case "DOWN":
+        console.log(this.currentIndex);
         const filledSlots = this.slots.filter((slot) => slot.content);
-        if (this.currentIndex < filledSlots - 1) this.currentIndex++;
+        if (this.currentIndex < this.slots.length - 1 && filledSlots)
+          this.currentIndex++;
         break;
 
       case "ACTION":

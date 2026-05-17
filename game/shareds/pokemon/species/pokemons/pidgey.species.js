@@ -4,7 +4,7 @@ export const PIDGEY_SPECIES = {
   id: "pidgey",
   pokedexId: "016",
   name: "ROUCOOL",
-  types: ["NORMAL"],
+  types: ["FLIGHT", "NORMAL"],
   femaleRate: 50,
   catchRate: 255,
   growthRate: GROWTH_RATES_DATABASE.FAST,
@@ -17,17 +17,19 @@ export const PIDGEY_SPECIES = {
     specialDef: 35,
     speed: 56,
   },
-  graphics: {
-    partyIcon: "game/assets/images/pokemons/1G/icons/pidgey.png",
-  },
   animations: {
     idle: {
       front: "pidgey_front_idle",
       back: "pidgey_back_idle",
     },
   },
+  evolutions: [{ method: "level", level: 18, target: "pidgeotto" }],
   learnset: {
-    level1: ["Tornade", "NO_MOVE", "NO_MOVE", "NO_MOVE"],
+    levelUp: [
+      { level: 1, move: "Charge" },
+      { level: 5, move: "Jet de Sable" },
+      { level: 9, move: "Tornade" },
+    ],
     tmhm: [
       "Coupe-Vent",
       "Cyclone",

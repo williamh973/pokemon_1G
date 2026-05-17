@@ -1,7 +1,7 @@
 import { Character } from "../Character.model.js";
 import { keys } from "../../../logic/input/keyboard.js";
 import { CHARACTER_SPRITES } from "../../../shareds/character/sprite/characterSprite.database.js";
-import { Party } from "../../Party/Party.model.js";
+import { Party } from "../../MainMenu/items/Party/Party.model.js";
 import { Inventory } from "../../MainMenu/items/Inventory/Inventory.model.js";
 import { Pokedex } from "../../MainMenu/items/pokedex/pokedex.model.js";
 import { PLAYER_PATHS } from "../../../logic/gameplay/character/player/paths.gameplay.js";

@@ -25,7 +25,7 @@ export const generatePokemon = (target) => {
       maxHp: getStats.hp,
     }),
   };
-
+  console.log(POKEMON.stats);
   return POKEMON;
 };
 
@@ -49,7 +49,7 @@ const calculateStats = (baseStats, ivs, evs, level) => {
 };
 
 const calcStat = (base, iv, ev, level, isHP) => {
-  let value = ((2 * base + iv + ev / 4) * level) / 100 + 5;
+  let value = ((2 * base + iv + ev / 4) * level) / 100 + 1;
 
   value = Math.floor(value);
 
