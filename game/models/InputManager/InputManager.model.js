@@ -8,7 +8,7 @@ export class InputManager {
           this.buffer = "ACTION";
           break;
         case "c":
-          this.buffer = "MENU";
+          this.buffer = "PLAYER_MENU";
           break;
         case "e":
           this.buffer = "ESCAPE";
@@ -24,6 +24,9 @@ export class InputManager {
           break;
         case "d":
           this.buffer = "RIGHT";
+          break;
+        case " ":
+          this.buffer = "SPACE";
           break;
       }
     });

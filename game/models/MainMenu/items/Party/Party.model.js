@@ -1,6 +1,7 @@
 import { partyBackgImg } from "../../../../assets/images/ui/ui.asset.js";
 import { PARTY_SLOT_CONFIG } from "../../../../logic/gameplay/character/player/party/partySlots.config.js";
 import { PokemonPartySlot } from "../../../Slot/PokemonPartySlot/PokemonPartySlot.model.js";
+import { PokemonContextMenu } from "./PartyPokemonContextMenu/PartyPokemonContextMenu.model.js";
 
 export class Party {
   constructor(game) {
@@ -21,6 +22,7 @@ export class Party {
     this.minCount = 1;
     this.currentIndex = 0;
     this.baseY = 21;
+    this.contextMenu = null;
     this.initSlots();
   }
 
@@ -49,7 +51,7 @@ export class Party {
   }
 
   openMainMenu() {
-    this.game.openMenu();
+    this.game.openPlayerMenu();
   }
 
   close() {
@@ -77,6 +79,17 @@ export class Party {
     );
   }
 
+  openContextMenu() {
+    this.hasFocus = false;
+
+    const slot = this.slots.find((slot, index) => {
+      return slot.content && index === this.currentIndex;
+    });
+
+    this.contextMenu = new PokemonContextMenu(this.game, slot.content);
+    this.contextMenu.open();
+  }
+
   update(context, action) {
     if (!this.isOpen) return;
     this.draw(context);
@@ -87,6 +100,8 @@ export class Party {
       slot.isHovered = index === this.currentIndex;
     });
 
+    this.contextMenu?.update(context, action);
+
     if (!this.isOpen || !this.hasFocus) return;
     switch (action) {
       case "UP":
@@ -94,17 +109,18 @@ export class Party {
         break;
 
       case "DOWN":
-        console.log(this.currentIndex);
         const filledSlots = this.slots.filter((slot) => slot.content);
-        if (this.currentIndex < this.slots.length - 1 && filledSlots)
+
+        if (this.currentIndex < filledSlots.length - 1) {
           this.currentIndex++;
+        }
         break;
 
       case "ACTION":
-        this.openItem();
+        this.openContextMenu();
         break;
 
-      case "MENU":
+      case "PLAYER_MENU":
         this.close();
         break;
 

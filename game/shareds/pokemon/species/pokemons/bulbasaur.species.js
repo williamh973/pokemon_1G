@@ -1,4 +1,5 @@
 import { GROWTH_RATES_DATABASE } from "../../experience/growthRates/growthRates.database.js";
+import { MOVES_DATABASE } from "../../moves/moves.database.js";
 
 export const BULBASAUR_SPECIES = {
   id: "bulbasaur",
@@ -26,9 +27,9 @@ export const BULBASAUR_SPECIES = {
   evolutions: [{ method: "level", level: 16, target: "ivysaur" }],
   learnset: {
     levelUp: [
-      { level: 1, move: "Charge" },
-      { level: 1, move: "Mimi-Queue" },
-      { level: 7, move: "Fouet Lianes" },
+      { level: 1, move: MOVES_DATABASE.tackle },
+      { level: 1, move: MOVES_DATABASE.tailWhip },
+      { level: 7, move: MOVES_DATABASE.vineWhip },
     ],
     tmhm: [
       "Danse Lames",

@@ -10,9 +10,9 @@ export class EncounterManager {
   tryDoWildEncounter(game, tile, timeManager) {
     const map = game.mapManager.currentMap;
     const tileType = map.encounter[tile.terrain];
-    const encounters = this.getEncountersForTime(tileType, timeManager);
+    const encounterList = this.getEncountersForTime(tileType, timeManager);
 
-    return this.rollEncounter(encounters, game);
+    return this.rollEncounter(encounterList, game);
   }
 
   getEncountersForTime(tile, timeManager) {
@@ -21,10 +21,11 @@ export class EncounterManager {
     return tile.day;
   }
 
-  choosePokemonToEncounter(encounters, game, player, map) {
-    const randomN = Math.floor(Math.random() * encounters.length);
-    const chosenPokemon = encounters[randomN];
-
+  choosePokemonToEncounter(encounterList, game, player, map) {
+    const randomN = Math.floor(Math.random() * 256);
+    const slot = encounterList.find((slot) => randomN <= slot.chance);
+    const chosenPokemon = slot.pokemon;
+    console.log("randomN", randomN, "poke", chosenPokemon);
     if (!chosenPokemon) return;
 
     const position = getSpawnAroundPlayer(game, player);
@@ -34,13 +35,13 @@ export class EncounterManager {
     return spawnOP(position, config, chosenPokemon, map);
   }
 
-  rollEncounter(encounters, game) {
+  rollEncounter(encounterList, game) {
     const map = game.mapManager.currentMap;
     const player = game.player;
 
-    if (Math.random() * 100 >= map.encounterRate) return;
+    if (Math.random() * 256 >= map.encounterRate) return;
 
-    this.choosePokemonToEncounter(encounters, game, player, map);
+    this.choosePokemonToEncounter(encounterList, game, player, map);
   }
 
   startWildBattle(game, targetOP, tile) {
@@ -48,9 +49,13 @@ export class EncounterManager {
       () => {
         game.togglePause(true, false);
       },
-      (done) => {
+      (done, game) => {
         game.togglePause(true, false);
-        const wildPokemon = generatePokemon(targetOP);
+        const wildPokemon = generatePokemon(
+          targetOP,
+          game.mapManager.currentMap.name
+        );
+
         game.battleManager = new BattleManager(
           game,
           false,

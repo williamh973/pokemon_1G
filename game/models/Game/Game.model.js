@@ -7,7 +7,6 @@ import { Fade } from "../Fade/fade.model.js";
 import { DialogBox } from "../DialogBox/dialogBox.model.js";
 import { MainMenu } from "../MainMenu/MainMenu.model.js";
 import { InputManager } from "../InputManager/InputManager.model.js";
-import { TitleScreen } from "../TitleScreen/TitleScreen.model.js";
 import { MAPS_DATABASE } from "../../shareds/map/maps.database.js";
 import { ChoiceMenu } from "../ChoiceMenu/ChoiceMenu.model.js";
 import { loadGame } from "../../logic/gameplay/game/loadGame.gameplay.js";
@@ -30,6 +29,8 @@ import { attemptSave } from "../../logic/gameplay/game/attemptSave.gameplay.js";
 import { selectGender } from "../../logic/gameplay/game/selectGender.gameplay.js";
 import { togglePause } from "../../logic/gameplay/game/togglePause.gameplay.js";
 import { WeatherManager } from "../weather/WeatherManager/WeatherManager.model.js";
+import { StartGameMenu } from "../StartGameMenu/StartGameMenu.model.js";
+import { GenderMenu } from "../GenderMenu/GenderMenu.model.js";
 
 export class Game {
   constructor() {
@@ -56,7 +57,7 @@ export class Game {
     this.choiceMenu = null;
     this.currentScreen = null;
     this.save = null;
-    this.pokemonViewer = null;
+    this.spriteViewer = null;
     this.activeNpc = null;
     this.dialogCallback = null;
     this.isAttemptSave = false;
@@ -64,12 +65,37 @@ export class Game {
     this.isPaused = false;
     this.isBattleMod = false;
     this.init();
-    this.openTitleScreen();
+    this.openStartMenu();
+    // this.musicPlayer = new MusicPlayer();
   }
 
   init() {
     this.tileManager.load();
+
+    // this.musicPlayer = new MusicPlayer();
+
+    // window.addEventListener(
+    //   "keydown",
+    //   async () => {
+    //     await this.musicPlayer.init();
+
+    //     this.musicPlayer.playSong(PALLET_TOWN_THEME);
+    //   },
+    //   { once: true }
+    // );
+
     animate(this, this.tileManager);
+  }
+
+  openStartMenu() {
+    this.currentScreen = new StartGameMenu(this);
+    this.currentScreen.open();
+    this.state = "START_GAME";
+  }
+
+  startNewGame() {
+    this.closeCurrentScreen();
+    this.openGenderMenu();
   }
 
   activateBattleState() {
@@ -90,25 +116,19 @@ export class Game {
     closeDialogBox(this);
   }
 
-  openTitleScreen() {
-    this.currentScreen = new TitleScreen(this);
-    this.currentScreen.open();
-    this.state = "TITLE";
-  }
-
-  closeTitleScreen() {
+  closeStartMenu() {
     this.currentScreen.close();
     this.state = "WORLD";
     this.togglePause(false, true);
   }
 
-  openMenu() {
+  openPlayerMenu() {
     this.mainMenu.open();
-    this.state = "MENU";
+    this.state = "PLAYER_MENU";
     this.togglePause(true, false);
   }
 
-  closeMenu() {
+  closePlayerMenu() {
     this.mainMenu.close();
     this.state = "WORLD";
     this.togglePause(false, true);
@@ -127,16 +147,18 @@ export class Game {
     this.togglePause(false, true);
   }
 
-  start() {
-    this.selectGender();
+  openGenderMenu() {
+    this.currentScreen = new GenderMenu(this);
+    this.currentScreen.open();
+    this.state = "GENDER_MENU";
   }
 
   load() {
     loadGame(this);
   }
 
-  selectGender() {
-    selectGender(this);
+  selectGender(genderId) {
+    selectGender(this, genderId);
   }
 
   attemptSave() {
@@ -159,7 +181,13 @@ export class Game {
     this.state = "PARTY";
   }
 
-  closeMenu() {
+  openPokemonSummary() {
+    this.currentScreen = this.player.party.contextMenu.pokemonSummary;
+    this.currentScreen.open();
+    this.state = "PARTY_SUMMARY";
+  }
+
+  closePlayerMenu() {
     this.mainMenu.close();
     this.state = "WORLD";
     this.togglePause(false, true);

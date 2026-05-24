@@ -1,5 +1,6 @@
 import { POKEDEX_DATABASE } from "../../../../../../shareds/pokedex/pokedex.database.js";
 import { drawBox } from "../../../../../../shareds/utils/box/box.utils.js";
+import { drawText } from "../../../../../../shareds/utils/font/drawText.utils.js";
 import { textParams } from "../../../../../../shareds/utils/font/font.utils.js";
 import { Cursor } from "../../../../../Cursor/Cursor.model.js";
 import { PokedexState } from "../pokedexState/pokedexState.model.js";
@@ -56,11 +57,11 @@ export class PokemonList {
     this.isOpen = false;
   }
 
-  checkPokedexState(context, positionX, positionY, pokemon, index) {
+  checkPokedexState(context, positionX, positionY, pokemon) {
     this.pokedexState.see(pokemon.id);
     if (this.pokedexState.isSeen(pokemon.id)) {
-      this.showPokemon(context, positionX, positionY, pokemon, index);
-    } else this.hidePokemon(context, positionX, positionY, pokemon, index);
+      this.showPokemon(context, positionX, positionY, pokemon);
+    } else this.hidePokemon(context, positionX, positionY, pokemon);
   }
 
   drawPokemonList(context) {
@@ -72,38 +73,24 @@ export class PokemonList {
       const positionX = this.position.x + paddingX;
       const positionY = this.position.y + paddingY + index * 40;
 
-      this.checkPokedexState(context, positionX, positionY, pokemon, index);
+      this.checkPokedexState(context, positionX, positionY, pokemon);
     });
 
     context.fillStyle = "white";
     context.fillRect(1, 1, this.width - 10, 40);
-    context.fillStyle = "black";
-    context.font = `27px PixelOperator `;
-    context.fillText(this.title, 50, 0, this.width, 50);
+
+    drawText(context, this.title, 50, 0);
   }
 
-  showPokemon(context, positionX, positionY, pokemon, index) {
-    context.font = `23px PixelOperator`;
-    context.fillText(pokemon.no, positionX, positionY, this.width, 40 * index);
-
-    context.fillText(
-      pokemon.name,
-      positionX + 50,
-      positionY,
-      this.width,
-      40 * index
-    );
+  showPokemon(context, positionX, positionY, pokemon) {
+    textParams(context, "23");
+    drawText(context, pokemon.no, positionX, positionY);
+    drawText(context, pokemon.name, positionX + 50, positionY);
   }
 
-  hidePokemon(context, positionX, positionY, pokemon, index) {
-    context.fillText(pokemon.id, positionX, positionY, this.width, 40 * index);
-    context.fillText(
-      "- - - - - - -",
-      positionX + 50,
-      positionY,
-      this.width,
-      40 * index
-    );
+  hidePokemon(context, positionX, positionY, pokemon) {
+    drawText(context, pokemon.id, positionX, positionY);
+    drawText(context, "- - - - - - -", positionX + 50, positionY);
   }
 
   handleScroll() {

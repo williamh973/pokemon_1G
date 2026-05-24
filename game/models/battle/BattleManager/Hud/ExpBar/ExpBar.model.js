@@ -1,3 +1,4 @@
+import { drawText } from "../../../../../shareds/utils/font/drawText.utils.js";
 import { textParams } from "../../../../../shareds/utils/font/font.utils.js";
 import { getExpForLevel } from "../../../../../shareds/utils/pokemon/experience/experience.utils.js";
 
@@ -18,7 +19,7 @@ export class ExpBar {
   }
 
   drawExp(context) {
-    context.fillText("EXP", this.position.x - 26, this.position.y - 6);
+    drawText(context, "EXP", this.position.x - 26, this.position.y - 6);
   }
 
   getExpPercent() {

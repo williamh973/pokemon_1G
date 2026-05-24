@@ -8,6 +8,7 @@ import { oakLabWarps } from "./oakLab.warp.js";
 
 export const oakLab = {
   id: "OAK_LAB",
+  name: "Labo Prof. Chen",
   backgLayout: oakLabBGLayout,
   foregroundLayout: oakLabForegroundLayout,
   overlayLayout: oakLabOverlayLayout,

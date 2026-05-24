@@ -1,7 +1,9 @@
 import { POKEMON_DETAIL_SLOT_CONFIG } from "../../../../../../logic/gameplay/pokedex/pokemonDetail/slot/pokemonDetailSlot.config.js";
 import { drawBox } from "../../../../../../shareds/utils/box/box.utils.js";
-import { PokemonViewer } from "../../../../../PokemonViewer/PokemonViewer.model.js";
+import { SpriteViewer } from "../../../../../SpriteViewer/SpriteViewer.model.js";
 import { Slot } from "../../../../../Slot/Slot.model.js";
+import { drawText } from "../../../../../../shareds/utils/font/drawText.utils.js";
+import { textParams } from "../../../../../../shareds/utils/font/font.utils.js";
 
 export class PokemonDetail {
   constructor(pokemonList, game, pokemon = "") {
@@ -15,18 +17,18 @@ export class PokemonDetail {
     this.width = this.game.canvas.width;
     this.height = this.game.canvas.height;
     this.isOpen = false;
-    this.pokemonViewer = null;
+    this.spriteViewer = null;
     this.slot = new Slot(POKEMON_DETAIL_SLOT_CONFIG);
   }
 
-  openPokemonViewer() {
-    this.pokemonViewer = new PokemonViewer(
+  openSpriteViewer() {
+    this.spriteViewer = new SpriteViewer(
       this.game,
       this.pokemon,
       this.slot,
       "front"
     );
-    this.pokemonViewer.isOpen = true;
+    this.spriteViewer.isOpen = true;
   }
 
   openDialogBox() {
@@ -36,14 +38,14 @@ export class PokemonDetail {
 
   open() {
     this.isOpen = true;
-    this.openPokemonViewer();
+    this.openSpriteViewer();
     this.openDialogBox();
   }
 
   closePokemonViewer() {
-    this.pokemonViewer.isOpen = false;
-    this.pokemonViewer.pokemonSprite = null;
-    this.pokemonViewer = null;
+    this.spriteViewer.isOpen = false;
+    this.spriteViewer.pokemonSprite = null;
+    this.spriteViewer = null;
   }
 
   openPokemonList() {
@@ -75,47 +77,42 @@ export class PokemonDetail {
   }
 
   drawPokemonDatas(context) {
-    context.fillStyle = "black";
-
-    context.font = `25px PixelOperator `;
+    textParams(context, "25");
+    this.unitSymb(context);
     this.name(context);
     this.category(context);
+    this.number(context);
+    this.footPrint(context);
+
     this.pkheight(context);
     this.weight(context);
-    context.font = `bold 25px PixelOperator `;
-    this.number(context);
-    this.unitSymb(context);
-    this.footPrint(context);
   }
 
   name(context) {
-    context.fillText(this.pokemon.name, 166, 10);
+    drawText(context, this.pokemon.name, 166, 10);
   }
 
   category(context) {
-    context.fillText(this.pokemon.category, 166, 40);
+    drawText(context, this.pokemon.category, 166, 40);
   }
 
   pkheight(context) {
-    context.fillText("TAI", 166, 70);
-    context.font = `bold 25px PixelOperator `;
-    context.fillText(this.pokemon.height, 236, 70);
+    drawText(context, this.pokemon.height, 236, 70);
   }
 
   weight(context) {
-    context.font = `25px PixelOperator `;
-    context.fillText("PDS", 166, 100);
-    context.font = `bold 25px PixelOperator `;
-    context.fillText(this.pokemon.weight, 236, 100);
+    drawText(context, this.pokemon.weight, 236, 100);
   }
   unitSymb(context) {
-    context.fillText("m", 276, 70);
-    context.fillText("kg", 276, 100);
+    drawText(context, "m", 276, 70);
+    drawText(context, "kg", 276, 100);
+    drawText(context, "TAI", 166, 70);
+    drawText(context, "PDS", 166, 100);
   }
 
   number(context) {
-    context.fillText("No. ", 40, 166);
-    context.fillText(this.pokemon.no, 70, 166);
+    drawText(context, "No. ", 40, 166);
+    drawText(context, this.pokemon.no, 70, 166);
   }
 
   footPrint(context) {

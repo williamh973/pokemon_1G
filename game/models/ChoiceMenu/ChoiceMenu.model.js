@@ -1,9 +1,10 @@
 import { drawBox } from "../../shareds/utils/box/box.utils.js";
-import { Cursor } from "../Cursor/Cursor.model.js";
-import { textParams } from "../../shareds/utils/font/font.utils.js";
+import { Menu } from "../Menu/Menu.model.js";
 
-export class ChoiceMenu {
+export class ChoiceMenu extends Menu {
   constructor(game, dialogTree) {
+    super(game);
+
     this.game = game;
     this.dialogTree = dialogTree;
     this.items = this.dialogTree.start.setChoices;
@@ -13,12 +14,6 @@ export class ChoiceMenu {
       x: 0,
       y: game.canvas.height - this.height * 2,
     };
-    this.isOpen = false;
-    this.hasFocus = false;
-    this.currentIndex = 0;
-    this.lineHeight = 25;
-    this.baseY = 10;
-    this.cursor = new Cursor();
   }
 
   draw(context) {
@@ -31,36 +26,8 @@ export class ChoiceMenu {
       "black",
       "white"
     );
-    this.drawText(context);
+    this.drawItems(context);
     this.showCursor(context);
-  }
-
-  showCursor(context) {
-    const cursorY = this.position.y + this.currentIndex * this.lineHeight + 16;
-    this.cursor.update(context, this.position.x + 7, cursorY);
-  }
-
-  drawText(context) {
-    const padding = 10;
-    textParams(context, "25");
-
-    this.items.forEach((item, index) => {
-      const positionX = this.position.x + padding + 15;
-      const positionY = this.position.y + padding + index * this.lineHeight;
-      context.fillText(item.label, positionX, positionY);
-    });
-  }
-
-  open() {
-    this.isOpen = true;
-    this.cursor.isVisible = true;
-    this.hasFocus = true;
-  }
-
-  close() {
-    this.isOpen = false;
-    this.cursor.isVisible = false;
-    this.hasFocus = false;
   }
 
   getSelectedItem() {

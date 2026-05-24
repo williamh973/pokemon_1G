@@ -2,7 +2,7 @@ import { POKEMON_IDLE_ANIMATIONS } from "../../shareds/pokemon/animations/idle/p
 import { drawBox } from "../../shareds/utils/box/box.utils.js";
 import { AnimatedSprite } from "../AnimationSprite/AnimationSprite.model.js";
 
-export class PokemonViewer {
+export class SpriteViewer {
   constructor(game, selectedPokemon = null, slot, key) {
     // console.log(selectedPokemon); // affiche null plutot que le content du slot
     this.isOpen = false;
@@ -12,6 +12,10 @@ export class PokemonViewer {
 
     this.animeConfig = // l'id est le nom en anglais
       POKEMON_IDLE_ANIMATIONS[this.selectedPokemon.id][this.animKey];
+
+    // POUR TEST UNIQUEMENT
+    // this.animeConfig =
+    //   POKEMON_IDLE_ANIMATIONS["gyarados"]["gyarados_front_idle"];
 
     const getSlotCenterPositions = slot.center(
       this.animeConfig.frameWidth,
@@ -61,7 +65,7 @@ export class PokemonViewer {
       case "BATTLE":
         // Pas de fond. Ca fonctionne
         break;
-      case "TITLE":
+      case "START_GAME":
         context.globalAlpha = 0.8;
         drawBox(context, 112, 95, 95, 100, "purple", "black");
         break;

@@ -1,3 +1,4 @@
+import { drawText } from "../../../../../shareds/utils/font/drawText.utils.js";
 import { textParams } from "../../../../../shareds/utils/font/font.utils.js";
 
 export class HealthBar {
@@ -66,21 +67,26 @@ export class HealthBar {
 
   drawHP(context) {
     textParams(context, "18", "white");
-    context.fillText("PV", this.position.x - 20, this.position.y - 7);
+    drawText(context, "PV", this.position.x - 20, this.position.y - 7);
 
     const currentHpWidth = context.measureText(this.currentHp).width;
 
-    context.fillText(
+    drawText(
+      context,
       this.currentHp,
       this.position.x + this.width / 2 - currentHpWidth - 7,
       this.position.y + 5
     );
-    context.fillText(
+
+    drawText(
+      context,
       "/",
       this.position.x + this.width / 2 - 2,
       this.position.y + 5
     );
-    context.fillText(
+
+    drawText(
+      context,
       this.maxHp,
       this.position.x + this.width / 2 + 8,
       this.position.y + 5

@@ -84,7 +84,7 @@ const dayNightCycle = (game) => {
 };
 
 const timeManager = (game) => {
-  game.timeManager.draw(game.canvas);
+  game.timeManager.draw(game.canvas.context);
 };
 
 const mainMenu = (game) => {
@@ -121,7 +121,7 @@ export const draw = (game, tileManager) => {
       mainMenu(game);
 
       break;
-    case "MENU":
+    case "PLAYER_MENU":
       npcs(game);
       MO(game);
       drawWalkingOP(game);

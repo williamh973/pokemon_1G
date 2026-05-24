@@ -7,3 +7,7 @@ export let battleBackgGrassImg = createImg(
 export let partyBackgImg = createImg(
   "game/assets/images/ui/party/party-backg.png"
 );
+
+export let partySummaryBackgImg = createImg(
+  "game/assets/images/ui/party/resume/resume-backg.png"
+);

@@ -79,6 +79,8 @@ import {
   idlePlayerLeft,
   idlePlayerRight,
   idlePlayerUp,
+  presentationPlayer,
+  trainerCardPlayer,
   walkPlayerDown_stepA,
   walkPlayerDown_stepB,
   walkPlayerLeft_stepA,
@@ -109,6 +111,8 @@ export const CHARACTER_SPRITES = {
       left: [walkPlayerLeft_stepA, walkPlayerLeft_stepB],
       right: [walkPlayerRight_stepA, walkPlayerRight_stepB],
     },
+    genderMenu: presentationPlayer,
+    trainerCard: trainerCardPlayer,
   },
   lira: {
     idle: {

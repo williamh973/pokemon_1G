@@ -1,4 +1,5 @@
 import { drawBox } from "../../../../../../shareds/utils/box/box.utils.js";
+import { drawText } from "../../../../../../shareds/utils/font/drawText.utils.js";
 import { WORLDMAP_SETTING } from "../../../../../../shareds/worldMap/worldMap.setting.js";
 
 export class WorldMap {
@@ -75,7 +76,8 @@ export class WorldMap {
 
   showSelectedPokemonAreas(context) {
     context.fillStyle = "white";
-    context.fillText(
+    drawText(
+      context,
       `NID DE ${this.selectedPokemon.name}`,
       this.game.canvas.width / 4,
       16 / 2

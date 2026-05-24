@@ -1,3 +1,5 @@
+import { SPECIES_DATABASE } from "../../pokemon/species/species.database.js";
+
 export const listSort = (listFilter) => {
   return listFilter.sort((a, b) => a.name.localeCompare(b.name));
 };
@@ -16,4 +18,15 @@ export const removeMObyFlagId = (game, flagId) => {
   return game.mapManager.currentMap.missableObjects.filter((item) => {
     return item.flagId !== flagId;
   });
+};
+
+export const getSpeciesLearnsets = (species, level) => {
+  const learnset = species.learnset.levelUp.filter(
+    (move) => move.level <= level
+  );
+  return learnset;
+};
+
+export const getSpeciesData = (pokemonId) => {
+  return SPECIES_DATABASE[pokemonId];
 };

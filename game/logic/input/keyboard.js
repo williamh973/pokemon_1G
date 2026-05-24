@@ -6,6 +6,7 @@ export const keys = {
   action: false,
   mainMenu: false,
   escape: false,
+  space: false,
 };
 
 window.addEventListener("keydown", (e) => {
@@ -24,15 +25,16 @@ window.addEventListener("keydown", (e) => {
       break;
     case "a":
       keys.action = true;
-      if (e.repeat) {
-        return;
-      }
+      if (e.repeat) return;
       break;
     case "c":
       keys.mainMenu = true;
       break;
     case "e":
       keys.escape = true;
+      break;
+    case " ":
+      keys.space = true;
       break;
   }
 });
@@ -59,6 +61,9 @@ window.addEventListener("keyup", (e) => {
       break;
     case "e":
       keys.escape = false;
+      break;
+    case " ":
+      keys.space = false;
       break;
   }
 });

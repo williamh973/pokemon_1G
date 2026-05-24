@@ -1,4 +1,6 @@
 import { drawBox } from "../../../../../../shareds/utils/box/box.utils.js";
+import { drawText } from "../../../../../../shareds/utils/font/drawText.utils.js";
+import { textParams } from "../../../../../../shareds/utils/font/font.utils.js";
 
 export class PokedexState {
   constructor(pokemonList) {
@@ -40,15 +42,15 @@ export class PokedexState {
   }
 
   drawLabels(context, positionX) {
-    context.font = `27px PixelOperator`;
-    context.fillText("VU", positionX, 10);
-    context.fillText("PRIS", positionX - 10, 70);
+    textParams(context, `27`);
+    drawText(context, "VU", positionX, 10);
+    drawText(context, "PRIS", positionX - 10, 70);
   }
 
   drawCounts(context, positionX) {
-    context.font = `23px PixelOperator`;
-    context.fillText(this.seen.size, positionX + 5, 35);
-    context.fillText(this.caught.size, positionX + 5, 95);
+    textParams(context, `23`);
+    drawText(context, this.seen.size, positionX + 5, 35);
+    drawText(context, this.caught.size, positionX + 5, 95);
   }
 
   draw(context) {
@@ -63,14 +65,9 @@ export class PokedexState {
       "white"
     );
     const positionX = this.position.x + this.width / 2.5;
-    context.fillStyle = "black";
 
     this.drawLabels(context, positionX);
     this.drawCounts(context, positionX);
-
-    context.font = `23px PixelOperator`;
-    context.fillText(this.seen.size, positionX + 5, 35);
-    context.fillText(this.caught.size, positionX + 5, 95);
   }
 
   update(context) {

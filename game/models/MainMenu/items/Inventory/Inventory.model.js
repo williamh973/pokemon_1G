@@ -1,4 +1,5 @@
 import { drawBox } from "../../../../shareds/utils/box/box.utils.js";
+import { drawText } from "../../../../shareds/utils/font/drawText.utils.js";
 import { textParams } from "../../../../shareds/utils/font/font.utils.js";
 import {
   listSort,
@@ -6,9 +7,12 @@ import {
 } from "../../../../shareds/utils/list/list.utils.js";
 import { Cursor } from "../../../Cursor/Cursor.model.js";
 import { DialogBox } from "../../../DialogBox/dialogBox.model.js";
+import { Menu } from "../../../Menu/Menu.model.js";
 
-export class Inventory {
+export class Inventory extends Menu {
   constructor(game) {
+    super(game);
+
     this.game = game;
     this.position = {
       x: 0,
@@ -23,13 +27,9 @@ export class Inventory {
     this.balls = [this.CANCEL_ITEM];
     this.keys = [this.CANCEL_ITEM];
     this.cTcS = [this.CANCEL_ITEM];
-    this.isOpen = false;
-    this.hasFocus = false;
     this.lineHeight = 40;
     this.itemCurrentIndex = 0;
     this.catCurrentIndex = 0;
-    this.baseY = 21;
-    this.cursor = new Cursor();
     this.dialogBox = new DialogBox(this.game);
   }
 
@@ -103,22 +103,24 @@ export class Inventory {
   }
 
   drawCategoryLabel(context) {
-    const padding = 15;
     textParams(context, "25");
 
-    context.fillText(
+    drawText(
+      context,
       this.categoryLabels[this.catCurrentIndex],
       this.position.x,
-      this.position.y + padding
+      this.position.y + 15
     );
   }
 
   drawItemList(context) {
-    const padding = 40;
     this.categories.forEach((item, index) => {
-      const positionX = this.position.x + padding;
-      const positionY = this.position.y + padding + index * this.lineHeight;
-      context.fillText(item.name, positionX, positionY);
+      drawText(
+        context,
+        item.name,
+        this.position.x + 40,
+        this.position.y + 40 + index * this.lineHeight
+      );
     });
   }
 
@@ -129,12 +131,14 @@ export class Inventory {
   }
 
   drawItemsCount(context) {
-    const padding = 55;
     this.categories.forEach((item, index) => {
       if (!item.count) return;
-      const positionX = this.width - 110;
-      const positionY = this.position.y + padding + index * this.lineHeight;
-      context.fillText(`x${item.count}`, positionX, positionY);
+      drawText(
+        context,
+        `x${item.count}`,
+        this.width - 110,
+        this.position.y + 55 + index * this.lineHeight
+      );
     });
   }
 
@@ -146,16 +150,8 @@ export class Inventory {
   }
 
   open() {
-    this.isOpen = true;
-    this.cursor.isVisible = true;
-    this.hasFocus = true;
+    super.open();
     this.openDialogBox();
-  }
-
-  close() {
-    this.isOpen = false;
-    this.cursor.isVisible = false;
-    this.hasFocus = false;
   }
 
   useItem() {
@@ -166,7 +162,7 @@ export class Inventory {
   toQuit() {
     this.close();
     this.game.resetCurrentScreen();
-    this.game.openMenu();
+    this.game.openPlayerMenu();
   }
 
   update(context, action) {
@@ -208,7 +204,7 @@ export class Inventory {
         this.useItem();
         break;
 
-      case "MENU":
+      case "PLAYER_MENU":
       case "ESCAPE":
         this.toQuit();
         break;

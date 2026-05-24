@@ -1,4 +1,5 @@
-import { ICON_CONFIG_DATABASE } from "../../../shareds/pokemon/configs/icons/iconConfig.database.js";
+import { POKEMON_ICON_CONFIG_DATABASE } from "../../../shareds/pokemon/configs/icons/iconConfig.database.js";
+import { drawText } from "../../../shareds/utils/font/drawText.utils.js";
 import { textParams } from "../../../shareds/utils/font/font.utils.js";
 import { HealthBar } from "../../battle/BattleManager/Hud/HealthBar/HealthBar.model.js";
 import { Slot } from "../Slot.model.js";
@@ -50,7 +51,7 @@ export class PokemonPartySlot extends Slot {
   }
 
   drawIcon(context, pokemon) {
-    const configIcon = ICON_CONFIG_DATABASE[pokemon.id];
+    const configIcon = POKEMON_ICON_CONFIG_DATABASE[pokemon.id];
     const image = configIcon.image;
     context.drawImage(
       image,
@@ -62,7 +63,8 @@ export class PokemonPartySlot extends Slot {
   }
 
   drawName(context, pokemon, basePaddingX) {
-    context.fillText(
+    drawText(
+      context,
       pokemon.name,
       this.position.x + basePaddingX,
       this.position.y
@@ -70,13 +72,15 @@ export class PokemonPartySlot extends Slot {
   }
 
   drawLevel(context, pokemon, basePaddingX, nameWidth) {
-    context.fillText(
+    drawText(
+      context,
       "N.",
       this.position.x + basePaddingX + nameWidth / 3,
       this.position.y + this.height / 1.5
     );
 
-    context.fillText(
+    drawText(
+      context,
       pokemon.level,
       this.position.x + basePaddingX + nameWidth / 3 + 15,
       this.position.y + this.height / 1.5
@@ -84,7 +88,8 @@ export class PokemonPartySlot extends Slot {
   }
 
   drawGender(context, pokemon, basePaddingX, nameWidth) {
-    context.fillText(
+    drawText(
+      context,
       pokemon.gender,
       this.position.x + basePaddingX + nameWidth + 5,
       this.position.y + this.height / 2

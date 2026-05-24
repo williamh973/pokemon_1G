@@ -36,8 +36,8 @@ export class Character {
       x: TILES_SIZE * this.tileX,
       y: TILES_SIZE * this.tileY,
     };
-    this.moveProgress = 10;
-    this.moveDuration = 20;
+    this.moveProgress = 0; //  10
+    this.moveDuration = 20; // 20
     this.startX = this.position.x;
     this.startY = this.position.y;
     this.targetX = this.position.x;

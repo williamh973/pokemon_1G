@@ -4,7 +4,7 @@ import { ITEMS_DATABASE } from "../../../../shareds/items/items.database.js";
 import { OBJECT_SPRITES } from "../../../../shareds/items/sprite/itemsSprite.database.js";
 import { SPECIES_DATABASE } from "../../../../shareds/pokemon/species/species.database.js";
 import { removeMObyFlagId } from "../../../../shareds/utils/list/list.utils.js";
-import { PokemonViewer } from "../../../PokemonViewer/PokemonViewer.model.js";
+import { SpriteViewer } from "../../../SpriteViewer/SpriteViewer.model.js";
 import { Slot } from "../../../Slot/Slot.model.js";
 import { Npc } from "../npc.model.js";
 
@@ -25,19 +25,19 @@ export class MissableObject extends Npc {
     this.itemKey = key;
     this.category = category;
     this.name = name;
-    this.pokemonViewer = null;
+    this.spriteViewer = null;
     this.slot = new Slot(MO_SLOTS_CONFIG);
   }
 
-  openPokemonViewer(game, starter) {
-    this.pokemonViewer = new PokemonViewer(game, starter, this.slot, "front");
-    this.pokemonViewer.isOpen = true;
+  openSpriteViewer(game, starter) {
+    this.spriteViewer = new SpriteViewer(game, starter, this.slot, "front");
+    this.spriteViewer.isOpen = true;
   }
 
   closePokemonViewer() {
-    this.pokemonViewer.isOpen = false;
-    this.pokemonViewer.pokemonSprite = null;
-    this.pokemonViewer = null;
+    this.spriteViewer.isOpen = false;
+    this.spriteViewer.pokemonSprite = null;
+    this.spriteViewer = null;
   }
 
   isStarterPokemon(game, starter) {
@@ -53,7 +53,7 @@ export class MissableObject extends Npc {
 
     starter = SPECIES_DATABASE[this.itemKey];
 
-    this.openPokemonViewer(game, starter);
+    this.openSpriteViewer(game, starter);
   }
 
   getItemInDatabase() {

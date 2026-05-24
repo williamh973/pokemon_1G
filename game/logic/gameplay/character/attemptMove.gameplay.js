@@ -1,5 +1,3 @@
-import { generatePokemon } from "../encounters/generatePokemon.gameplay.js";
-
 const checkSolidAt = (game, tile, character, targetX, targetY) => {
   return (
     !tile.walkable ||

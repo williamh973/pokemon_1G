@@ -1,4 +1,5 @@
 import { drawBox } from "../../../../shareds/utils/box/box.utils.js";
+import { drawText } from "../../../../shareds/utils/font/drawText.utils.js";
 import { textParams } from "../../../../shareds/utils/font/font.utils.js";
 import { ExpBar } from "./ExpBar/ExpBar.model.js";
 import { HealthBar } from "./HealthBar/HealthBar.model.js";
@@ -31,13 +32,11 @@ export class HUD {
   }
 
   drawName(context) {
-    const paddingX = 5;
-    const paddingY = 5;
-
-    context.fillText(
+    drawText(
+      context,
       this.pokemon.name,
-      this.position.x + paddingX,
-      this.position.y + paddingY
+      this.position.x + 5,
+      this.position.y + 5
     );
   }
 
@@ -47,27 +46,28 @@ export class HUD {
 
     const levelWidth = context.measureText(this.pokemon.level).width;
 
-    context.fillText(
+    drawText(
+      context,
       this.pokemon.level,
-      this.position.x + paddingX - levelWidth + 5,
-      this.position.y + paddingY
+      this.position.x + 120 - levelWidth + 5,
+      this.position.y + 5
     );
 
-    context.fillText(
+    drawText(
+      context,
       "N.",
-      this.position.x + paddingX - levelWidth - 5,
-      this.position.y + paddingY
+      this.position.x + 120 - levelWidth - 5,
+      this.position.y + 5
     );
   }
 
   drawGender(context) {
-    const paddingX = 5;
     const nameWidth = context.measureText(this.pokemon.name).width;
-    const paddingY = 9;
-    context.fillText(
+    drawText(
+      context,
       this.pokemon.gender,
-      this.position.x + paddingX + nameWidth + 25,
-      this.position.y + paddingY
+      this.position.x + 5 + nameWidth + 25,
+      this.position.y + 9
     );
   }
 

@@ -1,4 +1,5 @@
 import { drawBox } from "../../../../../../shareds/utils/box/box.utils.js";
+import { drawText } from "../../../../../../shareds/utils/font/drawText.utils.js";
 import { textParams } from "../../../../../../shareds/utils/font/font.utils.js";
 import { Cursor } from "../../../../../Cursor/Cursor.model.js";
 
@@ -44,7 +45,7 @@ export class PokedexCharacteristic {
     this.items.forEach((item, index) => {
       const positionX = this.position.x + padding + 10;
       const positionY = this.position.y + padding + index * this.lineHeight;
-      context.fillText(item.name, positionX, positionY);
+      drawText(context, item.name, positionX, positionY);
     });
   }
 

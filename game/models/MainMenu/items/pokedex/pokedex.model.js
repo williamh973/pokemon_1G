@@ -37,7 +37,7 @@ export class Pokedex {
   }
 
   openMainMenu() {
-    this.game.openMenu();
+    this.game.openPlayerMenu();
   }
 
   closeSections() {
@@ -80,7 +80,7 @@ export class Pokedex {
       this.pokemonList.pokemonDetail.isOpen
     ) {
       this.pokemonList.pokemonDetail.update(this.game.canvas.context, action);
-      this.pokemonList.pokemonDetail.pokemonViewer?.update(
+      this.pokemonList.pokemonDetail.spriteViewer?.update(
         this.game.canvas.context,
         null
       );

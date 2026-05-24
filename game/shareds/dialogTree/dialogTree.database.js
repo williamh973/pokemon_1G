@@ -1,166 +1,20 @@
-import { generatePokemon } from "../../logic/gameplay/encounters/generatePokemon.gameplay.js";
 import { removeMObyItemId } from "../utils/list/list.utils.js";
-
-export const POSSIBLE_CHOICES_DATABASE = {
-  yes: { label: "OUI", next: "first" },
-  no: { label: "NON", next: "second" },
-  girl: { label: "FILLE", next: "second" },
-  boy: { label: "GARÇON", next: "first" },
-};
+import { GENDER_DIALOG_TREE } from "./trees/gender.dialogTree.js";
+import { GIVE_NICKNAME_TO_NEW_POKEMON_DIALOG_TREE } from "./trees/giveNicknameToNewPokemon.dialogTree.js";
+import { OAK_DIALOG_TREE } from "./trees/oak.dialogTree.js";
+import { RED_MOM_DIALOG_TREE } from "./trees/redMom.dialogTree.js";
+import { SAVE_DIALOG_TREE } from "./trees/save.dialogTree.js";
+import { STARTER_DIALOG_TREE } from "./trees/starter.dialogTree.js";
 
 export const DIALOGS_TREE_DATABASE = {
-  saveSystem: {
-    setDimension: { width: 32 * 2.4, height: 32 * 2.1 },
-    start: {
-      text: "Sauvegarder la partie ?",
-      setChoices: [POSSIBLE_CHOICES_DATABASE.yes, POSSIBLE_CHOICES_DATABASE.no],
-    },
-    first: {
-      text: "Sauvegarde en cours...",
-      action: (game) => {
-        game.save.capture(game);
-        game.save.write(game);
-      },
-      next: "finalize",
-    },
-    finalize: {
-      text: "Partie sauvegardé !",
-      action: (game) => {
-        game.closeChoiceMenu();
-        game.resetSaveCompleted();
-      },
-    },
-    second: {
-      action: (game) => {
-        game.closeDialogBox();
-        game.closeChoiceMenu();
-        game.resetSaveCompleted();
-      },
-    },
-  },
-  selectGender: {
-    setDimension: { width: 100, height: 32 * 2.1 },
-    start: {
-      text: "Etes-vous un garçon ou une\nfille ?",
-      setChoices: [
-        POSSIBLE_CHOICES_DATABASE.boy,
-        POSSIBLE_CHOICES_DATABASE.girl,
-      ],
-    },
-    first: {
-      text: "Un garçon, d'accord !",
-      action: (game) => {
-        game.playedWith = "red";
-      },
-    },
-    second: {
-      text: "Une fille, d'accord !",
-      action: (game) => {
-        game.playedWith = "lira";
-      },
-    },
-  },
-
-  giveNicknameToNewPokemon: {
-    setDimension: { width: 32 * 2.4, height: 32 * 2.1 },
-    start: {
-      text: "Veux-tu donner un surnom à\n",
-      setChoices: [POSSIBLE_CHOICES_DATABASE.yes, POSSIBLE_CHOICES_DATABASE.no],
-    },
-    first: {
-      action: (game) => {
-        game.openNicknameMenu();
-      },
-    },
-    second: {
-      action: (game) => {
-        game.closeDialogBox();
-        game.closeChoiceMenu();
-      },
-    },
-  },
-
-  starter: {
-    setDimension: { width: 32 * 2.4, height: 32 * 2.1 },
-    start: {
-      setChoices: [POSSIBLE_CHOICES_DATABASE.yes, POSSIBLE_CHOICES_DATABASE.no],
-    },
-    first: {
-      text: "CHEN : Excellent choix !\nIl sera un parfait\ncompagnion !",
-      action: (game) => {
-        const currentMap = game.mapManager.currentMap;
-        const player = game.player;
-        let focusedStarter = player.focusedStarter;
-
-        game.mapManager.currentMap.missableObjects = removeMObyItemId(
-          currentMap,
-          focusedStarter.id
-        );
-
-        focusedStarter = {
-          ...focusedStarter,
-          level: 5,
-        };
-
-        const starter = generatePokemon(focusedStarter);
-
-        player.party.addPokemonToFirstEmptySlot(starter);
-        game.flags.OAK_LAB.PLAYER_STARTER_CHOSEN_DONE = true;
-      },
-    },
-    second: {
-      text: "CHEN : Prend ton temps pour\nfaire le bon choix.",
-      action: (game) => {
-        game.closeChoiceMenu();
-        game.mapManager.currentMap.missableObjects.forEach((item) => {
-          if (item.pokemonViewer) item.closePokemonViewer();
-        });
-      },
-    },
-  },
-
-  oak: {
-    start: {
-      text: `CHEN : RED,\nquel POKéMON choisis-tu?`,
-      flagCheck: {
-        flag: "OAK_INTRO_LAB_DONE",
-        trueNode: "start",
-        falseNode: "next",
-      },
-    },
-    next: {
-      text: "CHEN : Ton POKéMON\nte protègera des\nPOKéMON sauvages!",
-      flagCheck: {
-        flag: "OAK_INTRO_LAB_DONE",
-        trueNode: "repeat",
-        falseNode: "start",
-      },
-    },
-    repeat: {
-      text: `Le monde est à toi RED.`,
-    },
-  },
-
+  saveSystem: SAVE_DIALOG_TREE,
+  selectGender: GENDER_DIALOG_TREE,
+  giveNicknameToNewPokemon: GIVE_NICKNAME_TO_NEW_POKEMON_DIALOG_TREE,
+  starter: STARTER_DIALOG_TREE,
+  oak: OAK_DIALOG_TREE,
   redHouse1F: {
-    redMom: {
-      start: {
-        text: "Tous les garçons partent un\njour de la maison. J'ai déjà\nvu ça à la TV.",
-        setFlag: "TALKED_TO_MOM",
-        flagCheck: {
-          flag: "TALKED_TO_MOM",
-          trueNode: "repeat",
-          falseNode: "start",
-        },
-        action: (game) => {
-          game.flags[game.mapManager.currentMap.id].TALKED_TO_MOM = true;
-        },
-      },
-      repeat: {
-        text: "N'oublie pas de dire bonjour\nau professeur Chen.",
-      },
-    },
+    redMom: RED_MOM_DIALOG_TREE,
   },
-
   palletTown: {
     guss: {
       start: {

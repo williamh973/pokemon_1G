@@ -1,4 +1,5 @@
 import { drawBox } from "../../shareds/utils/box/box.utils.js";
+import { drawText } from "../../shareds/utils/font/drawText.utils.js";
 import { textParams } from "../../shareds/utils/font/font.utils.js";
 
 export class MapNameWindow {
@@ -29,12 +30,11 @@ export class MapNameWindow {
 
   drawText(context) {
     textParams(context, "26");
-    const padding = 10;
-
-    context.fillText(
-      this.game.mapManager.currentMap.mapNameWindow,
-      this.position.x + padding,
-      this.position.y + padding
+    drawText(
+      context,
+      this.game.mapManager.currentMap.name,
+      this.position.x + 10,
+      this.position.y + 10
     );
   }
 

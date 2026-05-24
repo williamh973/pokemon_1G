@@ -12,5 +12,5 @@ export const loadGame = (game) => {
     slot.initHPbar();
   });
 
-  game.closeTitleScreen();
+  game.closeStartMenu();
 };

@@ -1,4 +1,5 @@
 import { drawBox } from "../../shareds/utils/box/box.utils.js";
+import { drawText } from "../../shareds/utils/font/drawText.utils.js";
 import { textParams } from "../../shareds/utils/font/font.utils.js";
 
 export class DialogBox {
@@ -43,15 +44,15 @@ export class DialogBox {
   }
 
   drawText(context) {
-    const page = this.pages[this.currentPageIndex];
-    const padding = 9;
     textParams(context, "26");
 
+    const page = this.pages[this.currentPageIndex];
     page.forEach((line, index) => {
-      context.fillText(
+      drawText(
+        context,
         line,
-        this.position.x + padding,
-        this.position.y + padding + index * 26
+        this.position.x + 9,
+        this.position.y + 9 + index * 26
       );
     });
   }

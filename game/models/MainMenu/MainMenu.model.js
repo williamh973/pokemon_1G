@@ -1,6 +1,5 @@
 import { TILES_SIZE } from "../../shareds/utils/tile/tile.utils.js";
 import { drawBox } from "../../shareds/utils/box/box.utils.js";
-import { textParams } from "../../shareds/utils/font/font.utils.js";
 import { Menu } from "../Menu/Menu.model.js";
 
 export class MainMenu extends Menu {
@@ -8,27 +7,21 @@ export class MainMenu extends Menu {
     super(game);
 
     this.canvas = this.game.canvas;
-
     this.width = this.canvas.width / 2 - TILES_SIZE;
-
     this.position = {
       x: this.canvas.width - this.width,
       y: 0,
     };
-
     this.lineHeight = 40;
-
     this.initItems();
-
     this.updateHeight();
   }
 
   initItems() {
     const SAVE_DATA = this.game.save;
 
-    if (SAVE_DATA?.mainMenu.items) {
-      this.items = SAVE_DATA.mainMenu.items;
-    } else {
+    if (SAVE_DATA?.mainMenu.items) this.items = SAVE_DATA.mainMenu.items;
+    else
       this.items = [
         { id: "SAC", name: "SAC" },
         { id: "SACHA", name: "SACHA" },
@@ -36,7 +29,6 @@ export class MainMenu extends Menu {
         { id: "OPTIONS", name: "OPTIONS" },
         { id: "RETOUR", name: "RETOUR" },
       ];
-    }
   }
 
   updateHeight() {
@@ -82,26 +74,6 @@ export class MainMenu extends Menu {
     super.open();
   }
 
-  drawItems(context) {
-    const padding = 15;
-
-    textParams(context, "25");
-
-    this.items.forEach((item, index) => {
-      const positionX = this.position.x + padding + 20;
-
-      const positionY = this.position.y + padding + index * this.lineHeight;
-
-      context.fillText(item.name, positionX, positionY);
-    });
-  }
-
-  showCursor(context) {
-    const cursorY = this.position.y + this.currentIndex * this.lineHeight + 20;
-
-    this.cursor.update(context, this.position.x + 10, cursorY);
-  }
-
   draw(context) {
     drawBox(
       context,
@@ -118,12 +90,6 @@ export class MainMenu extends Menu {
     this.showCursor(context);
   }
 
-  openItem() {
-    const itemId = this.items[this.currentIndex].id;
-
-    this.game.handleMenuSelection(itemId, this);
-  }
-
   update(context, action) {
     super.update(action);
 
@@ -136,8 +102,8 @@ export class MainMenu extends Menu {
         this.openItem();
         break;
 
-      case "MENU":
-        this.game.closeMenu();
+      case "PLAYER_MENU":
+        this.game.closePlayerMenu();
         break;
     }
   }

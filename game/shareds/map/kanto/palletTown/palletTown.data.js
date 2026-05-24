@@ -13,7 +13,7 @@ import { palletTownWeathers } from "./palletTown.weather.js";
 
 export const palletTown = {
   id: "PALLET_TOWN",
-  mapNameWindow: "Bourg Palette",
+  name: "Bourg Palette",
   weathers: palletTownWeathers,
   backgLayout: palletTownLayout,
   overlayLayout: palletTownOverlayLayout,

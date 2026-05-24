@@ -11,7 +11,7 @@ import { kantoRoute1Weathers } from "./kantoRoute1.weather.js";
 
 export const kantoRoute1 = {
   id: "KANTO_ROUTE_1",
-  mapNameWindow: "Route 1",
+  name: "Route 1",
   weathers: kantoRoute1Weathers,
   backgLayout: kantoRoute1Layout,
   overlayLayout: kantoRoute1OverlayLayout,

@@ -1,7 +1,7 @@
 import { BATTLE_SLOT_CONFIG } from "../../../logic/gameplay/battleManager/slots/battleSlots.config.js";
 import { backgroundBox } from "../../../render/battle/battleRenderer/background.render.js";
 import { BATTLE_BACKGROUND_DATABASE } from "../../../shareds/battle/background/battleBackground.database.js";
-import { PokemonViewer } from "../../PokemonViewer/PokemonViewer.model.js";
+import { SpriteViewer } from "../../SpriteViewer/SpriteViewer.model.js";
 import { Slot } from "../../Slot/Slot.model.js";
 import { HUD } from "./Hud/HUD.model.js";
 
@@ -45,14 +45,14 @@ export class BattleManager {
     this.frontSlot = new Slot(BATTLE_SLOT_CONFIG.front);
     this.backSlot = new Slot(BATTLE_SLOT_CONFIG.back);
 
-    this.frontViewer = new PokemonViewer(
+    this.frontViewer = new SpriteViewer(
       this.game,
       this.enemy,
       this.frontSlot,
       "front"
     );
 
-    this.backViewer = new PokemonViewer(
+    this.backViewer = new SpriteViewer(
       this.game,
       this.firstPlayerPokemon,
       this.backSlot,
@@ -76,14 +76,13 @@ export class BattleManager {
   }
 
   open() {
-    this.isOpen = true;
     this.startIntroSequence();
+    this.isOpen = true;
   }
 
   startIntroSequence() {
-    this.openPokemonViewer();
-    this.setSpriteInitalPosition();
-    this.openDialogBox();
+    this.openSpriteViewer();
+    this.setSpritesInitalPositions();
   }
 
   openDialogBox() {
@@ -91,7 +90,7 @@ export class BattleManager {
     this.game.dialogBox.hasFocus = true;
   }
 
-  openPokemonViewer() {
+  openSpriteViewer() {
     this.frontViewer.isOpen = true;
     this.backViewer.isOpen = true;
   }
@@ -128,10 +127,9 @@ export class BattleManager {
   draw(context) {
     context.fillStyle = "white";
     if (this.backgImage !== null) this.backgroundBox(context);
-    this.slideAnimation();
   }
 
-  setSpriteInitalPosition() {
+  setSpritesInitalPositions() {
     this.frontViewer.pokemonSprite.position.x =
       0 - this.frontViewer.pokemonSprite.config.frameWidth;
   }
@@ -145,8 +143,10 @@ export class BattleManager {
   }
 
   slideAnimation() {
-    if (this.spriteFinalPosition())
+    if (this.spriteFinalPosition()) {
+      this.openDialogBox();
       return (this.isSlideAnimationFinished = true);
+    }
 
     this.frontViewer.pokemonSprite.position.x += 4;
   }
@@ -156,6 +156,8 @@ export class BattleManager {
     this.draw(context);
     this.frontViewer?.update(context, null);
     this.backViewer?.update(context, null);
+
+    this.slideAnimation();
 
     if (this.isSlideAnimationFinished) {
       this.frontHUD?.update(context);

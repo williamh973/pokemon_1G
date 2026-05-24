@@ -1,3 +1,6 @@
+import { drawText } from "../../shareds/utils/font/drawText.utils.js";
+import { textParams } from "../../shareds/utils/font/font.utils.js";
+
 export class TimeManager {
   constructor() {
     this.time = 1500; // 2950 = 19h45
@@ -10,11 +13,9 @@ export class TimeManager {
     if (this.active) this.time = (this.time + this.speed) % this.dayDuration;
   }
 
-  draw(canvas) {
-    canvas.context.fillStyle = "red";
-    canvas.context.font = "16px Arial";
-
-    canvas.context.fillText(this.timeString, 20, 20);
+  draw(context) {
+    textParams(context, "16", "red");
+    drawText(context, this.timeString, 20, 20);
   }
 
   get normalizedTime() {

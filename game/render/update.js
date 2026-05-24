@@ -1,6 +1,6 @@
-const openMenu = (game) => {
+const openPlayerMenu = (game) => {
   game.player.draw(game.canvas, game.camera);
-  game.openMenu();
+  game.openPlayerMenu();
 };
 
 const NPCs = (game) => {
@@ -28,8 +28,8 @@ const drawFlyingOP = (game) => {
 const missableObjects = (game) => {
   game.mapManager.currentMap.missableObjects?.forEach((object) => {
     object.update(game, null);
-    if (object.pokemonViewer)
-      object.pokemonViewer.update(game.canvas.context, null);
+    if (object.spriteViewer)
+      object.spriteViewer.update(game.canvas.context, null);
   });
 };
 
@@ -57,8 +57,8 @@ export const update = (game) => {
     case "WORLD":
       if (!game.player.isMoving) game.mapManager.checkScenarios?.(game);
 
-      if (action === "MENU") {
-        openMenu(game);
+      if (action === "PLAYER_MENU") {
+        openPlayerMenu(game);
         return;
       }
       game.player.update(game, action);
@@ -70,7 +70,7 @@ export const update = (game) => {
       const event = game.dialogBox?.update(game.canvas.context, action);
       handleDialogState(game, event);
       break;
-    case "MENU":
+    case "PLAYER_MENU":
       game.weatherManager.update(game);
       game.mainMenu?.update(game.canvas.context, action);
       break;
@@ -84,10 +84,16 @@ export const update = (game) => {
     case "PARTY":
       game.currentScreen.update(game.canvas.context, action);
       break;
+    case "PARTY_SUMMARY":
+      game.currentScreen.update(game.canvas.context, action);
+      break;
     case "WORLDMAP":
       game.currentScreen.update(game, action);
       break;
-    case "TITLE":
+    case "START_GAME":
+      game.currentScreen.update(game.canvas.context, action);
+      break;
+    case "GENDER_MENU":
       game.currentScreen.update(game.canvas.context, action);
       break;
     case "BATTLE":
