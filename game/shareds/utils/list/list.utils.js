@@ -1,5 +1,3 @@
-import { SPECIES_DATABASE } from "../../pokemon/species/species.database.js";
-
 export const listSort = (listFilter) => {
   return listFilter.sort((a, b) => a.name.localeCompare(b.name));
 };
@@ -25,8 +23,4 @@ export const getSpeciesLearnsets = (species, level) => {
     (move) => move.level <= level
   );
   return learnset;
-};
-
-export const getSpeciesData = (pokemonId) => {
-  return SPECIES_DATABASE[pokemonId];
 };

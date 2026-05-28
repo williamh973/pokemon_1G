@@ -19,7 +19,6 @@ import { TRIGGERED_SCENARIOS_DATABASE } from "../../shareds/scenarios/triggeredS
 import { MapNameWindow } from "../Map/MapNameWindow.model.js";
 import { DayNightCycle } from "../DayNightCycle/DayNightCycle.model.js";
 import { TimeManager } from "../TimeManager/TimeManager.model.js";
-import { EncounterManager } from "../encounterManager/encounterManager.model.js";
 import { dispatchMenuSelection } from "../../logic/gameplay/game/dispatchMenuSelection.gameplay.js";
 import { startTransitionBeforeOpenWorldMap } from "../../logic/gameplay/game/worldMap/startTransitionBeforeOpenWorldMap.gameplay.js";
 import { closeWorldMap } from "../../logic/gameplay/game/worldMap/closeWorldMap.gameplay.js";
@@ -31,6 +30,7 @@ import { togglePause } from "../../logic/gameplay/game/togglePause.gameplay.js";
 import { WeatherManager } from "../weather/WeatherManager/WeatherManager.model.js";
 import { StartGameMenu } from "../StartGameMenu/StartGameMenu.model.js";
 import { GenderMenu } from "../GenderMenu/GenderMenu.model.js";
+import { EncounterManager } from "../EncounterManager/encounterManager.model.js";
 
 export class Game {
   constructor() {
@@ -173,6 +173,7 @@ export class Game {
 
   closeCurrentScreen() {
     this.currentScreen.close();
+    this.currentScreen = null;
   }
 
   openParty() {

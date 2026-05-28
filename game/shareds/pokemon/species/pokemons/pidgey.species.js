@@ -1,4 +1,5 @@
 import { GROWTH_RATES_DATABASE } from "../../experience/growthRates/growthRates.database.js";
+import { MOVES_DATABASE } from "../../moves/moves.database.js";
 
 export const PIDGEY_SPECIES = {
   id: "pidgey",
@@ -26,8 +27,8 @@ export const PIDGEY_SPECIES = {
   evolutions: [{ method: "level", level: 18, target: "pidgeotto" }],
   learnset: {
     levelUp: [
-      { level: 1, move: "Charge" },
-      { level: 5, move: "Jet de Sable" },
+      { level: 1, move: MOVES_DATABASE.tackle },
+      { level: 6, move: "Jet de Sable" },
       { level: 9, move: "Tornade" },
     ],
     tmhm: [

@@ -1,50 +1,42 @@
-import { POKEMON_IDLE_ANIMATIONS } from "../../shareds/pokemon/animations/idle/pokemonIdleAnimation.database.js";
 import { drawBox } from "../../shareds/utils/box/box.utils.js";
-import { AnimatedSprite } from "../AnimationSprite/AnimationSprite.model.js";
+import { AnimatedSprite } from "../AnimatedSprite/AnimatedSprite.model.js";
 
 export class SpriteViewer {
-  constructor(game, selectedPokemon = null, slot, key) {
-    // console.log(selectedPokemon); // affiche null plutot que le content du slot
-    this.isOpen = false;
+  constructor(game, animationConfig, slot) {
     this.game = game;
-    this.selectedPokemon = selectedPokemon;
-    this.animKey = this.selectedPokemon.animations?.idle[key];
+    this.animationConfig = animationConfig;
+    this.slot = slot;
+    this.isOpen = false;
 
-    this.animeConfig = // l'id est le nom en anglais
-      POKEMON_IDLE_ANIMATIONS[this.selectedPokemon.id][this.animKey];
-
-    // POUR TEST UNIQUEMENT
-    // this.animeConfig =
-    //   POKEMON_IDLE_ANIMATIONS["gyarados"]["gyarados_front_idle"];
-
-    const getSlotCenterPositions = slot.center(
-      this.animeConfig.frameWidth,
-      this.animeConfig.frameHeight
+    const center = this.slot.center(
+      this.animationConfig.frameWidth,
+      this.animationConfig.frameHeight
     );
-    this.setPositions(this.game, getSlotCenterPositions);
+    this.setPositions(center);
   }
 
   spritePosition(posX = 0, posY = 0) {
-    this.pokemonSprite = new AnimatedSprite({
-      ...this.animeConfig,
+    this.sprite = new AnimatedSprite({
+      ...this.animationConfig,
       x: posX,
       y: posY,
     });
   }
 
-  setPositions(game, positions) {
-    switch (game.currentScreen?.name) {
+  setPositions(centerSlot) {
+    // réservé pour d'éventuels placements spécifiques selon l'écran
+    switch (this.game.state) {
       case "POKEDEX":
-        this.spritePosition(positions.x, positions.y);
+        this.spritePosition(centerSlot.x, centerSlot.y);
         break;
       case "BATTLE":
-        this.spritePosition(positions.x, positions.y);
+        this.spritePosition(centerSlot.x, centerSlot.y);
         break;
       case "CHOICE_MENU":
-        this.spritePosition(positions.x, positions.y);
+        this.spritePosition(centerSlot.x, centerSlot.y);
         break;
       default:
-        this.spritePosition(positions.x, positions.y);
+        this.spritePosition(centerSlot.x, centerSlot.y);
         break;
     }
   }
@@ -53,19 +45,20 @@ export class SpriteViewer {
     if (!this.isOpen) return;
 
     this.draw(context);
-    this.pokemonSprite.update(context);
+    this.sprite.update(context);
   }
 
   draw(context) {
-    switch (this.game.currentScreen.name) {
+    this.drawGlassBehindAnimatedSprite(context);
+  }
+
+  drawGlassBehindAnimatedSprite(context) {
+    switch (this.game.state) {
       case "POKEDEX":
         context.globalAlpha = 0.8;
         drawBox(context, 15, 15, 120, 120, "black", "black"); // dessine un fond derriere le sprite
         break;
-      case "BATTLE":
-        // Pas de fond. Ca fonctionne
-        break;
-      case "START_GAME":
+      case "CHOICE_MENU":
         context.globalAlpha = 0.8;
         drawBox(context, 112, 95, 95, 100, "purple", "black");
         break;

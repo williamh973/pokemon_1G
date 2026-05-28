@@ -4,6 +4,7 @@ import { SpriteViewer } from "../../../../../SpriteViewer/SpriteViewer.model.js"
 import { Slot } from "../../../../../Slot/Slot.model.js";
 import { drawText } from "../../../../../../shareds/utils/font/drawText.utils.js";
 import { textParams } from "../../../../../../shareds/utils/font/font.utils.js";
+import { getAnimationConfig } from "../../../../../../shareds/utils/pokemon/animations/pokemonAnimations.utils.js";
 
 export class PokemonDetail {
   constructor(pokemonList, game, pokemon = "") {
@@ -24,9 +25,8 @@ export class PokemonDetail {
   openSpriteViewer() {
     this.spriteViewer = new SpriteViewer(
       this.game,
-      this.pokemon,
-      this.slot,
-      "front"
+      getAnimationConfig(this.pokemon.id, "front"),
+      this.slot
     );
     this.spriteViewer.isOpen = true;
   }
@@ -44,7 +44,7 @@ export class PokemonDetail {
 
   closePokemonViewer() {
     this.spriteViewer.isOpen = false;
-    this.spriteViewer.pokemonSprite = null;
+    this.spriteViewer.sprite = null;
     this.spriteViewer = null;
   }
 

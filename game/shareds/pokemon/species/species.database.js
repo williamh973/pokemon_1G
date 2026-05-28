@@ -1,4 +1,5 @@
 import { GROWTH_RATES_DATABASE } from "../experience/growthRates/growthRates.database.js";
+import { MOVES_DATABASE } from "../moves/moves.database.js";
 import { BULBASAUR_SPECIES } from "./pokemons/bulbasaur.species.js";
 import { PIDGEY_SPECIES } from "./pokemons/pidgey.species.js";
 
@@ -112,36 +113,39 @@ export const SPECIES_DATABASE = {
       specialDef: 35,
       speed: 72,
     },
-    graphics: {
-      partyIcon: "game/assets/images/pokemons/1G/icons/rattata.png",
-    },
     animations: {
       idle: {
         front: "rattata_front_idle",
         back: "rattata_back_idle",
       },
     },
-    learnsetLevel1: ["Charge", "Mimi-Queue", "NO_MOVE", "NO_MOVE"],
-    learnsetCTCS: [
-      "Toxik",
-      "Plaquage",
-      "Bélier",
-      "Damoclès",
-      "Bulles d’O",
-      "Pistolet à O",
-      "Blizzard",
-      "Frénésie",
-      "Tonnerre",
-      "Fatal-Foudre",
-      "Tunnel",
-      "Mimique",
-      "Reflet",
-      "Patience",
-      "Vive-Attaque",
-      "Coud’Krâne",
-      "Repos",
-      "Clonage",
-    ],
+    evolutions: [{ method: "level", level: 27, target: "" }],
+    learnset: {
+      levelUp: [
+        { level: 1, move: MOVES_DATABASE.tackle },
+        { level: 1, move: MOVES_DATABASE.tailWhip },
+      ],
+      tmhm: [
+        "Toxik",
+        "Plaquage",
+        "Bélier",
+        "Damoclès",
+        "Bulles d’O",
+        "Pistolet à O",
+        "Blizzard",
+        "Frénésie",
+        "Tonnerre",
+        "Fatal-Foudre",
+        "Tunnel",
+        "Mimique",
+        "Reflet",
+        "Patience",
+        "Vive-Attaque",
+        "Coud’Krâne",
+        "Repos",
+        "Clonage",
+      ],
+    },
   },
   zubat: {
     id: "zubat",

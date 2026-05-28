@@ -1,5 +1,6 @@
 export const MOVES_DATABASE = {
   tackle: {
+    id: "tackle",
     name: "Charge",
     type: ["NORMAL"],
     pp: 35,
@@ -8,6 +9,7 @@ export const MOVES_DATABASE = {
     desc: "Une violente charge",
   },
   tailWhip: {
+    id: "tailWhip",
     name: "Mimi-Queue",
     type: ["NORMAL"],
     pp: 35,
@@ -16,6 +18,7 @@ export const MOVES_DATABASE = {
     desc: "Réduit la Défense de l'adversaire d'un niveau.",
   },
   vineWhip: {
+    id: "vineWhip",
     name: "Fouet Lianes",
     type: ["GRASS"],
     pp: 10,

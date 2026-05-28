@@ -15,4 +15,7 @@ export const TYPES_CONFIG = {
   POISON: {
     image: createImg("game/assets/images/types/poison.png"),
   },
+  NORMAL: {
+    image: createImg("game/assets/images/types/normal.png"),
+  },
 };

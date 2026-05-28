@@ -3,11 +3,11 @@ import { textParams } from "../../../../../shareds/utils/font/font.utils.js";
 import { getExpForLevel } from "../../../../../shareds/utils/pokemon/experience/experience.utils.js";
 
 export class ExpBar {
-  constructor(hud, pokemon) {
+  constructor(parent, pokemon) {
     this.pokemon = pokemon;
     this.position = {
-      x: hud.position.x + 34,
-      y: hud.position.y + 57,
+      x: parent.x,
+      y: parent.y,
     };
     this.width = 90;
     this.height = 3;

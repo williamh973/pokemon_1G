@@ -25,7 +25,6 @@ export class EncounterManager {
     const randomN = Math.floor(Math.random() * 256);
     const slot = encounterList.find((slot) => randomN <= slot.chance);
     const chosenPokemon = slot.pokemon;
-    console.log("randomN", randomN, "poke", chosenPokemon);
     if (!chosenPokemon) return;
 
     const position = getSpawnAroundPlayer(game, player);
@@ -49,8 +48,7 @@ export class EncounterManager {
       () => {
         game.togglePause(true, false);
       },
-      (done, game) => {
-        game.togglePause(true, false);
+      (done) => {
         const wildPokemon = generatePokemon(
           targetOP,
           game.mapManager.currentMap.name

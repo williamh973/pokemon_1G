@@ -7,6 +7,7 @@ import { removeMObyFlagId } from "../../../../shareds/utils/list/list.utils.js";
 import { SpriteViewer } from "../../../SpriteViewer/SpriteViewer.model.js";
 import { Slot } from "../../../Slot/Slot.model.js";
 import { Npc } from "../npc.model.js";
+import { getAnimationConfig } from "../../../../shareds/utils/pokemon/animations/pokemonAnimations.utils.js";
 
 export class MissableObject extends Npc {
   constructor({ key, tileX, tileY, id, category, flagId, name }) {
@@ -30,13 +31,17 @@ export class MissableObject extends Npc {
   }
 
   openSpriteViewer(game, starter) {
-    this.spriteViewer = new SpriteViewer(game, starter, this.slot, "front");
+    this.spriteViewer = new SpriteViewer(
+      game,
+      getAnimationConfig(starter.id, "front"),
+      this.slot
+    );
     this.spriteViewer.isOpen = true;
   }
 
   closePokemonViewer() {
     this.spriteViewer.isOpen = false;
-    this.spriteViewer.pokemonSprite = null;
+    this.spriteViewer.sprite = null;
     this.spriteViewer = null;
   }
 

@@ -5,13 +5,12 @@ import { Party } from "../../MainMenu/items/Party/Party.model.js";
 import { Inventory } from "../../MainMenu/items/Inventory/Inventory.model.js";
 import { Pokedex } from "../../MainMenu/items/pokedex/pokedex.model.js";
 import { PLAYER_PATHS } from "../../../logic/gameplay/character/player/paths.gameplay.js";
-import { CHARACTER_STATE } from "../../../shareds/utils/character/character.utils.js";
 
 export class Player extends Character {
   constructor(game, playedWith) {
     const playerSprites = {
-      idle: CHARACTER_SPRITES[playedWith].idle,
-      walk: CHARACTER_SPRITES[playedWith].walk,
+      idle: CHARACTER_SPRITES[playedWith].world.idle,
+      walk: CHARACTER_SPRITES[playedWith].world.walk,
     };
 
     super({

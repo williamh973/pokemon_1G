@@ -1,5 +1,5 @@
 export class AnimatedSprite {
-  constructor(config) {
+  constructor(config, isPlaying = true) {
     this.config = config;
     this.position = {
       x: this.config.x,
@@ -16,9 +16,15 @@ export class AnimatedSprite {
     this.loop = this.config.loop ?? true;
     this.currentFrame = 0;
     this.counter = 0;
+    this.isPlaying = isPlaying;
   }
 
   update(context) {
+    if (!this.isPlaying) {
+      this.draw(context);
+      return;
+    }
+
     this.draw(context);
     this.counter++;
 
@@ -27,9 +33,10 @@ export class AnimatedSprite {
     this.counter = 0;
     this.currentFrame++;
 
-    if (this.currentFrame >= this.frameCount) {
+    if (this.currentFrame >= this.frameCount)
       this.currentFrame = this.loop ? 0 : this.frameCount - 1;
-    }
+
+    if (!this.loop) this.isPlaying = false;
   }
 
   draw(context) {

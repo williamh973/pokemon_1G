@@ -1,3 +1,5 @@
+import { drawDebugCollisionSquare } from "../../shareds/utils/tile/tile.utils.js";
+
 export class Slot {
   constructor(config) {
     this.config = config;
@@ -37,5 +39,6 @@ export class Slot {
 
   update(context) {
     this.draw(context);
+    // drawDebugCollisionSquare(this, context, true);
   }
 }

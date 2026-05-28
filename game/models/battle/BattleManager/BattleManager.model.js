@@ -4,6 +4,11 @@ import { BATTLE_BACKGROUND_DATABASE } from "../../../shareds/battle/background/b
 import { SpriteViewer } from "../../SpriteViewer/SpriteViewer.model.js";
 import { Slot } from "../../Slot/Slot.model.js";
 import { HUD } from "./Hud/HUD.model.js";
+import { HUD_CONFIG } from "../../../render/config/battle/hud.config.js";
+import { PLAYER_BATTLE_INTRO_ANIMATION } from "../../../render/config/battle/introPlayerSprite.config.js";
+import { getAnimationConfig } from "../../../shareds/utils/pokemon/animations/pokemonAnimations.utils.js";
+import { DIALOGS_DATABASE } from "../../../shareds/dialogs/dialogs.database.js";
+import { BattleIntroSequence } from "./BattleIntroSequence/BattleIntroSequence.model.js";
 
 // - état du combat
 // - tours
@@ -23,76 +28,89 @@ export class BattleManager {
     trainer = null,
     tile
   ) {
-    this.backgImage = null;
-    this.setBattleBackImg(tile);
+    this.game = game;
+    this.isTrainerBattle = isTrainerBattle;
+    this.wildPokemon = wildPokemon;
+    this.trainer = trainer;
     this.position = {
       x: 0,
       y: 0,
     };
-    this.game = game;
     this.name = "BATTLE";
+    this.phase = "INTRO";
     this.canvas = this.game.canvas;
     this.width = this.canvas.width;
     this.height = this.canvas.height;
     this.isOpen = false;
+    this.backgImage = null;
     this.music = null;
-    this.isSlideAnimationFinished = false;
-    this.isTrainerBattle = isTrainerBattle;
     this.weather = null;
+    this.player = null;
+    this.frontViewer = null;
+    this.backViewer = null;
     this.firstPlayerPokemon = this.game.player.party.slots[0].content;
-    this.enemy = wildPokemon; // pokemon sauvage généré pendant une rencontre
-    this.trainer = trainer; // dresseur adverse rencontré
     this.frontSlot = new Slot(BATTLE_SLOT_CONFIG.front);
     this.backSlot = new Slot(BATTLE_SLOT_CONFIG.back);
+    this.frontHUD = new HUD(this.wildPokemon, HUD_CONFIG.front);
+    this.backHUD = new HUD(this.firstPlayerPokemon, HUD_CONFIG.back);
+    this.setViewers();
+    this.setBattleBackImg(tile);
 
+    this.introSequence = new BattleIntroSequence(
+      this.game,
+      this.frontViewer,
+      this.backViewer,
+      this.frontSlot,
+      this.backSlot,
+      () => this.openDialogBox()
+    );
+
+    this.startIntroSequence();
+  }
+
+  open() {
+    this.isOpen = true;
+  }
+
+  setBattleBackImg(tile) {
+    const background = BATTLE_BACKGROUND_DATABASE[tile.terrain];
+    if (background) this.backgImage = background.image;
+  }
+
+  setViewers() {
     this.frontViewer = new SpriteViewer(
       this.game,
-      this.enemy,
-      this.frontSlot,
-      "front"
+      getAnimationConfig(this.wildPokemon.id, "front"),
+      this.frontSlot
     );
 
     this.backViewer = new SpriteViewer(
       this.game,
-      this.firstPlayerPokemon,
-      this.backSlot,
-      "back"
+      PLAYER_BATTLE_INTRO_ANIMATION,
+      this.backSlot
     );
-
-    this.frontHUD = new HUD(this.enemy, {
-      x: 10,
-      y: 10,
-      width: 130,
-      height: 60,
-      isPlayerHUD: false,
-    });
-    this.backHUD = new HUD(this.firstPlayerPokemon, {
-      x: 180,
-      y: 150,
-      width: 130,
-      height: 60,
-      isPlayerHUD: true,
-    });
-  }
-
-  open() {
-    this.startIntroSequence();
-    this.isOpen = true;
+    this.backViewer.sprite.isPlaying = false;
   }
 
   startIntroSequence() {
-    this.openSpriteViewer();
-    this.setSpritesInitalPositions();
+    this.introSequence.start();
   }
 
   openDialogBox() {
-    this.game.dialogBox.open(`Un ${this.enemy.name} sauvage apparait!`, true);
-    this.game.dialogBox.hasFocus = true;
-  }
+    if (this.isTrainerBattle)
+      this.game.dialogBox.open(
+        DIALOGS_DATABASE.BATTLE_DIALOGS.trainerWantsToFight(this.trainer.name),
+        true
+      );
+    else
+      this.game.dialogBox.open(
+        DIALOGS_DATABASE.BATTLE_DIALOGS.wildPokemonAppears(
+          this.wildPokemon.name
+        ),
+        true
+      );
 
-  openSpriteViewer() {
-    this.frontViewer.isOpen = true;
-    this.backViewer.isOpen = true;
+    this.game.dialogBox.hasFocus = true;
   }
 
   close() {
@@ -105,14 +123,9 @@ export class BattleManager {
     this.game.closeDialogBox(this.game);
   }
 
-  setBattleBackImg(tile) {
-    const background = BATTLE_BACKGROUND_DATABASE[tile.terrain];
-    if (background) this.backgImage = background.image;
-  }
-
   // closePokemonViewer() {
   //   this.frontViewer.isOpen = false;
-  //   this.frontViewer.pokemonSprite = null;
+  //   this.frontViewer.sprite = null;
   //   this.frontViewer = null;
   // }
 
@@ -129,49 +142,35 @@ export class BattleManager {
     if (this.backgImage !== null) this.backgroundBox(context);
   }
 
-  setSpritesInitalPositions() {
-    this.frontViewer.pokemonSprite.position.x =
-      0 - this.frontViewer.pokemonSprite.config.frameWidth;
-  }
-
-  spriteFinalPosition() {
-    return (
-      this.frontViewer.pokemonSprite.position.x >=
-      this.frontSlot.position.x +
-        (this.frontSlot.width - this.frontViewer.pokemonSprite.frameWidth) / 2
-    );
-  }
-
-  slideAnimation() {
-    if (this.spriteFinalPosition()) {
-      this.openDialogBox();
-      return (this.isSlideAnimationFinished = true);
-    }
-
-    this.frontViewer.pokemonSprite.position.x += 4;
-  }
-
   update(context, action) {
     if (!this.isOpen) return;
     this.draw(context);
+
     this.frontViewer?.update(context, null);
     this.backViewer?.update(context, null);
 
-    this.slideAnimation();
+    if (this.introSequence.isFinished) this.frontHUD?.update(context);
 
-    if (this.isSlideAnimationFinished) {
-      this.frontHUD?.update(context);
-      this.backHUD?.update(context);
-    }
+    // if(playerSentOutPokemon)
+    // this.backHUD?.update(context);
+
+    // pour dev, fermeture de la boite à l'action de la touche A
+    // if (result === this.game.dialogBox.noMorePage()) this.closeDialogBox();
+    this.introSequence?.update();
 
     if (this.game.dialogBox.isOpen) {
-      const result = this.game.dialogBox.update(
-        this.game.canvas.context,
-        action
-      );
+      this.game.dialogBox.update(this.game.canvas.context, action);
 
-      // pour dev, fermeture de la boite à l'action de la touche A
-      if (result === this.game.dialogBox.noMorePage()) this.closeDialogBox();
+      switch (action) {
+        case "ACTION":
+          if (this.introSequence.isFinished && this.game.dialogBox.isOpen) {
+            this.backViewer.sprite.isPlaying = true;
+          }
+          break;
+
+        default:
+          break;
+      }
     }
   }
 }

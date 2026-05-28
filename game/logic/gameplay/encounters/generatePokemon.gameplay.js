@@ -11,6 +11,7 @@ export const generatePokemon = (
   const ivs = generateIVs();
   const evs = 0;
   const stats = calculateStats(species.baseStats, ivs, evs, target.level);
+  const learnsets = getMoves(species.learnset.levelUp, target.level);
 
   const pokemon = {
     id: species.id,
@@ -23,7 +24,7 @@ export const generatePokemon = (
     item: "Aucun",
     level: target.level,
     ivs,
-    moves: [],
+    moves: learnsets,
     nature: null, // pour l'instant
     origin: {
       caughtAt: currentMapName,
@@ -37,10 +38,28 @@ export const generatePokemon = (
   };
   return pokemon;
 };
+
+const getMoves = (learnsets, level) => {
+  return learnsets
+    .filter((set) => set.level <= level)
+    .slice(-4)
+    .map((set) => ({
+      id: set.move.id,
+      name: set.move.name,
+      type: set.move.type,
+      currentPP: set.move.pp,
+      maxPP: set.move.pp,
+      power: set.move.power,
+      precision: set.move.precision,
+      desc: set.move.desc,
+    }));
+};
+
 const generateTrainerId = () => {
   const random = Math.floor(Math.random() * 100_000);
   return random;
 };
+
 const generateItem = () => {
   return "aucun";
 };

@@ -1,5 +1,6 @@
-import { PokemonSummaryFirst } from "./PokemonSummaryFirst.model.js";
-import { PokemonSummarySecond } from "./PokemonSummarySecond.model.js";
+import { PokemonSummaryInfos } from "./PokemonSummaryInfos.model.js";
+import { PokemonSummaryMoves } from "./PokemonSummaryMoves.model.js";
+import { PokemonSummaryStats } from "./PokemonSummaryStats.model.js";
 
 export class PokemonSummaryManager {
   constructor(game, pokemon, onClose) {
@@ -7,8 +8,9 @@ export class PokemonSummaryManager {
     this.onClose = onClose;
 
     this.pages = [
-      new PokemonSummaryFirst(game, pokemon),
-      new PokemonSummarySecond(game, pokemon),
+      new PokemonSummaryInfos(game, pokemon),
+      new PokemonSummaryStats(game, pokemon),
+      new PokemonSummaryMoves(game, pokemon),
     ];
     this.activePage = this.pages[this.pageIndex];
     this.hasFocus = false;
@@ -20,7 +22,11 @@ export class PokemonSummaryManager {
   }
 
   close() {
-    this.pages.forEach((page) => (page.isOpen = false));
+    this.pages.forEach((page) => {
+      page.isOpen = false;
+      page.hasFocus = false;
+    });
+
     this.hasFocus = false;
 
     this.pageIndex = 0;
@@ -29,10 +35,14 @@ export class PokemonSummaryManager {
     this.onClose?.();
   }
 
-  nextPage() {
+  nextPage(action) {
     this.activePage.isOpen = false;
 
-    this.pageIndex++;
+    if (action === "RIGHT") this.pageIndex++;
+    else this.pageIndex--;
+
+    if (action === "LEFT" && this.pageIndex < 0)
+      this.pageIndex = this.pages.length - 1;
 
     if (this.pageIndex >= this.pages.length) this.pageIndex = 0;
 
@@ -51,10 +61,15 @@ export class PokemonSummaryManager {
     if (!this.hasFocus) return;
 
     switch (action) {
-      case "ACTION":
-        this.nextPage();
+      case "RIGHT":
+        this.nextPage("RIGHT");
         break;
-      case "ESCAPE":
+      case "LEFT":
+        this.nextPage("LEFT");
+        break;
+      case "ACTION":
+        break;
+      case "CANCEL":
         this.close();
         break;
       default:

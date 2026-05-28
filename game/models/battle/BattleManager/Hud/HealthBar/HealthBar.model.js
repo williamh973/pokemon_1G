@@ -2,12 +2,12 @@ import { drawText } from "../../../../../shareds/utils/font/drawText.utils.js";
 import { textParams } from "../../../../../shareds/utils/font/font.utils.js";
 
 export class HealthBar {
-  constructor(hud, currentHp, maxHp) {
+  constructor(parent, currentHp, maxHp) {
     this.currentHp = currentHp;
     this.maxHp = maxHp;
     this.position = {
-      x: hud.x,
-      y: hud.y,
+      x: parent.x,
+      y: parent.y,
     };
     this.width = 70;
     this.height = 5;

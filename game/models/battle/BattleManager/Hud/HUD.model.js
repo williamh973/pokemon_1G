@@ -22,7 +22,13 @@ export class HUD {
       this.pokemon.stats.hp,
       this.pokemon.stats.maxHp
     );
-    this.expBar = new ExpBar(this, this.pokemon);
+    this.expBar = new ExpBar(
+      {
+        x: this.position.x + 34,
+        y: this.position.y + 57,
+      },
+      this.pokemon
+    );
   }
 
   setHudHeight(hudParams) {

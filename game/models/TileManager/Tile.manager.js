@@ -86,7 +86,7 @@ export class TileManager {
           this.tileSize + 0.5
         );
 
-        drawDebugCollisionSquare(tile, context, false);
+        // drawDebugCollisionSquare(tile, context, false);
       }
     }
   }
