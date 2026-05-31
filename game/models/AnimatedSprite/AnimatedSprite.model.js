@@ -19,6 +19,14 @@ export class AnimatedSprite {
     this.isPlaying = isPlaying;
   }
 
+  play() {
+    this.isPlaying = true;
+  }
+
+  stop() {
+    this.isPlaying = false;
+  }
+
   update(context) {
     if (!this.isPlaying) {
       this.draw(context);
@@ -26,6 +34,7 @@ export class AnimatedSprite {
     }
 
     this.draw(context);
+
     this.counter++;
 
     if (this.counter < this.frameDelay) return;
@@ -33,10 +42,13 @@ export class AnimatedSprite {
     this.counter = 0;
     this.currentFrame++;
 
-    if (this.currentFrame >= this.frameCount)
-      this.currentFrame = this.loop ? 0 : this.frameCount - 1;
-
-    if (!this.loop) this.isPlaying = false;
+    if (this.currentFrame >= this.frameCount) {
+      if (this.loop) this.currentFrame = 0;
+      else {
+        this.currentFrame = this.frameCount - 1;
+        this.isPlaying = false;
+      }
+    }
   }
 
   draw(context) {

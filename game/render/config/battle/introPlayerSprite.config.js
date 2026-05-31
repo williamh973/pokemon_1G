@@ -3,7 +3,7 @@ export const PLAYER_BATTLE_INTRO_ANIMATION = {
   frameWidth: 64,
   frameHeight: 64,
   frames: 5,
-  frameDelay: 6,
+  frameDelay: 8,
   scale: 1.5,
   loop: false,
 };

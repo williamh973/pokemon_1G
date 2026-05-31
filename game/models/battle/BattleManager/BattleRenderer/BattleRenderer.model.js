@@ -1,0 +1,32 @@
+import { BATTLE_BACKGROUND_DATABASE } from "../../../../shareds/battle/background/battleBackground.database.js";
+
+export class BattleRenderer {
+  constructor(game, slots, huds, tile) {
+    this.game = game;
+    this.tile = tile;
+    this.backgroundImg = this.setBattleBackImg();
+    this.frontSlot = slots.frontSlot;
+    this.backSlot = slots.backSlot;
+    this.frontHUD = huds.frontHUD;
+    this.backHUD = huds.backHUD;
+  }
+
+  setBattleBackImg() {
+    const background = BATTLE_BACKGROUND_DATABASE[this.tile.terrain];
+    if (background) return (this.backgroundImg = background.image);
+  }
+
+  draw(context) {
+    context.drawImage(
+      this.backgroundImg,
+      this.game.canvas.position.x,
+      this.game.canvas.position.y,
+      this.game.canvas.width,
+      this.game.canvas.height
+    );
+  }
+
+  update(context) {
+    this.draw(context);
+  }
+}

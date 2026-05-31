@@ -22,7 +22,7 @@ export const kantoRoute1 = {
   height: kantoRoute1Collide.length,
   warps: kantoRoute1Warps,
   encounter: kantoRoute1Encounters,
-  encounterRate: 100,
+  encounterRate: 255, // 256
   overworldPokemons: kantoRoute1OverworldPokemons,
   worldMap: { x: 3, y: 5, w: 1, h: 3 },
   isFlyable: false,

@@ -31,6 +31,7 @@ import { WeatherManager } from "../weather/WeatherManager/WeatherManager.model.j
 import { StartGameMenu } from "../StartGameMenu/StartGameMenu.model.js";
 import { GenderMenu } from "../GenderMenu/GenderMenu.model.js";
 import { EncounterManager } from "../EncounterManager/encounterManager.model.js";
+import { BattleManager } from "../battle/BattleManager/BattleManager.model.js";
 
 export class Game {
   constructor() {
@@ -98,10 +99,18 @@ export class Game {
     this.openGenderMenu();
   }
 
-  activateBattleState() {
+  activateBattleState(wildPokemon, tile) {
+    this.state = "BATTLE";
+    this.battleManager = new BattleManager(
+      this,
+      false,
+      wildPokemon,
+      null,
+      tile
+    );
+
     this.currentScreen = this.battleManager;
     this.currentScreen.open();
-    this.state = "BATTLE";
   }
 
   togglePause(isPaused, isCanMove) {
