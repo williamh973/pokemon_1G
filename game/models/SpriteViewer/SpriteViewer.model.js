@@ -8,37 +8,20 @@ export class SpriteViewer {
     this.slot = slot;
     this.isOpen = false;
 
+    this.spritePosition();
+  }
+
+  spritePosition() {
     const center = this.slot.center(
       this.animationConfig.frameWidth,
       this.animationConfig.frameHeight
     );
-    this.setPositions(center);
-  }
 
-  spritePosition(posX = 0, posY = 0) {
     this.sprite = new AnimatedSprite({
       ...this.animationConfig,
-      x: posX,
-      y: posY,
+      positionX: center.x,
+      positionY: center.y,
     });
-  }
-
-  setPositions(centerSlot) {
-    // réservé pour d'éventuels placements spécifiques selon l'écran
-    switch (this.game.state) {
-      case "POKEDEX":
-        this.spritePosition(centerSlot.x, centerSlot.y);
-        break;
-      case "BATTLE":
-        this.spritePosition(centerSlot.x, centerSlot.y);
-        break;
-      case "CHOICE_MENU":
-        this.spritePosition(centerSlot.x, centerSlot.y);
-        break;
-      default:
-        this.spritePosition(centerSlot.x, centerSlot.y);
-        break;
-    }
   }
 
   update(context) {

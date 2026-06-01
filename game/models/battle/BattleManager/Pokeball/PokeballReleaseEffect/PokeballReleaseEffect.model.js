@@ -1,7 +1,6 @@
 export class PokeballReleaseEffect {
   constructor(x, y) {
     this.position = { x, y };
-
     this.flashAlpha = 1;
     this.radius = 10;
 

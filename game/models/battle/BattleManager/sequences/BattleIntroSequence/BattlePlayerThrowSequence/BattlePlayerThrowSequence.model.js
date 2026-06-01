@@ -1,8 +1,7 @@
 import { SpriteViewer } from "../../../../../SpriteViewer/SpriteViewer.model.js";
 
 export class BattlePlayerThrowSequence {
-  constructor(game, viewers, onFinish, backSlot) {
-    this.game = game;
+  constructor(viewers, onFinish, backSlot) {
     this.viewers = viewers;
     this.backSlot = backSlot;
     this.onFinish = onFinish;

@@ -15,7 +15,7 @@ export const POKEMON_IDLE_ANIMATIONS = {
       frameHeight: 40,
       frames: 6,
       frameDelay: 6,
-      scale: 1.2,
+      scale: 1.6,
       loop: true,
     },
   },

@@ -9,6 +9,8 @@ export const BATTLE_DIALOGS = {
 
   playerSentOutPokemon: (pokemon) => `${pokemon} ! À toi !`,
 
+  whatShouldPokemonDo: (pokemon) => `Que doit faire ${pokemon} ?`,
+
   playerLoseBattle: (player) =>
     `${player} n'a plus de pokémon en forme et se hâte vers le centre pokémon le plus proche`,
 

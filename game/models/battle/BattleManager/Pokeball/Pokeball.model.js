@@ -1,4 +1,5 @@
 import { BALL_CONFIG } from "../../../../render/config/item/ball/ball.config.js";
+import { SpriteViewer } from "../../../SpriteViewer/SpriteViewer.model.js";
 import { PokeballReleaseEffect } from "./PokeballReleaseEffect/PokeballReleaseEffect.model.js";
 
 export class Pokeball {

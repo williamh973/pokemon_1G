@@ -2,25 +2,14 @@ import { SpriteViewer } from "../../SpriteViewer/SpriteViewer.model.js";
 import { PLAYER_BATTLE_INTRO_ANIMATION } from "../../../render/config/battle/introPlayerSprite.config.js";
 import { getAnimationConfig } from "../../../shareds/utils/pokemon/animations/pokemonAnimations.utils.js";
 import { DIALOGS_DATABASE } from "../../../shareds/dialogs/dialogs.database.js";
-import { BattleIntroSequence } from "./sequences/BattleIntroSequence/BattleIntroSequence.model.js";
 import { BattleRenderer } from "./BattleRenderer/BattleRenderer.model.js";
 import { Slot } from "../../Slot/Slot.model.js";
 import { HUD } from "./Hud/HUD.model.js";
 import { HUD_CONFIG } from "../../../render/config/battle/hud.config.js";
 import { BATTLE_SLOT_CONFIG } from "../../../logic/gameplay/battleManager/slots/battleSlots.config.js";
-import { BATTLE_PHASES } from "../battlePhase/battlePhase.js";
-import { BattlePlayerThrowSequence } from "./sequences/BattleIntroSequence/BattlePlayerThrowSequence/BattlePlayerThrowSequence.model.js";
-import { Pokeball } from "./Pokeball/Pokeball.model.js";
-
-// - état du combat
-// - tours
-// - actions
-// - attaques
-// - dégâts
-// - KO
-// - capture
-// - victoire/défaite
-// - transitions de phase
+import { BATTLE_PHASES } from "./battlePhase/battlePhase.js";
+import { BattleSequenceManager } from "./sequences/BattleSequenceManager/BattleSequenceManager.model.js";
+import { BattlePhaseManager } from "./battlePhase/BattlePhase.model.js";
 
 export class BattleManager {
   constructor(
@@ -39,7 +28,6 @@ export class BattleManager {
       y: 0,
     };
     this.name = "BATTLE";
-    this.phase = BATTLE_PHASES.INTRO;
     this.canvas = this.game.canvas;
     this.width = this.canvas.width;
     this.height = this.canvas.height;
@@ -48,7 +36,6 @@ export class BattleManager {
     this.weather = null;
     this.player = this.game.player;
     this.firstPlayerPokemon = this.game.player.party.slots[0].content;
-
     this.battleRenderer = new BattleRenderer(
       this.game,
       {
@@ -75,46 +62,20 @@ export class BattleManager {
       ),
     };
     this.viewers.back.sprite.isPlaying = false;
-    this.sequences = [];
-    this.startIntroSequence();
+
+    this.sequenceManager = new BattleSequenceManager({
+      game: this.game,
+      viewers: this.viewers,
+      battleRenderer: this.battleRenderer,
+      wildPokemon: this.wildPokemon,
+      firstPlayerPokemon: this.firstPlayerPokemon,
+    });
+
+    this.phaseManager = new BattlePhaseManager(this, this.sequenceManager); // doit il connaitre sequenceManager ?
   }
 
   open() {
     this.isOpen = true;
-  }
-
-  startIntroSequence() {
-    this.introSequence = new BattleIntroSequence(
-      this.game,
-      this.viewers,
-      this.battleRenderer.frontSlot,
-      this.battleRenderer.backSlot,
-      () =>
-        this.openDialogBox(
-          DIALOGS_DATABASE.BATTLE_DIALOGS.wildPokemonAppears(
-            this.wildPokemon.name
-          )
-        )
-    );
-    this.introSequence.start();
-  }
-
-  startPlayerThrowSequence() {
-    this.playerThrowSequence = new BattlePlayerThrowSequence(
-      this.game,
-      this.viewers,
-      () => {
-        this.pokeball = new Pokeball(
-          {
-            x: 0,
-            y: this.viewers.back.sprite.position.y, // 50
-          },
-          this.battleRenderer.backSlot
-        );
-      }
-    );
-
-    this.playerThrowSequence.start();
   }
 
   openDialogBox(text) {
@@ -149,40 +110,13 @@ export class BattleManager {
     for (const viewer of Object.values(this.viewers))
       viewer.update(context, null);
 
-    if (this.introSequence.isFinished)
-      this.battleRenderer.frontHUD?.update(context);
+    this.sequenceManager?.update(context);
 
-    if (this.phase === BATTLE_PHASES.POKEMON_APPEARS)
-      this.battleRenderer.backHUD?.update(context);
+    this.phaseManager?.update(action);
 
-    if (!this.introSequence.isFinished) this.introSequence.update();
-    if (!this.playerThrowSequence?.isFinished)
-      this.playerThrowSequence?.update();
+    console.log(this.phaseManager.currentPhase);
 
-    if (this.playerThrowSequence?.isFinished) this.pokeball?.update(context);
-
-    if (this.game.dialogBox.isOpen) {
+    if (this.game.dialogBox.isOpen)
       this.game.dialogBox.update(this.game.canvas.context, action);
-      switch (action) {
-        case "ACTION":
-          if (
-            this.phase === BATTLE_PHASES.INTRO &&
-            this.introSequence.isFinished &&
-            this.game.dialogBox.isOpen
-          ) {
-            this.phase = BATTLE_PHASES.PLAYER_THROW_POKEBALL;
-            this.startPlayerThrowSequence();
-            this.openDialogBox(
-              DIALOGS_DATABASE.BATTLE_DIALOGS.playerSentOutPokemon(
-                this.firstPlayerPokemon.name
-              )
-            );
-          }
-          break;
-
-        default:
-          break;
-      }
-    }
   }
 }

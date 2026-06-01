@@ -2,8 +2,8 @@ export class AnimatedSprite {
   constructor(config, isPlaying = true) {
     this.config = config;
     this.position = {
-      x: this.config.x,
-      y: this.config.y,
+      x: this.config.positionX,
+      y: this.config.positionY,
     };
     this.image = new Image();
     this.image.src = this.config.src;
