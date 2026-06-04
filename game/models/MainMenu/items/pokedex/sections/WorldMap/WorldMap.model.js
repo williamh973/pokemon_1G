@@ -122,7 +122,7 @@ export class WorldMap {
     switch (action) {
       case "ESCAPE":
         this.close();
-        game.closeWorldMap();
+        game.openPokedex();
         break;
 
       default:

@@ -32,6 +32,9 @@ import { StartGameMenu } from "../StartGameMenu/StartGameMenu.model.js";
 import { GenderMenu } from "../GenderMenu/GenderMenu.model.js";
 import { EncounterManager } from "../EncounterManager/encounterManager.model.js";
 import { BattleManager } from "../battle/BattleManager/BattleManager.model.js";
+import { BattleMenu } from "../battle/BattleManager/BattleMenu/BattleMenu.model.js";
+import { handlerCloses } from "../../logic/gameplay/game/handlerCloses.gameplay.js";
+import { WorldMap } from "../MainMenu/items/pokedex/sections/WorldMap/WorldMap.model.js";
 
 export class Game {
   constructor() {
@@ -54,8 +57,10 @@ export class Game {
     this.dayNightCycle = new DayNightCycle();
     this.encounterManager = new EncounterManager();
     this.mapNameWindow = new MapNameWindow(this);
+    this.worldMap = new WorldMap(this, "ENCOUNTER");
     this.battleManager = null;
     this.choiceMenu = null;
+    this.battleMenu = null;
     this.currentScreen = null;
     this.save = null;
     this.spriteViewer = null;
@@ -101,13 +106,8 @@ export class Game {
 
   activateBattleState(wildPokemon, tile) {
     this.state = "BATTLE";
-    this.battleManager = new BattleManager(
-      this,
-      false,
-      wildPokemon,
-      null,
-      tile
-    );
+    this.isBattleMod = true;
+    this.battleManager = new BattleManager(this, wildPokemon, tile);
 
     this.currentScreen = this.battleManager;
     this.currentScreen.open();
@@ -131,22 +131,20 @@ export class Game {
     this.togglePause(false, true);
   }
 
-  openPlayerMenu() {
-    this.mainMenu.open();
-    this.state = "PLAYER_MENU";
-    this.togglePause(true, false);
-  }
-
-  closePlayerMenu() {
-    this.mainMenu.close();
-    this.state = "WORLD";
-    this.togglePause(false, true);
-  }
-
   openChoiceMenu(source) {
     this.choiceMenu = new ChoiceMenu(this, source);
     this.choiceMenu.open();
     this.state = "CHOICE_MENU";
+  }
+
+  openBattleMenu() {
+    this.state = "BATTLE_MENU";
+    this.battleMenu = new BattleMenu(this);
+    this.battleMenu.open();
+  }
+
+  handlerCloses() {
+    handlerCloses(this);
   }
 
   closeChoiceMenu() {
@@ -180,6 +178,18 @@ export class Game {
     this.state = "POKEDEX";
   }
 
+  closePlayerMenu() {
+    this.mainMenu.close();
+    this.state = "WORLD";
+    this.togglePause(false, true);
+  }
+
+  openPlayerMenu() {
+    this.mainMenu.open();
+    this.state = "PLAYER_MENU";
+    this.togglePause(true, false);
+  }
+
   closeCurrentScreen() {
     this.currentScreen.close();
     this.currentScreen = null;
@@ -207,10 +217,6 @@ export class Game {
     this.currentScreen = this.player.inventory;
     this.player.inventory.open();
     this.state = "INVENTORY";
-  }
-
-  resetCurrentScreen() {
-    this.currentScreen = null;
   }
 
   resetSaveCompleted() {

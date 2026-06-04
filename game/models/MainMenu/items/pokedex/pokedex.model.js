@@ -47,13 +47,8 @@ export class Pokedex {
 
   close() {
     this.closeSections();
-    this.resetCurrentScreen();
     this.openMainMenu();
     this.isOpen = false;
-  }
-
-  resetCurrentScreen() {
-    this.game.resetCurrentScreen();
   }
 
   draw(context) {
@@ -93,7 +88,7 @@ export class Pokedex {
 
     switch (action) {
       case "ESCAPE":
-        this.game.closeCurrentScreen();
+        this.close();
         break;
 
       default:

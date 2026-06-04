@@ -2,18 +2,19 @@ import { SpriteViewer } from "../../../../../SpriteViewer/SpriteViewer.model.js"
 import { getAnimationConfig } from "../../../../../../shareds/utils/pokemon/animations/pokemonAnimations.utils.js";
 
 export class PokemonAppearsSequence {
-  constructor(game, viewers, firstPlayerPokemon, backSlot) {
+  constructor(game, viewers, currentPlayerPokemon, backSlot, onFinish) {
     this.game = game;
     this.viewers = viewers;
-    this.firstPlayerPokemon = firstPlayerPokemon;
+    this.currentPlayerPokemon = currentPlayerPokemon;
     this.backSlot = backSlot;
+    this.onFinish = onFinish;
     this.isFinished = false;
   }
 
   start() {
     this.viewers.back = new SpriteViewer(
       this.game,
-      getAnimationConfig(this.firstPlayerPokemon.id, "back"),
+      getAnimationConfig(this.currentPlayerPokemon.id, "back"),
       this.backSlot
     );
     this.maxSpriteScale = this.viewers.back.sprite.scale;
@@ -26,6 +27,7 @@ export class PokemonAppearsSequence {
   update() {
     if (this.viewers.back.sprite.scale >= this.maxSpriteScale) {
       this.isFinished = true;
+      this.onFinish?.();
       return;
     }
     this.viewers.back.sprite.scale += 0.1;

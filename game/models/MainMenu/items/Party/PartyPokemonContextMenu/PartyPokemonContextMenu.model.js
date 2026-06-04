@@ -58,9 +58,8 @@ export class PokemonContextMenu extends Menu {
   }
 
   update(context, action) {
+    if (!this.isOpen || !this.hasFocus) return;
     super.update(action);
-
-    if (!this.isOpen) return;
 
     this.draw(context);
 

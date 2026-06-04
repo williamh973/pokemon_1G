@@ -55,14 +55,8 @@ export class Party {
   }
 
   close() {
-    this.resetCurrentScreen();
-    this.openMainMenu();
     this.hasFocus = false;
     this.isOpen = false;
-  }
-
-  resetCurrentScreen() {
-    this.game.resetCurrentScreen();
   }
 
   draw(context) {
@@ -120,12 +114,10 @@ export class Party {
         this.openContextMenu();
         break;
 
-      case "PLAYER_MENU":
-        this.close();
-        break;
-
       case "ESCAPE":
+      case "PLAYER_MENU":
         this.game.closeCurrentScreen();
+        this.game.openPlayerMenu();
         break;
     }
   }

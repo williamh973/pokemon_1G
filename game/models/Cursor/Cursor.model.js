@@ -14,6 +14,8 @@ export class Cursor {
     this.isVisible = false;
     this.state = { idle: rightArrow, focused: focusedRightArrow };
     this.image = this.state.idle;
+    this.row = 0;
+    this.col = 0;
   }
 
   draw(context, positionX, cursorY) {

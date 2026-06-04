@@ -5,7 +5,6 @@ import {
   listSort,
   resetList,
 } from "../../../../shareds/utils/list/list.utils.js";
-import { Cursor } from "../../../Cursor/Cursor.model.js";
 import { DialogBox } from "../../../DialogBox/dialogBox.model.js";
 import { Menu } from "../../../Menu/Menu.model.js";
 
@@ -160,8 +159,7 @@ export class Inventory extends Menu {
   }
 
   toQuit() {
-    this.close();
-    this.game.resetCurrentScreen();
+    this.game.closeCurrentScreen();
     this.game.openPlayerMenu();
   }
 

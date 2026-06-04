@@ -38,7 +38,7 @@ const handleDialogState = (game, event) => {
 };
 
 export const update = (game) => {
-  // console.log(game.state);
+  console.log(game.state);
   // console.log("tileX", game.player.tileX, "tileY", game.player.tileY);
   // console.log(game.mapManager.previousMap);
 
@@ -101,6 +101,13 @@ export const update = (game) => {
       break;
     case "INVENTORY":
       game.currentScreen.update(game.canvas.context, action);
+      break;
+    case "BATTLE_MENU":
+      game.currentScreen.update(game.canvas.context, action);
+      game.battleMenu?.update(game.canvas.context, action);
+      break;
+
+    default:
       break;
   }
 

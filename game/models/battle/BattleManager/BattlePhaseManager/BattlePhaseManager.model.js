@@ -26,7 +26,7 @@ export class BattlePhaseManager {
 
         this.battleManager.openDialogBox(
           DIALOGS_DATABASE.BATTLE_DIALOGS.playerSentOutPokemon(
-            this.battleManager.firstPlayerPokemon.name
+            this.battleManager.currentPlayerPokemon.name
           )
         );
         break;

@@ -7,7 +7,7 @@ export const dispatchMenuSelection = (game, itemId, source) => {
     SAC: () => game.openInventory(),
     SAUVER: () => game.attemptSave(),
     OPTIONS: () => game.openOptionsScreen(),
-    RETOUR: () => game.closePlayerMenu(),
+    RETOUR: () => game.handlerCloses(),
     INFO: () => game.openPokemonDetail(),
     CRI: () => game.playCry(),
     ZONE: () => game.openWorldMap(),

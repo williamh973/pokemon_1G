@@ -1,41 +1,35 @@
 import { SpriteViewer } from "../../SpriteViewer/SpriteViewer.model.js";
 import { PLAYER_BATTLE_INTRO_ANIMATION } from "../../../render/config/battle/introPlayerSprite.config.js";
 import { getAnimationConfig } from "../../../shareds/utils/pokemon/animations/pokemonAnimations.utils.js";
-import { DIALOGS_DATABASE } from "../../../shareds/dialogs/dialogs.database.js";
 import { BattleRenderer } from "./BattleRenderer/BattleRenderer.model.js";
 import { Slot } from "../../Slot/Slot.model.js";
 import { HUD } from "./Hud/HUD.model.js";
 import { HUD_CONFIG } from "../../../render/config/battle/hud.config.js";
 import { BATTLE_SLOT_CONFIG } from "../../../logic/gameplay/battleManager/slots/battleSlots.config.js";
-import { BATTLE_PHASES } from "./battlePhase/battlePhase.js";
+import { BATTLE_PHASES } from "./BattlePhaseManager/battlePhase.js";
 import { BattleSequenceManager } from "./sequences/BattleSequenceManager/BattleSequenceManager.model.js";
-import { BattlePhaseManager } from "./battlePhase/BattlePhase.model.js";
+import { BattlePhaseManager } from "./BattlePhaseManager/BattlePhaseManager.model.js";
 
 export class BattleManager {
-  constructor(
-    game,
-    isTrainerBattle = false,
-    wildPokemon = null,
-    trainer = null,
-    tile
-  ) {
+  constructor(game, wildPokemon, tile) {
     this.game = game;
-    this.isTrainerBattle = isTrainerBattle;
-    this.trainer = trainer;
     this.wildPokemon = wildPokemon;
+    this.tile = tile;
     this.position = {
       x: 0,
       y: 0,
     };
-    this.name = "BATTLE";
     this.canvas = this.game.canvas;
     this.width = this.canvas.width;
     this.height = this.canvas.height;
     this.isOpen = false;
+    this.escaped = false;
     this.music = null;
     this.weather = null;
-    this.player = this.game.player;
-    this.firstPlayerPokemon = this.game.player.party.slots[0].content;
+    this.battleResult = null;
+    this.battleType = null;
+    this.currentPlayerPokemon = this.game.player.party.slots[0].content;
+    this.currentTrainerPokemon = null;
     this.battleRenderer = new BattleRenderer(
       this.game,
       {
@@ -44,9 +38,9 @@ export class BattleManager {
       },
       {
         frontHUD: new HUD(this.wildPokemon, HUD_CONFIG.front),
-        backHUD: new HUD(this.firstPlayerPokemon, HUD_CONFIG.back),
+        backHUD: new HUD(this.currentPlayerPokemon, HUD_CONFIG.back),
       },
-      tile
+      this.tile
     );
 
     this.viewers = {
@@ -68,10 +62,11 @@ export class BattleManager {
       viewers: this.viewers,
       battleRenderer: this.battleRenderer,
       wildPokemon: this.wildPokemon,
-      firstPlayerPokemon: this.firstPlayerPokemon,
+      currentPlayerPokemon: this.currentPlayerPokemon,
+      battleMenu: this.battleMenu,
     });
 
-    this.phaseManager = new BattlePhaseManager(this, this.sequenceManager); // doit il connaitre sequenceManager ?
+    this.phaseManager = new BattlePhaseManager(this, this.sequenceManager);
   }
 
   open() {
@@ -88,20 +83,6 @@ export class BattleManager {
     this.isOpen = false;
   }
 
-  closeDialogBox() {
-    this.game.closeDialogBox(this.game);
-  }
-
-  // closePokemonViewer() {
-  //   this.frontViewer.isOpen = false;
-  //   this.frontViewer.sprite = null;
-  //   this.frontViewer = null;
-  // }
-
-  resetCurrentScreen() {
-    this.game.resetCurrentScreen();
-  }
-
   update(context, action) {
     if (!this.isOpen) return;
 
@@ -114,9 +95,14 @@ export class BattleManager {
 
     this.phaseManager?.update(action);
 
-    console.log(this.phaseManager.currentPhase);
-
-    if (this.game.dialogBox.isOpen)
+    if (this.game.dialogBox.isOpen) {
       this.game.dialogBox.update(this.game.canvas.context, action);
+
+      if (
+        this.phaseManager.previousPhase === BATTLE_PHASES.POKEMON_APPEARS &&
+        this.phaseManager.currentPhase === BATTLE_PHASES.BATTLE_MENU
+      )
+        this.battleMenu?.update(context, action);
+    }
   }
 }

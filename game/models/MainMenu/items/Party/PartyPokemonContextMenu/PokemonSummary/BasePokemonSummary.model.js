@@ -3,13 +3,13 @@ import { BALL_CONFIG } from "../../../../../../render/config/item/ball/ball.conf
 import { SUMMARY_SLOT_CONFIG } from "../../../../../../shareds/pokemon/configs/summary/slot/summarySlot.config.js";
 import { drawText } from "../../../../../../shareds/utils/font/drawText.utils.js";
 import { textParams } from "../../../../../../shareds/utils/font/font.utils.js";
+import { getAnimationConfig } from "../../../../../../shareds/utils/pokemon/animations/pokemonAnimations.utils.js";
 import { getSpeciesData } from "../../../../../../shareds/utils/pokemon/species/species.utils.js";
 import { Slot } from "../../../../../Slot/Slot.model.js";
 import { SpriteViewer } from "../../../../../SpriteViewer/SpriteViewer.model.js";
 
 export class BasePokemonSummary {
   constructor(game, pokemon) {
-    this.name = "PARTY_SUMMARY";
     this.game = game;
     this.pokemon = pokemon;
     this.species = getSpeciesData(pokemon.id);
@@ -29,7 +29,7 @@ export class BasePokemonSummary {
     this.slot = new Slot(SUMMARY_SLOT_CONFIG);
     this.spriteViewer = new SpriteViewer(
       this.game,
-      this.species,
+      getAnimationConfig(this.pokemon.id, "front"),
       this.slot,
       "front"
     );

@@ -10,7 +10,8 @@ export class BattleSequenceManager {
     this.viewers = context.viewers;
     this.battleRenderer = context.battleRenderer;
     this.wildPokemon = context.wildPokemon;
-    this.firstPlayerPokemon = context.firstPlayerPokemon;
+    this.currentPlayerPokemon = context.currentPlayerPokemon;
+    this.battleMenu = context.battleMenu;
   }
 
   openDialogBox(text) {
@@ -59,8 +60,16 @@ export class BattleSequenceManager {
     this.pokemonAppearsSequence = new PokemonAppearsSequence(
       this.game,
       this.viewers,
-      this.firstPlayerPokemon,
-      this.battleRenderer.backSlot
+      this.currentPlayerPokemon,
+      this.battleRenderer.backSlot,
+      () => {
+        this.openDialogBox(
+          DIALOGS_DATABASE.BATTLE_DIALOGS.whatShouldPokemonDo(
+            this.currentPlayerPokemon.name
+          )
+        );
+        this.game.openBattleMenu();
+      }
     );
 
     this.pokemonAppearsSequence.start();

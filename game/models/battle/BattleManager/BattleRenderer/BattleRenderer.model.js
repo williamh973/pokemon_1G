@@ -28,8 +28,7 @@ export class BattleRenderer {
 
   update(context) {
     this.draw(context);
-
-    // this.frontSlot.update(context);
-    // this.backSlot.update(context);
+    this.frontSlot.update(context);
+    this.backSlot.update(context);
   }
 }
