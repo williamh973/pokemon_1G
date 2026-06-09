@@ -6,7 +6,6 @@ import { Slot } from "../../Slot/Slot.model.js";
 import { HUD } from "./Hud/HUD.model.js";
 import { HUD_CONFIG } from "../../../render/config/battle/hud.config.js";
 import { BATTLE_SLOT_CONFIG } from "../../../logic/gameplay/battleManager/slots/battleSlots.config.js";
-import { BATTLE_PHASES } from "./BattlePhaseManager/battlePhase.js";
 import { BattleSequenceManager } from "./sequences/BattleSequenceManager/BattleSequenceManager.model.js";
 import { BattlePhaseManager } from "./BattlePhaseManager/BattlePhaseManager.model.js";
 
@@ -95,14 +94,7 @@ export class BattleManager {
 
     this.phaseManager?.update(action);
 
-    if (this.game.dialogBox.isOpen) {
+    if (this.game.dialogBox.isOpen)
       this.game.dialogBox.update(this.game.canvas.context, action);
-
-      if (
-        this.phaseManager.previousPhase === BATTLE_PHASES.POKEMON_APPEARS &&
-        this.phaseManager.currentPhase === BATTLE_PHASES.BATTLE_MENU
-      )
-        this.battleMenu?.update(context, action);
-    }
   }
 }

@@ -25,19 +25,26 @@ export class Menu {
     this.cursor.isVisible = false;
   }
 
-  drawItems(context) {
+  drawItems(context, paddingX = 35, paddingY = 15) {
     textParams(context, "25");
 
     this.items.forEach((item, index) => {
-      const positionX = this.position.x + 35;
-      const positionY = this.position.y + 15 + index * this.lineHeight;
+      const positionX = this.position.x + paddingX;
+      const positionY = this.position.y + paddingY + index * this.lineHeight;
       drawText(context, item.name, positionX, positionY);
     });
   }
 
-  showCursor(context) {
-    const cursorY = this.position.y + this.currentIndex * this.lineHeight + 20;
-    this.cursor.update(context, this.position.x + 10, cursorY);
+  showCursor(context, paddingX = 10, paddingY = 20, hasFocusedCursor = false) {
+    const cursorY =
+      this.position.y + this.currentIndex * this.lineHeight + paddingY;
+
+    this.cursor.update(
+      context,
+      this.position.x + paddingX,
+      cursorY,
+      hasFocusedCursor
+    );
   }
 
   openItem() {

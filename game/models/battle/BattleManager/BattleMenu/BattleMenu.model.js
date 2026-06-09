@@ -1,7 +1,6 @@
 import { drawBox } from "../../../../shareds/utils/box/box.utils.js";
 import { drawText } from "../../../../shareds/utils/font/drawText.utils.js";
 import { textParams } from "../../../../shareds/utils/font/font.utils.js";
-import { drawDebugCollisionSquare } from "../../../../shareds/utils/tile/tile.utils.js";
 import { Menu } from "../../../Menu/Menu.model.js";
 
 export class BattleMenu extends Menu {

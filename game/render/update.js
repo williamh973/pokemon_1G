@@ -38,7 +38,7 @@ const handleDialogState = (game, event) => {
 };
 
 export const update = (game) => {
-  console.log(game.state);
+  // console.log(game.state);
   // console.log("tileX", game.player.tileX, "tileY", game.player.tileY);
   // console.log(game.mapManager.previousMap);
 
@@ -78,35 +78,27 @@ export const update = (game) => {
       game.weatherManager.update(game);
       game.choiceMenu?.update(game.canvas.context, action);
       break;
-    case "POKEDEX":
-      game.currentScreen.update(game.canvas.context, action);
-      break;
-    case "PARTY":
-      game.currentScreen.update(game.canvas.context, action);
-      break;
-    case "PARTY_SUMMARY":
-      game.currentScreen.update(game.canvas.context, action);
-      break;
     case "WORLDMAP":
       game.currentScreen.update(game, action);
-      break;
-    case "START_GAME":
-      game.currentScreen.update(game.canvas.context, action);
-      break;
-    case "GENDER_MENU":
-      game.currentScreen.update(game.canvas.context, action);
-      break;
-    case "BATTLE":
-      game.currentScreen.update(game.canvas.context, action);
-      break;
-    case "INVENTORY":
-      game.currentScreen.update(game.canvas.context, action);
       break;
     case "BATTLE_MENU":
       game.currentScreen.update(game.canvas.context, action);
       game.battleMenu?.update(game.canvas.context, action);
       break;
+    case "BATTLE_ATTACKS_MENU":
+      game.currentScreen.update(game.canvas.context, action);
+      game.battleAttacksMenu?.update(game.canvas.context, action);
+      break;
 
+    case "POKEDEX":
+    case "PARTY":
+    case "PARTY_SUMMARY":
+    case "START_GAME":
+    case "GENDER_MENU":
+    case "BATTLE":
+    case "INVENTORY":
+      game.currentScreen.update(game.canvas.context, action);
+      break;
     default:
       break;
   }

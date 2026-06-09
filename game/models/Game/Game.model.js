@@ -20,7 +20,6 @@ import { MapNameWindow } from "../Map/MapNameWindow.model.js";
 import { DayNightCycle } from "../DayNightCycle/DayNightCycle.model.js";
 import { TimeManager } from "../TimeManager/TimeManager.model.js";
 import { dispatchMenuSelection } from "../../logic/gameplay/game/dispatchMenuSelection.gameplay.js";
-import { startTransitionBeforeOpenWorldMap } from "../../logic/gameplay/game/worldMap/startTransitionBeforeOpenWorldMap.gameplay.js";
 import { closeWorldMap } from "../../logic/gameplay/game/worldMap/closeWorldMap.gameplay.js";
 import { closeDialogBox } from "../../logic/gameplay/game/dialogBox/closeDialogBox.gameplay.js";
 import { openDialogBox } from "../../logic/gameplay/game/dialogBox/openDialogBox.gameplay.js";
@@ -35,6 +34,7 @@ import { BattleManager } from "../battle/BattleManager/BattleManager.model.js";
 import { BattleMenu } from "../battle/BattleManager/BattleMenu/BattleMenu.model.js";
 import { handlerCloses } from "../../logic/gameplay/game/handlerCloses.gameplay.js";
 import { WorldMap } from "../MainMenu/items/pokedex/sections/WorldMap/WorldMap.model.js";
+import { BattleMovesMenu } from "../battle/BattleManager/BattleMenu/BattleMovesMenu/BattleMovesMenu.model.js";
 
 export class Game {
   constructor() {
@@ -58,9 +58,9 @@ export class Game {
     this.encounterManager = new EncounterManager();
     this.mapNameWindow = new MapNameWindow(this);
     this.worldMap = new WorldMap(this, "ENCOUNTER");
+    this.battleMenu = new BattleMenu(this);
     this.battleManager = null;
     this.choiceMenu = null;
-    this.battleMenu = null;
     this.currentScreen = null;
     this.save = null;
     this.spriteViewer = null;
@@ -72,23 +72,10 @@ export class Game {
     this.isBattleMod = false;
     this.init();
     this.openStartMenu();
-    // this.musicPlayer = new MusicPlayer();
   }
 
   init() {
     this.tileManager.load();
-
-    // this.musicPlayer = new MusicPlayer();
-
-    // window.addEventListener(
-    //   "keydown",
-    //   async () => {
-    //     await this.musicPlayer.init();
-
-    //     this.musicPlayer.playSong(PALLET_TOWN_THEME);
-    //   },
-    //   { once: true }
-    // );
 
     animate(this, this.tileManager);
   }
@@ -99,59 +86,13 @@ export class Game {
     this.state = "START_GAME";
   }
 
-  startNewGame() {
-    this.closeCurrentScreen();
-    this.openGenderMenu();
-  }
-
-  activateBattleState(wildPokemon, tile) {
-    this.state = "BATTLE";
+  openBattle(wildPokemon, tile) {
     this.isBattleMod = true;
     this.battleManager = new BattleManager(this, wildPokemon, tile);
 
     this.currentScreen = this.battleManager;
     this.currentScreen.open();
-  }
-
-  togglePause(isPaused, isCanMove) {
-    togglePause(isPaused, isCanMove, this);
-  }
-
-  openDialogBox(text, dialogTree, callbackFn) {
-    openDialogBox(text, dialogTree, callbackFn, this);
-  }
-
-  closeDialogBox() {
-    closeDialogBox(this);
-  }
-
-  closeStartMenu() {
-    this.currentScreen.close();
-    this.state = "WORLD";
-    this.togglePause(false, true);
-  }
-
-  openChoiceMenu(source) {
-    this.choiceMenu = new ChoiceMenu(this, source);
-    this.choiceMenu.open();
-    this.state = "CHOICE_MENU";
-  }
-
-  openBattleMenu() {
-    this.state = "BATTLE_MENU";
-    this.battleMenu = new BattleMenu(this);
-    this.battleMenu.open();
-  }
-
-  handlerCloses() {
-    handlerCloses(this);
-  }
-
-  closeChoiceMenu() {
-    this.choiceMenu.close();
-    this.choiceMenu = null;
-    this.state = "WORLD";
-    this.togglePause(false, true);
+    this.state = "BATTLE";
   }
 
   openGenderMenu() {
@@ -160,39 +101,10 @@ export class Game {
     this.state = "GENDER_MENU";
   }
 
-  load() {
-    loadGame(this);
-  }
-
-  selectGender(genderId) {
-    selectGender(this, genderId);
-  }
-
-  attemptSave() {
-    attemptSave(this);
-  }
-
   openPokedex() {
     this.currentScreen = this.player.pokedex;
-    this.player.pokedex.open();
+    this.currentScreen.open();
     this.state = "POKEDEX";
-  }
-
-  closePlayerMenu() {
-    this.mainMenu.close();
-    this.state = "WORLD";
-    this.togglePause(false, true);
-  }
-
-  openPlayerMenu() {
-    this.mainMenu.open();
-    this.state = "PLAYER_MENU";
-    this.togglePause(true, false);
-  }
-
-  closeCurrentScreen() {
-    this.currentScreen.close();
-    this.currentScreen = null;
   }
 
   openParty() {
@@ -207,10 +119,9 @@ export class Game {
     this.state = "PARTY_SUMMARY";
   }
 
-  closePlayerMenu() {
-    this.mainMenu.close();
-    this.state = "WORLD";
-    this.togglePause(false, true);
+  openPokemonDetail() {
+    const detailPage = this.currentScreen.pokemonList.pokemonDetail;
+    detailPage.open();
   }
 
   openInventory() {
@@ -219,25 +130,113 @@ export class Game {
     this.state = "INVENTORY";
   }
 
+  openWorldMap() {
+    const pokemon = this.currentScreen.pokemonList.selectedPokemon;
+    this.currentScreen = this.worldMap;
+    this.currentScreen.open(pokemon);
+    this.state = "WORLDMAP";
+  }
+
+  closeCurrentScreen() {
+    this.currentScreen.close();
+    this.currentScreen = null;
+  }
+
+  // ------------------------------------------
+
+  closeStartMenu() {
+    this.currentScreen.close();
+    this.state = "WORLD";
+    this.togglePause(false, true);
+  }
+
+  closeChoiceMenu() {
+    this.choiceMenu.close();
+    this.choiceMenu = null;
+    this.state = "WORLD";
+    this.togglePause(false, true);
+  }
+
+  openChoiceMenu(source) {
+    this.choiceMenu = new ChoiceMenu(this, source);
+    this.choiceMenu.open();
+    this.state = "CHOICE_MENU";
+  }
+
+  openBattleAttacksMenu() {
+    this.battleAttacksMenu = new BattleMovesMenu(this);
+    this.battleAttacksMenu.open();
+    this.state = "BATTLE_ATTACKS_MENU";
+  }
+
+  openBattleMenu() {
+    this.battleMenu.open();
+    this.state = "BATTLE_MENU";
+  }
+
+  openPlayerMenu() {
+    this.mainMenu.open();
+    this.state = "PLAYER_MENU";
+    this.togglePause(true, false);
+  }
+
+  closePlayerMenu() {
+    this.mainMenu.close();
+    this.state = "WORLD";
+    this.togglePause(false, true);
+  }
+
+  closeAndReturnFromSubMenu() {
+    this.closeCurrentScreen();
+
+    if (this.isBattleMod) {
+      this.currentScreen = this.battleManager;
+      this.openBattleMenu();
+    } else this.openPlayerMenu();
+  }
+
+  handlerCloses() {
+    handlerCloses(this);
+  }
+
+  load() {
+    loadGame(this);
+  }
+
+  selectGender(genderId) {
+    selectGender(this, genderId);
+  }
+
+  attemptSave() {
+    attemptSave(this);
+  }
+
   resetSaveCompleted() {
     this.isSaveCompleted = false;
     this.isAttemptSave = false;
-  }
-
-  openWorldMap() {
-    startTransitionBeforeOpenWorldMap(this);
   }
 
   closeWorldMap() {
     closeWorldMap();
   }
 
-  openPokemonDetail() {
-    const detailPage = this.currentScreen.pokemonList.pokemonDetail;
-    detailPage.open();
-  }
-
   handleMenuSelection(itemId, source) {
     dispatchMenuSelection(this, itemId, source);
+  }
+  startNewGame() {
+    this.closeCurrentScreen();
+    this.openGenderMenu();
+  }
+
+  togglePause(isPaused, isCanMove) {
+    togglePause(isPaused, isCanMove, this);
+  }
+
+  openDialogBox(text, dialogTree, callbackFn) {
+    openDialogBox(text, dialogTree, callbackFn, this);
+  }
+
+  closeDialogBox() {
+    closeDialogBox(this);
   }
 }

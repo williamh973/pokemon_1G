@@ -9,8 +9,8 @@ export class Slot {
     };
     this.width = this.config.width;
     this.height = this.config.height;
-    this.image = this.config.image;
-    this.hoveredImage = this.config.imageHovered;
+    this.backImage = this.config.image;
+    this.hoveredBackImage = this.config.imageHovered;
     this.scale = this.config.scale;
     this.content = null;
     this.isHovered = false;
@@ -24,11 +24,11 @@ export class Slot {
   }
 
   draw(context) {
-    const image = this.isHovered ? this.hoveredImage : this.image;
+    const backImage = this.isHovered ? this.hoveredBackImage : this.backImage;
 
-    if (image) {
+    if (backImage) {
       context.drawImage(
-        image,
+        backImage,
         this.position.x,
         this.position.y,
         this.width * this.scale,
@@ -39,6 +39,6 @@ export class Slot {
 
   update(context) {
     this.draw(context);
-    drawDebugCollisionSquare(this, context, true);
+    // drawDebugCollisionSquare(this, context, false);
   }
 }

@@ -8,6 +8,14 @@ export const ITEM_LOCATION = {
       category: "care",
       flagId: "GOT_POTION_PALLET_TOWN",
     },
+    {
+      key: "pokeball",
+      tileX: 13,
+      tileY: 7,
+      id: "POKE_BALL",
+      category: "ball",
+      flagId: "GOT_POKEBALL_PALLET_TOWN",
+    },
   ],
   RED_HOUSE_1F: [],
   RED_HOUSE_2F: [

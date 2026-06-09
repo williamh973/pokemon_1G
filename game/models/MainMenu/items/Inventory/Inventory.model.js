@@ -12,7 +12,6 @@ export class Inventory extends Menu {
   constructor(game) {
     super(game);
 
-    this.game = game;
     this.position = {
       x: 0,
       y: 0,
@@ -158,21 +157,14 @@ export class Inventory extends Menu {
     this.game.handleMenuSelection(itemId, this);
   }
 
-  toQuit() {
-    this.game.closeCurrentScreen();
-    this.game.openPlayerMenu();
-  }
-
   update(context, action) {
-    if (!this.isOpen) return;
+    if (!this.isOpen || !this.hasFocus) return;
 
     this.draw(context);
     this.openDialogBox();
 
     if (this.dialogBox.isOpen)
       this.dialogBox.update(this.game.canvas.context, action);
-
-    if (!this.isOpen || !this.hasFocus) return;
 
     switch (action) {
       case "UP":
@@ -204,7 +196,7 @@ export class Inventory extends Menu {
 
       case "PLAYER_MENU":
       case "ESCAPE":
-        this.toQuit();
+        this.game.closeAndReturnFromSubMenu();
         break;
     }
   }

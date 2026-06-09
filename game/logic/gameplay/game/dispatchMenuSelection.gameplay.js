@@ -16,6 +16,7 @@ export const dispatchMenuSelection = (game, itemId, source) => {
     BOY: () => game.selectGender(itemId),
     GIRL: () => game.selectGender(itemId),
     SUMMARY: () => game.openPokemonSummary(),
+    ATTACK: () => game.openBattleAttacksMenu(),
   };
 
   return itemsList[itemId]?.();

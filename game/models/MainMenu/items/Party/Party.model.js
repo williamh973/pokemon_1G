@@ -114,10 +114,9 @@ export class Party {
         this.openContextMenu();
         break;
 
-      case "ESCAPE":
       case "PLAYER_MENU":
-        this.game.closeCurrentScreen();
-        this.game.openPlayerMenu();
+      case "ESCAPE":
+        this.game.closeAndReturnFromSubMenu();
         break;
     }
   }

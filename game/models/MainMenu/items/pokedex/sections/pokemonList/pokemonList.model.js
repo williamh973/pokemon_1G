@@ -25,7 +25,7 @@ export class PokemonList {
     this.title = "SOMMAIRE";
     this.cursor = new Cursor();
     this.pokedexState = new PokedexState(this);
-    this.pokemonDetail = new PokemonDetail(this, game);
+    this.pokemonDetail = new PokemonDetail(this, this.game);
   }
 
   closePokemonDetail() {
@@ -75,9 +75,6 @@ export class PokemonList {
 
       this.checkPokedexState(context, positionX, positionY, pokemon);
     });
-
-    context.fillStyle = "white";
-    context.fillRect(1, 1, this.width - 10, 40);
 
     drawText(context, this.title, 50, 0);
   }

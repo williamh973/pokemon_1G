@@ -71,9 +71,8 @@ export class MissableObject extends Npc {
     const item = this.getItemInDatabase();
     const mapId = game.mapManager.currentMap.id;
 
-    if (item.isPokemon) {
-      return this.isStarterPokemon(game, item);
-    } else {
+    if (item.isPokemon) return this.isStarterPokemon(game, item);
+    else {
       game.flags[mapId][this.flagId] = true;
 
       game.mapManager.currentMap.missableObjects = removeMObyFlagId(
