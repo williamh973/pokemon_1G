@@ -1,3 +1,5 @@
+import { GAME_STATES } from "../logic/gameplay/game/states/states.gameplay.js";
+
 const openPlayerMenu = (game) => {
   game.player.draw(game.canvas, game.camera);
   game.openPlayerMenu();
@@ -54,10 +56,10 @@ export const update = (game) => {
   drawFlyingOP(game);
 
   switch (game.state) {
-    case "WORLD":
+    case GAME_STATES.WORLD:
       if (!game.player.isMoving) game.mapManager.checkScenarios?.(game);
 
-      if (action === "PLAYER_MENU") {
+      if (action === GAME_STATES.PLAYER_MENU) {
         openPlayerMenu(game);
         return;
       }
@@ -70,33 +72,33 @@ export const update = (game) => {
       const event = game.dialogBox?.update(game.canvas.context, action);
       handleDialogState(game, event);
       break;
-    case "PLAYER_MENU":
+    case GAME_STATES.PLAYER_MENU:
       game.weatherManager.update(game);
       game.mainMenu?.update(game.canvas.context, action);
       break;
-    case "CHOICE_MENU":
+    case GAME_STATES.CHOICE_MENU:
       game.weatherManager.update(game);
       game.choiceMenu?.update(game.canvas.context, action);
       break;
-    case "WORLDMAP":
+    case GAME_STATES.WORLDMAP:
       game.currentScreen.update(game, action);
       break;
-    case "BATTLE_MENU":
+    case GAME_STATES.BATTLE_MENU:
       game.currentScreen.update(game.canvas.context, action);
       game.battleMenu?.update(game.canvas.context, action);
       break;
-    case "BATTLE_ATTACKS_MENU":
+    case GAME_STATES.BATTLE_ATTACKS_MENU:
       game.currentScreen.update(game.canvas.context, action);
       game.battleAttacksMenu?.update(game.canvas.context, action);
       break;
 
-    case "POKEDEX":
-    case "PARTY":
-    case "PARTY_SUMMARY":
-    case "START_GAME":
-    case "GENDER_MENU":
-    case "BATTLE":
-    case "INVENTORY":
+    case GAME_STATES.POKEDEX:
+    case GAME_STATES.PARTY:
+    case GAME_STATES.PARTY_SUMMARY:
+    case GAME_STATES.START_GAME:
+    case GAME_STATES.GENDER_MENU:
+    case GAME_STATES.BATTLE:
+    case GAME_STATES.INVENTORY:
       game.currentScreen.update(game.canvas.context, action);
       break;
     default:

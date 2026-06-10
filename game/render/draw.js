@@ -1,3 +1,5 @@
+import { GAME_STATES } from "../logic/gameplay/game/states/states.gameplay.js";
+
 const drawBackTiles = (game, tileManager) => {
   tileManager.drawMap(
     game.canvas.context,
@@ -97,7 +99,7 @@ export const draw = (game, tileManager) => {
   drawForegroundTiles(game, tileManager);
 
   switch (game.state) {
-    case "WORLD":
+    case GAME_STATES.WORLD:
       npcs(game);
       MO(game);
       drawWalkingOP(game);
@@ -121,7 +123,7 @@ export const draw = (game, tileManager) => {
       mainMenu(game);
 
       break;
-    case "PLAYER_MENU":
+    case GAME_STATES.PLAYER_MENU:
       npcs(game);
       MO(game);
       drawWalkingOP(game);
@@ -132,7 +134,7 @@ export const draw = (game, tileManager) => {
       timeManager(game);
       break;
 
-    case "CHOICE_MENU":
+    case GAME_STATES.CHOICE_MENU:
       npcs(game);
       MO(game);
       drawWalkingOP(game);

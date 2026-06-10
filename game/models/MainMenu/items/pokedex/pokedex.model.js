@@ -5,7 +5,6 @@ import { PokemonList } from "./sections/pokemonList/pokemonList.model.js";
 export class Pokedex {
   constructor(game) {
     this.game = game;
-    this.name = "POKEDEX";
     this.canvas = this.game.canvas;
     this.position = {
       x: 0,
@@ -64,11 +63,6 @@ export class Pokedex {
     );
   }
 
-  updatePokedexState() {
-    if (this.pokemonList.isOpen)
-      this.pokemonList.pokedexState.update(this.game.canvas.context);
-  }
-
   updatePokemonDetail(action) {
     if (
       this.pokemonList.isPokemonSelected &&
@@ -84,6 +78,7 @@ export class Pokedex {
 
   update(context, action) {
     if (!this.isOpen) return;
+
     this.draw(context);
 
     switch (action) {
@@ -95,15 +90,17 @@ export class Pokedex {
         break;
     }
 
+    if (this.pokemonList.isOpen)
+      this.pokemonList.pokedexState.update(this.game.canvas.context);
+
     if (this.pokemonList.hasFocus) {
       this.pokemonList.update(this.game.canvas.context, action);
-      this.pokedexCharac.draw(this.game.canvas.context);
+      this.pokedexCharac.update(this.game.canvas.context, null);
     } else if (this.pokedexCharac.hasFocus) {
       this.pokedexCharac.update(this.game.canvas.context, action);
-      this.pokemonList.draw(this.game.canvas.context);
+      this.pokemonList.update(this.game.canvas.context, null);
     }
 
-    this.updatePokedexState();
     this.updatePokemonDetail(action);
   }
 }

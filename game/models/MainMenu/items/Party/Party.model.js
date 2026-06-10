@@ -1,12 +1,12 @@
 import { partyBackgImg } from "../../../../assets/images/ui/ui.asset.js";
 import { PARTY_SLOT_CONFIG } from "../../../../logic/gameplay/character/player/party/partySlots.config.js";
+import { GAME_STATES } from "../../../../logic/gameplay/game/states/states.gameplay.js";
 import { PokemonPartySlot } from "../../../Slot/PokemonPartySlot/PokemonPartySlot.model.js";
 import { PokemonContextMenu } from "./PartyPokemonContextMenu/PartyPokemonContextMenu.model.js";
 
 export class Party {
   constructor(game) {
     this.game = game;
-    this.name = "PARTY";
     this.canvas = this.game.canvas;
     this.position = {
       x: 0,
@@ -114,7 +114,7 @@ export class Party {
         this.openContextMenu();
         break;
 
-      case "PLAYER_MENU":
+      case GAME_STATES.PLAYER_MENU:
       case "ESCAPE":
         this.game.closeAndReturnFromSubMenu();
         break;

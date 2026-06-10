@@ -50,7 +50,6 @@ export class BattleMenu extends Menu {
       const row = Math.floor(index / 2);
 
       const positionX = this.position.x + 15 + col * 90;
-
       const positionY = this.position.y + 10 + row * 25;
 
       drawText(context, item.name, positionX, positionY);

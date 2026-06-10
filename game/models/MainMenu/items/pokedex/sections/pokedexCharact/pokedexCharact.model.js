@@ -12,6 +12,7 @@ export class PokedexCharacteristic extends Menu {
     };
     this.width = 82;
     this.height = 190;
+    this.lineHeight = 40;
 
     this.items = [
       { id: "INFO", name: "INFO" },
@@ -19,7 +20,6 @@ export class PokedexCharacteristic extends Menu {
       { id: "ZONE", name: "ZONE" },
       { id: "RETOUR", name: "RET" },
     ];
-    this.lineHeight = 40;
   }
 
   open() {

@@ -1,3 +1,4 @@
+import { GAME_STATES } from "../../../../logic/gameplay/game/states/states.gameplay.js";
 import { drawBox } from "../../../../shareds/utils/box/box.utils.js";
 import { drawText } from "../../../../shareds/utils/font/drawText.utils.js";
 import { textParams } from "../../../../shareds/utils/font/font.utils.js";
@@ -194,7 +195,7 @@ export class Inventory extends Menu {
         this.useItem();
         break;
 
-      case "PLAYER_MENU":
+      case GAME_STATES.PLAYER_MENU:
       case "ESCAPE":
         this.game.closeAndReturnFromSubMenu();
         break;

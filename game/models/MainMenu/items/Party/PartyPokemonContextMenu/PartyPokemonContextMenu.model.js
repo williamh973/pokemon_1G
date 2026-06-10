@@ -1,3 +1,4 @@
+import { GAME_STATES } from "../../../../../logic/gameplay/game/states/states.gameplay.js";
 import { drawBox } from "../../../../../shareds/utils/box/box.utils.js";
 import { TILES_SIZE } from "../../../../../shareds/utils/tile/tile.utils.js";
 import { Menu } from "../../../../Menu/Menu.model.js";
@@ -58,7 +59,6 @@ export class PokemonContextMenu extends Menu {
   }
 
   update(context, action) {
-    if (!this.isOpen || !this.hasFocus) return;
     super.update(action);
 
     this.draw(context);
@@ -66,11 +66,7 @@ export class PokemonContextMenu extends Menu {
     this.pokemonSummary?.update(context, action);
 
     switch (action) {
-      case "ACTION":
-        this.openItem();
-        break;
-
-      case "PLAYER_MENU":
+      case GAME_STATES.PLAYER_MENU:
       case "ESCAPE":
         this.close();
         break;

@@ -2,30 +2,27 @@ import { POKEDEX_DATABASE } from "../../../../../../shareds/pokedex/pokedex.data
 import { drawBox } from "../../../../../../shareds/utils/box/box.utils.js";
 import { drawText } from "../../../../../../shareds/utils/font/drawText.utils.js";
 import { textParams } from "../../../../../../shareds/utils/font/font.utils.js";
-import { Cursor } from "../../../../../Cursor/Cursor.model.js";
+import { Menu } from "../../../../../Menu/Menu.model.js";
 import { PokedexState } from "../pokedexState/pokedexState.model.js";
 import { PokemonDetail } from "../pokemonDetail/pokemonDetail.model.js";
 
-export class PokemonList {
+export class PokemonList extends Menu {
   constructor(game) {
-    this.game = game;
+    super(game);
+
     this.position = {
       x: 0,
       y: 0,
     };
     this.width = game.canvas.width / 1.35;
     this.height = game.canvas.height;
-    this.isOpen = false;
-    this.hasFocus = false;
     this.isPokemonSelected = false;
     this.selectedPokemon = {};
-    this.databases = POKEDEX_DATABASE;
-    this.currentIndex = 0;
+    this.items = POKEDEX_DATABASE;
     this.lineHeight = 40;
     this.title = "SOMMAIRE";
-    this.cursor = new Cursor();
     this.pokedexState = new PokedexState(this);
-    this.pokemonDetail = new PokemonDetail(this, this.game);
+    this.pokemonDetail = new PokemonDetail(this, game);
   }
 
   closePokemonDetail() {
@@ -33,11 +30,8 @@ export class PokemonList {
   }
 
   open() {
-    this.isOpen = true;
+    super.open();
     this.isPokemonSelected = false;
-    this.cursor.state = "idle";
-    this.cursor.isVisible = true;
-    this.hasFocus = true;
     this.openPokedexState();
     this.closePokemonDetail();
   }
@@ -52,22 +46,22 @@ export class PokemonList {
 
   close() {
     this.closePokedexState();
-    this.hasFocus = false;
     this.isPokemonSelected = false;
-    this.isOpen = false;
+    super.close();
   }
 
   checkPokedexState(context, positionX, positionY, pokemon) {
-    this.pokedexState.see(pokemon.id);
-    if (this.pokedexState.isSeen(pokemon.id)) {
+    this.pokedexState.see(pokemon.id); // pour dev
+
+    if (this.pokedexState.isSeen(pokemon.id))
       this.showPokemon(context, positionX, positionY, pokemon);
-    } else this.hidePokemon(context, positionX, positionY, pokemon);
+    else this.hidePokemon(context, positionX, positionY, pokemon);
   }
 
   drawPokemonList(context) {
     textParams(context, "27");
 
-    this.databases.forEach((pokemon, index) => {
+    this.items.forEach((pokemon, index) => {
       const paddingX = 30;
       const paddingY = 50;
       const positionX = this.position.x + paddingX;
@@ -76,7 +70,7 @@ export class PokemonList {
       this.checkPokedexState(context, positionX, positionY, pokemon);
     });
 
-    drawText(context, this.title, 50, 0);
+    if (this.currentIndex < 7) drawText(context, this.title, 50, 0);
   }
 
   showPokemon(context, positionX, positionY, pokemon) {
@@ -86,7 +80,7 @@ export class PokemonList {
   }
 
   hidePokemon(context, positionX, positionY, pokemon) {
-    drawText(context, pokemon.id, positionX, positionY);
+    drawText(context, pokemon.no, positionX, positionY);
     drawText(context, "- - - - - - -", positionX + 50, positionY);
   }
 
@@ -97,31 +91,15 @@ export class PokemonList {
   }
 
   updateCursorWhenPokemonSelected(context) {
-    const cursorY =
-      this.position.y + 40 + this.currentIndex * this.lineHeight + 15;
-
     let hasFocusedCursor = false;
 
     this.isPokemonSelected
       ? (hasFocusedCursor = true)
       : (hasFocusedCursor = false);
 
-    if (this.isPokemonSelected)
-      this.cursor.update(
-        context,
-        this.position.x + 5,
-        cursorY,
-        hasFocusedCursor
-      );
-    else
-      this.cursor.update(
-        context,
-        this.position.x + 5,
-        cursorY,
-        hasFocusedCursor
-      );
+    this.showCursor(context, 5, 55, hasFocusedCursor);
 
-    const pokemonFounded = this.databases[this.currentIndex];
+    const pokemonFounded = this.items[this.currentIndex];
     this.selectedPokemon = pokemonFounded;
     this.pokemonDetail.pokemon = pokemonFounded;
   }
@@ -147,7 +125,9 @@ export class PokemonList {
 
   update(context, action) {
     this.draw(context);
+
     if (!this.hasFocus) return;
+
     this.handleScroll();
 
     switch (action) {
@@ -159,7 +139,7 @@ export class PokemonList {
       case "DOWN":
         if (
           !this.isPokemonSelected &&
-          this.currentIndex < this.databases.length - 1
+          this.currentIndex < this.items.length - 1
         )
           this.currentIndex++;
         break;

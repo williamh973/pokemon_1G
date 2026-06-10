@@ -1,3 +1,4 @@
+import { GAME_STATES } from "../../../logic/gameplay/game/states/states.gameplay.js";
 import { Character } from "../Character.model.js";
 
 export class Npc extends Character {
@@ -144,7 +145,7 @@ export class Npc extends Character {
   }
 
   isInteractionFinished(game) {
-    return this.isInteracting && game.state === "WORLD";
+    return this.isInteracting && game.state === GAME_STATES.WORLD;
   }
 
   update(game) {

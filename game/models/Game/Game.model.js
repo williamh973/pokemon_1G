@@ -32,13 +32,15 @@ import { GenderMenu } from "../GenderMenu/GenderMenu.model.js";
 import { EncounterManager } from "../EncounterManager/encounterManager.model.js";
 import { BattleManager } from "../battle/BattleManager/BattleManager.model.js";
 import { BattleMenu } from "../battle/BattleManager/BattleMenu/BattleMenu.model.js";
-import { handlerCloses } from "../../logic/gameplay/game/handlerCloses.gameplay.js";
+import { handlerClosesFromReturnItem } from "../../logic/gameplay/game/handlerClosesFromReturnItem.gameplay.js";
 import { WorldMap } from "../MainMenu/items/pokedex/sections/WorldMap/WorldMap.model.js";
 import { BattleMovesMenu } from "../battle/BattleManager/BattleMenu/BattleMovesMenu/BattleMovesMenu.model.js";
+import { ScreenManager } from "../ScreenManager/ScreenManager.model.js";
+import { GAME_STATES } from "../../logic/gameplay/game/states/states.gameplay.js";
 
 export class Game {
   constructor() {
-    this.state = "WORLD";
+    this.state = GAME_STATES.WORLD;
     this.canvas = new Canvas(document.getElementById("canvas"));
     this.camera = new Camera(this.canvas);
     this.playedWith = "red";
@@ -59,6 +61,7 @@ export class Game {
     this.mapNameWindow = new MapNameWindow(this);
     this.worldMap = new WorldMap(this, "ENCOUNTER");
     this.battleMenu = new BattleMenu(this);
+    // this.screenManager = new ScreenManager(this);
     this.battleManager = null;
     this.choiceMenu = null;
     this.currentScreen = null;
@@ -71,6 +74,7 @@ export class Game {
     this.isPaused = false;
     this.isBattleMod = false;
     this.init();
+
     this.openStartMenu();
   }
 
@@ -83,7 +87,7 @@ export class Game {
   openStartMenu() {
     this.currentScreen = new StartGameMenu(this);
     this.currentScreen.open();
-    this.state = "START_GAME";
+    this.state = GAME_STATES.START_GAME;
   }
 
   openBattle(wildPokemon, tile) {
@@ -92,31 +96,31 @@ export class Game {
 
     this.currentScreen = this.battleManager;
     this.currentScreen.open();
-    this.state = "BATTLE";
+    this.state = GAME_STATES.BATTLE;
   }
 
   openGenderMenu() {
     this.currentScreen = new GenderMenu(this);
     this.currentScreen.open();
-    this.state = "GENDER_MENU";
+    this.state = GAME_STATES.GENDER_MENU;
   }
 
   openPokedex() {
     this.currentScreen = this.player.pokedex;
     this.currentScreen.open();
-    this.state = "POKEDEX";
+    this.state = GAME_STATES.POKEDEX;
   }
 
   openParty() {
     this.currentScreen = this.player.party;
     this.currentScreen.open();
-    this.state = "PARTY";
+    this.state = GAME_STATES.PARTY;
   }
 
   openPokemonSummary() {
     this.currentScreen = this.player.party.contextMenu.pokemonSummary;
     this.currentScreen.open();
-    this.state = "PARTY_SUMMARY";
+    this.state = GAME_STATES.PARTY_SUMMARY;
   }
 
   openPokemonDetail() {
@@ -127,14 +131,14 @@ export class Game {
   openInventory() {
     this.currentScreen = this.player.inventory;
     this.player.inventory.open();
-    this.state = "INVENTORY";
+    this.state = GAME_STATES.INVENTORY;
   }
 
   openWorldMap() {
     const pokemon = this.currentScreen.pokemonList.selectedPokemon;
     this.currentScreen = this.worldMap;
     this.currentScreen.open(pokemon);
-    this.state = "WORLDMAP";
+    this.state = GAME_STATES.WORLDMAP;
   }
 
   closeCurrentScreen() {
@@ -146,43 +150,43 @@ export class Game {
 
   closeStartMenu() {
     this.currentScreen.close();
-    this.state = "WORLD";
+    this.state = GAME_STATES.WORLD;
     this.togglePause(false, true);
   }
 
   closeChoiceMenu() {
     this.choiceMenu.close();
     this.choiceMenu = null;
-    this.state = "WORLD";
+    this.state = GAME_STATES.WORLD;
     this.togglePause(false, true);
   }
 
   openChoiceMenu(source) {
     this.choiceMenu = new ChoiceMenu(this, source);
     this.choiceMenu.open();
-    this.state = "CHOICE_MENU";
+    this.state = GAME_STATES.CHOICE_MENU;
   }
 
   openBattleAttacksMenu() {
     this.battleAttacksMenu = new BattleMovesMenu(this);
     this.battleAttacksMenu.open();
-    this.state = "BATTLE_ATTACKS_MENU";
+    this.state = GAME_STATES.BATTLE_ATTACKS_MENU;
   }
 
   openBattleMenu() {
     this.battleMenu.open();
-    this.state = "BATTLE_MENU";
+    this.state = GAME_STATES.BATTLE_MENU;
   }
 
   openPlayerMenu() {
     this.mainMenu.open();
-    this.state = "PLAYER_MENU";
+    this.state = GAME_STATES.PLAYER_MENU;
     this.togglePause(true, false);
   }
 
   closePlayerMenu() {
     this.mainMenu.close();
-    this.state = "WORLD";
+    this.state = GAME_STATES.WORLD;
     this.togglePause(false, true);
   }
 
@@ -195,8 +199,8 @@ export class Game {
     } else this.openPlayerMenu();
   }
 
-  handlerCloses() {
-    handlerCloses(this);
+  handlerClosesFromReturnItem() {
+    handlerClosesFromReturnItem(this);
   }
 
   load() {
@@ -223,6 +227,7 @@ export class Game {
   handleMenuSelection(itemId, source) {
     dispatchMenuSelection(this, itemId, source);
   }
+
   startNewGame() {
     this.closeCurrentScreen();
     this.openGenderMenu();

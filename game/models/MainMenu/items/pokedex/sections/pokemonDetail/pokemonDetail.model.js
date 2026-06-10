@@ -48,15 +48,11 @@ export class PokemonDetail {
     this.spriteViewer = null;
   }
 
-  openPokemonList() {
-    this.pokemonList.open();
-  }
-
   close() {
     this.closePokemonViewer();
-    this.openPokemonList();
     this.game.dialogBox.close();
     this.isOpen = false;
+    this.game.openPokedex();
   }
 
   draw(context) {

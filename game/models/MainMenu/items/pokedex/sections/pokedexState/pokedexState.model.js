@@ -23,8 +23,8 @@ export class PokedexState {
     this.isOpen = false;
   }
 
+  // lorsqu'un combat prend fin, j'appele cette méthode
   see(id) {
-    // lorsqu'un combat prend fin, j'appele cette méthode
     this.seen.add(id);
   }
 

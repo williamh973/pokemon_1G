@@ -5,8 +5,6 @@ export class StartGameMenu extends Menu {
   constructor(game) {
     super(game);
 
-    this.name = "START_GAME";
-    this.game = game;
     this.position = {
       x: 0,
       y: 0,

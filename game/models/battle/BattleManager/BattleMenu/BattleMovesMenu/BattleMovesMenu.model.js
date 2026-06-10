@@ -5,7 +5,7 @@ import { PokemonMoveSlot } from "../../../../Slot/PokemonMoveSlot/PokemonMoveSlo
 export class BattleMovesMenu extends Menu {
   constructor(game) {
     super(game);
-    this.game = game;
+
     this.currentPlayerPokemon = this.game.battleManager.currentPlayerPokemon;
 
     this.canvas = this.game.canvas;

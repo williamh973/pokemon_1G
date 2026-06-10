@@ -1,6 +1,7 @@
 import { TILES_SIZE } from "../../shareds/utils/tile/tile.utils.js";
 import { drawBox } from "../../shareds/utils/box/box.utils.js";
 import { Menu } from "../Menu/Menu.model.js";
+import { GAME_STATES } from "../../logic/gameplay/game/states/states.gameplay.js";
 
 export class MainMenu extends Menu {
   constructor(game) {
@@ -93,16 +94,10 @@ export class MainMenu extends Menu {
   update(context, action) {
     super.update(action);
 
-    if (!this.isOpen) return;
-
     this.draw(context);
 
     switch (action) {
-      case "ACTION":
-        this.openItem();
-        break;
-
-      case "PLAYER_MENU":
+      case GAME_STATES.PLAYER_MENU:
         this.game.closePlayerMenu();
         break;
     }

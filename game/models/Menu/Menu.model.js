@@ -17,6 +17,7 @@ export class Menu {
     this.isOpen = true;
     this.hasFocus = true;
     this.cursor.isVisible = true;
+    this.cursor.state = "idle";
   }
 
   close() {
@@ -62,6 +63,10 @@ export class Menu {
         if (this.currentIndex < this.items.length - 1) {
           this.currentIndex++;
         }
+        break;
+
+      case "ACTION":
+        this.openItem();
         break;
     }
   }

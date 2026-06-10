@@ -5,7 +5,6 @@ export class ChoiceMenu extends Menu {
   constructor(game, dialogTree) {
     super(game);
 
-    this.game = game;
     this.dialogTree = dialogTree;
     this.items = this.dialogTree.start.setChoices;
     this.width = this.dialogTree.setDimension.width;

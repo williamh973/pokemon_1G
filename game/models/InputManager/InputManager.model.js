@@ -1,3 +1,5 @@
+import { GAME_STATES } from "../../logic/gameplay/game/states/states.gameplay.js";
+
 export class InputManager {
   constructor() {
     this.buffer = null;
@@ -8,7 +10,7 @@ export class InputManager {
           this.buffer = "ACTION";
           break;
         case "c":
-          this.buffer = "PLAYER_MENU";
+          this.buffer = GAME_STATES.PLAYER_MENU;
           break;
         case "e":
           this.buffer = "ESCAPE";

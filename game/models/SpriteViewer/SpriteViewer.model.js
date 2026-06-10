@@ -1,3 +1,4 @@
+import { GAME_STATES } from "../../logic/gameplay/game/states/states.gameplay.js";
 import { drawBox } from "../../shareds/utils/box/box.utils.js";
 import { AnimatedSprite } from "../AnimatedSprite/AnimatedSprite.model.js";
 
@@ -37,11 +38,11 @@ export class SpriteViewer {
 
   drawGlassBehindAnimatedSprite(context) {
     switch (this.game.state) {
-      case "POKEDEX":
+      case GAME_STATES.POKEDEX:
         context.globalAlpha = 0.8;
         drawBox(context, 15, 15, 120, 120, "black", "black"); // dessine un fond derriere le sprite
         break;
-      case "CHOICE_MENU":
+      case GAME_STATES.CHOICE_MENU:
         context.globalAlpha = 0.8;
         drawBox(context, 112, 95, 95, 100, "purple", "black");
         break;

@@ -5,8 +5,6 @@ export class GenderMenu extends Menu {
   constructor(game) {
     super(game);
 
-    this.name = "GENDER";
-    this.game = game;
     this.position = {
       x: 0,
       y: 0,
@@ -44,18 +42,6 @@ export class GenderMenu extends Menu {
     if (this.game.dialogBox.isOpen)
       this.game.dialogBox.update(this.game.canvas.context, action);
 
-    switch (action) {
-      case "UP":
-        if (this.currentIndex > 0) this.currentIndex--;
-        break;
-
-      case "DOWN":
-        if (this.currentIndex < this.items.length - 1) this.currentIndex++;
-        break;
-
-      case "ACTION":
-        this.openItem();
-        break;
-    }
+    super.update(action);
   }
 }
