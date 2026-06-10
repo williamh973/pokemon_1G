@@ -24,4 +24,6 @@ export const BATTLE_DIALOGS = {
   pokemonAddedToParty: (pokemon) => `${pokemon} rejoint votre équipe !`,
 
   pokemonSentToPc: (pokemon) => `${pokemon} a été envoyé au PC.`,
+
+  playerUseBall: (player, item) => `${player} lance une \n${item}!`,
 };

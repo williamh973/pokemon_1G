@@ -1,5 +1,5 @@
-import { SpriteViewer } from "../../../../../SpriteViewer/SpriteViewer.model.js";
-import { getAnimationConfig } from "../../../../../../shareds/utils/pokemon/animations/pokemonAnimations.utils.js";
+import { SpriteViewer } from "../../../../SpriteViewer/SpriteViewer.model.js";
+import { getAnimationConfig } from "../../../../../shareds/utils/pokemon/animations/pokemonAnimations.utils.js";
 
 export class PokemonAppearsSequence {
   constructor(game, viewers, currentPlayerPokemon, backSlot, onFinish) {

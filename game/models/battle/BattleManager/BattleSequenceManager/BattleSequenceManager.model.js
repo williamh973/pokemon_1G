@@ -1,8 +1,9 @@
-import { DIALOGS_DATABASE } from "../../../../../shareds/dialogs/dialogs.database.js";
-import { Pokeball } from "../../Pokeball/Pokeball.model.js";
-import { BattleIntroSequence } from "../BattleIntroSequence/BattleIntroSequence.model.js";
-import { BattlePlayerThrowSequence } from "../BattleIntroSequence/BattlePlayerThrowSequence/BattlePlayerThrowSequence.model.js";
-import { PokemonAppearsSequence } from "../BattleIntroSequence/PokemonAppearsSequence/PokemonAppearsSequence.model.js";
+import { DIALOGS_DATABASE } from "../../../../shareds/dialogs/dialogs.database.js";
+import { Pokeball } from "../Pokeball/Pokeball.model.js";
+import { BattleCatchSequence } from "../sequences/BattleCatchSequence/BattleCatchSequence.model.js";
+import { BattleIntroSequence } from "../sequences/BattleIntroSequence/BattleIntroSequence.model.js";
+import { BattlePlayerThrowSequence } from "../sequences/BattlePlayerThrowSequence/BattlePlayerThrowSequence.model.js";
+import { PokemonAppearsSequence } from "../sequences/PokemonAppearsSequence/PokemonAppearsSequence.model.js";
 
 export class BattleSequenceManager {
   constructor(context) {
@@ -75,6 +76,16 @@ export class BattleSequenceManager {
     this.pokemonAppearsSequence.start();
   }
 
+  startBattleCatchSequence() {
+    this.battleCatchSequence = new BattleCatchSequence(
+      this.game,
+      this.viewers,
+      this.battleRenderer.frontSlot,
+      () => {}
+    );
+    this.battleCatchSequence.start();
+  }
+
   update(context) {
     if (this.introSequence.isFinished)
       this.battleRenderer.frontHUD?.update(context);
@@ -91,5 +102,8 @@ export class BattleSequenceManager {
 
     if (!this.pokemonAppearsSequence?.isFinished)
       this.pokemonAppearsSequence?.update();
+
+    if (!this.battleCatchSequence?.isFinished)
+      this.battleCatchSequence?.update();
   }
 }

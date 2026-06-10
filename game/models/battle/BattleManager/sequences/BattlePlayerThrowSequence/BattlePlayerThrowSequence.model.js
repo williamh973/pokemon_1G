@@ -1,4 +1,4 @@
-import { SpriteViewer } from "../../../../../SpriteViewer/SpriteViewer.model.js";
+import { SpriteViewer } from "../../../../SpriteViewer/SpriteViewer.model.js";
 
 export class BattlePlayerThrowSequence {
   constructor(viewers, onFinish, backSlot) {

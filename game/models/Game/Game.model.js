@@ -37,6 +37,7 @@ import { WorldMap } from "../MainMenu/items/pokedex/sections/WorldMap/WorldMap.m
 import { BattleMovesMenu } from "../battle/BattleManager/BattleMenu/BattleMovesMenu/BattleMovesMenu.model.js";
 import { ScreenManager } from "../ScreenManager/ScreenManager.model.js";
 import { GAME_STATES } from "../../logic/gameplay/game/states/states.gameplay.js";
+import { dispatchItemsSelection } from "../../logic/gameplay/items/dispatchItemsSelection.gameplay.js";
 
 export class Game {
   constructor() {
@@ -74,7 +75,6 @@ export class Game {
     this.isPaused = false;
     this.isBattleMod = false;
     this.init();
-
     this.openStartMenu();
   }
 
@@ -97,6 +97,10 @@ export class Game {
     this.currentScreen = this.battleManager;
     this.currentScreen.open();
     this.state = GAME_STATES.BATTLE;
+  }
+
+  openBattleWhitoutBattleMenu() {
+    this.currentScreen = this.battleManager;
   }
 
   openGenderMenu() {
@@ -226,6 +230,10 @@ export class Game {
 
   handleMenuSelection(itemId, source) {
     dispatchMenuSelection(this, itemId, source);
+  }
+
+  handleItemSelection(item, source) {
+    dispatchItemsSelection(this, item, source);
   }
 
   startNewGame() {

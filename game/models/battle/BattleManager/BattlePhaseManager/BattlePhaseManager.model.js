@@ -14,6 +14,7 @@ export class BattlePhaseManager {
   setPhase(phase) {
     this.previousPhase = this.currentPhase;
     this.currentPhase = phase;
+    console.log(this.currentPhase);
     this.onEnterPhase(phase);
   }
 
@@ -34,11 +35,25 @@ export class BattlePhaseManager {
       case BATTLE_PHASES.POKEMON_APPEARS:
         sequence.startPokemonAppearsSequence();
         break;
+
+      case BATTLE_PHASES.CATCH_POKEMON:
+        const PLAYER = this.battleManager.game.player;
+
+        sequence.startBattleCatchSequence();
+
+        this.battleManager.openDialogBox(
+          DIALOGS_DATABASE.BATTLE_DIALOGS.playerUseBall(
+            PLAYER.nickname,
+            this.battleManager.item.name
+          )
+        );
+        break;
     }
   }
 
   update(action) {
     const sequence = this.sequenceManager;
+
     switch (this.currentPhase) {
       case BATTLE_PHASES.INTRO:
         if (action === "ACTION" && sequence.introSequence?.isFinished)
@@ -53,6 +68,11 @@ export class BattlePhaseManager {
       case BATTLE_PHASES.POKEMON_APPEARS:
         if (sequence.pokemonAppearsSequence?.isFinished)
           this.setPhase(BATTLE_PHASES.BATTLE_MENU);
+        break;
+
+      case BATTLE_PHASES.BATTLE_MENU:
+        if (this.battleManager.isUseItem)
+          this.setPhase(BATTLE_PHASES.CATCH_POKEMON);
         break;
       default:
         break;

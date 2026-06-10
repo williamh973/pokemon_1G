@@ -1,4 +1,5 @@
-import { GAME_STATES } from "../../../../logic/gameplay/game/states/states.gameplay.js";
+import { openDialogBox } from "../../../../logic/gameplay/character/player/inventory/openDialogBox.gameplay.js";
+import { update } from "../../../../logic/gameplay/character/player/inventory/update.gameplay.js";
 import { drawBox } from "../../../../shareds/utils/box/box.utils.js";
 import { drawText } from "../../../../shareds/utils/font/drawText.utils.js";
 import { textParams } from "../../../../shareds/utils/font/font.utils.js";
@@ -98,7 +99,6 @@ export class Inventory extends Menu {
     this.drawCategoryLabel(context);
     this.drawItemList(context);
     this.drawItemsCount(context);
-    this.showCursor(context);
   }
 
   drawCategoryLabel(context) {
@@ -123,12 +123,6 @@ export class Inventory extends Menu {
     });
   }
 
-  showCursor(context) {
-    const cursorY =
-      this.position.y + this.itemCurrentIndex * this.lineHeight + 45;
-    this.cursor.update(context, this.position.x + 10, cursorY);
-  }
-
   drawItemsCount(context) {
     this.categories.forEach((item, index) => {
       if (!item.count) return;
@@ -141,64 +135,28 @@ export class Inventory extends Menu {
     });
   }
 
-  openDialogBox() {
-    const item = this.categories[this.itemCurrentIndex];
-    item && item.desc
-      ? this.dialogBox.open(item?.desc, true)
-      : this.dialogBox.open("", true);
+  openDialogBox(itemCanUsedInWorld) {
+    openDialogBox(this, itemCanUsedInWorld);
   }
 
-  open() {
-    super.open();
-    this.openDialogBox();
+  checkIfItemCanBeUsed(item) {
+    const allowedEffectsInOpenWorlds = ["REVIVE"];
+
+    if (allowedEffectsInOpenWorlds.includes(item.effect)) return true;
+    else return false;
   }
 
   useItem() {
-    const itemId = this.categories[this.itemCurrentIndex].name;
-    this.game.handleMenuSelection(itemId, this);
+    const item = this.categories[this.itemCurrentIndex];
+    if (item.id === "RETOUR") return this.openItem(item.id);
+
+    const itemCanUsedInWorld = this.checkIfItemCanBeUsed(item);
+    if (!itemCanUsedInWorld && !this.game.isBattleMod)
+      return this.openDialogBox(false);
+    else this.game.handleItemSelection(item, this);
   }
 
   update(context, action) {
-    if (!this.isOpen || !this.hasFocus) return;
-
-    this.draw(context);
-    this.openDialogBox();
-
-    if (this.dialogBox.isOpen)
-      this.dialogBox.update(this.game.canvas.context, action);
-
-    switch (action) {
-      case "UP":
-        if (this.itemCurrentIndex > 0) this.itemCurrentIndex--;
-        break;
-
-      case "DOWN":
-        if (this.itemCurrentIndex < this.categories.length - 1)
-          this.itemCurrentIndex++;
-        break;
-
-      case "RIGHT":
-        if (this.catCurrentIndex < this.categoryLabels.length - 1) {
-          this.catCurrentIndex++;
-          this.itemCurrentIndex = 0;
-        }
-        break;
-
-      case "LEFT":
-        if (this.catCurrentIndex > 0) {
-          this.catCurrentIndex--;
-          this.itemCurrentIndex = 0;
-        }
-        break;
-
-      case "ACTION":
-        this.useItem();
-        break;
-
-      case GAME_STATES.PLAYER_MENU:
-      case "ESCAPE":
-        this.game.closeAndReturnFromSubMenu();
-        break;
-    }
+    update(this, context, action);
   }
 }

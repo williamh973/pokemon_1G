@@ -48,7 +48,12 @@ export class Menu {
     );
   }
 
-  openItem() {
+  openItem(returnItemFromInventory = null) {
+    if (returnItemFromInventory) {
+      const itemId = returnItemFromInventory;
+      return this.game.handleMenuSelection(itemId, this);
+    }
+
     const itemId = this.items[this.currentIndex].id;
     this.game.handleMenuSelection(itemId, this);
   }

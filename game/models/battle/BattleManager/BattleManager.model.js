@@ -6,8 +6,8 @@ import { Slot } from "../../Slot/Slot.model.js";
 import { HUD } from "./Hud/HUD.model.js";
 import { HUD_CONFIG } from "../../../render/config/battle/hud.config.js";
 import { BATTLE_SLOT_CONFIG } from "../../../logic/gameplay/battleManager/slots/battleSlots.config.js";
-import { BattleSequenceManager } from "./sequences/BattleSequenceManager/BattleSequenceManager.model.js";
 import { BattlePhaseManager } from "./BattlePhaseManager/BattlePhaseManager.model.js";
+import { BattleSequenceManager } from "./BattleSequenceManager/BattleSequenceManager.model.js";
 
 export class BattleManager {
   constructor(game, wildPokemon, tile) {
@@ -22,7 +22,9 @@ export class BattleManager {
     this.width = this.canvas.width;
     this.height = this.canvas.height;
     this.isOpen = false;
-    this.escaped = false;
+    this.isEscaped = false;
+    this.isUseItem = false;
+    this.item = null;
     this.music = null;
     this.weather = null;
     this.battleResult = null;
