@@ -2,12 +2,11 @@ import { SpriteViewer } from "../../../../SpriteViewer/SpriteViewer.model.js";
 import { getAnimationConfig } from "../../../../../shareds/utils/pokemon/animations/pokemonAnimations.utils.js";
 
 export class PokemonAppearsSequence {
-  constructor(game, viewers, currentPlayerPokemon, backSlot, onFinish) {
+  constructor(game, viewers, currentPlayerPokemon, backSlot) {
     this.game = game;
     this.viewers = viewers;
     this.currentPlayerPokemon = currentPlayerPokemon;
     this.backSlot = backSlot;
-    this.onFinish = onFinish;
     this.isFinished = false;
   }
 
@@ -27,7 +26,6 @@ export class PokemonAppearsSequence {
   update() {
     if (this.viewers.back.sprite.scale >= this.maxSpriteScale) {
       this.isFinished = true;
-      this.onFinish?.();
       return;
     }
     this.viewers.back.sprite.scale += 0.1;

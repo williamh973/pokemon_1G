@@ -1,15 +1,37 @@
-import { SpriteViewer } from "../../../../SpriteViewer/SpriteViewer.model.js";
+import { POKEBALL_STATES } from "../../../../../logic/gameplay/battle/pokeball/pokeball.states.js";
+import { Pokeball } from "../../Pokeball/Pokeball.model.js";
 
 export class BattlePlayerThrowSequence {
-  constructor(viewers, onFinish, backSlot) {
+  constructor(game, viewers, backSlot, onFinish) {
+    this.game = game;
     this.viewers = viewers;
     this.backSlot = backSlot;
     this.onFinish = onFinish;
+    this.pokeball = null;
+    this.hasPokeballThrowed = false;
     this.isFinished = false;
   }
 
   start() {
     this.viewers.back.sprite.play();
+  }
+
+  playerThrowPokeball() {
+    this.pokeball = new Pokeball(
+      this.game,
+      {
+        position: {
+          x: 0,
+          y: this.viewers.back.sprite.position.y,
+        },
+        vx: 1.6,
+        vy: -6,
+        gravity: 0.3,
+        angle: 1,
+      },
+      this.backSlot,
+      false
+    );
   }
 
   isBackSpriteOut() {
@@ -20,15 +42,35 @@ export class BattlePlayerThrowSequence {
     );
   }
 
-  update() {
+  update(context) {
     if (this.isFinished) return;
 
     if (!this.isBackSpriteOut()) {
       return (this.viewers.back.sprite.position.x -= 3);
     }
 
-    this.isFinished = true;
-    this.onFinish?.();
+    if (this.isBackSpriteOut() && !this.hasPokeballThrowed) {
+      this.playerThrowPokeball();
+      this.hasPokeballThrowed = true;
+    }
+
     this.viewers.back.sprite.position.x = this.viewers.back.sprite.position.x;
+
+    if (this.pokeball) {
+      this.pokeball.update(context);
+
+      switch (this.pokeball.state) {
+        case POKEBALL_STATES.IMPACT:
+          this.pokeball.createPokeballReleaseEffect();
+          break;
+
+        case POKEBALL_STATES.RELEASE:
+          this.pokeball.pokeballReleaseEffect?.update(context);
+          break;
+
+        default:
+          break;
+      }
+    }
   }
 }

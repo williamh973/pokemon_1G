@@ -1,52 +1,56 @@
+import { POKEBALL_STATES } from "../../../../logic/gameplay/battle/pokeball/pokeball.states.js";
+import { OPENED_POKEBALL_ANIMATION } from "../../../../render/config/battle/openedPokeball.config.js";
 import { BALL_CONFIG } from "../../../../render/config/item/ball/ball.config.js";
 import { SpriteViewer } from "../../../SpriteViewer/SpriteViewer.model.js";
 import { PokeballReleaseEffect } from "./PokeballReleaseEffect/PokeballReleaseEffect.model.js";
 
 export class Pokeball {
-  constructor(start, backSlot) {
-    this.position = { ...start };
-
+  constructor(
+    game,
+    params,
+    targetSlot,
+    randoms,
+    secondFormulaValue,
+    isCatchMod
+  ) {
+    this.state = POKEBALL_STATES.THROW;
+    this.game = game;
+    this.position = { ...params.position };
+    this.vx = params.vx;
+    this.vy = params.vy;
+    this.gravity = params.gravity;
+    this.angle = params.angle;
+    this.targetSlot = targetSlot;
+    this.randoms = randoms;
+    this.secondFormulaValue = secondFormulaValue;
+    this.isCatchMod = isCatchMod;
     this.image = BALL_CONFIG.POKEBALL.image;
     this.width = BALL_CONFIG.dimensions.width;
     this.height = BALL_CONFIG.dimensions.height;
     this.scale = BALL_CONFIG.dimensions.scale + 0.3;
-    this.backSlot = backSlot;
-    this.vx = 1.6;
-    this.vy = -6;
-    this.gravity = 0.3;
-    this.angle = 1;
-    this.hasImpacted = false;
+    this.viewer = {
+      front: new SpriteViewer(
+        this.game,
+        OPENED_POKEBALL_ANIMATION,
+        this.targetSlot
+      ),
+    };
   }
 
-  onImpact() {
+  showOpenedPokeball() {
+    this.viewer.front.sprite.position.x = this.position.x - 11;
+    this.viewer.front.sprite.position.y = this.position.y - 13;
+
+    this.viewer.front.isOpen = true;
+  }
+
+  createPokeballReleaseEffect() {
+    this.state = POKEBALL_STATES.RELEASE;
+
     this.pokeballReleaseEffect = new PokeballReleaseEffect(
-      this.backSlot.position.x + this.backSlot.width / 2,
-      this.backSlot.position.y + this.backSlot.height / 2
+      this.targetSlot.position.x + this.targetSlot.width / 2,
+      this.targetSlot.position.y + this.targetSlot.height / 2
     );
-  }
-
-  update(context) {
-    if (this.hasImpacted) {
-      this.pokeballReleaseEffect?.update(context);
-      return;
-    }
-    this.draw(context);
-    this.position.x += this.vx;
-    this.position.y += this.vy;
-
-    this.vy += this.gravity;
-
-    this.angle += 0.6;
-
-    const backSlotPosX = this.backSlot.position.x + this.backSlot.width / 2;
-    const backSlotPosY = this.backSlot.position.y + this.backSlot.height / 2;
-
-    if (this.position.x >= backSlotPosX && this.position.y >= backSlotPosY) {
-      this.position.x = backSlotPosX;
-      this.position.y = backSlotPosY;
-      this.hasImpacted = true;
-      this.onImpact?.();
-    }
   }
 
   draw(context) {
@@ -63,5 +67,101 @@ export class Pokeball {
     );
 
     context.restore();
+  }
+
+  updatePositionForOpen(backSlotPosX, backSlotPosY) {
+    this.position.x = backSlotPosX;
+    this.position.y = backSlotPosY;
+  }
+
+  checkForImpact(backSlotPosX, backSlotPosY) {
+    if (this.position.x >= backSlotPosX && this.position.y >= backSlotPosY)
+      this.state = POKEBALL_STATES.IMPACT;
+  }
+
+  checkPokeballFalled() {
+    if (
+      this.position.y >=
+      this.targetSlot.position.y + this.targetSlot.height
+    ) {
+      this.position.y = this.targetSlot.position.y + this.targetSlot.height;
+
+      if (Math.abs(this.vy) > 1) this.vy *= -0.35;
+      else {
+        this.vy = 0;
+        console.log(this.randoms, this.secondFormulaValue);
+
+        if (this.randoms[0] <= this.secondFormulaValue)
+          this.state = POKEBALL_STATES.SHAKE1;
+        else this.state = POKEBALL_STATES.ESCAPE;
+      }
+    }
+  }
+
+  update(context) {
+    switch (this.state) {
+      case POKEBALL_STATES.THROW:
+        this.draw(context);
+
+        this.position.x += this.vx;
+        this.position.y += this.vy;
+
+        this.vy += this.gravity;
+
+        this.isCatchMod ? (this.angle = 0) : (this.angle += 0.6);
+
+        const backSlotPosX =
+          this.targetSlot.position.x + this.targetSlot.width / 2;
+        let backSlotPosY = null;
+
+        this.isCatchMod
+          ? (backSlotPosY = this.targetSlot.position.y + 10)
+          : (backSlotPosY =
+              this.targetSlot.position.y + this.targetSlot.height / 2);
+
+        this.checkForImpact(backSlotPosX, backSlotPosY);
+        break;
+
+      case POKEBALL_STATES.RELEASE:
+        if (this.isCatchMod) {
+          this.viewer.front?.update(context);
+          if (!this.viewer.front.sprite.isPlaying)
+            this.state = POKEBALL_STATES.FALL;
+        }
+        break;
+
+      case POKEBALL_STATES.FALL:
+        this.draw(context);
+        this.viewer = null;
+
+        this.position.y += this.vy;
+        this.vy += this.gravity;
+
+        this.checkPokeballFalled();
+        break;
+
+      case POKEBALL_STATES.SHAKE1:
+        this.draw(context);
+
+        if (this.position.x > 220) {
+          this.position.x -= 1;
+          this.angle -= 0.1;
+        }
+
+        if (this.position.x <= 220) {
+          this.position.x += 1;
+          this.angle += 0.1;
+        }
+        break;
+
+      case POKEBALL_STATES.ESCAPE:
+        console.log("Le pokémon s'est échappé");
+        break;
+
+      default:
+        break;
+    }
+
+    // console.log(this.state);
   }
 }

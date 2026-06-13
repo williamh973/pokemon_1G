@@ -33,18 +33,31 @@ export class BattlePhaseManager {
         break;
 
       case BATTLE_PHASES.POKEMON_APPEARS:
+        sequence.playerThrowSequence.isFinished = true;
         sequence.startPokemonAppearsSequence();
+        break;
+
+      case BATTLE_PHASES.BATTLE_MENU:
+        this.battleManager.isUseItem = false;
+        this.battleManager.usedItem = null;
+
+        this.battleManager.openDialogBox(
+          DIALOGS_DATABASE.BATTLE_DIALOGS.whatShouldPokemonDo(
+            this.battleManager.currentPlayerPokemon.name
+          )
+        );
+        this.battleManager.game.openBattleMenu();
         break;
 
       case BATTLE_PHASES.CATCH_POKEMON:
         const PLAYER = this.battleManager.game.player;
 
-        sequence.startBattleCatchSequence();
+        sequence.startBattleCatchSequence(this.battleManager.usedItem);
 
         this.battleManager.openDialogBox(
           DIALOGS_DATABASE.BATTLE_DIALOGS.playerUseBall(
             PLAYER.nickname,
-            this.battleManager.item.name
+            this.battleManager.usedItem.name
           )
         );
         break;
@@ -61,7 +74,10 @@ export class BattlePhaseManager {
         break;
 
       case BATTLE_PHASES.PLAYER_THROW_POKEBALL:
-        if (sequence.pokeball?.pokeballReleaseEffect?.isFinished)
+        if (
+          sequence.playerThrowSequence.pokeball?.pokeballReleaseEffect
+            ?.isFinished
+        )
           this.setPhase(BATTLE_PHASES.POKEMON_APPEARS);
         break;
 
@@ -73,6 +89,11 @@ export class BattlePhaseManager {
       case BATTLE_PHASES.BATTLE_MENU:
         if (this.battleManager.isUseItem)
           this.setPhase(BATTLE_PHASES.CATCH_POKEMON);
+        break;
+
+      case BATTLE_PHASES.CATCH_POKEMON:
+        if (sequence.battleCatchSequence?.isFinished)
+          this.setPhase(BATTLE_PHASES.BATTLE_MENU);
         break;
       default:
         break;

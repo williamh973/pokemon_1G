@@ -5,9 +5,6 @@ export const ITEM_EFFECTS = {
   },
   // CURE_STATUS,
   CATCH: ({ game, item }) => {
-    game.battleManager.isUseItem = true;
-    game.battleManager.item = item;
-
     game.openBattleWhitoutBattleMenu();
   },
 };

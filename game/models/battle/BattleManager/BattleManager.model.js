@@ -24,7 +24,7 @@ export class BattleManager {
     this.isOpen = false;
     this.isEscaped = false;
     this.isUseItem = false;
-    this.item = null;
+    this.usedItem = null;
     this.music = null;
     this.weather = null;
     this.battleResult = null;

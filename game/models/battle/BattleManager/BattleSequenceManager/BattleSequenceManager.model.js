@@ -4,6 +4,7 @@ import { BattleCatchSequence } from "../sequences/BattleCatchSequence/BattleCatc
 import { BattleIntroSequence } from "../sequences/BattleIntroSequence/BattleIntroSequence.model.js";
 import { BattlePlayerThrowSequence } from "../sequences/BattlePlayerThrowSequence/BattlePlayerThrowSequence.model.js";
 import { PokemonAppearsSequence } from "../sequences/PokemonAppearsSequence/PokemonAppearsSequence.model.js";
+import { PokemonDisappearsSequence } from "../sequences/PokemonDisappearsSequence/PokemonDisappearsSequence.model.js";
 
 export class BattleSequenceManager {
   constructor(context) {
@@ -13,6 +14,7 @@ export class BattleSequenceManager {
     this.wildPokemon = context.wildPokemon;
     this.currentPlayerPokemon = context.currentPlayerPokemon;
     this.battleMenu = context.battleMenu;
+    this.countdownBeforeStartCatchSeq = 30;
   }
 
   openDialogBox(text) {
@@ -42,16 +44,9 @@ export class BattleSequenceManager {
 
   startPlayerThrowSequence() {
     this.playerThrowSequence = new BattlePlayerThrowSequence(
+      this.game,
       this.viewers,
-      () => {
-        this.pokeball = new Pokeball(
-          {
-            x: 0,
-            y: this.viewers.back.sprite.position.y,
-          },
-          this.battleRenderer.backSlot
-        );
-      }
+      this.battleRenderer.backSlot
     );
 
     this.playerThrowSequence.start();
@@ -62,31 +57,49 @@ export class BattleSequenceManager {
       this.game,
       this.viewers,
       this.currentPlayerPokemon,
-      this.battleRenderer.backSlot,
-      () => {
-        this.openDialogBox(
-          DIALOGS_DATABASE.BATTLE_DIALOGS.whatShouldPokemonDo(
-            this.currentPlayerPokemon.name
-          )
-        );
-        this.game.openBattleMenu();
-      }
+      this.battleRenderer.backSlot
     );
 
     this.pokemonAppearsSequence.start();
   }
 
-  startBattleCatchSequence() {
+  startBattleCatchSequence(usedItem) {
     this.battleCatchSequence = new BattleCatchSequence(
       this.game,
       this.viewers,
       this.battleRenderer.frontSlot,
-      () => {}
+      this.wildPokemon,
+      usedItem
     );
-    this.battleCatchSequence.start();
+  }
+
+  startPokemonDisappearsSequence() {
+    this.pokemonDisappearsSequence = new PokemonDisappearsSequence(
+      this.game,
+      this.viewers,
+      this.currentPlayerPokemon,
+      this.battleRenderer.backSlot
+    );
+
+    this.pokemonAppearsSequence.start();
+  }
+
+  handleCountdownForStartCatchSequence() {
+    if (this.countdownBeforeStartCatchSeq > 0)
+      this.countdownBeforeStartCatchSeq--;
+    else this.countdownBeforeStartCatchSeq = 30;
+
+    if (
+      this.countdownBeforeStartCatchSeq === 0 &&
+      !this.battleCatchSequence?.isStarted
+    ) {
+      this.battleCatchSequence?.start();
+    }
   }
 
   update(context) {
+    if (this.battleCatchSequence) this.handleCountdownForStartCatchSequence();
+
     if (this.introSequence.isFinished)
       this.battleRenderer.frontHUD?.update(context);
 
@@ -95,15 +108,13 @@ export class BattleSequenceManager {
 
     if (!this.introSequence.isFinished) this.introSequence.update();
 
-    if (this.playerThrowSequence?.isFinished) this.pokeball?.update(context);
-
     if (!this.playerThrowSequence?.isFinished)
-      this.playerThrowSequence?.update();
+      this.playerThrowSequence?.update(context);
 
     if (!this.pokemonAppearsSequence?.isFinished)
       this.pokemonAppearsSequence?.update();
 
     if (!this.battleCatchSequence?.isFinished)
-      this.battleCatchSequence?.update();
+      this.battleCatchSequence?.update(context);
   }
 }
