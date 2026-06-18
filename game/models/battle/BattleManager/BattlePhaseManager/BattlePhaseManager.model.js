@@ -33,8 +33,13 @@ export class BattlePhaseManager {
         break;
 
       case BATTLE_PHASES.POKEMON_APPEARS:
-        sequence.playerThrowSequence.isFinished = true;
-        sequence.startPokemonAppearsSequence();
+        if (this.previousPhase === BATTLE_PHASES.PLAYER_THROW_POKEBALL) {
+          sequence.playerThrowSequence.isFinished = true;
+
+          const pokemon = this.battleManager.currentPlayerPokemon; //this.battleManager.currentPlayerPokemon ou wildPokemon ou this.battleManager.currentTrainerPokemon
+          const key = "back";
+          sequence.startPokemonAppearsSequence(pokemon, key);
+        }
         break;
 
       case BATTLE_PHASES.BATTLE_MENU:
@@ -46,13 +51,17 @@ export class BattlePhaseManager {
             this.battleManager.currentPlayerPokemon.name
           )
         );
+
         this.battleManager.game.openBattleMenu();
         break;
 
       case BATTLE_PHASES.CATCH_POKEMON:
         const PLAYER = this.battleManager.game.player;
+        const BALL = this.battleManager.usedItem;
+        const KEY = "front";
 
-        sequence.startBattleCatchSequence(this.battleManager.usedItem);
+        sequence.initBattleCatchSequence(BALL);
+        sequence.initPokemonDisappearsSequence(KEY);
 
         this.battleManager.openDialogBox(
           DIALOGS_DATABASE.BATTLE_DIALOGS.playerUseBall(
@@ -87,7 +96,10 @@ export class BattlePhaseManager {
         break;
 
       case BATTLE_PHASES.BATTLE_MENU:
-        if (this.battleManager.isUseItem)
+        if (
+          this.battleManager.isUseItem &&
+          this.battleManager.usedItem.effect === "CATCH"
+        )
           this.setPhase(BATTLE_PHASES.CATCH_POKEMON);
         break;
 

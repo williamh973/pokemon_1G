@@ -3,7 +3,7 @@ export const OPENED_POKEBALL_ANIMATION = {
   frameWidth: 12,
   frameHeight: 17,
   frames: 5,
-  frameDelay: 30,
+  frameDelay: 15,
   scale: 1.8,
   loop: false,
 };

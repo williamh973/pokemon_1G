@@ -1,4 +1,5 @@
 export const BATTLE_DIALOGS = {
+  wildPokemonEscaped: (pokemon) => `${pokemon} s'est libéré!`,
   wildPokemonAppears: (pokemon) => `Un ${pokemon} sauvage apparait!`,
 
   trainerWantsToFight: (trainer) => `${trainer} veut se battre!`,

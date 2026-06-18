@@ -28,6 +28,11 @@ export class Pokeball {
     this.width = BALL_CONFIG.dimensions.width;
     this.height = BALL_CONFIG.dimensions.height;
     this.scale = BALL_CONFIG.dimensions.scale + 0.3;
+    this.viewer = null;
+    this.timer = 40;
+  }
+
+  showOpenedPokeball() {
     this.viewer = {
       front: new SpriteViewer(
         this.game,
@@ -35,9 +40,7 @@ export class Pokeball {
         this.targetSlot
       ),
     };
-  }
 
-  showOpenedPokeball() {
     this.viewer.front.sprite.position.x = this.position.x - 11;
     this.viewer.front.sprite.position.y = this.position.y - 13;
 
@@ -79,23 +82,60 @@ export class Pokeball {
       this.state = POKEBALL_STATES.IMPACT;
   }
 
-  checkPokeballFalled() {
-    if (
-      this.position.y >=
-      this.targetSlot.position.y + this.targetSlot.height
-    ) {
+  isOnTheGround() {
+    return (
+      this.position.y >= this.targetSlot.position.y + this.targetSlot.height
+    );
+  }
+
+  handleBounces() {
+    if (Math.abs(this.vy) > 1) this.vy *= -0.35;
+    else {
+      this.vy = 0;
+
+      if (this.randoms[0] <= this.secondFormulaValue) {
+        console.log("AVANT SHAKE");
+        this.state = POKEBALL_STATES.SHAKE1;
+      } else this.state = POKEBALL_STATES.ESCAPE;
+    }
+  }
+
+  checkPokeballOnTheGround() {
+    if (this.isOnTheGround()) {
       this.position.y = this.targetSlot.position.y + this.targetSlot.height;
 
-      if (Math.abs(this.vy) > 1) this.vy *= -0.35;
-      else {
-        this.vy = 0;
-        console.log(this.randoms, this.secondFormulaValue);
-
-        if (this.randoms[0] <= this.secondFormulaValue)
-          this.state = POKEBALL_STATES.SHAKE1;
-        else this.state = POKEBALL_STATES.ESCAPE;
-      }
+      this.handleBounces();
     }
+  }
+
+  updateShake(context, { nextState, randomIndex }) {
+    console.log(this.timer);
+
+    this.draw(context);
+
+    const angle = 0.02;
+    const posX = 1;
+
+    if (this.timer > 0) this.timer--;
+    else {
+      this.timer = 40;
+      this.state = nextState;
+      return;
+    }
+
+    if (this.timer > 30) {
+      this.position.x -= posX;
+      this.angle -= angle;
+    } else if (this.timer <= 30 && this.timer > 10) {
+      this.position.x += posX;
+      this.angle += angle;
+    } else {
+      this.position.x -= posX;
+      this.angle -= angle;
+    }
+
+    if (this.randoms[randomIndex] > this.secondFormulaValue)
+      return (this.state = POKEBALL_STATES.ESCAPE);
   }
 
   update(context) {
@@ -125,43 +165,60 @@ export class Pokeball {
       case POKEBALL_STATES.RELEASE:
         if (this.isCatchMod) {
           this.viewer.front?.update(context);
-          if (!this.viewer.front.sprite.isPlaying)
+          if (
+            !this.viewer.front.sprite.isPlaying &&
+            this.game.battleManager.sequenceManager.pokemonDisappearsSequence
+              .isFinished
+          ) {
+            this.viewer = null;
             this.state = POKEBALL_STATES.FALL;
+          }
         }
         break;
 
       case POKEBALL_STATES.FALL:
         this.draw(context);
-        this.viewer = null;
 
         this.position.y += this.vy;
         this.vy += this.gravity;
 
-        this.checkPokeballFalled();
+        this.checkPokeballOnTheGround();
         break;
 
       case POKEBALL_STATES.SHAKE1:
-        this.draw(context);
+        console.log("SHAKE1");
 
-        if (this.position.x > 220) {
-          this.position.x -= 1;
-          this.angle -= 0.1;
-        }
-
-        if (this.position.x <= 220) {
-          this.position.x += 1;
-          this.angle += 0.1;
-        }
+        this.updateShake(context, {
+          nextState: POKEBALL_STATES.SHAKE2,
+          randomIndex: 1,
+        });
         break;
 
-      case POKEBALL_STATES.ESCAPE:
-        console.log("Le pokémon s'est échappé");
+      case POKEBALL_STATES.SHAKE2:
+        console.log("SHAKE2");
+
+        this.updateShake(context, {
+          nextState: POKEBALL_STATES.SHAKE3,
+          randomIndex: 2,
+        });
+        break;
+
+      case POKEBALL_STATES.SHAKE3:
+        console.log("SHAKE3");
+
+        this.updateShake(context, {
+          nextState: POKEBALL_STATES.CAPTURE,
+          randomIndex: 3,
+        });
+        break;
+
+      case POKEBALL_STATES.CAPTURE:
+        this.draw(context);
+        console.log("Le pokémon est capturé !");
         break;
 
       default:
         break;
     }
-
-    // console.log(this.state);
   }
 }

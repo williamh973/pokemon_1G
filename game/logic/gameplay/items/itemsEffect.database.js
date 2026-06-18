@@ -5,6 +5,6 @@ export const ITEM_EFFECTS = {
   },
   // CURE_STATUS,
   CATCH: ({ game, item }) => {
-    game.openBattleWhitoutBattleMenu();
+    game.openBattleWhitoutBattleMenu(item);
   },
 };

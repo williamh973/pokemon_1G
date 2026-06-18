@@ -99,8 +99,10 @@ export class Game {
     this.state = GAME_STATES.BATTLE;
   }
 
-  openBattleWhitoutBattleMenu() {
+  openBattleWhitoutBattleMenu(item) {
     this.currentScreen = this.battleManager;
+    this.battleManager.usedItem = item;
+    this.battleManager.isUseItem = true;
   }
 
   openGenderMenu() {

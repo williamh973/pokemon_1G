@@ -1,9 +1,10 @@
 import { POKEBALL_STATES } from "../../../../../logic/gameplay/battle/pokeball/pokeball.states.js";
-import { getSpeciesData } from "../../../../../shareds/utils/pokemon/species/species.utils.js";
+import { calculateCatchProbability } from "../../../../../logic/gameplay/battle/sequences/catchSequence/calculateCatchProbability.gameplay.js";
 import { Pokeball } from "../../Pokeball/Pokeball.model.js";
 
 export class BattleCatchSequence {
   constructor(game, viewers, frontSlot, wildPokemon, usedItem) {
+    this.countdown = 30;
     this.game = game;
     this.viewers = viewers;
     this.frontSlot = frontSlot;
@@ -12,9 +13,17 @@ export class BattleCatchSequence {
     this.isFinished = false;
     this.pokeball = null;
     this.isStarted = false;
+    this.hasAppearsSequenceStarted = false;
     this.randoms = [];
     this.secondFormulaValue = null;
     this.calculateCatchProbability();
+  }
+
+  handleCountdownBeforeStart() {
+    if (this.countdown > 0) this.countdown--;
+    else this.countdown = 30;
+
+    if (this.countdown === 0 && !this.isStarted) this.start();
   }
 
   start() {
@@ -39,64 +48,18 @@ export class BattleCatchSequence {
     );
   }
 
-  generateFirstFormula() {
-    const speciesCatchRate = getSpeciesData(this.wildPokemon.id).catchRate;
-    const ballCatchRate = this.usedItem.value;
-    const statutBonus = 1;
-
-    return Math.floor(
-      (ballCatchRate -
-        ((2 / 3) * this.wildPokemon.stats.hp) / this.wildPokemon.stats.maxHp) *
-        speciesCatchRate *
-        ballCatchRate *
-        statutBonus
-    );
-  }
-
-  generateSecondFormula(firstFormulaValue) {
-    return (
-      Math.floor((Math.pow(2, 16) - 1) * firstFormulaValue) /
-      Math.floor((Math.pow(2, 8) - 1) * 4)
-    );
-  }
-
-  getRandom65535() {
-    return Math.floor(Math.random() * 65_535);
-  }
-
   calculateCatchProbability() {
-    const allowedBalls = [
-      "POKE_BALL",
-      "SUPER_BALL",
-      "HYPER_BALL",
-      "MASTER_BALL",
-    ];
-
-    if (!allowedBalls.includes(this.usedItem.id)) return;
-
-    const firstFormulaValue = this.generateFirstFormula();
-    const maxSpeciesCatchRate = 255;
-    if (firstFormulaValue >= maxSpeciesCatchRate)
-      console.log("Le pokémon est attrapé");
-    else {
-      this.secondFormulaValue = this.generateSecondFormula(firstFormulaValue);
-      const randomCount = 4;
-
-      for (let i = 0; i < randomCount; i++) {
-        // Si ces quatre nombres sont tous inférieurs ou égaux à secondFormulaValue, le Pokémon est attrapé.
-        this.randoms.push(this.getRandom65535());
-      }
-      // console.log(this.randoms, this.secondFormulaValue);
-    }
-
-    // console.log(firstFormulaValue);
-    // console.log(this.wildPokemon);
-    // console.log(this.usedItem);
+    const result = calculateCatchProbability(this.usedItem, this.wildPokemon);
+    this.randoms = result.randoms;
+    this.secondFormulaValue = result.secondFormulaValue;
   }
 
   update(context) {
+    this.handleCountdownBeforeStart();
+
     if (this.pokeball) {
       this.pokeball.update(context);
+      const sequence = this.game.battleManager.sequenceManager;
 
       switch (this.pokeball.state) {
         case POKEBALL_STATES.IMPACT:
@@ -106,22 +69,19 @@ export class BattleCatchSequence {
 
         case POKEBALL_STATES.RELEASE:
           this.pokeball.pokeballReleaseEffect?.update(context);
+          sequence.pokemonDisappearsSequence.update();
           break;
 
         case POKEBALL_STATES.ESCAPE:
-          this.isFinished = true;
-          this.usedItem = null;
+          this.pokeball.pokeballReleaseEffect?.update(context);
+
+          if (!this.hasAppearsSequenceStarted) {
+            this.usedItem = null;
+            this.hasAppearsSequenceStarted = true;
+            sequence.startPokemonAppearsSequence(this.wildPokemon, "front");
+          }
 
           break;
-
-        // case "throw":
-        //   break;
-
-        // case "throw":
-        //   break;
-
-        // case "throw":
-        //   break;
 
         default:
           break;

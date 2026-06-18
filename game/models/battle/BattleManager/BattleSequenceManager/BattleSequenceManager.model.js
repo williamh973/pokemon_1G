@@ -1,5 +1,4 @@
 import { DIALOGS_DATABASE } from "../../../../shareds/dialogs/dialogs.database.js";
-import { Pokeball } from "../Pokeball/Pokeball.model.js";
 import { BattleCatchSequence } from "../sequences/BattleCatchSequence/BattleCatchSequence.model.js";
 import { BattleIntroSequence } from "../sequences/BattleIntroSequence/BattleIntroSequence.model.js";
 import { BattlePlayerThrowSequence } from "../sequences/BattlePlayerThrowSequence/BattlePlayerThrowSequence.model.js";
@@ -14,7 +13,6 @@ export class BattleSequenceManager {
     this.wildPokemon = context.wildPokemon;
     this.currentPlayerPokemon = context.currentPlayerPokemon;
     this.battleMenu = context.battleMenu;
-    this.countdownBeforeStartCatchSeq = 30;
   }
 
   openDialogBox(text) {
@@ -52,67 +50,52 @@ export class BattleSequenceManager {
     this.playerThrowSequence.start();
   }
 
-  startPokemonAppearsSequence() {
+  startPokemonAppearsSequence(pokemon, key) {
     this.pokemonAppearsSequence = new PokemonAppearsSequence(
       this.game,
       this.viewers,
-      this.currentPlayerPokemon,
-      this.battleRenderer.backSlot
+      pokemon,
+      key
     );
 
     this.pokemonAppearsSequence.start();
   }
 
-  startBattleCatchSequence(usedItem) {
+  initBattleCatchSequence(ball) {
     this.battleCatchSequence = new BattleCatchSequence(
       this.game,
       this.viewers,
       this.battleRenderer.frontSlot,
       this.wildPokemon,
-      usedItem
+      ball
     );
   }
 
-  startPokemonDisappearsSequence() {
+  initPokemonDisappearsSequence(key) {
     this.pokemonDisappearsSequence = new PokemonDisappearsSequence(
       this.game,
-      this.viewers,
-      this.currentPlayerPokemon,
-      this.battleRenderer.backSlot
+      key
     );
-
-    this.pokemonAppearsSequence.start();
-  }
-
-  handleCountdownForStartCatchSequence() {
-    if (this.countdownBeforeStartCatchSeq > 0)
-      this.countdownBeforeStartCatchSeq--;
-    else this.countdownBeforeStartCatchSeq = 30;
-
-    if (
-      this.countdownBeforeStartCatchSeq === 0 &&
-      !this.battleCatchSequence?.isStarted
-    ) {
-      this.battleCatchSequence?.start();
-    }
   }
 
   update(context) {
-    if (this.battleCatchSequence) this.handleCountdownForStartCatchSequence();
+    console.log(this.pokemonAppearsSequence?.isFinished);
 
-    if (this.introSequence.isFinished)
+    if (this.introSequence?.isFinished)
       this.battleRenderer.frontHUD?.update(context);
 
-    if (this.pokemonAppearsSequence?.isFinished)
-      this.battleRenderer.backHUD?.update(context);
-
     if (!this.introSequence.isFinished) this.introSequence.update();
+
+    if (this.playerThrowSequence?.isFinished)
+      this.battleRenderer.backHUD?.update(context);
 
     if (!this.playerThrowSequence?.isFinished)
       this.playerThrowSequence?.update(context);
 
-    if (!this.pokemonAppearsSequence?.isFinished)
-      this.pokemonAppearsSequence?.update();
+    if (this.pokemonAppearsSequence?.isFinished) {
+      this.pokemonAppearsSequence = null;
+      if (this.battleCatchSequence) this.battleCatchSequence.isFinished = true;
+    } else this.pokemonAppearsSequence?.update();
 
     if (!this.battleCatchSequence?.isFinished)
       this.battleCatchSequence?.update(context);
