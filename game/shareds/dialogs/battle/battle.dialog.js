@@ -1,5 +1,6 @@
 export const BATTLE_DIALOGS = {
-  wildPokemonEscaped: (pokemon) => `${pokemon} s'est libéré!`,
+  wildPokemonEscaped: (pokemon) => `Mince! ${pokemon} s'est \nlibéré.`,
+
   wildPokemonAppears: (pokemon) => `Un ${pokemon} sauvage apparait!`,
 
   trainerWantsToFight: (trainer) => `${trainer} veut se battre!`,
@@ -17,8 +18,6 @@ export const BATTLE_DIALOGS = {
 
   trainerDefeated: (player, trainer, pokeDollar) =>
     `${trainer} a été vaincu, ${player} gagne ${pokeDollar} P$`,
-
-  wildPokemonEscaped: (pokemon) => `${pokemon} sauvage s'est échappé !`,
 
   pokemonCaptured: (pokemon) => `${pokemon} est capturé !`,
 

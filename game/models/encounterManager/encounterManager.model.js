@@ -4,7 +4,6 @@ import {
   getSpawnAroundPlayer,
   spawnOP,
 } from "../../shareds/utils/character/op/spawnOverworldPokemon.utils.js";
-import { BattleManager } from "../battle/BattleManager/BattleManager.model.js";
 
 export class EncounterManager {
   tryDoWildEncounter(game, tile, timeManager) {
@@ -54,7 +53,7 @@ export class EncounterManager {
           game.mapManager.currentMap.name
         );
 
-        game.openBattle(wildPokemon, tile);
+        game.openBattle(wildPokemon, tile, "WILD");
 
         done();
       },

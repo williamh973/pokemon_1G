@@ -11,28 +11,29 @@ export class Pokeball {
     targetSlot,
     randoms,
     secondFormulaValue,
-    isCatchMod
+    battleCatchSequence
   ) {
-    this.state = POKEBALL_STATES.THROW;
     this.game = game;
+    this.targetSlot = targetSlot;
+    this.randoms = randoms;
+    this.secondFormulaValue = secondFormulaValue;
+    this.battleCatchSequence = battleCatchSequence;
+    this.state = POKEBALL_STATES.THROW;
     this.position = { ...params.position };
     this.vx = params.vx;
     this.vy = params.vy;
     this.gravity = params.gravity;
     this.angle = params.angle;
-    this.targetSlot = targetSlot;
-    this.randoms = randoms;
-    this.secondFormulaValue = secondFormulaValue;
-    this.isCatchMod = isCatchMod;
     this.image = BALL_CONFIG.POKEBALL.image;
     this.width = BALL_CONFIG.dimensions.width;
     this.height = BALL_CONFIG.dimensions.height;
     this.scale = BALL_CONFIG.dimensions.scale + 0.3;
     this.viewer = null;
     this.timer = 40;
+    this.pokeballReleaseEffect = null;
   }
 
-  showOpenedPokeball() {
+  showOpenedPokeball(paddingX, paddingY) {
     this.viewer = {
       front: new SpriteViewer(
         this.game,
@@ -41,8 +42,8 @@ export class Pokeball {
       ),
     };
 
-    this.viewer.front.sprite.position.x = this.position.x - 11;
-    this.viewer.front.sprite.position.y = this.position.y - 13;
+    this.viewer.front.sprite.position.x = this.position.x - paddingX;
+    this.viewer.front.sprite.position.y = this.position.y - paddingY;
 
     this.viewer.front.isOpen = true;
   }
@@ -72,11 +73,6 @@ export class Pokeball {
     context.restore();
   }
 
-  updatePositionForOpen(backSlotPosX, backSlotPosY) {
-    this.position.x = backSlotPosX;
-    this.position.y = backSlotPosY;
-  }
-
   checkForImpact(backSlotPosX, backSlotPosY) {
     if (this.position.x >= backSlotPosX && this.position.y >= backSlotPosY)
       this.state = POKEBALL_STATES.IMPACT;
@@ -93,10 +89,9 @@ export class Pokeball {
     else {
       this.vy = 0;
 
-      if (this.randoms[0] <= this.secondFormulaValue) {
-        console.log("AVANT SHAKE");
+      if (this.randoms[0] <= this.secondFormulaValue)
         this.state = POKEBALL_STATES.SHAKE1;
-      } else this.state = POKEBALL_STATES.ESCAPE;
+      else this.state = POKEBALL_STATES.ESCAPE;
     }
   }
 
@@ -109,8 +104,6 @@ export class Pokeball {
   }
 
   updateShake(context, { nextState, randomIndex }) {
-    console.log(this.timer);
-
     this.draw(context);
 
     const angle = 0.02;
@@ -148,13 +141,13 @@ export class Pokeball {
 
         this.vy += this.gravity;
 
-        this.isCatchMod ? (this.angle = 0) : (this.angle += 0.6);
+        this.battleCatchSequence ? (this.angle = 0) : (this.angle += 0.6);
 
         const backSlotPosX =
           this.targetSlot.position.x + this.targetSlot.width / 2;
         let backSlotPosY = null;
 
-        this.isCatchMod
+        this.battleCatchSequence
           ? (backSlotPosY = this.targetSlot.position.y + 10)
           : (backSlotPosY =
               this.targetSlot.position.y + this.targetSlot.height / 2);
@@ -163,7 +156,9 @@ export class Pokeball {
         break;
 
       case POKEBALL_STATES.RELEASE:
-        if (this.isCatchMod) {
+        this.pokeballReleaseEffect?.update(context);
+
+        if (this.battleCatchSequence) {
           this.viewer.front?.update(context);
           if (
             !this.viewer.front.sprite.isPlaying &&
@@ -186,8 +181,6 @@ export class Pokeball {
         break;
 
       case POKEBALL_STATES.SHAKE1:
-        console.log("SHAKE1");
-
         this.updateShake(context, {
           nextState: POKEBALL_STATES.SHAKE2,
           randomIndex: 1,
@@ -195,8 +188,6 @@ export class Pokeball {
         break;
 
       case POKEBALL_STATES.SHAKE2:
-        console.log("SHAKE2");
-
         this.updateShake(context, {
           nextState: POKEBALL_STATES.SHAKE3,
           randomIndex: 2,
@@ -204,8 +195,6 @@ export class Pokeball {
         break;
 
       case POKEBALL_STATES.SHAKE3:
-        console.log("SHAKE3");
-
         this.updateShake(context, {
           nextState: POKEBALL_STATES.CAPTURE,
           randomIndex: 3,
@@ -214,7 +203,6 @@ export class Pokeball {
 
       case POKEBALL_STATES.CAPTURE:
         this.draw(context);
-        console.log("Le pokémon est capturé !");
         break;
 
       default:

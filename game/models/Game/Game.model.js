@@ -84,19 +84,62 @@ export class Game {
     animate(this, this.tileManager);
   }
 
+  switchPokemon() {
+    if (this.isBattleMod) {
+      const party = this.player.party;
+      const alreadyInBattleText = `${this.battleManager.currentPlayerPokemon.name} est déjà au combat`;
+
+      if (
+        this.battleManager.currentPlayerPokemon ===
+        party.slots[party.currentIndex].content
+      ) {
+        this.dialogBox.open(alreadyInBattleText, true);
+        this.dialogBox.hasFocus = true;
+        return;
+      } else {
+        this.currentScreen = this.battleManager;
+        this.battleManager.isAttemptSwitch = true;
+      }
+    }
+  }
+
   openStartMenu() {
     this.currentScreen = new StartGameMenu(this);
     this.currentScreen.open();
     this.state = GAME_STATES.START_GAME;
   }
 
-  openBattle(wildPokemon, tile) {
+  openBattle(wildPokemon, tile, battleType) {
+    const weather = this.weatherManager.state;
     this.isBattleMod = true;
-    this.battleManager = new BattleManager(this, wildPokemon, tile);
-
+    this.battleManager = new BattleManager(
+      this,
+      wildPokemon,
+      tile,
+      weather,
+      battleType
+    );
     this.currentScreen = this.battleManager;
+    this.dialogBox.isOpen = true;
     this.currentScreen.open();
     this.state = GAME_STATES.BATTLE;
+  }
+
+  stopWildBattle() {
+    this.transition.start(
+      () => {
+        this.togglePause(false, true);
+      },
+      (done) => {
+        this.isBattleMod = false;
+        this.battleManager = null;
+        this.closeCurrentScreen();
+        this.battleMenu.resetCurrentIndex();
+        this.state = GAME_STATES.WORLD;
+        done();
+      },
+      () => {}
+    );
   }
 
   openBattleWhitoutBattleMenu(item) {
@@ -118,7 +161,9 @@ export class Game {
   }
 
   openParty() {
-    this.currentScreen = this.player.party;
+    const playerParty = this.player.party;
+    playerParty.contextMenu = null;
+    this.currentScreen = playerParty;
     this.currentScreen.open();
     this.state = GAME_STATES.PARTY;
   }

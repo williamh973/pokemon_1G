@@ -10,10 +10,12 @@ import { BattlePhaseManager } from "./BattlePhaseManager/BattlePhaseManager.mode
 import { BattleSequenceManager } from "./BattleSequenceManager/BattleSequenceManager.model.js";
 
 export class BattleManager {
-  constructor(game, wildPokemon, tile) {
+  constructor(game, wildPokemon, tile, weather, battleType) {
     this.game = game;
     this.wildPokemon = wildPokemon;
     this.tile = tile;
+    this.weather = weather;
+    this.battleType = battleType;
     this.position = {
       x: 0,
       y: 0,
@@ -22,15 +24,16 @@ export class BattleManager {
     this.width = this.canvas.width;
     this.height = this.canvas.height;
     this.isOpen = false;
+    this.hasCaptured = false;
     this.isEscaped = false;
+    this.isAttemptSwitch = false;
     this.isUseItem = false;
     this.usedItem = null;
     this.music = null;
-    this.weather = null;
     this.battleResult = null;
-    this.battleType = null;
-    this.currentPlayerPokemon = this.game.player.party.slots[0].content;
     this.currentTrainerPokemon = null;
+    this.currentPlayerPokemon = this.getPlayerPartyPokemon(0);
+
     this.battleRenderer = new BattleRenderer(
       this.game,
       {
@@ -70,6 +73,11 @@ export class BattleManager {
     this.phaseManager = new BattlePhaseManager(this, this.sequenceManager);
   }
 
+  getPlayerPartyPokemon(currentIndex) {
+    const playerParty = this.game.player.party;
+    return playerParty.slots[currentIndex].content;
+  }
+
   open() {
     this.isOpen = true;
   }
@@ -79,7 +87,6 @@ export class BattleManager {
   }
 
   close() {
-    this.closePokemonViewer();
     this.game.dialogBox.close();
     this.isOpen = false;
   }
@@ -87,12 +94,18 @@ export class BattleManager {
   update(context, action) {
     if (!this.isOpen) return;
 
+    if (this.hasCaptured || this.isEscaped) {
+      this.game.stopWildBattle();
+      this.hasCaptured = false;
+      this.isEscaped = false;
+    }
+
     this.battleRenderer?.update(context);
 
     for (const viewer of Object.values(this.viewers))
       viewer.update(context, null);
 
-    this.sequenceManager?.update(context);
+    this.sequenceManager?.update(context, action);
 
     this.phaseManager?.update(action);
 

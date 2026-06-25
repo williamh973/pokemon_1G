@@ -24,7 +24,6 @@ export class PokemonSummaryMoves extends BasePokemonSummary {
       slot.setMove(move);
       this.moves.push(slot);
     });
-    console.log(this.moves);
   }
 
   draw(context) {

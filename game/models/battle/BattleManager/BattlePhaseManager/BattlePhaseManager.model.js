@@ -35,7 +35,6 @@ export class BattlePhaseManager {
       case BATTLE_PHASES.POKEMON_APPEARS:
         if (this.previousPhase === BATTLE_PHASES.PLAYER_THROW_POKEBALL) {
           sequence.playerThrowSequence.isFinished = true;
-
           const pokemon = this.battleManager.currentPlayerPokemon; //this.battleManager.currentPlayerPokemon ou wildPokemon ou this.battleManager.currentTrainerPokemon
           const key = "back";
           sequence.startPokemonAppearsSequence(pokemon, key);
@@ -45,6 +44,7 @@ export class BattlePhaseManager {
       case BATTLE_PHASES.BATTLE_MENU:
         this.battleManager.isUseItem = false;
         this.battleManager.usedItem = null;
+        sequence.battleCatchSequence = null;
 
         this.battleManager.openDialogBox(
           DIALOGS_DATABASE.BATTLE_DIALOGS.whatShouldPokemonDo(
@@ -56,19 +56,29 @@ export class BattlePhaseManager {
         break;
 
       case BATTLE_PHASES.CATCH_POKEMON:
-        const PLAYER = this.battleManager.game.player;
         const BALL = this.battleManager.usedItem;
-        const KEY = "front";
-
         sequence.initBattleCatchSequence(BALL);
-        sequence.initPokemonDisappearsSequence(KEY);
 
         this.battleManager.openDialogBox(
           DIALOGS_DATABASE.BATTLE_DIALOGS.playerUseBall(
-            PLAYER.nickname,
-            this.battleManager.usedItem.name
+            this.battleManager.game.player.nickname,
+            this.battleManager.usedItem?.name
           )
         );
+        break;
+
+      case BATTLE_PHASES.SWITCH:
+        let key = "front";
+        if (this.battleManager.isAttemptSwitch) key = "back";
+
+        this.battleManager.openDialogBox(
+          DIALOGS_DATABASE.BATTLE_DIALOGS.returnPokemon(
+            this.battleManager.currentPlayerPokemon.name
+          )
+        );
+
+        sequence.startBattleSwitchSequence(key);
+
         break;
     }
   }
@@ -96,17 +106,44 @@ export class BattlePhaseManager {
         break;
 
       case BATTLE_PHASES.BATTLE_MENU:
+        this.battleManager.openDialogBox(
+          DIALOGS_DATABASE.BATTLE_DIALOGS.whatShouldPokemonDo(
+            this.battleManager.currentPlayerPokemon.name
+          )
+        );
+
         if (
           this.battleManager.isUseItem &&
           this.battleManager.usedItem.effect === "CATCH"
         )
           this.setPhase(BATTLE_PHASES.CATCH_POKEMON);
+
+        if (this.battleManager.isAttemptSwitch)
+          this.setPhase(BATTLE_PHASES.SWITCH);
         break;
 
       case BATTLE_PHASES.CATCH_POKEMON:
         if (sequence.battleCatchSequence?.isFinished)
           this.setPhase(BATTLE_PHASES.BATTLE_MENU);
+
+        if (sequence.battleCatchSequence?.hasCaptured) {
+          this.battleManager.openDialogBox(
+            DIALOGS_DATABASE.BATTLE_DIALOGS.pokemonCaptured(
+              this.battleManager.wildPokemon.name
+            )
+          );
+          if (action === "ACTION") this.battleManager.hasCaptured = true;
+        }
+
         break;
+
+      case BATTLE_PHASES.SWITCH:
+        if (sequence.battleSwitchSequence?.isFinished) {
+          this.battleManager.isAttemptSwitch = false;
+          this.setPhase(BATTLE_PHASES.BATTLE_MENU);
+        }
+        break;
+
       default:
         break;
     }

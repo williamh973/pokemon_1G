@@ -1,4 +1,4 @@
-import { GAME_STATES } from "../../../../../logic/gameplay/game/states/states.gameplay.js";
+import { INPUT_STATE } from "../../../../../logic/input/inputs.state.js";
 import { drawBox } from "../../../../../shareds/utils/box/box.utils.js";
 import { TILES_SIZE } from "../../../../../shareds/utils/tile/tile.utils.js";
 import { Menu } from "../../../../Menu/Menu.model.js";
@@ -11,7 +11,7 @@ export class PokemonContextMenu extends Menu {
     this.pokemon = pokemon;
     this.items = [
       { id: "SUMMARY", name: "RESUME" },
-      { id: "SWITCH", name: "ECHANGER" },
+      { id: "SWITCH_POKEMON", name: "ECHANGER" },
       { id: "ITEM", name: "OBJET" },
       { id: "RETOUR", name: "RETOUR" },
     ];
@@ -63,11 +63,21 @@ export class PokemonContextMenu extends Menu {
 
     this.draw(context);
 
+    if (this.game.dialogBox.isOpen) {
+      const result = this.game.dialogBox.update(
+        this.game.canvas.context,
+        action
+      );
+      if (result === this.game.dialogBox.noMorePage()) {
+        this.game.dialogBox.close();
+        this.close();
+      }
+    }
+
     this.pokemonSummary?.update(context, action);
 
     switch (action) {
-      case GAME_STATES.PLAYER_MENU:
-      case "ESCAPE":
+      case INPUT_STATE.ESCAPE:
         this.close();
         break;
     }

@@ -67,7 +67,7 @@ export const update = (game) => {
       game.weatherManager.update(game);
       game.mapNameWindow.update(game.canvas.context);
       break;
-    case "DIALOG":
+    case GAME_STATES.DIALOG:
       game.weatherManager.update(game);
       const event = game.dialogBox?.update(game.canvas.context, action);
       handleDialogState(game, event);
@@ -86,18 +86,27 @@ export const update = (game) => {
     case GAME_STATES.BATTLE_MENU:
       game.currentScreen.update(game.canvas.context, action);
       game.battleMenu?.update(game.canvas.context, action);
+      game.weatherManager.update(game);
       break;
     case GAME_STATES.BATTLE_ATTACKS_MENU:
       game.currentScreen.update(game.canvas.context, action);
       game.battleAttacksMenu?.update(game.canvas.context, action);
+      game.weatherManager.update(game);
+      break;
+
+    case GAME_STATES.BATTLE:
+      game.currentScreen.update(game.canvas.context, action);
+      game.weatherManager.update(game);
+      break;
+
+    case GAME_STATES.PARTY:
+      game.currentScreen.update(game.canvas.context, action);
       break;
 
     case GAME_STATES.POKEDEX:
-    case GAME_STATES.PARTY:
     case GAME_STATES.PARTY_SUMMARY:
     case GAME_STATES.START_GAME:
     case GAME_STATES.GENDER_MENU:
-    case GAME_STATES.BATTLE:
     case GAME_STATES.INVENTORY:
       game.currentScreen.update(game.canvas.context, action);
       break;

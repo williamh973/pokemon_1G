@@ -2,6 +2,7 @@ import { DIALOGS_DATABASE } from "../../../../shareds/dialogs/dialogs.database.j
 import { BattleCatchSequence } from "../sequences/BattleCatchSequence/BattleCatchSequence.model.js";
 import { BattleIntroSequence } from "../sequences/BattleIntroSequence/BattleIntroSequence.model.js";
 import { BattlePlayerThrowSequence } from "../sequences/BattlePlayerThrowSequence/BattlePlayerThrowSequence.model.js";
+import { BattleSwitchSequence } from "../sequences/BattleSwitchSequence/BattleSwitchSequence.model.js";
 import { PokemonAppearsSequence } from "../sequences/PokemonAppearsSequence/PokemonAppearsSequence.model.js";
 import { PokemonDisappearsSequence } from "../sequences/PokemonDisappearsSequence/PokemonDisappearsSequence.model.js";
 
@@ -13,6 +14,9 @@ export class BattleSequenceManager {
     this.wildPokemon = context.wildPokemon;
     this.currentPlayerPokemon = context.currentPlayerPokemon;
     this.battleMenu = context.battleMenu;
+
+    this.pokemonAppearsSequence = null;
+    this.pokemonDisappearsSequence = null;
   }
 
   openDialogBox(text) {
@@ -24,17 +28,12 @@ export class BattleSequenceManager {
   }
 
   startIntroSequence() {
-    this.introSequence = new BattleIntroSequence(
-      this.game,
-      this.viewers,
-      this.battleRenderer.frontSlot,
-      this.battleRenderer.backSlot,
-      () =>
-        this.openDialogBox(
-          DIALOGS_DATABASE.BATTLE_DIALOGS.wildPokemonAppears(
-            this.wildPokemon.name
-          )
+    this.introSequence = new BattleIntroSequence(this.game, this.viewers, () =>
+      this.openDialogBox(
+        DIALOGS_DATABASE.BATTLE_DIALOGS.wildPokemonAppears(
+          this.wildPokemon.name
         )
+      )
     );
 
     this.introSequence.start();
@@ -43,8 +42,7 @@ export class BattleSequenceManager {
   startPlayerThrowSequence() {
     this.playerThrowSequence = new BattlePlayerThrowSequence(
       this.game,
-      this.viewers,
-      this.battleRenderer.backSlot
+      this.viewers
     );
 
     this.playerThrowSequence.start();
@@ -61,43 +59,63 @@ export class BattleSequenceManager {
     this.pokemonAppearsSequence.start();
   }
 
+  startPokemonDisappearsSequence(key) {
+    this.pokemonDisappearsSequence = new PokemonDisappearsSequence(
+      this.game,
+      key
+    );
+    this.pokemonDisappearsSequence.start();
+  }
+
   initBattleCatchSequence(ball) {
     this.battleCatchSequence = new BattleCatchSequence(
       this.game,
       this.viewers,
-      this.battleRenderer.frontSlot,
       this.wildPokemon,
       ball
     );
   }
 
-  initPokemonDisappearsSequence(key) {
-    this.pokemonDisappearsSequence = new PokemonDisappearsSequence(
+  startBattleSwitchSequence(key) {
+    this.battleSwitchSequence = new BattleSwitchSequence(
       this.game,
+      {
+        playerParty: this.game.player.party,
+        playerTargetPokemon: this.game.battleManager.getPlayerPartyPokemon(
+          this.game.player.party.currentIndex
+        ),
+      },
+      this,
       key
     );
+    this.battleSwitchSequence.start();
   }
 
-  update(context) {
-    console.log(this.pokemonAppearsSequence?.isFinished);
-
-    if (this.introSequence?.isFinished)
+  update(context, action) {
+    // console.log(this.pokemonAppearsSequence, this.pokemonDisappearsSequence);
+    // console.log(this.battleRenderer.backHUD);
+    if (this.introSequence?.isFinished) {
       this.battleRenderer.frontHUD?.update(context);
+      this.battleRenderer.backHUD?.update(context);
+    }
 
     if (!this.introSequence.isFinished) this.introSequence.update();
-
-    if (this.playerThrowSequence?.isFinished)
-      this.battleRenderer.backHUD?.update(context);
 
     if (!this.playerThrowSequence?.isFinished)
       this.playerThrowSequence?.update(context);
 
     if (this.pokemonAppearsSequence?.isFinished) {
       this.pokemonAppearsSequence = null;
+      this.playerThrowSequence = null;
+
       if (this.battleCatchSequence) this.battleCatchSequence.isFinished = true;
     } else this.pokemonAppearsSequence?.update();
 
-    if (!this.battleCatchSequence?.isFinished)
+    if (!this.battleCatchSequence?.isFinished) {
       this.battleCatchSequence?.update(context);
+    }
+
+    if (!this.battleSwitchSequence?.isFinished)
+      this.battleSwitchSequence?.update(context);
   }
 }

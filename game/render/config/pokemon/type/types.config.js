@@ -18,4 +18,7 @@ export const TYPES_CONFIG = {
   NORMAL: {
     image: createImg("game/assets/images/types/normal.png"),
   },
+  FLIGHT: {
+    image: createImg("game/assets/images/types/flying.png"),
+  },
 };

@@ -2,10 +2,10 @@ import { POKEBALL_STATES } from "../../../../../logic/gameplay/battle/pokeball/p
 import { Pokeball } from "../../Pokeball/Pokeball.model.js";
 
 export class BattlePlayerThrowSequence {
-  constructor(game, viewers, backSlot, onFinish) {
+  constructor(game, viewers, onFinish) {
     this.game = game;
     this.viewers = viewers;
-    this.backSlot = backSlot;
+    this.backSlot = viewers.back.slot;
     this.onFinish = onFinish;
     this.pokeball = null;
     this.hasPokeballThrowed = false;
@@ -29,8 +29,7 @@ export class BattlePlayerThrowSequence {
         gravity: 0.3,
         angle: 1,
       },
-      this.backSlot,
-      false
+      this.backSlot
     );
   }
 
@@ -62,10 +61,6 @@ export class BattlePlayerThrowSequence {
       switch (this.pokeball.state) {
         case POKEBALL_STATES.IMPACT:
           this.pokeball.createPokeballReleaseEffect();
-          break;
-
-        case POKEBALL_STATES.RELEASE:
-          this.pokeball.pokeballReleaseEffect?.update(context);
           break;
 
         default:

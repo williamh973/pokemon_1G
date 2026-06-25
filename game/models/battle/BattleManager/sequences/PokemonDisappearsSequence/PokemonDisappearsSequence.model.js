@@ -5,7 +5,12 @@ export class PokemonDisappearsSequence {
 
     this.viewer = this.game.battleManager.viewers[this.key];
     this.slot = this.viewer.slot;
+    this.isStarted = false;
     this.isFinished = false;
+  }
+
+  start() {
+    this.isStarted = true;
   }
 
   update() {
@@ -13,8 +18,11 @@ export class PokemonDisappearsSequence {
       this.isFinished = true;
       return;
     }
-    this.viewer.sprite.scale -= 0.04;
-    this.updateSpritePosition();
+
+    if (this.isStarted) {
+      this.viewer.sprite.scale -= 0.04;
+      this.updateSpritePosition();
+    }
   }
 
   updateSpritePosition() {

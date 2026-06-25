@@ -8,7 +8,10 @@ export class PokemonPartySlot extends Slot {
   constructor(config) {
     super(config);
 
+    this.timerCount = 15;
+    this.timer = this.timerCount;
     this.HPbar = null;
+    this.pokemonImage = null;
   }
 
   initHPbar() {
@@ -52,11 +55,14 @@ export class PokemonPartySlot extends Slot {
 
   drawIcon(context, pokemon) {
     const configIcon = POKEMON_ICON_CONFIG_DATABASE[pokemon.id];
-    const image = configIcon.image;
+    this.pokemonImage = configIcon.image;
+
     context.drawImage(
-      image,
+      this.pokemonImage,
       this.position.x - 15,
-      this.position.y - 15,
+      this.timer >= this.timerCount / 2
+        ? this.position.y - 20
+        : this.position.y - 10,
       configIcon.width,
       configIcon.height
     );
@@ -96,8 +102,15 @@ export class PokemonPartySlot extends Slot {
     );
   }
 
+  handleTimer() {
+    if (this.timer >= 0) this.timer--;
+    else this.timer = this.timerCount;
+  }
+
   update(context) {
     super.update(context);
+
+    if (this.isHovered) this.handleTimer();
 
     this.drawPokemon(context);
     if (this.content && this.HPbar) this.HPbar?.update(context);

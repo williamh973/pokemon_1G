@@ -1,9 +1,9 @@
 export class BattleIntroSequence {
-  constructor(game, viewers, frontSlot, backSlot, onFinish) {
+  constructor(game, viewers, onFinish) {
     this.game = game;
     this.viewers = viewers;
-    this.frontSlot = frontSlot;
-    this.backSlot = backSlot;
+    this.frontSlot = viewers.front.slot;
+    this.backSlot = viewers.back.slot;
     this.onFinish = onFinish;
     this.isFinished = false;
   }

@@ -3,19 +3,20 @@ import { calculateCatchProbability } from "../../../../../logic/gameplay/battle/
 import { Pokeball } from "../../Pokeball/Pokeball.model.js";
 
 export class BattleCatchSequence {
-  constructor(game, viewers, frontSlot, wildPokemon, usedItem) {
-    this.countdown = 30;
+  constructor(game, viewers, wildPokemon, usedItem) {
     this.game = game;
     this.viewers = viewers;
-    this.frontSlot = frontSlot;
+    this.frontSlot = this.viewers.front.slot;
     this.wildPokemon = wildPokemon;
     this.usedItem = usedItem;
     this.isFinished = false;
-    this.pokeball = null;
     this.isStarted = false;
-    this.hasAppearsSequenceStarted = false;
+    this.hasEscaped = false;
+    this.hasCaptured = false;
     this.randoms = [];
     this.secondFormulaValue = null;
+    this.pokeball = null;
+    this.countdown = 30;
     this.calculateCatchProbability();
   }
 
@@ -44,7 +45,7 @@ export class BattleCatchSequence {
       this.frontSlot,
       this.randoms,
       this.secondFormulaValue,
-      true
+      this
     );
   }
 
@@ -63,24 +64,33 @@ export class BattleCatchSequence {
 
       switch (this.pokeball.state) {
         case POKEBALL_STATES.IMPACT:
-          this.pokeball.showOpenedPokeball();
+          this.pokeball.showOpenedPokeball(11, 13);
           this.pokeball.createPokeballReleaseEffect();
+          sequence.startPokemonDisappearsSequence("front");
           break;
 
         case POKEBALL_STATES.RELEASE:
-          this.pokeball.pokeballReleaseEffect?.update(context);
-          sequence.pokemonDisappearsSequence.update();
+          sequence.pokemonDisappearsSequence?.update();
+          break;
+
+        case POKEBALL_STATES.FALL:
+          sequence.pokemonDisappearsSequence = null;
           break;
 
         case POKEBALL_STATES.ESCAPE:
-          this.pokeball.pokeballReleaseEffect?.update(context);
-
-          if (!this.hasAppearsSequenceStarted) {
-            this.usedItem = null;
-            this.hasAppearsSequenceStarted = true;
+          if (!this.hasEscaped) {
+            this.pokeball.showOpenedPokeball(11, 30);
+            this.pokeball.createPokeballReleaseEffect();
             sequence.startPokemonAppearsSequence(this.wildPokemon, "front");
+            this.hasEscaped = true;
           }
+          break;
 
+        case POKEBALL_STATES.CAPTURE:
+          if (!this.hasCaptured) {
+            this.game.player.party.addPokemonToFirstEmptySlot(this.wildPokemon);
+            this.hasCaptured = true;
+          }
           break;
 
         default:

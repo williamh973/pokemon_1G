@@ -42,6 +42,10 @@ export class BattleMenu extends Menu {
     this.showCursor(context);
   }
 
+  resetCurrentIndex() {
+    this.currentIndex = 0;
+  }
+
   drawItems(context) {
     textParams(context, "23");
 

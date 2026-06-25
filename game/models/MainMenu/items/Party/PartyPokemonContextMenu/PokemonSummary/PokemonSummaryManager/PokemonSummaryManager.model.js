@@ -1,3 +1,4 @@
+import { INPUT_STATE } from "../../../../../../../logic/input/inputs.state.js";
 import { PokemonSummaryInfos } from "./PokemonSummaryInfos.model.js";
 import { PokemonSummaryMoves } from "./PokemonSummaryMoves.model.js";
 import { PokemonSummaryStats } from "./PokemonSummaryStats.model.js";
@@ -22,6 +23,7 @@ export class PokemonSummaryManager {
   }
 
   close() {
+    console.log("close");
     this.pages.forEach((page) => {
       page.isOpen = false;
       page.hasFocus = false;
@@ -69,7 +71,7 @@ export class PokemonSummaryManager {
         break;
       case "ACTION":
         break;
-      case "CANCEL":
+      case INPUT_STATE.ESCAPE:
         this.close();
         break;
       default:
