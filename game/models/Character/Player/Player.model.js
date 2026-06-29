@@ -1,25 +1,21 @@
 import { Character } from "../Character.model.js";
 import { keys } from "../../../logic/input/keyboard.js";
-import { CHARACTER_SPRITES } from "../../../shareds/character/sprite/characterSprite.database.js";
 import { Party } from "../../MainMenu/items/Party/Party.model.js";
 import { Inventory } from "../../MainMenu/items/Inventory/Inventory.model.js";
 import { Pokedex } from "../../MainMenu/items/pokedex/pokedex.model.js";
 import { PLAYER_PATHS } from "../../../logic/gameplay/character/player/paths.gameplay.js";
+import { getSprites } from "../../../shareds/utils/character/player/player.utils.js";
 
 export class Player extends Character {
   constructor(game, playedWith) {
-    const playerSprites = {
-      idle: CHARACTER_SPRITES[playedWith].world.idle,
-      walk: CHARACTER_SPRITES[playedWith].world.walk,
-    };
-
     super({
       id: "PLAYER",
       tileX: 7,
       tileY: 6,
-      sprites: playerSprites,
+      sprites: getSprites(playedWith, "foot"),
     });
 
+    this.playedWith = playedWith;
     this.width = 29;
     this.height = 33;
     this.entityType = "PLAYER";
@@ -28,6 +24,7 @@ export class Player extends Character {
     this.abilities = "";
     this.hasWon = false;
     this.hasLose = false;
+    this.isOnBike = false;
     this.focusedStarter = {};
     this.gotPokedex = true;
     this.pokedex = new Pokedex(game);
@@ -78,5 +75,9 @@ export class Player extends Character {
     super.update(game);
     this.movementSpeed();
     if (wasMoving && !this.isMoving) game.mapManager.checkWarp(this, true);
+
+    this.isOnBike
+      ? (this.sprites = getSprites(this.playedWith, "bike"))
+      : (this.sprites = getSprites(this.playedWith, "foot"));
   }
 }

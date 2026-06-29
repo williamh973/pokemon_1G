@@ -1,4 +1,14 @@
 import {
+  walkOnixDown_stepA,
+  walkOnixDown_stepB,
+  walkOnixLeft_stepA,
+  walkOnixLeft_stepB,
+  walkOnixRight_stepA,
+  walkOnixRight_stepB,
+  walkOnixUp_stepA,
+  walkOnixUp_stepB,
+} from "../../../assets/images/pokemons/1G/overworld/onix/onix.assets.js";
+import {
   idlePidgeyDown,
   idlePidgeyLeft,
   idlePidgeyRight,
@@ -72,6 +82,14 @@ export const OP_SPRITES = {
       down: [walkZubatDown_stepA, walkZubatDown_stepB],
       left: [walkZubatLeft_stepA, walkZubatLeft_stepB],
       right: [walkZubatRight_stepA, walkZubatRight_stepB],
+    },
+  },
+  onix: {
+    walk: {
+      up: [walkOnixUp_stepA, walkOnixUp_stepB],
+      down: [walkOnixDown_stepA, walkOnixDown_stepB],
+      left: [walkOnixLeft_stepA, walkOnixLeft_stepB],
+      right: [walkOnixRight_stepA, walkOnixRight_stepB],
     },
   },
 };

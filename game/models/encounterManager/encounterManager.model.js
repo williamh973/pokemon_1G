@@ -1,5 +1,5 @@
 import { generatePokemon } from "../../logic/gameplay/encounters/generatePokemon.gameplay.js";
-import { OP_DATABASE } from "../../shareds/character/op/op.database.js";
+import { OP_CONFIG_DATABASE } from "../../shareds/character/op/op.database.js";
 import {
   getSpawnAroundPlayer,
   spawnOP,
@@ -29,7 +29,7 @@ export class EncounterManager {
     const position = getSpawnAroundPlayer(game, player);
     if (!position) return;
 
-    const config = OP_DATABASE[chosenPokemon.id];
+    const config = OP_CONFIG_DATABASE[chosenPokemon.id];
     return spawnOP(position, config, chosenPokemon, map);
   }
 

@@ -24,6 +24,7 @@ export const kantoRoute1 = {
   encounter: kantoRoute1Encounters,
   encounterRate: 255, // 256
   overworldPokemons: kantoRoute1OverworldPokemons,
+  maxOP: 2,
   worldMap: { x: 3, y: 5, w: 1, h: 3 },
   isFlyable: false,
   isIndoor: false,

@@ -62,7 +62,7 @@ export class Game {
     this.mapNameWindow = new MapNameWindow(this);
     this.worldMap = new WorldMap(this, "ENCOUNTER");
     this.battleMenu = new BattleMenu(this);
-    // this.screenManager = new ScreenManager(this);
+    this.screenManager = new ScreenManager(this);
     this.battleManager = null;
     this.choiceMenu = null;
     this.currentScreen = null;
@@ -104,9 +104,7 @@ export class Game {
   }
 
   openStartMenu() {
-    this.currentScreen = new StartGameMenu(this);
-    this.currentScreen.open();
-    this.state = GAME_STATES.START_GAME;
+    this.screenManager.open(new StartGameMenu(this), GAME_STATES.START_GAME);
   }
 
   openBattle(wildPokemon, tile, battleType) {
@@ -219,8 +217,8 @@ export class Game {
   }
 
   openBattleAttacksMenu() {
-    this.battleAttacksMenu = new BattleMovesMenu(this);
-    this.battleAttacksMenu.open();
+    this.battleMovesMenu = new BattleMovesMenu(this);
+    this.battleMovesMenu.open();
     this.state = GAME_STATES.BATTLE_ATTACKS_MENU;
   }
 
@@ -283,6 +281,13 @@ export class Game {
     dispatchItemsSelection(this, item, source);
   }
 
+  playerUseBicycle(item) {
+    this.state = GAME_STATES.WORLD;
+    this.togglePause(false, true);
+    this.closeCurrentScreen();
+    this.player.isOnBike = !this.player.isOnBike;
+  }
+
   startNewGame() {
     this.closeCurrentScreen();
     this.openGenderMenu();
@@ -298,5 +303,9 @@ export class Game {
 
   closeDialogBox() {
     closeDialogBox(this);
+  }
+
+  handleBattleMoves(playerPokemonSelectedMoveData) {
+    console.log(playerPokemonSelectedMoveData);
   }
 }

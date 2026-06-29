@@ -6,13 +6,18 @@ export class OverworldPokemon extends Character {
     tileX,
     tileY,
     sprites,
+    offsets,
+    scale,
     facing,
     behavior,
     level,
     movementType,
+    alwaysAnimate,
   }) {
     super({ id, tileX, tileY, sprites, facing });
 
+    this.offsets = offsets;
+    this.scale = scale;
     this.entityType = "OP";
     this.name = id;
     this.behavior = behavior;
@@ -21,9 +26,33 @@ export class OverworldPokemon extends Character {
     this.spawnTime = 0;
     this.lifetime = Math.floor(Math.random() * 500 + 100);
     this.behaviorCooldown = 0;
-    this.alwaysAnimate = true;
+    this.alwaysAnimate = alwaysAnimate;
     this.isCatched = false;
     this.isDead = false;
+  }
+
+  draw(canvas, camera) {
+    const screenX = this.position.x + camera.offsetX + 2 - this.offsets.x;
+    let screenY = this.position.y + camera.offsetY - this.offsets.y;
+
+    const frameWidth = this.image.width / this.framesMax;
+
+    if (this.movementType === "fly") screenY -= 15;
+
+    const width = this.width * this.scale;
+    const height = this.height * this.scale;
+
+    canvas.context.drawImage(
+      this.image,
+      this.framesCurrent * frameWidth,
+      0,
+      frameWidth,
+      this.image.height,
+      screenX,
+      screenY,
+      width,
+      height
+    );
   }
 
   update(game) {

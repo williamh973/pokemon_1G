@@ -25,8 +25,14 @@ export const sign = (game, staticInt, player) => {
   if (
     staticInt.type === "sign" &&
     player.facing === staticInt.facing[player.facing]
-  )
-    game.openDialogBox(staticInt.text);
+  ) {
+    const text =
+      typeof staticInt.text === "function"
+        ? staticInt.text(game)
+        : staticInt.text;
+
+    game.openDialogBox(text);
+  }
 };
 
 export const MO = (currentMap, front) => {

@@ -2,8 +2,9 @@ import { Move } from "../../pokemon/move/move.model.js";
 import { Slot } from "../Slot.model.js";
 
 export class PokemonMoveSlot extends Slot {
-  constructor(config) {
+  constructor(config, id = null) {
     super(config);
+    this.id = id;
     this.config = config;
     this.content = null;
   }

@@ -1,7 +1,10 @@
 import { GROWTH_RATES_DATABASE } from "../experience/growthRates/growthRates.database.js";
 import { MOVES_DATABASE } from "../moves/moves.database.js";
 import { BULBASAUR_SPECIES } from "./pokemons/bulbasaur.species.js";
+import { ONIX_SPECIES } from "./pokemons/onix.species.js";
 import { PIDGEY_SPECIES } from "./pokemons/pidgey.species.js";
+import { RATTATA_SPECIES } from "./pokemons/rattata.species.js";
+import { ZUBAT_SPECIES } from "./pokemons/zubat.species.js";
 
 export const SPECIES_DATABASE = {
   bulbasaur: BULBASAUR_SPECIES,
@@ -96,98 +99,7 @@ export const SPECIES_DATABASE = {
     ],
   },
   pidgey: PIDGEY_SPECIES,
-  rattata: {
-    id: "rattata",
-    pokedexId: "019",
-    name: "RATTATA",
-    types: ["NORMAL"],
-    femaleRate: 50,
-    catchRate: 255,
-    growthRate: GROWTH_RATES_DATABASE.MEDIUM_FAST,
-    baseExp: 57,
-    baseStats: {
-      hp: 30,
-      attack: 56,
-      defense: 35,
-      specialAtt: 25,
-      specialDef: 35,
-      speed: 72,
-    },
-    animations: {
-      idle: {
-        front: "rattata_front_idle",
-        back: "rattata_back_idle",
-      },
-    },
-    evolutions: [{ method: "level", level: 27, target: "" }],
-    learnset: {
-      levelUp: [
-        { level: 1, move: MOVES_DATABASE.tackle },
-        { level: 1, move: MOVES_DATABASE.tailWhip },
-      ],
-      tmhm: [
-        "Toxik",
-        "Plaquage",
-        "Bélier",
-        "Damoclès",
-        "Bulles d’O",
-        "Pistolet à O",
-        "Blizzard",
-        "Frénésie",
-        "Tonnerre",
-        "Fatal-Foudre",
-        "Tunnel",
-        "Mimique",
-        "Reflet",
-        "Patience",
-        "Vive-Attaque",
-        "Coud’Krâne",
-        "Repos",
-        "Clonage",
-      ],
-    },
-  },
-  zubat: {
-    id: "zubat",
-    pokedexId: "041",
-    name: "NOSFERAPTI",
-    types: ["POISON", "FLYING"],
-    femaleRate: 50,
-    catchRate: 255,
-    growthRate: GROWTH_RATES_DATABASE.MEDIUM_FAST,
-    baseExp: 54,
-    baseStats: {
-      hp: 40,
-      attack: 45,
-      defense: 35,
-      specialAtt: 30,
-      specialDef: 40,
-      speed: 55,
-    },
-    graphics: {
-      partyIcon: "zubat",
-    },
-    animations: {
-      idle: {
-        front: "zubat_front_idle",
-        back: "zubat_back_idle",
-      },
-    },
-    learnsetLevel1: ["Vampirisme", "NO_MOVE", "NO_MOVE", "NO_MOVE"],
-    learnsetCTCS: [
-      "Coupe-Vent",
-      "Cyclone",
-      "Toxik",
-      "Bélier",
-      "Ultimapoing",
-      "Frénésie",
-      "Méga-Sangsue",
-      "Mimique",
-      "Reflet",
-      "Patience",
-      "Météores",
-      "Repos",
-      "Clonage",
-    ],
-  },
+  rattata: RATTATA_SPECIES,
+  zubat: ZUBAT_SPECIES,
+  onix: ONIX_SPECIES,
 };

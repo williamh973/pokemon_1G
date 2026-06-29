@@ -31,9 +31,11 @@ const checkOPAt = (game, character, targetX, targetY) => {
 };
 
 const attemptEncounterWildPokemon = (game, character, tile) => {
-  const OP = game.mapManager.currentMap.overworldPokemons;
+  const MAP = game.mapManager.currentMap;
+  const OP = MAP.overworldPokemons;
+  const maxOP = MAP.maxOP;
 
-  if (character.entityType === "PLAYER" && tile.encounter && OP.length <= 2)
+  if (character.entityType === "PLAYER" && tile.encounter && OP.length <= maxOP)
     game.encounterManager.tryDoWildEncounter(game, tile, game.timeManager);
 };
 

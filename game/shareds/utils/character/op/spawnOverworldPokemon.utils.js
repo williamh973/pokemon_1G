@@ -6,10 +6,13 @@ export const spawnOP = (position, OPConfig, chosenPokemon, map) => {
     tileX: position.x,
     tileY: position.y,
     sprites: OPConfig.sprites,
+    offsets: OPConfig.offsets ?? 0,
+    scale: OPConfig.scale ?? 1,
     facing: OPConfig.facing ?? "down",
     behavior: OPConfig.behavior,
     level: chosenPokemon.level,
     movementType: OPConfig.movementType,
+    alwaysAnimate: OPConfig.alwaysAnimate,
   });
   map.overworldPokemons.push(OP);
   return OP;

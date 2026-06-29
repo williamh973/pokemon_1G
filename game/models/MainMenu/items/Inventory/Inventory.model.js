@@ -140,7 +140,7 @@ export class Inventory extends Menu {
   }
 
   checkIfItemCanBeUsed(item) {
-    const allowedEffectsInOpenWorlds = ["REVIVE"];
+    const allowedEffectsInOpenWorlds = ["REVIVE", "USE_BICYCLE"];
 
     if (allowedEffectsInOpenWorlds.includes(item.effect)) return true;
     else return false;

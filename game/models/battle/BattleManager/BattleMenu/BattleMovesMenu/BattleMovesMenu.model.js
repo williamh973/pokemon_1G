@@ -1,3 +1,4 @@
+import { INPUT_STATE } from "../../../../../logic/input/inputs.state.js";
 import { drawBox } from "../../../../../shareds/utils/box/box.utils.js";
 import { Menu } from "../../../../Menu/Menu.model.js";
 import { PokemonMoveSlot } from "../../../../Slot/PokemonMoveSlot/PokemonMoveSlot.model.js";
@@ -17,18 +18,22 @@ export class BattleMovesMenu extends Menu {
     };
     this.lineHeight = 40;
     this.items = [];
+    this.selectedMoveData = null;
 
     this.setItems();
   }
 
   setItems() {
     this.currentPlayerPokemon.moves.forEach((move, index) => {
-      let slot = new PokemonMoveSlot({
-        positionX: this.position.x + 25,
-        positionY: this.position.y + 10 + this.lineHeight * index,
-        width: this.width - 25,
-        height: 40,
-      });
+      let slot = new PokemonMoveSlot(
+        {
+          positionX: this.position.x + 25,
+          positionY: this.position.y + 10 + this.lineHeight * index,
+          width: this.width - 25,
+          height: 40,
+        },
+        `MOVE_SLOT`
+      );
       slot.setMove(move);
       this.items.push(slot);
     });
@@ -36,6 +41,11 @@ export class BattleMovesMenu extends Menu {
 
   open() {
     super.open();
+  }
+
+  close() {
+    super.close();
+    this.game.openBattleMenu();
   }
 
   draw(context) {
@@ -52,6 +62,13 @@ export class BattleMovesMenu extends Menu {
     this.showCursor(context);
   }
 
+  openItem() {
+    this.selectedMoveData = this.items[this.currentIndex].content.move;
+
+    const moveSlotId = this.items[this.currentIndex].id;
+    this.game.handleMenuSelection(moveSlotId, this);
+  }
+
   update(context, action) {
     super.update(action);
 
@@ -61,14 +78,10 @@ export class BattleMovesMenu extends Menu {
 
     for (const move of this.items) move.update(context);
 
-    // switch (action) {
-    //   case "ACTION":
-    //     this.openItem();
-    //     break;
-
-    //   case "PLAYER_MENU":
-    //     this.game.closePlayerMenu();
-    //     break;
-    // }
+    switch (action) {
+      case INPUT_STATE.ESCAPE:
+        this.close();
+        break;
+    }
   }
 }

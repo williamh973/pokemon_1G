@@ -26,6 +26,7 @@ export const palletTown = {
   encounter: palletTownEncounters,
   encounterRate: 15,
   overworldPokemons: palletTownOverworldPokemons,
+  maxOP: 2,
   worldMap: { x: 3, y: 6.5, w: 1, h: 1 },
   isFlyable: true,
   isIndoor: false,

@@ -7,4 +7,8 @@ export const ITEM_EFFECTS = {
   CATCH: ({ game, item }) => {
     game.openBattleWhitoutBattleMenu(item);
   },
+
+  USE_BICYCLE: ({ game, item }) => {
+    game.playerUseBicycle(item);
+  },
 };

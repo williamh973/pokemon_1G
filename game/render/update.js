@@ -40,7 +40,7 @@ const handleDialogState = (game, event) => {
 };
 
 export const update = (game) => {
-  // console.log(game.state);
+  console.log(game.state);
   // console.log("tileX", game.player.tileX, "tileY", game.player.tileY);
   // console.log(game.mapManager.previousMap);
 
@@ -90,7 +90,7 @@ export const update = (game) => {
       break;
     case GAME_STATES.BATTLE_ATTACKS_MENU:
       game.currentScreen.update(game.canvas.context, action);
-      game.battleAttacksMenu?.update(game.canvas.context, action);
+      game.battleMovesMenu?.update(game.canvas.context, action);
       game.weatherManager.update(game);
       break;
 
@@ -106,6 +106,8 @@ export const update = (game) => {
     case GAME_STATES.POKEDEX:
     case GAME_STATES.PARTY_SUMMARY:
     case GAME_STATES.START_GAME:
+      game.screenManager.currentScreen.update(game.canvas.context, action);
+      break;
     case GAME_STATES.GENDER_MENU:
     case GAME_STATES.INVENTORY:
       game.currentScreen.update(game.canvas.context, action);

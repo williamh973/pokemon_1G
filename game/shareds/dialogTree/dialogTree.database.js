@@ -39,7 +39,7 @@ export const DIALOGS_TREE_DATABASE = {
     },
     lisa: {
       repeat: {
-        text: "Le laboratoire du PROF. CHEN\n m'a permis d'apprendre\npleins de choses intérressantes \nsur les pokémons.",
+        text: "Le laboratoire du PROF \nCHEN m'a permis d'apprendre\npleins de choses intérres-\nsantes sur les pokémons.",
       },
     },
     oakBlockRed: {

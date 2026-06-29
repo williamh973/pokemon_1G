@@ -102,8 +102,8 @@ export const draw = (game, tileManager) => {
     case GAME_STATES.WORLD:
       npcs(game);
       MO(game);
-      drawWalkingOP(game);
       player(game);
+      drawWalkingOP(game);
       drawOverlayTiles(game, tileManager);
       drawFlyingOP(game);
       dayNightCycle(game);
@@ -112,8 +112,8 @@ export const draw = (game, tileManager) => {
     case "DIALOG":
       npcs(game);
       MO(game);
-      drawWalkingOP(game);
       player(game);
+      drawWalkingOP(game);
       drawOverlayTiles(game, tileManager);
       drawFlyingOP(game);
       dayNightCycle(game);
@@ -126,8 +126,8 @@ export const draw = (game, tileManager) => {
     case GAME_STATES.PLAYER_MENU:
       npcs(game);
       MO(game);
-      drawWalkingOP(game);
       player(game);
+      drawWalkingOP(game);
       drawOverlayTiles(game, tileManager);
       drawFlyingOP(game);
       dayNightCycle(game);
@@ -137,8 +137,8 @@ export const draw = (game, tileManager) => {
     case GAME_STATES.CHOICE_MENU:
       npcs(game);
       MO(game);
-      drawWalkingOP(game);
       player(game);
+      drawWalkingOP(game);
       drawOverlayTiles(game, tileManager);
       drawFlyingOP(game);
       dayNightCycle(game);
