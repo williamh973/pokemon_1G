@@ -19,21 +19,17 @@ export class BattleSequenceManager {
     this.pokemonDisappearsSequence = null;
   }
 
-  openDialogBox(text) {
-    this.game.dialogBox.open(text, true);
-  }
-
-  closeDialogBox() {
-    this.game.dialogBox.close();
-  }
-
   startIntroSequence() {
-    this.introSequence = new BattleIntroSequence(this.game, this.viewers, () =>
-      this.openDialogBox(
-        DIALOGS_DATABASE.BATTLE_DIALOGS.wildPokemonAppears(
-          this.wildPokemon.name
-        )
-      )
+    this.introSequence = new BattleIntroSequence(
+      this.game,
+      this.viewers,
+      () =>
+        this.game.dialogBox.open(
+          DIALOGS_DATABASE.BATTLE_DIALOGS.wildPokemonAppears(
+            this.wildPokemon.name
+          )
+        ),
+      true
     );
 
     this.introSequence.start();

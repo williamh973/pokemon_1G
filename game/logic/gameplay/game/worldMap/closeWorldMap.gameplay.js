@@ -1,5 +1,5 @@
 export const closeWorldMap = (game) => {
-  const worldMap = game.currentScreen;
+  const worldMap = game.screenManager.currentScreen;
   switch (worldMap.mod) {
     case "ENCOUNTER":
       game.openPokedex();

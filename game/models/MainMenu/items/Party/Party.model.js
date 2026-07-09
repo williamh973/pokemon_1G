@@ -2,8 +2,12 @@ import { partyBackgImg } from "../../../../assets/images/ui/ui.asset.js";
 import { PARTY_SLOT_CONFIG } from "../../../../logic/gameplay/character/player/party/partySlots.config.js";
 import { GAME_STATES } from "../../../../logic/gameplay/game/states/states.gameplay.js";
 import { INPUT_STATE } from "../../../../logic/input/inputs.state.js";
+import { DIALOGS_TREE_DATABASE } from "../../../../shareds/dialogTree/dialogTree.database.js";
+import { checkLearnset } from "../../../../shareds/utils/pokemon/learnsets/learnset.utils.js";
 import { PokemonPartySlot } from "../../../Slot/PokemonPartySlot/PokemonPartySlot.model.js";
-import { PokemonContextMenu } from "./PartyPokemonContextMenu/PartyPokemonContextMenu.model.js";
+import { StatsBox } from "../../../pokemon/StatsBox/StatsBox.model.js";
+import { PartyPhaseManager } from "./PartyPhaseManager/PartyPhaseManager.model.js";
+import { PartyContextMenu } from "./PartyPokemonContextMenu/PartyContextMenu.model.js";
 
 export class Party {
   constructor(game) {
@@ -15,16 +19,17 @@ export class Party {
     };
     this.width = this.canvas.width;
     this.isOpen = false;
+    this.hasFocus = false;
+    this.usedItem = null;
     this.backgImg = partyBackgImg;
     this.slots = [];
     this.height = this.canvas.height;
-    this.hasFocus = false;
-    this.maxCount = 6;
-    this.minCount = 1;
     this.currentIndex = 0;
     this.baseY = 21;
-    this.timer = 60;
     this.contextMenu = null;
+    this.statsBox = null;
+    this.selectedPokemon = null;
+    this.partyPhaseManager = null;
     this.initSlots();
   }
 
@@ -56,6 +61,26 @@ export class Party {
     this.game.openPlayerMenu();
   }
 
+  openContextMenu() {
+    this.hasFocus = false;
+
+    const slot = this.slots.find((slot, index) => {
+      return slot.content && index === this.currentIndex;
+    });
+
+    this.contextMenu = new PartyContextMenu(
+      this.game,
+      slot.content,
+      this.usedItem
+    );
+    this.contextMenu.open();
+  }
+
+  closeContextMenu() {
+    this.contextMenu = null;
+    this.hasFocus = true;
+  }
+
   close() {
     this.hasFocus = false;
     this.isOpen = false;
@@ -75,44 +100,94 @@ export class Party {
     );
   }
 
-  openContextMenu() {
-    this.hasFocus = false;
+  applyUsedItemEffect() {
+    this.contextMenu.close();
+    this.partyPhaseManager = new PartyPhaseManager(
+      this,
+      this.game,
+      this.usedItem,
+      this.slots[this.currentIndex]
+    );
+    this.handlePhaseResult(this.partyPhaseManager.begin());
+  }
 
-    const slot = this.slots.find((slot, index) => {
-      return slot.content && index === this.currentIndex;
-    });
+  handlePhaseResult(result) {
+    if (!result) return;
 
-    this.contextMenu = new PokemonContextMenu(this.game, slot.content);
-    this.contextMenu.open();
+    if (result.stats) {
+      this.statsBox = new StatsBox(
+        this.game,
+        {
+          pastStats: result.stats.pastStats,
+          newStats: result.stats.newStats,
+        },
+        {
+          x: 50,
+          y: 50,
+        }
+      );
+    }
+
+    if (result.dialog) this.game.dialogBox.open(result.dialog);
+
+    if (result.closeStats && this.statsBox) {
+      this.statsBox.isOpen = false;
+      this.statsBox = null;
+    }
+
+    if (result.next) result.next();
+
+    if (result.closeDialog) this.game.dialogBox.close();
+
+    if (result.finished) this.partyPhaseManager = null;
+
+    this.usedItem = null;
   }
 
   update(context, action) {
     if (!this.isOpen) return;
+
     this.draw(context);
-    this.slots.forEach((slot) => slot.update(context));
 
     this.slots.forEach((slot, index) => {
       slot.isHovered = index === this.currentIndex;
+      slot.update(context);
     });
 
-    this.contextMenu?.update(context, action);
+    if (this.contextMenu?.isOpen) this.contextMenu.update(context, action);
+    else this.hasFocus = true;
+
+    this.statsBox?.update(context, action);
+
+    this.game.dialogBox?.update(this.game.canvas.context, action);
 
     if (!this.isOpen || !this.hasFocus) return;
+
     switch (action) {
-      case "UP":
+      case INPUT_STATE.UP:
         if (this.currentIndex > 0) this.currentIndex--;
         break;
 
-      case "DOWN":
+      case INPUT_STATE.DOWN:
         const filledSlots = this.slots.filter((slot) => slot.content);
 
-        if (this.currentIndex < filledSlots.length - 1) {
-          this.currentIndex++;
-        }
+        if (this.currentIndex < filledSlots.length - 1) this.currentIndex++;
         break;
 
-      case "ACTION":
-        this.openContextMenu();
+      case INPUT_STATE.ACTION:
+        if (this.partyPhaseManager) {
+          const result = this.partyPhaseManager.next();
+          console.log(result);
+          this.handlePhaseResult(result);
+
+          if (result.nextPhase) {
+            const nextResult = this.partyPhaseManager.next();
+            this.handlePhaseResult(nextResult);
+          }
+        } else {
+          this.openContextMenu();
+        }
+
         break;
 
       case GAME_STATES.PLAYER_MENU:

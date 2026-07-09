@@ -1,3 +1,4 @@
+import { BALL_CONFIG } from "../../../../../../render/config/item/ball/ball.config.js";
 import { POKEDEX_DATABASE } from "../../../../../../shareds/pokedex/pokedex.database.js";
 import { drawBox } from "../../../../../../shareds/utils/box/box.utils.js";
 import { drawText } from "../../../../../../shareds/utils/font/drawText.utils.js";
@@ -51,11 +52,14 @@ export class PokemonList extends Menu {
   }
 
   checkPokedexState(context, positionX, positionY, pokemon) {
-    this.pokedexState.see(pokemon.id); // pour dev
+    // this.pokedexState.see(pokemon.id); // pour dev
 
-    if (this.pokedexState.isSeen(pokemon.id))
+    if (this.pokedexState.getSeen(pokemon.id)) {
       this.showPokemon(context, positionX, positionY, pokemon);
-    else this.hidePokemon(context, positionX, positionY, pokemon);
+      if (this.pokedexState.getCaught(pokemon.id)) {
+        this.showPokeball(context, positionX, positionY);
+      }
+    } else this.hidePokemon(context, positionX, positionY, pokemon);
   }
 
   drawPokemonList(context) {
@@ -82,6 +86,17 @@ export class PokemonList extends Menu {
   hidePokemon(context, positionX, positionY, pokemon) {
     drawText(context, pokemon.no, positionX, positionY);
     drawText(context, "- - - - - - -", positionX + 50, positionY);
+  }
+
+  showPokeball(context, positionX, positionY) {
+    const BALLS = BALL_CONFIG;
+    context.drawImage(
+      BALLS["POKEBALL"].image,
+      positionX + 180,
+      positionY + 5,
+      BALLS.dimensions.width * BALLS.dimensions.scale,
+      BALLS.dimensions.height * BALLS.dimensions.scale
+    );
   }
 
   handleScroll() {
@@ -112,7 +127,7 @@ export class PokemonList extends Menu {
 
   selectPokemonFromPokemonList() {
     if (
-      this.pokedexState.isSeen(this.selectedPokemon.id) &&
+      this.pokedexState.getSeen(this.selectedPokemon.id) &&
       !this.isPokemonSelected
     ) {
       this.isPokemonSelected = true;

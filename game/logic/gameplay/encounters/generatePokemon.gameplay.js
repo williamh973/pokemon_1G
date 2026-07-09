@@ -3,7 +3,7 @@ import { getExpForLevel } from "../../../shareds/utils/pokemon/experience/experi
 
 export const generatePokemon = (
   target,
-  currentMapName,
+  currentMapName = null,
   characterName = "Aucun",
   ball = "POKEBALL"
 ) => {
@@ -24,6 +24,7 @@ export const generatePokemon = (
     item: "Aucun",
     level: target.level,
     ivs,
+    evs,
     moves: learnsets,
     nature: null, // pour l'instant
     origin: {
@@ -69,7 +70,7 @@ const generateGender = (species) => {
   if (random100 <= femaleRate) return "♀";
   else return "♂";
 };
-const calculateStats = (baseStats, ivs, evs, level) => {
+export const calculateStats = (baseStats, ivs, evs, level) => {
   return {
     hp: calcStat(baseStats.hp, ivs.hp, evs, level, true),
     attack: calcStat(baseStats.attack, ivs.att, evs, level, false),

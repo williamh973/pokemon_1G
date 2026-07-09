@@ -87,10 +87,7 @@ export class BattleCatchSequence {
           break;
 
         case POKEBALL_STATES.CAPTURE:
-          if (!this.hasCaptured) {
-            this.game.player.party.addPokemonToFirstEmptySlot(this.wildPokemon);
-            this.hasCaptured = true;
-          }
+          if (!this.hasCaptured) this.hasCaptured = true;
           break;
 
         default:

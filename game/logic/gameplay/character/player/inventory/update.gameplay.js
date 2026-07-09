@@ -1,7 +1,8 @@
+import { INPUT_STATE } from "../../../../input/inputs.state.js";
 import { GAME_STATES } from "../../../game/states/states.gameplay.js";
 
 export const update = (inventory, context, action) => {
-  if (!inventory.isOpen || !inventory.hasFocus) return;
+  if (!inventory.isOpen) return;
 
   inventory.draw(context);
 
@@ -18,44 +19,47 @@ export const update = (inventory, context, action) => {
       false
     );
 
-  switch (action) {
-    case "UP":
-      if (inventory.itemCurrentIndex > 0) {
-        inventory.itemCurrentIndex--;
-        inventory.openDialogBox(true);
-      }
-      break;
+  inventory.contextMenu?.update(context, action);
 
-    case "DOWN":
-      if (inventory.itemCurrentIndex < inventory.categories.length - 1) {
-        inventory.itemCurrentIndex++;
-        inventory.openDialogBox(true);
-      }
-      break;
+  if (inventory.hasFocus)
+    switch (action) {
+      case "UP":
+        if (inventory.itemCurrentIndex > 0) {
+          inventory.itemCurrentIndex--;
+          inventory.openDialogBox(true);
+        }
+        break;
 
-    case "RIGHT":
-      if (inventory.catCurrentIndex < inventory.categoryLabels.length - 1) {
-        inventory.catCurrentIndex++;
-        inventory.itemCurrentIndex = 0;
-        inventory.openDialogBox(true);
-      }
-      break;
+      case "DOWN":
+        if (inventory.itemCurrentIndex < inventory.categories.length - 1) {
+          inventory.itemCurrentIndex++;
+          inventory.openDialogBox(true);
+        }
+        break;
 
-    case "LEFT":
-      if (inventory.catCurrentIndex > 0) {
-        inventory.catCurrentIndex--;
-        inventory.itemCurrentIndex = 0;
-        inventory.openDialogBox(true);
-      }
-      break;
+      case "RIGHT":
+        if (inventory.catCurrentIndex < inventory.categoryLabels.length - 1) {
+          inventory.catCurrentIndex++;
+          inventory.itemCurrentIndex = 0;
+          inventory.openDialogBox(true);
+        }
+        break;
 
-    case "ACTION":
-      inventory.useItem();
-      break;
+      case "LEFT":
+        if (inventory.catCurrentIndex > 0) {
+          inventory.catCurrentIndex--;
+          inventory.itemCurrentIndex = 0;
+          inventory.openDialogBox(true);
+        }
+        break;
 
-    case GAME_STATES.PLAYER_MENU:
-    case "ESCAPE":
-      inventory.game.closeAndReturnFromSubMenu();
-      break;
-  }
+      case INPUT_STATE.ACTION:
+        inventory.openContextMenu();
+        break;
+
+      case GAME_STATES.PLAYER_MENU:
+      case "ESCAPE":
+        inventory.game.closeAndReturnFromSubMenu();
+        break;
+    }
 };

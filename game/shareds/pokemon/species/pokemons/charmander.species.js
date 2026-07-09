@@ -1,0 +1,60 @@
+import { GROWTH_RATES_DATABASE } from "../../experience/growthRates/growthRates.database.js";
+import { MOVES_DATABASE } from "../../moves/moves.database.js";
+
+export const CHARMANDER_SPECIES = {
+  id: "charmander",
+  pokedexId: "004",
+  name: "SALAMÈCHE",
+  types: ["FIRE"],
+  femaleRate: 50,
+  catchRate: 45,
+  growthRate: GROWTH_RATES_DATABASE.MEDIUM_SLOW,
+  baseExp: 65,
+  baseStats: {
+    hp: 39,
+    attack: 52,
+    defense: 43,
+    specialAtt: 60,
+    specialDef: 50,
+    speed: 65,
+  },
+  animations: {
+    idle: {
+      front: "charmander_front_idle",
+      back: "charmander_back_idle",
+    },
+  },
+  evolutions: [{ method: "level", level: 16, target: "charmeleon" }],
+  learnset: {
+    levelUp: [
+      { level: 1, move: MOVES_DATABASE.scratch },
+      { level: 1, move: MOVES_DATABASE.growl },
+    ],
+    tmhm: [
+      "Ultimapoing",
+      "Danse Lames",
+      "Ultimawashi",
+      "Toxik",
+      "Plaquage",
+      "Bélier",
+      "Damoclès",
+      "Sacrifice",
+      "Riposte",
+      "Frappe Atlas",
+      "Frénésie",
+      "Draco-Rage",
+      "Tunnel",
+      "Copie",
+      "Reflet",
+      "Protection",
+      "Patience",
+      "Lance-Flammes",
+      "Météores",
+      "Coud'Krâne",
+      "Repos",
+      "Clonage",
+      "Coupe",
+      "Force",
+    ],
+  },
+};

@@ -1,6 +1,6 @@
 import { GROWTH_RATES_DATABASE } from "../experience/growthRates/growthRates.database.js";
-import { MOVES_DATABASE } from "../moves/moves.database.js";
 import { BULBASAUR_SPECIES } from "./pokemons/bulbasaur.species.js";
+import { CHARMANDER_SPECIES } from "./pokemons/charmander.species.js";
 import { ONIX_SPECIES } from "./pokemons/onix.species.js";
 import { PIDGEY_SPECIES } from "./pokemons/pidgey.species.js";
 import { RATTATA_SPECIES } from "./pokemons/rattata.species.js";
@@ -8,51 +8,7 @@ import { ZUBAT_SPECIES } from "./pokemons/zubat.species.js";
 
 export const SPECIES_DATABASE = {
   bulbasaur: BULBASAUR_SPECIES,
-  charmander: {
-    id: "charmander",
-    pokedexId: "004",
-    name: "SALAMÈCHE",
-    types: ["NORMAL"],
-    femaleRate: 50,
-    catchRate: 45,
-    growthRate: GROWTH_RATES_DATABASE.MEDIUM_SLOW,
-    baseExp: 65,
-    baseStats: {
-      hp: 39,
-      attack: 52,
-      defense: 43,
-      specialAtt: 60,
-      specialDef: 50,
-      speed: 65,
-    },
-    learnsetLevel1: ["Griffe", "Rugissement", "NO_MOVE", "NO_MOVE"],
-    learnsetCTCS: [
-      "Ultimapoing",
-      "Danse Lames",
-      "Ultimawashi",
-      "Toxik",
-      "Plaquage",
-      "Bélier",
-      "Damoclès",
-      "Sacrifice",
-      "Riposte",
-      "Frappe Atlas",
-      "Frénésie",
-      "Draco-Rage",
-      "Tunnel",
-      "Copie",
-      "Reflet",
-      "Protection",
-      "Patience",
-      "Lance-Flammes",
-      "Météores",
-      "Coud'Krâne",
-      "Repos",
-      "Clonage",
-      "Coupe",
-      "Force",
-    ],
-  },
+  charmander: CHARMANDER_SPECIES,
   squirtle: {
     id: "squirtle",
     pokedexId: "007",

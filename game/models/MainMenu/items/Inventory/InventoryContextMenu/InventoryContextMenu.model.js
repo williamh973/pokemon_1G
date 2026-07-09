@@ -1,0 +1,85 @@
+import { INPUT_STATE } from "../../../../../logic/input/inputs.state.js";
+import { drawBox } from "../../../../../shareds/utils/box/box.utils.js";
+import { TILES_SIZE } from "../../../../../shareds/utils/tile/tile.utils.js";
+import { Menu } from "../../../../Menu/Menu.model.js";
+
+export class InventoryContextMenu extends Menu {
+  constructor(game, item) {
+    super(game);
+    this.game = game;
+    this.item = item;
+    this.items = [
+      { id: "USE", name: "UTILISER" },
+      { id: "REMOVE", name: "JETER" },
+      { id: "RETOUR", name: "RETOUR" },
+    ];
+    this.width = this.game.canvas.width / 2 - TILES_SIZE;
+    this.height = 30 * this.items.length;
+    this.position = {
+      x: this.game.canvas.width - this.width,
+      y: this.game.canvas.height - this.height - 70,
+    };
+  }
+
+  //   reopenPartyMenu() {
+  //     this.game.openParty();
+  //     this.hasFocus = true;
+  //     this.isOpen = true;
+  //   }
+
+  draw(context) {
+    drawBox(
+      context,
+      this.position.x,
+      this.position.y,
+      this.width,
+      this.height,
+      "black",
+      "white"
+    );
+
+    this.drawItems(context);
+
+    this.showCursor(context);
+  }
+
+  close() {
+    super.close();
+
+    const inventory = this.game.player.inventory;
+    inventory.contextMenu = null;
+    inventory.hasFocus = true;
+  }
+
+  checkIfItemCanBeUsed() {
+    const allowedEffectsInOpenWorlds = ["REVIVE", "USE_BICYCLE", "LEVEL_UP"];
+
+    if (allowedEffectsInOpenWorlds.includes(this.item.effect)) return true;
+    else return false;
+  }
+
+  useItem() {
+    if (this.item.id === "RETOUR") return this.openItem(this.item.id);
+
+    const itemCanUsedInWorld = this.checkIfItemCanBeUsed();
+    if (!itemCanUsedInWorld && !this.game.battleManager)
+      return this.game.player.inventory.openDialogBox(false);
+    else this.game.handleItemSelection(this.item, this);
+  }
+
+  update(context, action) {
+    super.update(action);
+
+    this.draw(context);
+
+    switch (action) {
+      case INPUT_STATE.ESCAPE:
+        this.close();
+        break;
+
+      case INPUT_STATE.ACTION:
+        this.useItem();
+        break;
+    }
+  }
+}

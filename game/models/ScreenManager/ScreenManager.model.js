@@ -4,8 +4,12 @@ export class ScreenManager {
     this.currentScreen = null;
   }
 
-  open(screen, state) {
+  setCurrentScreen(screen) {
     this.currentScreen = screen;
+  }
+
+  open(screen, state) {
+    this.setCurrentScreen(screen);
     this.currentScreen.open();
 
     this.game.state = state;
@@ -15,6 +19,6 @@ export class ScreenManager {
     this.currentScreen.close();
     this.currentScreen = null;
 
-    this.game.state = state;
+    if (state) this.game.state = state;
   }
 }

@@ -11,7 +11,15 @@ export class Save {
       party: {
         slots: [],
       },
+      gotPokedex: null,
+      pokedex: {
+        state: {
+          seen: [],
+          caught: [],
+        },
+      },
     };
+
     this.flags = null;
     this.inventory = { categories: {} };
     this.map = {
@@ -63,10 +71,19 @@ export class Save {
     };
 
     this.npcLocation = NPC_LOCATION;
+
     this.mainMenu = {
       height: game.mainMenu.height,
       items: game.mainMenu.items,
     };
+
+    this.player.gotPokedex = game.player.gotPokedex;
+
+    if (this.player.gotPokedex)
+      this.player.pokedex.state = {
+        seen: game.player.pokedex.pokemonList.pokedexState.seen,
+        caught: game.player.pokedex.pokemonList.pokedexState.caught,
+      };
   }
 
   write(game) {
@@ -85,6 +102,7 @@ export class Save {
   }
 
   apply(game) {
+    console.log("save", this.player.pokedex.state);
     game.player.tileX = this.player.tileX;
     game.player.tileY = this.player.tileY;
     game.player.position = {
@@ -118,10 +136,17 @@ export class Save {
 
     game.player.party.slots.forEach((slot, index) => {
       slot.content = this.player.party.slots[index]?.content ?? null;
-      // console.log(slot.content);
     });
 
     game.triggeredScenarios = this.map.triggeredScenarios;
+
+    if (game.player.gotPokedex) {
+      game.player.pokedex.pokemonList.pokedexState.seen =
+        this.player.pokedex.state.seen;
+
+      game.player.pokedex.pokemonList.pokedexState.caught =
+        this.player.pokedex.state.caught;
+    }
     return this;
   }
 

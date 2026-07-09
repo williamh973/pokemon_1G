@@ -65,15 +65,12 @@ export class Game {
     this.screenManager = new ScreenManager(this);
     this.battleManager = null;
     this.choiceMenu = null;
-    this.currentScreen = null;
     this.save = null;
-    this.spriteViewer = null;
     this.activeNpc = null;
     this.dialogCallback = null;
     this.isAttemptSave = false;
     this.isSaveCompleted = false;
     this.isPaused = false;
-    this.isBattleMod = false;
     this.init();
     this.openStartMenu();
   }
@@ -85,22 +82,7 @@ export class Game {
   }
 
   switchPokemon() {
-    if (this.isBattleMod) {
-      const party = this.player.party;
-      const alreadyInBattleText = `${this.battleManager.currentPlayerPokemon.name} est déjà au combat`;
-
-      if (
-        this.battleManager.currentPlayerPokemon ===
-        party.slots[party.currentIndex].content
-      ) {
-        this.dialogBox.open(alreadyInBattleText, true);
-        this.dialogBox.hasFocus = true;
-        return;
-      } else {
-        this.currentScreen = this.battleManager;
-        this.battleManager.isAttemptSwitch = true;
-      }
-    }
+    if (this.battleManager) this.battleManager.requestSwitch();
   }
 
   openStartMenu() {
@@ -108,19 +90,20 @@ export class Game {
   }
 
   openBattle(wildPokemon, tile, battleType) {
-    const weather = this.weatherManager.state;
-    this.isBattleMod = true;
     this.battleManager = new BattleManager(
       this,
       wildPokemon,
       tile,
-      weather,
+      this.weatherManager.state,
       battleType
     );
-    this.currentScreen = this.battleManager;
     this.dialogBox.isOpen = true;
-    this.currentScreen.open();
-    this.state = GAME_STATES.BATTLE;
+    this.screenManager.open(this.battleManager, GAME_STATES.BATTLE);
+  }
+
+  playerWantQuitBattle() {
+    if (this.battleManager.wildPokemon)
+      this.battleManager.hasPlayerEscaped = true;
   }
 
   stopWildBattle() {
@@ -129,11 +112,9 @@ export class Game {
         this.togglePause(false, true);
       },
       (done) => {
-        this.isBattleMod = false;
-        this.battleManager = null;
-        this.closeCurrentScreen();
+        this.screenManager.close(GAME_STATES.WORLD);
         this.battleMenu.resetCurrentIndex();
-        this.state = GAME_STATES.WORLD;
+        this.battleManager = null;
         done();
       },
       () => {}
@@ -141,79 +122,49 @@ export class Game {
   }
 
   openBattleWhitoutBattleMenu(item) {
-    this.currentScreen = this.battleManager;
+    this.screenManager.setCurrentScreen(this.battleManager);
     this.battleManager.usedItem = item;
     this.battleManager.isUseItem = true;
   }
 
   openGenderMenu() {
-    this.currentScreen = new GenderMenu(this);
-    this.currentScreen.open();
-    this.state = GAME_STATES.GENDER_MENU;
+    this.screenManager.open(new GenderMenu(this), GAME_STATES.GENDER_MENU);
   }
 
   openPokedex() {
-    this.currentScreen = this.player.pokedex;
-    this.currentScreen.open();
-    this.state = GAME_STATES.POKEDEX;
+    this.screenManager.open(this.player.pokedex, GAME_STATES.POKEDEX);
   }
 
   openParty() {
     const playerParty = this.player.party;
     playerParty.contextMenu = null;
-    this.currentScreen = playerParty;
-    this.currentScreen.open();
-    this.state = GAME_STATES.PARTY;
+    this.screenManager.open(playerParty, GAME_STATES.PARTY);
   }
 
   openPokemonSummary() {
-    this.currentScreen = this.player.party.contextMenu.pokemonSummary;
-    this.currentScreen.open();
-    this.state = GAME_STATES.PARTY_SUMMARY;
+    this.screenManager.open(
+      this.player.party.contextMenu.pokemonSummary,
+      GAME_STATES.PARTY_SUMMARY
+    );
   }
 
   openPokemonDetail() {
-    const detailPage = this.currentScreen.pokemonList.pokemonDetail;
+    const detailPage =
+      this.screenManager.currentScreen.pokemonList.pokemonDetail;
     detailPage.open();
   }
 
   openInventory() {
-    this.currentScreen = this.player.inventory;
-    this.player.inventory.open();
-    this.state = GAME_STATES.INVENTORY;
+    this.screenManager.open(this.player.inventory, GAME_STATES.INVENTORY);
   }
 
   openWorldMap() {
-    const pokemon = this.currentScreen.pokemonList.selectedPokemon;
-    this.currentScreen = this.worldMap;
-    this.currentScreen.open(pokemon);
+    const pokemon =
+      this.screenManager.currentScreen.pokemonList.selectedPokemon;
+
+    this.screenManager.setCurrentScreen(this.worldMap);
+    this.screenManager.currentScreen.open(pokemon);
     this.state = GAME_STATES.WORLDMAP;
-  }
-
-  closeCurrentScreen() {
-    this.currentScreen.close();
-    this.currentScreen = null;
-  }
-
-  // ------------------------------------------
-
-  closeStartMenu() {
-    this.currentScreen.close();
-    this.state = GAME_STATES.WORLD;
-    this.togglePause(false, true);
-  }
-
-  closeChoiceMenu() {
-    this.choiceMenu.close();
-    this.choiceMenu = null;
-    this.state = GAME_STATES.WORLD;
-    this.togglePause(false, true);
-  }
-
-  openChoiceMenu(source) {
-    this.choiceMenu = new ChoiceMenu(this, source);
-    this.choiceMenu.open();
-    this.state = GAME_STATES.CHOICE_MENU;
   }
 
   openBattleAttacksMenu() {
@@ -233,17 +184,47 @@ export class Game {
     this.togglePause(true, false);
   }
 
+  openChoiceMenu(source) {
+    this.choiceMenu = new ChoiceMenu(this, source);
+    this.choiceMenu.open();
+    this.state = GAME_STATES.CHOICE_MENU;
+  }
+
+  openDialogBox(text, dialogTree, callbackFn) {
+    openDialogBox(text, dialogTree, callbackFn, this);
+  }
+
+  closeDialogBox() {
+    closeDialogBox(this);
+  }
+
+  closeStartMenu() {
+    this.screenManager.close(GAME_STATES.WORLD);
+    this.togglePause(false, true);
+  }
+
+  closeChoiceMenu() {
+    this.choiceMenu.close();
+    this.choiceMenu = null;
+    this.state = GAME_STATES.WORLD;
+    this.togglePause(false, true);
+  }
+
   closePlayerMenu() {
     this.mainMenu.close();
     this.state = GAME_STATES.WORLD;
     this.togglePause(false, true);
   }
 
-  closeAndReturnFromSubMenu() {
-    this.closeCurrentScreen();
+  closeWorldMap() {
+    closeWorldMap();
+  }
 
-    if (this.isBattleMod) {
-      this.currentScreen = this.battleManager;
+  closeAndReturnFromSubMenu() {
+    this.screenManager.close();
+
+    if (this.battleManager) {
+      this.screenManager.setCurrentScreen(this.battleManager);
       this.openBattleMenu();
     } else this.openPlayerMenu();
   }
@@ -269,10 +250,6 @@ export class Game {
     this.isAttemptSave = false;
   }
 
-  closeWorldMap() {
-    closeWorldMap();
-  }
-
   handleMenuSelection(itemId, source) {
     dispatchMenuSelection(this, itemId, source);
   }
@@ -281,28 +258,13 @@ export class Game {
     dispatchItemsSelection(this, item, source);
   }
 
-  playerUseBicycle(item) {
-    this.state = GAME_STATES.WORLD;
-    this.togglePause(false, true);
-    this.closeCurrentScreen();
-    this.player.isOnBike = !this.player.isOnBike;
-  }
-
   startNewGame() {
-    this.closeCurrentScreen();
+    this.screenManager.close();
     this.openGenderMenu();
   }
 
   togglePause(isPaused, isCanMove) {
     togglePause(isPaused, isCanMove, this);
-  }
-
-  openDialogBox(text, dialogTree, callbackFn) {
-    openDialogBox(text, dialogTree, callbackFn, this);
-  }
-
-  closeDialogBox() {
-    closeDialogBox(this);
   }
 
   handleBattleMoves(playerPokemonSelectedMoveData) {

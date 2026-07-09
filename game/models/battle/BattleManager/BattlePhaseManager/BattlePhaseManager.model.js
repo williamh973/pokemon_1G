@@ -1,3 +1,4 @@
+import { INPUT_STATE } from "../../../../logic/input/inputs.state.js";
 import { DIALOGS_DATABASE } from "../../../../shareds/dialogs/dialogs.database.js";
 import { BATTLE_PHASES } from "./battlePhase.js";
 
@@ -14,7 +15,7 @@ export class BattlePhaseManager {
   setPhase(phase) {
     this.previousPhase = this.currentPhase;
     this.currentPhase = phase;
-    console.log(this.currentPhase);
+    // console.log(this.currentPhase);
     this.onEnterPhase(phase);
   }
 
@@ -88,7 +89,7 @@ export class BattlePhaseManager {
 
     switch (this.currentPhase) {
       case BATTLE_PHASES.INTRO:
-        if (action === "ACTION" && sequence.introSequence?.isFinished)
+        if (action === INPUT_STATE.ACTION && sequence.introSequence?.isFinished)
           this.setPhase(BATTLE_PHASES.PLAYER_THROW_POKEBALL);
         break;
 
@@ -106,12 +107,6 @@ export class BattlePhaseManager {
         break;
 
       case BATTLE_PHASES.BATTLE_MENU:
-        this.battleManager.openDialogBox(
-          DIALOGS_DATABASE.BATTLE_DIALOGS.whatShouldPokemonDo(
-            this.battleManager.currentPlayerPokemon.name
-          )
-        );
-
         if (
           this.battleManager.isUseItem &&
           this.battleManager.usedItem.effect === "CATCH"
@@ -125,16 +120,6 @@ export class BattlePhaseManager {
       case BATTLE_PHASES.CATCH_POKEMON:
         if (sequence.battleCatchSequence?.isFinished)
           this.setPhase(BATTLE_PHASES.BATTLE_MENU);
-
-        if (sequence.battleCatchSequence?.hasCaptured) {
-          this.battleManager.openDialogBox(
-            DIALOGS_DATABASE.BATTLE_DIALOGS.pokemonCaptured(
-              this.battleManager.wildPokemon.name
-            )
-          );
-          if (action === "ACTION") this.battleManager.hasCaptured = true;
-        }
-
         break;
 
       case BATTLE_PHASES.SWITCH:

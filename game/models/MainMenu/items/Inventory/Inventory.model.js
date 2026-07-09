@@ -9,6 +9,7 @@ import {
 } from "../../../../shareds/utils/list/list.utils.js";
 import { DialogBox } from "../../../DialogBox/dialogBox.model.js";
 import { Menu } from "../../../Menu/Menu.model.js";
+import { InventoryContextMenu } from "./InventoryContextMenu/InventoryContextMenu.model.js";
 
 export class Inventory extends Menu {
   constructor(game) {
@@ -27,10 +28,12 @@ export class Inventory extends Menu {
     this.balls = [this.CANCEL_ITEM];
     this.keys = [this.CANCEL_ITEM];
     this.cTcS = [this.CANCEL_ITEM];
+    this.contextMenu = null;
     this.lineHeight = 40;
     this.itemCurrentIndex = 0;
     this.catCurrentIndex = 0;
     this.dialogBox = new DialogBox(this.game);
+    this.dialogBox.isOpen = true;
   }
 
   get categories() {
@@ -101,6 +104,12 @@ export class Inventory extends Menu {
     this.drawItemsCount(context);
   }
 
+  open() {
+    super.open();
+    const item = this.categories[this.itemCurrentIndex];
+    this.dialogBox.open(item.desc, true);
+  }
+
   drawCategoryLabel(context) {
     textParams(context, "25");
 
@@ -139,21 +148,14 @@ export class Inventory extends Menu {
     openDialogBox(this, itemCanUsedInWorld);
   }
 
-  checkIfItemCanBeUsed(item) {
-    const allowedEffectsInOpenWorlds = ["REVIVE", "USE_BICYCLE"];
+  openContextMenu() {
+    this.cursor.state = this.cursor.state.focused;
 
-    if (allowedEffectsInOpenWorlds.includes(item.effect)) return true;
-    else return false;
-  }
-
-  useItem() {
     const item = this.categories[this.itemCurrentIndex];
-    if (item.id === "RETOUR") return this.openItem(item.id);
 
-    const itemCanUsedInWorld = this.checkIfItemCanBeUsed(item);
-    if (!itemCanUsedInWorld && !this.game.isBattleMod)
-      return this.openDialogBox(false);
-    else this.game.handleItemSelection(item, this);
+    this.contextMenu = new InventoryContextMenu(this.game, item);
+    this.contextMenu.open();
+    this.hasFocus = false;
   }
 
   update(context, action) {

@@ -1,4 +1,24 @@
 export const MOVES_DATABASE = {
+  growl: {
+    id: "growl",
+    name: "Rugissement",
+    type: ["NORMAL"],
+    class: ["STATUT"],
+    pp: 40,
+    power: 0,
+    precision: 100,
+    desc: "Attaque sonore. Baisse l'Attaque.",
+  },
+  scratch: {
+    id: "scratch",
+    name: "Griffe",
+    type: ["NORMAL"],
+    class: ["PHYSICAL"],
+    pp: 35,
+    power: 40,
+    precision: 100,
+    desc: "Un violent coup de griffe.",
+  },
   tackle: {
     id: "tackle",
     name: "Charge",

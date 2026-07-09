@@ -24,4 +24,10 @@ export const TYPES_CONFIG = {
   INSECT: {
     image: createImg("game/assets/images/types/insect.png"),
   },
+  ROCK: {
+    image: createImg("game/assets/images/types/rock.png"),
+  },
+  FIRE: {
+    image: createImg("game/assets/images/types/fire.png"),
+  },
 };

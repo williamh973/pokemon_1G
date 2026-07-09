@@ -1,6 +1,7 @@
 import { removeMObyItemId } from "../utils/list/list.utils.js";
 import { GENDER_DIALOG_TREE } from "./trees/gender.dialogTree.js";
 import { GIVE_NICKNAME_TO_NEW_POKEMON_DIALOG_TREE } from "./trees/giveNicknameToNewPokemon.dialogTree.js";
+import { LEARNSET_DIALOG_TREE } from "./trees/learnset.dialogTree.js";
 import { OAK_DIALOG_TREE } from "./trees/oak.dialogTree.js";
 import { RED_MOM_DIALOG_TREE } from "./trees/redMom.dialogTree.js";
 import { SAVE_DIALOG_TREE } from "./trees/save.dialogTree.js";
@@ -10,6 +11,7 @@ export const DIALOGS_TREE_DATABASE = {
   saveSystem: SAVE_DIALOG_TREE,
   selectGender: GENDER_DIALOG_TREE,
   giveNicknameToNewPokemon: GIVE_NICKNAME_TO_NEW_POKEMON_DIALOG_TREE,
+  learSet: LEARNSET_DIALOG_TREE,
   starter: STARTER_DIALOG_TREE,
   oak: OAK_DIALOG_TREE,
   redHouse1F: {

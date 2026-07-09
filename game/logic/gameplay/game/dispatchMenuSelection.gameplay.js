@@ -17,9 +17,10 @@ export const dispatchMenuSelection = (game, itemId, source) => {
     GIRL: () => game.selectGender(itemId),
     SUMMARY: () => game.openPokemonSummary(),
     ATTACK: () => game.openBattleAttacksMenu(),
-    ESCAPE: () => game.stopWildBattle(),
+    ESCAPE: () => game.playerWantQuitBattle(),
     SWITCH_POKEMON: () => game.switchPokemon(),
     MOVE_SLOT: () => game.handleBattleMoves(source.selectedMoveData),
+    USE_ITEM_TO_PARTY: () => game.player.party.applyUsedItemEffect(),
   };
 
   return itemsList[itemId]?.();

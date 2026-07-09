@@ -1,8 +1,8 @@
 import { GAME_STATES } from "./states/states.gameplay.js";
 
 export const handlerClosesFromReturnItem = (game) => {
-  if (game.isBattleMod) {
-    game.currentScreen = game.battleManager;
+  if (game.battleManager) {
+    game.screenManager.setCurrentScreen(game.battleManager);
     game.openBattleMenu();
   }
 

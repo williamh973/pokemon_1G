@@ -11,8 +11,8 @@ export class PokedexState {
     this.isOpen = false;
     this.width = 82;
     this.height = 130;
-    this.seen = new Set();
-    this.caught = new Set();
+    this.seen = [];
+    this.caught = [];
   }
 
   open() {
@@ -23,22 +23,30 @@ export class PokedexState {
     this.isOpen = false;
   }
 
-  // lorsqu'un combat prend fin, j'appele cette méthode
-  see(id) {
-    this.seen.add(id);
+  addSee(id) {
+    const seen = this.getSeen(id);
+    if (seen) return false;
+
+    this.seen.push(id);
+    return true;
   }
 
-  catch(id) {
-    this.seen.add(id);
-    this.caught.add(id);
+  addCatch(id) {
+    this.addSee(id);
+
+    const caught = this.getCaught(id);
+    if (caught) return false;
+
+    this.caught.push(id);
+    return true;
   }
 
-  isSeen(id) {
-    return this.seen.has(id);
+  getSeen(id) {
+    return this.seen.find((pokemonId) => pokemonId === id);
   }
 
-  isCaught(id) {
-    return this.caught.has(id);
+  getCaught(id) {
+    return this.caught.find((pokemonId) => pokemonId === id);
   }
 
   drawLabels(context, positionX) {
@@ -49,8 +57,8 @@ export class PokedexState {
 
   drawCounts(context, positionX) {
     textParams(context, `23`);
-    drawText(context, this.seen.size, positionX + 5, 35);
-    drawText(context, this.caught.size, positionX + 5, 95);
+    drawText(context, this.seen.length, positionX + 5, 35);
+    drawText(context, this.caught.length, positionX + 5, 95);
   }
 
   draw(context) {

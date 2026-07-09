@@ -4,19 +4,28 @@ import { TILES_SIZE } from "../../../../../shareds/utils/tile/tile.utils.js";
 import { Menu } from "../../../../Menu/Menu.model.js";
 import { PokemonSummaryManager } from "./PokemonSummary/PokemonSummaryManager/PokemonSummaryManager.model.js";
 
-export class PokemonContextMenu extends Menu {
-  constructor(game, pokemon) {
+export class PartyContextMenu extends Menu {
+  constructor(game, pokemon, usedItem) {
     super(game);
     this.game = game;
     this.pokemon = pokemon;
-    this.items = [
+
+    this.standartItemSet = [
       { id: "SUMMARY", name: "RESUME" },
       { id: "SWITCH_POKEMON", name: "ECHANGER" },
       { id: "ITEM", name: "OBJET" },
       { id: "RETOUR", name: "RETOUR" },
     ];
+
+    this.objectItemSet = [
+      { id: "USE_ITEM_TO_PARTY", name: "DONNER" },
+      { id: "RETOUR", name: "RETOUR" },
+    ];
+
+    this.setItems(usedItem);
+
     this.width = game.canvas.width / 2 - TILES_SIZE;
-    this.height = 30 * this.items.length;
+    this.height = 30 * this.items.length + 15;
     this.position = {
       x: game.canvas.width - this.width,
       y: 0,
@@ -26,6 +35,12 @@ export class PokemonContextMenu extends Menu {
       this.pokemon,
       () => this.reopenPartyMenu()
     );
+  }
+
+  setItems(usedItem) {
+    usedItem
+      ? (this.items = this.objectItemSet)
+      : (this.items = this.standartItemSet);
   }
 
   reopenPartyMenu() {
@@ -52,29 +67,18 @@ export class PokemonContextMenu extends Menu {
 
   close() {
     super.close();
-
-    const party = this.game.player.party;
-    party.contextMenu = null;
-    party.hasFocus = true;
   }
 
   update(context, action) {
     super.update(action);
 
+    if (!this.isOpen) return;
+
     this.draw(context);
 
-    if (this.game.dialogBox.isOpen) {
-      const result = this.game.dialogBox.update(
-        this.game.canvas.context,
-        action
-      );
-      if (result === this.game.dialogBox.noMorePage()) {
-        this.game.dialogBox.close();
-        this.close();
-      }
-    }
-
     this.pokemonSummary?.update(context, action);
+
+    if (!this.hasFocus) return;
 
     switch (action) {
       case INPUT_STATE.ESCAPE:

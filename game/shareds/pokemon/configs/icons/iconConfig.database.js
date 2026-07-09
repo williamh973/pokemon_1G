@@ -7,6 +7,12 @@ export const POKEMON_ICON_CONFIG_DATABASE = {
     height: 55,
     scale: 1,
   },
+  charmander: {
+    image: createImg("game/assets/images/pokemons/1G/icons/charmander.png"),
+    width: 55,
+    height: 55,
+    scale: 1,
+  },
   pidgey: {
     image: createImg("game/assets/images/pokemons/1G/icons/pidgey.png"),
     width: 55,
@@ -21,6 +27,12 @@ export const POKEMON_ICON_CONFIG_DATABASE = {
   },
   zubat: {
     image: createImg("game/assets/images/pokemons/1G/icons/zubat.png"),
+    width: 55,
+    height: 55,
+    scale: 1,
+  },
+  onix: {
+    image: createImg("game/assets/images/pokemons/1G/icons/onix.png"),
     width: 55,
     height: 55,
     scale: 1,

@@ -4,10 +4,9 @@ export const drawBox = (
   positionY,
   width,
   height,
-  color,
+  borderColor,
   fillStyle
 ) => {
-  const borderColor = color;
   context.fillStyle = fillStyle;
   context.fillRect(positionX, positionY, width, height);
 

@@ -31,7 +31,10 @@ export const STARTER_DIALOG_TREE = {
         "POKEBALL"
       );
 
-      player.party.addPokemonToFirstEmptySlot(starter);
+      const result = player.party.addPokemonToFirstEmptySlot(starter);
+
+      game.player.pokedex.pokemonList.pokedexState.catch(starter.id);
+
       game.flags.OAK_LAB.PLAYER_STARTER_CHOSEN_DONE = true;
     },
   },

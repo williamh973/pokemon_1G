@@ -8,6 +8,9 @@ import { HUD_CONFIG } from "../../../render/config/battle/hud.config.js";
 import { BATTLE_SLOT_CONFIG } from "../../../logic/gameplay/battleManager/slots/battleSlots.config.js";
 import { BattlePhaseManager } from "./BattlePhaseManager/BattlePhaseManager.model.js";
 import { BattleSequenceManager } from "./BattleSequenceManager/BattleSequenceManager.model.js";
+import { INPUT_STATE } from "../../../logic/input/inputs.state.js";
+import { DIALOGS_DATABASE } from "../../../shareds/dialogs/dialogs.database.js";
+import { BATTLE_MANAGER_STATES } from "../../../logic/gameplay/battleManager/slots/states/battleManager.states.js";
 
 export class BattleManager {
   constructor(game, wildPokemon, tile, weather, battleType) {
@@ -16,6 +19,7 @@ export class BattleManager {
     this.tile = tile;
     this.weather = weather;
     this.battleType = battleType;
+    this.state = BATTLE_MANAGER_STATES.INTRO;
     this.position = {
       x: 0,
       y: 0,
@@ -24,8 +28,8 @@ export class BattleManager {
     this.width = this.canvas.width;
     this.height = this.canvas.height;
     this.isOpen = false;
+    this.hasPlayerEscaped = false;
     this.hasCaptured = false;
-    this.isEscaped = false;
     this.isAttemptSwitch = false;
     this.isUseItem = false;
     this.usedItem = null;
@@ -73,6 +77,20 @@ export class BattleManager {
     this.phaseManager = new BattlePhaseManager(this, this.sequenceManager);
   }
 
+  requestSwitch() {
+    const party = this.game.player.party;
+    const alreadyInBattleText = `${this.currentPlayerPokemon.name} est déjà au combat`;
+
+    if (this.currentPlayerPokemon === party.slots[party.currentIndex].content) {
+      this.openDialogBox(alreadyInBattleText);
+      this.game.dialogBox.hasFocus = true;
+      return;
+    } else {
+      this.isAttemptSwitch = true;
+      this.game.screenManager.setCurrentScreen(this);
+    }
+  }
+
   getPlayerPartyPokemon(currentIndex) {
     const playerParty = this.game.player.party;
     return playerParty.slots[currentIndex].content;
@@ -91,14 +109,66 @@ export class BattleManager {
     this.isOpen = false;
   }
 
+  checkPlayerEscaped(action) {
+    if (this.hasPlayerEscaped) {
+      this.openDialogBox(`Vous prenez la fuite!`);
+
+      if (action === INPUT_STATE.ACTION) {
+        const pokedexState = this.game.player.pokedex.pokemonList.pokedexState;
+        pokedexState.addSee(this.wildPokemon.id);
+
+        this.game.stopWildBattle();
+
+        this.hasPlayerEscaped = false;
+      }
+    }
+  }
+
+  checkPokemonCaptured(action) {
+    if (this.sequenceManager.battleCatchSequence?.hasCaptured) {
+      this.state = BATTLE_MANAGER_STATES.CAPTURED;
+
+      this.openDialogBox(
+        DIALOGS_DATABASE.BATTLE_DIALOGS.pokemonCaptured(this.wildPokemon.name)
+      );
+
+      if (
+        action === INPUT_STATE.ACTION &&
+        this.state === BATTLE_MANAGER_STATES.CAPTURED
+      ) {
+        this.state = BATTLE_MANAGER_STATES.ADD_POKEDEX;
+
+        const emptySlot = this.game.player.party.addPokemonToFirstEmptySlot(
+          this.wildPokemon
+        );
+
+        if (emptySlot) {
+          const pokedexState =
+            this.game.player.pokedex.pokemonList.pokedexState;
+          const hasPokedexAddedPokemon = pokedexState.addCatch(
+            this.wildPokemon.id
+          );
+
+          if (hasPokedexAddedPokemon) {
+            this.state = BATTLE_MANAGER_STATES.ADD_POKEDEX;
+            this.openDialogBox(`${this.wildPokemon.name} a été au pokedex !`);
+            this.game.stopWildBattle(); // Le déclencher avec un counter
+          } else this.game.stopWildBattle();
+        }
+
+        // this.openDialogBox(
+        //   `Plus de place dans l'équipe\n${this.wildPokemon.name} est transféré au pc`
+        // );
+      }
+    }
+  }
+
   update(context, action) {
     if (!this.isOpen) return;
 
-    if (this.hasCaptured || this.isEscaped) {
-      this.game.stopWildBattle();
-      this.hasCaptured = false;
-      this.isEscaped = false;
-    }
+    this.checkPokemonCaptured(action);
+
+    this.checkPlayerEscaped(action);
 
     this.battleRenderer?.update(context);
 

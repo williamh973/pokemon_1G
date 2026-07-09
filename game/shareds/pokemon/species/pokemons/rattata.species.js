@@ -28,7 +28,7 @@ export const RATTATA_SPECIES = {
   learnset: {
     levelUp: [
       { level: 1, move: MOVES_DATABASE.tackle },
-      { level: 1, move: MOVES_DATABASE.tailWhip },
+      { level: 4, move: MOVES_DATABASE.tailWhip },
     ],
     tmhm: [
       "Toxik",

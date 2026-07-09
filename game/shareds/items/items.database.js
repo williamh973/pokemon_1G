@@ -1,5 +1,13 @@
 export const ITEMS_DATABASE = {
   care: {
+    rareCandy: {
+      id: "RARE_CANDY",
+      name: "RARE CANDY",
+      desc: "Monte le niveau d'un pokémon.",
+      maxCount: 99,
+      effect: "LEVEL_UP",
+      value: 20,
+    },
     potion: {
       id: "POTION",
       name: "POTION",
