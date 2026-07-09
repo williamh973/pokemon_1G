@@ -50,6 +50,9 @@ export class PartyPhaseManager {
         if (learnset.success) {
           console.log("apprend une capacité");
           this.setPhase("END");
+          return {
+            dialog: learnset.text,
+          };
         }
 
         if (learnset.text)
@@ -62,9 +65,10 @@ export class PartyPhaseManager {
         break;
 
       case "END":
-        console.log("no learnset");
+        console.log("END PHASE");
         return {
           finished: true,
+          closeDialog: true,
         };
     }
   }
