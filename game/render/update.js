@@ -99,6 +99,7 @@ export const update = (game) => {
       game.weatherManager.update(game);
       break;
 
+    case GAME_STATES.EVOLUTION:
     case GAME_STATES.PARTY:
     case GAME_STATES.POKEDEX:
     case GAME_STATES.PARTY_SUMMARY:

@@ -94,8 +94,8 @@ export const POKEDEX_DATABASE = [
     desc: "Sa queue enflammée brûle avec intensité lorsqu'il se bat. Il adore affronter des adversaires forts. Sa puissance augmente avec l’expérience.",
     img: "pokemon005Img",
     cry: "pokemon005Cry",
-    area: ["KANTO_ROUTE_1"],
-    print: "",
+    worldMap: [palletTown.worldMap, kantoRoute1.worldMap],
+    print: bulbasaurPrint,
     animations: {
       idle: {
         front: "charmeleon_front_idle",

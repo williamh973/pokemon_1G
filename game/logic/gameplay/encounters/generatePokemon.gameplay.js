@@ -48,6 +48,7 @@ const getMoves = (learnsets, level) => {
       id: set.move.id,
       name: set.move.name,
       type: set.move.type,
+      class: set.move.class,
       currentPP: set.move.pp,
       maxPP: set.move.pp,
       power: set.move.power,

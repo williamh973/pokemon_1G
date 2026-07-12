@@ -33,22 +33,13 @@ export class Save {
   }
 
   capture(game) {
-    this.player.tileX = game.player.tileX;
-    this.player.tileY = game.player.tileY;
+    this.playerPosition(game);
 
     this.flags = game.flags;
 
-    const categories = {
-      cares: serialize(game.player.inventory.cares),
-      balls: serialize(game.player.inventory.balls),
-      keys: serialize(game.player.inventory.keys),
-      cTcS: serialize(game.player.inventory.cTcS),
-    };
-    this.inventory.categories = categories;
+    this.playerInventory(game);
 
-    this.player.party.slots = game.player.party.slots.map((slot) => ({
-      content: slot.content,
-    }));
+    this.playerParty(game);
 
     const npcs = game.mapManager.currentMap.npcs.map((npc) => ({
       id: npc.id,
@@ -72,11 +63,41 @@ export class Save {
 
     this.npcLocation = NPC_LOCATION;
 
+    this.playerMainMenu(game);
+
+    this.pokedex(game);
+  }
+
+  playerPosition(game) {
+    this.player.tileX = game.player.tileX;
+    this.player.tileY = game.player.tileY;
+  }
+
+  playerInventory(game) {
+    const categories = {
+      cares: serialize(game.player.inventory.cares),
+      balls: serialize(game.player.inventory.balls),
+      keys: serialize(game.player.inventory.keys),
+      cTcS: serialize(game.player.inventory.cTcS),
+    };
+    this.inventory.categories = categories;
+  }
+
+  playerParty(game) {
+    this.player.party.slots = game.player.party.slots.map((slot) => ({
+      content: slot.content,
+    }));
+    console.log(this.player.party.slots);
+  }
+
+  playerMainMenu(game) {
     this.mainMenu = {
       height: game.mainMenu.height,
       items: game.mainMenu.items,
     };
+  }
 
+  pokedex(game) {
     this.player.gotPokedex = game.player.gotPokedex;
 
     if (this.player.gotPokedex)

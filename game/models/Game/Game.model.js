@@ -154,6 +154,13 @@ export class Game {
     detailPage.open();
   }
 
+  openEvolution() {
+    this.screenManager.open(
+      this.player.party.partyPhaseManager.evolutionSequence,
+      GAME_STATES.EVOLUTION
+    );
+  }
+
   openInventory() {
     this.screenManager.open(this.player.inventory, GAME_STATES.INVENTORY);
   }

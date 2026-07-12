@@ -1,4 +1,4 @@
-import { getSpeciesData } from "../species/species.utils.js";
+import { getSpeciesData } from "../../../../shareds/utils/pokemon/species/species.utils.js";
 
 export const checkLearnset = (pokemon) => {
   const SPECIES = getSpeciesData(pokemon.id);
@@ -7,10 +7,10 @@ export const checkLearnset = (pokemon) => {
   const foundedLearnset = learnsets.find(
     (learnset) => learnset.level === pokemon.level
   );
+  const moves = pokemon.moves;
 
   if (foundedLearnset) {
-    const moves = pokemon.moves.length;
-    if (moves >= 4) {
+    if (moves.length >= 4) {
       const wouldLikeLearnText = `${pokemon.name} voudrait apprendre \n ${foundedLearnset?.move.name} \n mais ${pokemon.name} possède déjà 4 capacités.`;
       return {
         success: false,
@@ -18,6 +18,18 @@ export const checkLearnset = (pokemon) => {
       };
     } else {
       const learnMoveText = `${pokemon.name} apprend ${foundedLearnset?.move.name} !`;
+      moves.push({
+        id: foundedLearnset.move.id,
+        name: foundedLearnset.move.name,
+        type: foundedLearnset.move.type,
+        class: foundedLearnset.move.class,
+        currentPP: foundedLearnset.move.pp,
+        maxPP: foundedLearnset.move.pp,
+        power: foundedLearnset.move.power,
+        precision: foundedLearnset.move.precision,
+        desc: foundedLearnset.move.desc,
+      });
+
       return {
         success: true,
         text: learnMoveText,
@@ -25,6 +37,6 @@ export const checkLearnset = (pokemon) => {
     }
   } else
     return {
-      noLearset: true,
+      noLearnset: true,
     };
 };

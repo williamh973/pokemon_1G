@@ -3,7 +3,6 @@ import { PARTY_SLOT_CONFIG } from "../../../../logic/gameplay/character/player/p
 import { GAME_STATES } from "../../../../logic/gameplay/game/states/states.gameplay.js";
 import { INPUT_STATE } from "../../../../logic/input/inputs.state.js";
 import { DIALOGS_TREE_DATABASE } from "../../../../shareds/dialogTree/dialogTree.database.js";
-import { checkLearnset } from "../../../../shareds/utils/pokemon/learnsets/learnset.utils.js";
 import { PokemonPartySlot } from "../../../Slot/PokemonPartySlot/PokemonPartySlot.model.js";
 import { StatsBox } from "../../../pokemon/StatsBox/StatsBox.model.js";
 import { PartyPhaseManager } from "./PartyPhaseManager/PartyPhaseManager.model.js";
@@ -139,9 +138,9 @@ export class Party {
 
     if (result.closeDialog) this.game.dialogBox.close();
 
-    if (result.finished) this.partyPhaseManager = null;
+    // if (result.evolution) this.game.openEvolution();
 
-    this.usedItem = null;
+    if (result.finished) this.partyPhaseManager = null;
   }
 
   update(context, action) {
@@ -177,10 +176,9 @@ export class Party {
       case INPUT_STATE.ACTION:
         if (this.partyPhaseManager) {
           const result = this.partyPhaseManager.next();
-          console.log(result);
           this.handlePhaseResult(result);
 
-          if (result.nextPhase) {
+          if (result?.nextPhase) {
             const nextResult = this.partyPhaseManager.next();
             this.handlePhaseResult(nextResult);
           }

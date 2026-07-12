@@ -1,7 +1,6 @@
 import { getExpForLevel } from "../../../../shareds/utils/pokemon/experience/experience.utils.js";
 import { getSpeciesData } from "../../../../shareds/utils/pokemon/species/species.utils.js";
 import { calculateStats } from "../../encounters/generatePokemon.gameplay.js";
-import { GAME_STATES } from "../../game/states/states.gameplay.js";
 
 export const levelUp = (slot = null, pokemon) => {
   const SPECIES = getSpeciesData(pokemon.id);
@@ -25,6 +24,11 @@ export const levelUp = (slot = null, pokemon) => {
     evs,
     pokemon.level
   );
+
+  pokemon.stats = {
+    ...pokemon.stats,
+    maxHp: pokemon.stats.hp,
+  };
 
   if (slot) {
     slot.HPbar.currentHp = pokemon.stats.hp;

@@ -29,6 +29,7 @@ export const CHARMANDER_SPECIES = {
     levelUp: [
       { level: 1, move: MOVES_DATABASE.scratch },
       { level: 1, move: MOVES_DATABASE.growl },
+      { level: 7, move: MOVES_DATABASE.ember },
     ],
     tmhm: [
       "Ultimapoing",
