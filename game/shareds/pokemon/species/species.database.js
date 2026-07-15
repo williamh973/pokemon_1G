@@ -2,6 +2,7 @@ import { GROWTH_RATES_DATABASE } from "../experience/growthRates/growthRates.dat
 import { CHARMELEON_SPECIES } from "./charmeleon.species.js";
 import { BULBASAUR_SPECIES } from "./pokemons/bulbasaur.species.js";
 import { CHARMANDER_SPECIES } from "./pokemons/charmander.species.js";
+import { IVYSAUR_SPECIES } from "./pokemons/ivysaur.species.js";
 import { ONIX_SPECIES } from "./pokemons/onix.species.js";
 import { PIDGEY_SPECIES } from "./pokemons/pidgey.species.js";
 import { RATTATA_SPECIES } from "./pokemons/rattata.species.js";
@@ -9,6 +10,7 @@ import { ZUBAT_SPECIES } from "./pokemons/zubat.species.js";
 
 export const SPECIES_DATABASE = {
   bulbasaur: BULBASAUR_SPECIES,
+  ivysaur: IVYSAUR_SPECIES,
   charmander: CHARMANDER_SPECIES,
   charmeleon: CHARMELEON_SPECIES,
   squirtle: {

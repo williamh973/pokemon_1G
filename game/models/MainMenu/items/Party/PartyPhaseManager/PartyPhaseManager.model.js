@@ -1,7 +1,7 @@
 import { checkEvolution } from "../../../../../logic/gameplay/pokemon/evolutions/evolution.gameplay.js";
 import { checkLearnset } from "../../../../../logic/gameplay/pokemon/learnsets/learnset.gameplay.js";
 import { levelUp } from "../../../../../logic/gameplay/pokemon/levelUp/levelUp.gameplay.js";
-import { EvolutionSequence } from "../sequences/evolutionSequence.model.js";
+import { EvolutionSequence } from "../sequences/PartyEvolutionSequence/EvolutionSequence.model.js";
 import { PARTY_PHASES_DATABASE } from "./partyPhases.database.js";
 
 export class PartyPhaseManager {
@@ -64,11 +64,6 @@ export class PartyPhaseManager {
           };
         }
 
-        if (learnset.text)
-          return {
-            dialog: learnset.text,
-          };
-
       case PARTY_PHASES_DATABASE.LEARN_MOVE:
         // ...
         break;
@@ -90,10 +85,18 @@ export class PartyPhaseManager {
         if (!evolution.success) {
           console.log("no évolution");
           return {
+            closeDialog: true, // pour fermer la dialogBox de monté de niveau
             finished: true,
           };
         }
         break;
+
+      case PARTY_PHASES_DATABASE.EVOLUTION:
+        this.game.openEvolution();
+        return {
+          finished: true,
+          closeDialog: true,
+        };
 
       case PARTY_PHASES_DATABASE.END:
         console.log("END PHASE");
@@ -101,9 +104,6 @@ export class PartyPhaseManager {
           finished: true,
           closeDialog: true,
         };
-      case PARTY_PHASES_DATABASE.EVOLUTION:
-        this.game.openEvolution();
-        break;
     }
   }
 }

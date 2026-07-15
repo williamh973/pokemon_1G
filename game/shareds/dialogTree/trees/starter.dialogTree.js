@@ -30,10 +30,10 @@ export const STARTER_DIALOG_TREE = {
         player.nickname,
         "POKEBALL"
       );
+      console.log(starter);
+      player.party.addPokemonToFirstEmptySlot(starter);
 
-      const result = player.party.addPokemonToFirstEmptySlot(starter);
-
-      game.player.pokedex.pokemonList.pokedexState.catch(starter.id);
+      game.player.pokedex.pokemonList.pokedexState.addCatch(starter.id);
 
       game.flags.OAK_LAB.PLAYER_STARTER_CHOSEN_DONE = true;
     },

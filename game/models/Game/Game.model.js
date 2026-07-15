@@ -210,6 +210,10 @@ export class Game {
     this.togglePause(false, true);
   }
 
+  closeEvolution() {
+    this.screenManager.close(GAME_STATES.EVOLUTION);
+  }
+
   closeChoiceMenu() {
     this.choiceMenu.close();
     this.choiceMenu = null;

@@ -10,7 +10,7 @@ export class ScreenManager {
 
   open(screen, state) {
     this.setCurrentScreen(screen);
-    console.log(this.currentScreen);
+    // console.log(this.currentScreen);
     this.currentScreen.open();
 
     this.game.state = state;

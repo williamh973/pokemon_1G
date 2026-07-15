@@ -3,7 +3,7 @@ import { getSpeciesData } from "../../../../shareds/utils/pokemon/species/specie
 export const checkEvolution = (pokemon) => {
   const SPECIES = getSpeciesData(pokemon.id);
   const evolutions = SPECIES.evolutions;
-  const foundedEvolution = evolutions.find((evolution) => evolution);
+  const foundedEvolution = evolutions[0];
 
   if (foundedEvolution && foundedEvolution.level !== pokemon.level)
     return {
@@ -15,6 +15,7 @@ export const checkEvolution = (pokemon) => {
     return {
       success: true,
       text: evolutionText,
+      foundedEvolution: foundedEvolution.target,
     };
   }
 };

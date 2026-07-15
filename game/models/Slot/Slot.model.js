@@ -39,6 +39,6 @@ export class Slot {
 
   update(context) {
     this.draw(context);
-    // drawDebugCollisionSquare(this, context, false);
+    // drawDebugCollisionSquare(this, context, true);
   }
 }

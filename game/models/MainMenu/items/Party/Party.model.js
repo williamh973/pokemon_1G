@@ -138,9 +138,9 @@ export class Party {
 
     if (result.closeDialog) this.game.dialogBox.close();
 
-    // if (result.evolution) this.game.openEvolution();
-
     if (result.finished) this.partyPhaseManager = null;
+
+    this.usedItem = null;
   }
 
   update(context, action) {
