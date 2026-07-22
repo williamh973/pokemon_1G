@@ -7,12 +7,14 @@ export const TILE_TYPES = {
     encounter: true,
     terrain: "water",
     surfable: true,
+    sin: true,
   },
   5: {
     walkable: false,
     encounter: true,
     terrain: "borderWater",
     surfable: true,
+    sin: true,
   },
   6: {
     walkable: true,

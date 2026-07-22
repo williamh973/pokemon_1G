@@ -1,5 +1,5 @@
-import { GROWTH_RATES_DATABASE } from "../experience/growthRates/growthRates.database.js";
-import { MOVES_DATABASE } from "../moves/moves.database.js";
+import { GROWTH_RATES_DATABASE } from "../../experience/growthRates/growthRates.database.js";
+import { MOVES_DATABASE } from "../../moves/moves.database.js";
 
 export const CHARMELEON_SPECIES = {
   id: "charmeleon",
@@ -29,7 +29,7 @@ export const CHARMELEON_SPECIES = {
     levelUp: [
       { level: 1, move: MOVES_DATABASE.scratch },
       { level: 1, move: MOVES_DATABASE.growl },
-      { level: 7, move: MOVES_DATABASE.ember },
+      { level: 17, move: MOVES_DATABASE.surf }, // 7
       { level: 13, move: "SMOKESCREEN" },
       { level: 20, move: "DRAGON_RAGE" },
       { level: 24, move: "SCARY_FACE" },

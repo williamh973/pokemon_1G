@@ -1,4 +1,4 @@
-import { POKEMON_ICON_CONFIG_DATABASE } from "../../../shareds/pokemon/configs/icons/iconConfig.database.js";
+import { POKEMON_ICON_CONFIG_DATABASE } from "../../../shareds/pokemon/configs/icons/pokemonIconConfig.database.js";
 import { drawText } from "../../../shareds/utils/font/drawText.utils.js";
 import { textParams } from "../../../shareds/utils/font/font.utils.js";
 import { HealthBar } from "../../battle/BattleManager/Hud/HealthBar/HealthBar.model.js";

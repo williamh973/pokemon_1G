@@ -45,8 +45,8 @@ export const update = (game) => {
   // console.log(game.mapManager.previousMap);
 
   game.tileManager.update();
-  game.timeManager.update();
   game.dayNightCycle.update(game);
+  game.timeManager.update(game.canvas.context);
 
   const action = game.input.consume();
 
@@ -63,9 +63,9 @@ export const update = (game) => {
         openPlayerMenu(game);
         return;
       }
-      game.player.update(game, action);
       game.weatherManager.update(game);
       game.mapNameWindow.update(game.canvas.context);
+      game.player.update(game, action);
       break;
     case GAME_STATES.DIALOG:
       game.weatherManager.update(game);
@@ -78,7 +78,12 @@ export const update = (game) => {
       break;
     case GAME_STATES.CHOICE_MENU:
       game.weatherManager.update(game);
+
+      if (game.isAttemptSave)
+        game.mainMenu?.update(game.canvas.context, action);
+
       game.choiceMenu?.update(game.canvas.context, action);
+      game.dialogBox?.update(game.canvas.context, action);
       break;
     case GAME_STATES.WORLDMAP:
       game.screenManager.currentScreen.update(game, action);
@@ -106,6 +111,7 @@ export const update = (game) => {
     case GAME_STATES.START_GAME:
     case GAME_STATES.GENDER_MENU:
     case GAME_STATES.INVENTORY:
+    case GAME_STATES.OPENING_GAME:
       game.screenManager.currentScreen.update(game.canvas.context, action);
       break;
     default:

@@ -1,0 +1,66 @@
+import { GROWTH_RATES_DATABASE } from "../experience/growthRates/growthRates.database.js";
+import { MOVES_DATABASE } from "../moves/moves.database.js";
+
+export const SQUIRTLE_SPECIES = {
+  id: "squirtle",
+  pokedexId: "007",
+  name: "CARAPUCE",
+  types: ["NORMAL"],
+  femaleRate: 50,
+  catchRate: 45,
+  growthRate: GROWTH_RATES_DATABASE.MEDIUM_SLOW,
+  baseExp: 66,
+  baseStats: {
+    hp: 44,
+    attack: 48,
+    defense: 65,
+    specialAtt: 50,
+    specialDef: 64,
+    speed: 43,
+  },
+  animations: {
+    idle: {
+      front: "squirtle_front_idle",
+      back: "squirtle_back_idle",
+    },
+  },
+  learnset: {
+    levelUp: [
+      { level: 1, move: MOVES_DATABASE.tackle },
+      { level: 1, move: MOVES_DATABASE.tailWhip },
+      { level: 8, move: MOVES_DATABASE.bubble },
+      { level: 15, move: MOVES_DATABASE.waterGun },
+      { level: 22, move: MOVES_DATABASE.bite },
+      { level: 28, move: MOVES_DATABASE.withdraw },
+      { level: 35, move: MOVES_DATABASE.skullBash },
+      { level: 42, move: MOVES_DATABASE.hydroPump },
+    ],
+
+    tmhm: [
+      "Ultimapoing",
+      "Danse Lames",
+      "Ultimawashi",
+      "Toxik",
+      "Plaquage",
+      "Bélier",
+      "Damoclès",
+      "Sacrifice",
+      "Riposte",
+      "Frénésie",
+      "Laser Glace",
+      "Blizzard",
+      "Bulles d'O",
+      "Tunnel",
+      "Copie",
+      "Reflet",
+      "Protection",
+      "Patience",
+      "Météores",
+      "Coud'Krâne",
+      "Repos",
+      "Clonage",
+      "Surf",
+      "Force",
+    ],
+  },
+};

@@ -1,8 +1,5 @@
 import { evolutionBackgImg } from "../../../../../../assets/images/ui/ui.asset.js";
-import {
-  calculateStats,
-  generatePokemon,
-} from "../../../../../../logic/gameplay/encounters/generatePokemon.gameplay.js";
+import { calculateStats } from "../../../../../../logic/gameplay/encounters/generatePokemon.gameplay.js";
 import { INPUT_STATE } from "../../../../../../logic/input/inputs.state.js";
 import { SPECIES_DATABASE } from "../../../../../../shareds/pokemon/species/species.database.js";
 import { getAnimationConfig } from "../../../../../../shareds/utils/pokemon/animations/pokemonAnimations.utils.js";
@@ -50,8 +47,6 @@ export class EvolutionSequence {
     this.offsetY = 0;
     this.particles = [];
     this.evolvedFormSpecies = this.getEvolvedForm();
-
-    console.log(this.pokemon);
   }
 
   getEvolvedForm() {
@@ -115,7 +110,6 @@ export class EvolutionSequence {
   }
 
   energyCharge(context) {
-    console.log("CHARGE");
     this.radius += 10;
 
     if (this.radius <= 200) this.drawEnergyCircle(context, this.radius * 3);
@@ -128,7 +122,6 @@ export class EvolutionSequence {
   }
 
   ascension(context) {
-    console.log("ASCENSION");
     this.offsetY = Math.sin(Date.now() / 200) * 5;
 
     this.radius += 4;
@@ -136,8 +129,6 @@ export class EvolutionSequence {
   }
 
   absorb(context) {
-    console.log("ABSORB");
-
     this.drawParticles(context);
 
     if (this.particles.length > 40) {
@@ -148,7 +139,6 @@ export class EvolutionSequence {
   }
 
   core(context) {
-    console.log("CORE");
     this.flash += 0.2;
 
     context.beginPath();
@@ -177,7 +167,6 @@ export class EvolutionSequence {
   }
 
   reveal(context) {
-    console.log("REVEAL");
     this.energy += 0.04;
 
     const alpha = Math.max(0, 1 - this.energy);
@@ -190,7 +179,6 @@ export class EvolutionSequence {
   }
 
   celebration(context) {
-    console.log("CELEBRATION");
     const pokemonNeedsEvolveName = this.pokemon.name;
 
     this.updatePokemonNeedsEvolve();
@@ -200,11 +188,15 @@ export class EvolutionSequence {
     );
 
     this.phase = "END";
-    console.log(this.pokemon);
   }
 
   end(action) {
-    if (action === INPUT_STATE.ACTION) this.quitSequence();
+    if (action === INPUT_STATE.ACTION) {
+      this.game.player.pokedex.pokemonList.pokedexState.addCatch(
+        this.pokemon.id
+      );
+      this.quitSequence();
+    }
   }
 
   updatePokemonNeedsEvolve() {

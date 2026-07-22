@@ -38,6 +38,7 @@ import { BattleMovesMenu } from "../battle/BattleManager/BattleMenu/BattleMovesM
 import { ScreenManager } from "../ScreenManager/ScreenManager.model.js";
 import { GAME_STATES } from "../../logic/gameplay/game/states/states.gameplay.js";
 import { dispatchItemsSelection } from "../../logic/gameplay/items/dispatchItemsSelection.gameplay.js";
+import { OpeningGameSequence } from "../OpeningGameSequence/OpeningGameSequence.model.js";
 
 export class Game {
   constructor() {
@@ -71,14 +72,22 @@ export class Game {
     this.isAttemptSave = false;
     this.isSaveCompleted = false;
     this.isPaused = false;
+
     this.init();
-    this.openStartMenu();
   }
 
   init() {
+    this.startOpeningGameSequence();
     this.tileManager.load();
 
     animate(this, this.tileManager);
+  }
+
+  startOpeningGameSequence() {
+    this.screenManager.open(
+      new OpeningGameSequence(this),
+      GAME_STATES.OPENING_GAME
+    );
   }
 
   switchPokemon() {
@@ -197,7 +206,7 @@ export class Game {
     this.state = GAME_STATES.CHOICE_MENU;
   }
 
-  openDialogBox(text, dialogTree, callbackFn) {
+  openDialogBox(text, dialogTree, callbackFn = null) {
     openDialogBox(text, dialogTree, callbackFn, this);
   }
 

@@ -6,6 +6,7 @@ export const GAME_FLAGS_DATABASE = {
     GOT_POTION_PALLET_TOWN: false,
     GOT_BIKE_PALLET_TOWN: false,
     GOT_RARE_CANDY_PALLET_TOWN: false,
+    GOT_OLD_ROD_PALLET_TOWN: false,
   },
   OAK_LAB: {
     OAK_INTRO_LAB_DONE: false,

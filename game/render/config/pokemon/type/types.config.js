@@ -30,4 +30,7 @@ export const TYPES_CONFIG = {
   FIRE: {
     image: createImg("game/assets/images/types/fire.png"),
   },
+  WATER: {
+    image: createImg("game/assets/images/types/water.png"),
+  },
 };

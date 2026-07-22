@@ -1,3 +1,4 @@
+import { INPUT_STATE } from "../../logic/input/inputs.state.js";
 import { drawBox } from "../../shareds/utils/box/box.utils.js";
 import { Menu } from "../Menu/Menu.model.js";
 
@@ -45,19 +46,21 @@ export class ChoiceMenu extends Menu {
     if (!this.isOpen || !this.hasFocus) return;
 
     switch (action) {
-      case "UP":
+      case INPUT_STATE.UP:
         if (this.currentIndex > 0) this.currentIndex--;
         break;
 
-      case "DOWN":
+      case INPUT_STATE.DOWN:
         if (this.currentIndex < this.items.length - 1) this.currentIndex++;
         break;
 
-      case "ACTION":
+      case INPUT_STATE.ACTION:
         switch (this.currentIndex) {
           case 0:
             this.dialogTree.first.action(this.game);
-            this.game.openDialogBox(this.dialogTree.first.text, null, null);
+
+            if (this.dialogTree.first.text)
+              this.game.openDialogBox(this.dialogTree.first.text, null, null);
 
             if (this.game.isSaveCompleted) this.saveCompleted();
             break;

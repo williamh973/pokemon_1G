@@ -1,0 +1,62 @@
+import { GROWTH_RATES_DATABASE } from "../../experience/growthRates/growthRates.database.js";
+import { MOVES_DATABASE } from "../../moves/moves.database.js";
+
+export const MEW_SPECIES = {
+  id: "mew",
+  pokedexId: "151",
+  name: "MEW",
+  types: ["PSYCHIC"],
+  femaleRate: 0,
+  catchRate: 45,
+  growthRate: GROWTH_RATES_DATABASE.MEDIUM_SLOW,
+  baseExp: 64,
+  baseStats: {
+    hp: 100,
+    attack: 100,
+    defense: 100,
+    specialAtt: 100,
+    specialDef: 100,
+    speed: 100,
+  },
+  animations: {
+    idle: {
+      front: "mew_front_idle",
+      back: "mew_back_idle",
+    },
+  },
+  evolutions: [],
+  learnset: {
+    levelUp: [
+      { level: 1, move: MOVES_DATABASE.pound },
+      { level: 10, move: MOVES_DATABASE.transform },
+      { level: 20, move: MOVES_DATABASE.megakick },
+      { level: 30, move: MOVES_DATABASE.psychic },
+      { level: 40, move: MOVES_DATABASE.metronome },
+      { level: 50, move: MOVES_DATABASE.barrier },
+    ],
+    tmhm: [
+      "Ultimapoing",
+      "Danse Lames",
+      "Ultimawashi",
+      "Méga-Poing",
+      "Méga-Kick",
+      "Plaquage",
+      "Damoclès",
+      "Frappe Atlas",
+      "Frappe-Atlas",
+      "Tonnerre",
+      "Fatal-Foudre",
+      "Laser Glace",
+      "Blizzard",
+      "Psyko",
+      "Ball'Ombre",
+      "Séisme",
+      "Tunnel",
+      "Force",
+      "Surf",
+      "Éclate-Roc",
+      "Flash",
+      "Coupe",
+    ],
+  },
+};

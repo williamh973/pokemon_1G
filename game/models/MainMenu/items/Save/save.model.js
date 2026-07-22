@@ -87,7 +87,6 @@ export class Save {
     this.player.party.slots = game.player.party.slots.map((slot) => ({
       content: slot.content,
     }));
-    console.log(this.player.party.slots);
   }
 
   playerMainMenu(game) {
@@ -123,7 +122,6 @@ export class Save {
   }
 
   apply(game) {
-    console.log("save", this.player.pokedex.state);
     game.player.tileX = this.player.tileX;
     game.player.tileY = this.player.tileY;
     game.player.position = {

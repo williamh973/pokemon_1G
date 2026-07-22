@@ -81,18 +81,6 @@ const player = (game) => {
   game.player.draw(game.canvas, game.camera);
 };
 
-const dayNightCycle = (game) => {
-  game.dayNightCycle.draw(game);
-};
-
-const timeManager = (game) => {
-  game.timeManager.draw(game.canvas.context);
-};
-
-const mainMenu = (game) => {
-  game.mainMenu?.draw(game.canvas.context, null);
-};
-
 export const draw = (game, tileManager) => {
   drawBackTiles(game, tileManager);
   drawPuddleTiles(game, tileManager);
@@ -106,8 +94,6 @@ export const draw = (game, tileManager) => {
       drawWalkingOP(game);
       drawOverlayTiles(game, tileManager);
       drawFlyingOP(game);
-      dayNightCycle(game);
-      timeManager(game);
       break;
     case "DIALOG":
       npcs(game);
@@ -116,12 +102,6 @@ export const draw = (game, tileManager) => {
       drawWalkingOP(game);
       drawOverlayTiles(game, tileManager);
       drawFlyingOP(game);
-      dayNightCycle(game);
-      timeManager(game);
-
-      if (!game.isAttemptSave) return;
-      mainMenu(game);
-
       break;
     case GAME_STATES.PLAYER_MENU:
       npcs(game);
@@ -130,8 +110,6 @@ export const draw = (game, tileManager) => {
       drawWalkingOP(game);
       drawOverlayTiles(game, tileManager);
       drawFlyingOP(game);
-      dayNightCycle(game);
-      timeManager(game);
       break;
 
     case GAME_STATES.CHOICE_MENU:
@@ -141,13 +119,8 @@ export const draw = (game, tileManager) => {
       drawWalkingOP(game);
       drawOverlayTiles(game, tileManager);
       drawFlyingOP(game);
-      dayNightCycle(game);
-      timeManager(game);
 
       game.dialogBox?.draw(game.canvas.context);
-
-      if (!game.isAttemptSave) return;
-      mainMenu(game);
       break;
   }
 };

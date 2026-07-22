@@ -23,7 +23,6 @@ export class PokemonSummaryManager {
   }
 
   close() {
-    console.log("close");
     this.pages.forEach((page) => {
       page.isOpen = false;
       page.hasFocus = false;

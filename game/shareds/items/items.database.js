@@ -2,7 +2,7 @@ export const ITEMS_DATABASE = {
   care: {
     rareCandy: {
       id: "RARE_CANDY",
-      name: "RARE CANDY",
+      name: "SUPER BONBON",
       desc: "Monte le niveau d'un pokémon.",
       maxCount: 99,
       effect: "LEVEL_UP",
@@ -228,18 +228,21 @@ export const ITEMS_DATABASE = {
       name: "CANNE",
       desc: "Permet de pêcher des Pokémon",
       maxCount: 1,
+      effect: "SIN",
     },
     goodRod: {
       id: "SUPER_CANNE",
       name: "SUPER CANNE",
       desc: "Permet de pêcher\nde meilleurs Pokémon",
       maxCount: 1,
+      effect: "SIN",
     },
     superRod: {
       id: "MEGA_CANNE",
       name: "MEGA CANNE",
       desc: "Permet de pêcher\nde rares Pokémon",
       maxCount: 1,
+      effect: "SIN",
     },
   },
   starter: {

@@ -6,8 +6,10 @@ import { OAK_DIALOG_TREE } from "./trees/oak.dialogTree.js";
 import { RED_MOM_DIALOG_TREE } from "./trees/redMom.dialogTree.js";
 import { SAVE_DIALOG_TREE } from "./trees/save.dialogTree.js";
 import { STARTER_DIALOG_TREE } from "./trees/starter.dialogTree.js";
+import { SURF_DIALOG_TREE } from "./trees/surf.dialogTree.js";
 
 export const DIALOGS_TREE_DATABASE = {
+  surf: SURF_DIALOG_TREE,
   saveSystem: SAVE_DIALOG_TREE,
   selectGender: GENDER_DIALOG_TREE,
   giveNicknameToNewPokemon: GIVE_NICKNAME_TO_NEW_POKEMON_DIALOG_TREE,

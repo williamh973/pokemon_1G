@@ -69,8 +69,6 @@ export class PartyPhaseManager {
         break;
 
       case PARTY_PHASES_DATABASE.CHECK_EVOLUTION:
-        console.log("CHECK_EVOLUTION");
-
         const evolution = checkEvolution(this.selectedPokemon);
 
         if (evolution.success) {
@@ -83,7 +81,6 @@ export class PartyPhaseManager {
         }
 
         if (!evolution.success) {
-          console.log("no évolution");
           return {
             closeDialog: true, // pour fermer la dialogBox de monté de niveau
             finished: true,
@@ -99,7 +96,6 @@ export class PartyPhaseManager {
         };
 
       case PARTY_PHASES_DATABASE.END:
-        console.log("END PHASE");
         return {
           finished: true,
           closeDialog: true,
