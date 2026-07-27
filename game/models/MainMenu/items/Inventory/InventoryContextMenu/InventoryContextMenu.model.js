@@ -52,7 +52,12 @@ export class InventoryContextMenu extends Menu {
   }
 
   checkIfItemCanBeUsed() {
-    const allowedEffectsInOpenWorlds = ["REVIVE", "USE_BICYCLE", "LEVEL_UP"];
+    const allowedEffectsInOpenWorlds = [
+      "REVIVE",
+      "USE_BICYCLE",
+      "LEVEL_UP",
+      "OPEN_WORLDMAP",
+    ];
 
     if (allowedEffectsInOpenWorlds.includes(this.item.effect)) return true;
     else return false;

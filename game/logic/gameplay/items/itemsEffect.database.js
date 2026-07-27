@@ -32,4 +32,8 @@ export const ITEM_EFFECTS = {
     game.openParty();
     game.dialogBox.open(`Donner à quel POKéMON ?`, false);
   },
+
+  OPEN_WORLDMAP: ({ game, item }) => {
+    game.openWorldMap(item);
+  },
 };

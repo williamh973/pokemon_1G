@@ -37,7 +37,7 @@ export const POKEDEX_DATABASE = [
     desc: "Le bulbe sur son dos grossit progressivement. Il peut balancer sa plante pour attaquer ou se défendre. Ce Pokémon préfère les zones ensoleillées.",
     img: "pokemon002Img",
     cry: "pokemon002Cry",
-    area: ["KANTO_ROUTE_1"],
+    worldMap: [palletTown.worldMap, kantoRoute1.worldMap],
     print: "",
     animations: {
       idle: {
@@ -75,7 +75,7 @@ export const POKEDEX_DATABASE = [
     desc: "Il préfère les endroits \nchauds. La flamme de sa \nqueue indique sa vitalité. \nIl est souvent curieux et \nintrépide.",
     img: "pokemon004Img",
     cry: "pokemon004Cry",
-    worldMap: [palletTown.worldMap, kantoRoute1.worldMap],
+    worldMap: [kantoRoute1.worldMap],
     print: bulbasaurPrint,
     animations: {
       idle: {

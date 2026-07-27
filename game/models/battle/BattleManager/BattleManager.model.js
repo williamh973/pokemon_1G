@@ -1,5 +1,5 @@
 import { SpriteViewer } from "../../SpriteViewer/SpriteViewer.model.js";
-import { PLAYER_BATTLE_INTRO_ANIMATION } from "../../../render/config/battle/introPlayerSprite.config.js";
+import { PLAYER_BATTLE_INTRO_ANIMATION } from "../../../render/config/battle/battleIntroPlayerSprite.config.js";
 import { getAnimationConfig } from "../../../shareds/utils/pokemon/animations/pokemonAnimations.utils.js";
 import { BattleRenderer } from "./BattleRenderer/BattleRenderer.model.js";
 import { Slot } from "../../Slot/Slot.model.js";

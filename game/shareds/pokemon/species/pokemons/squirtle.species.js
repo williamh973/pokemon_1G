@@ -1,5 +1,5 @@
-import { GROWTH_RATES_DATABASE } from "../experience/growthRates/growthRates.database.js";
-import { MOVES_DATABASE } from "../moves/moves.database.js";
+import { GROWTH_RATES_DATABASE } from "../../experience/growthRates/growthRates.database.js";
+import { MOVES_DATABASE } from "../../moves/moves.database.js";
 
 export const SQUIRTLE_SPECIES = {
   id: "squirtle",

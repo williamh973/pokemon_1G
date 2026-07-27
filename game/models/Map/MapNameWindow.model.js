@@ -22,14 +22,14 @@ export class MapNameWindow {
       this.position.y,
       this.width,
       this.height,
-      "black",
-      "white"
+      "transparent",
+      "rgb(0, 0, 0, 0.7)"
     );
     this.drawText(context);
   }
 
   drawText(context) {
-    textParams(context, "26");
+    textParams(context, "24", "rgb(255, 255, 255, 0.6)");
     drawText(
       context,
       this.game.mapManager.currentMap.name,

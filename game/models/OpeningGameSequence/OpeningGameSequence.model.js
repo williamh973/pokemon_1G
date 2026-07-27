@@ -1,5 +1,9 @@
+import { openingBackgImage } from "../../assets/images/ui/ui.asset.js";
+import {
+  GAME_INTRO_PLAYER_FEMALE_RUN,
+  GAME_INTRO_PLAYER_MALE_RUN,
+} from "../../render/config/gameIntro/gameIntroPlayerSprite.config.js";
 import { POKEDEX_DATABASE } from "../../shareds/pokedex/pokedex.database.js";
-import { drawBox } from "../../shareds/utils/box/box.utils.js";
 import { getAnimationConfig } from "../../shareds/utils/pokemon/animations/pokemonAnimations.utils.js";
 import { Slot } from "../Slot/Slot.model.js";
 import { SpriteViewer } from "../SpriteViewer/SpriteViewer.model.js";
@@ -16,38 +20,68 @@ export class OpeningGameSequence {
     this.height = this.canvas.height;
     this.isOpen = false;
     this.hasFocus = false;
-    this.slot = new Slot({
-      positionX: 112,
+    this.isFinished = false;
+    this.isSpriteInitialPosition = false;
+    this.isSpriteStandPosition = false;
+
+    this.pokemonSlot = new Slot({
+      positionX: 190,
+      positionY: 110,
+      width: 100,
+      height: 100,
+    });
+    this.playerSlot = new Slot({
+      positionX: 132,
       positionY: 95,
       width: 95,
       height: 100,
     });
-    this.spriteViewer = null;
-    this.timer = 100;
-    this.getSprite(Math.floor(Math.random() * 151));
+
+    this.spriteViewer = {
+      player: null,
+      pokemon: null,
+    };
+    this.playerSprites = [
+      GAME_INTRO_PLAYER_MALE_RUN,
+      GAME_INTRO_PLAYER_FEMALE_RUN,
+    ];
+
+    this.timer = 200;
+
+    this.getPlayerSprite(Math.floor(Math.random() * 2));
+    this.getPokemonSprite(Math.floor(Math.random() * 151));
   }
 
-  getSprite(random151) {
-    // console.log(POKEDEX_DATABASE[150].id);
+  getPlayerSprite(random2) {
+    // this.spriteViewer.player = new SpriteViewer(
+    //   this.game,
+    //   this.playerSprites[random2],
+    //   this.playerSlot
+    // );
+    // this.spriteViewer.player.isOpen = true;
+  }
+
+  getPokemonSprite(random151) {
     if (POKEDEX_DATABASE[random151]?.id) {
-      this.spriteViewer = new SpriteViewer(
+      this.spriteViewer.pokemon = new SpriteViewer(
         this.game,
         getAnimationConfig(POKEDEX_DATABASE[random151].id, "front"),
-        this.slot
+        this.pokemonSlot
       );
-      this.spriteViewer.isOpen = true;
+
+      this.setSpriteInitalPositions();
+
+      this.spriteViewer.pokemon.isOpen = true;
     }
   }
 
   draw(context) {
-    drawBox(
-      context,
-      this.position.x,
-      this.position.y,
-      this.width,
-      this.height,
-      "black",
-      "white"
+    context.drawImage(
+      openingBackgImage,
+      0,
+      0,
+      openingBackgImage.width,
+      openingBackgImage.height
     );
   }
 
@@ -56,19 +90,67 @@ export class OpeningGameSequence {
     this.hasFocus = true;
   }
 
+  setSpriteInitalPositions() {
+    this.spriteViewer.pokemon.sprite.position.x =
+      0 - this.spriteViewer.pokemon.sprite.config.frameWidth;
+  }
+
+  spriteStandPosition() {
+    return (
+      this.spriteViewer.pokemon.sprite.position.x >=
+      this.pokemonSlot.position.x +
+        (this.pokemonSlot.width - this.spriteViewer.pokemon.sprite.frameWidth) /
+          2
+    );
+  }
+
+  checkSpriteCanvasOutPosition() {
+    return (
+      this.spriteViewer.pokemon.sprite.position.x >=
+      this.game.canvas.position.x + this.game.canvas.width
+    );
+  }
+
   update(context, action) {
     if (!this.isOpen) return;
+
+    if (this.timer > 0) this.timer--;
+
+    if (this.timer <= 0 && !this.isSpriteStandPosition) {
+      this.isSpriteInitialPosition = true;
+
+      if (!this.spriteStandPosition() && !this.isSpriteStandPosition)
+        this.spriteViewer.pokemon.sprite.position.x += 4;
+      else {
+        this.isSpriteInitialPosition = false;
+      }
+    }
+
+    if (this.spriteStandPosition() && !this.isSpriteStandPosition) {
+      this.timer = 400;
+      this.isSpriteStandPosition = true;
+    }
+
+    if (this.timer <= 0 && this.isSpriteStandPosition)
+      this.spriteViewer.pokemon.sprite.position.x += 4;
+
+    if (this.checkSpriteCanvasOutPosition()) {
+      this.getPokemonSprite(Math.floor(Math.random() * 151));
+      this.isSpriteInitialPosition = false;
+      this.isSpriteStandPosition = false;
+    }
+
     this.draw(context);
 
     if (!this.isOpen || !this.hasFocus) return;
+    // else {
+    //   this.getPokemonSprite(Math.floor(Math.random() * 151));
+    //   this.getPlayerSprite(Math.floor(Math.random() * 2));
+    //   this.timer = 500;
+    // }
 
-    if (this.timer > 0) this.timer--;
-    else {
-      this.getSprite(Math.floor(Math.random() * 151));
-      this.timer = 500;
-    }
-
-    this.spriteViewer?.update(context);
+    this.spriteViewer?.player?.update(context);
+    this.spriteViewer?.pokemon?.update(context);
 
     switch (action) {
       case "ACTION":

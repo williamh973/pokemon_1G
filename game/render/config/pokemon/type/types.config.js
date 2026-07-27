@@ -7,7 +7,7 @@ export const TYPES_CONFIG = {
     scale: 1.1,
   },
   BUG: {
-    image: createImg("game/assets/images/types/bug.png"),
+    image: createImg("game/assets/images/types/insect.png"),
   },
   GRASS: {
     image: createImg("game/assets/images/types/grass.png"),
@@ -20,9 +20,6 @@ export const TYPES_CONFIG = {
   },
   FLIGHT: {
     image: createImg("game/assets/images/types/flying.png"),
-  },
-  INSECT: {
-    image: createImg("game/assets/images/types/insect.png"),
   },
   ROCK: {
     image: createImg("game/assets/images/types/rock.png"),

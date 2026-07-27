@@ -10,6 +10,7 @@ import { palletTownLights } from "./palletTown.lights.js";
 import { palletTownEncounters } from "./palletTown.encounters.js";
 import { palletTownOverworldPokemons } from "./palletTown.overworldPokemons.js";
 import { palletTownWeathers } from "./palletTown.weather.js";
+import { palletTownWorldMap } from "./palletTown.worldMap.js";
 
 export const palletTown = {
   id: "PALLET_TOWN",
@@ -27,7 +28,7 @@ export const palletTown = {
   encounterRate: 15,
   overworldPokemons: palletTownOverworldPokemons,
   maxOP: 2,
-  worldMap: { x: 3, y: 6.5, w: 1, h: 1 },
+  worldMap: palletTownWorldMap,
   isFlyable: true,
   isIndoor: false,
   npcs: PALLET_TOWN_NPCs,

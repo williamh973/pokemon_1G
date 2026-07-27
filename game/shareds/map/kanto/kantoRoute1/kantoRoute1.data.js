@@ -8,6 +8,7 @@ import { kantoRoute1OverworldPokemons } from "./kantoRoute1.overworldPokemons.js
 import { kantoRoute1PuddlesLayout } from "./kantoRoute1.puddlesLayout.js";
 import { kantoRoute1Warps } from "./kantoRoute1.warp.js";
 import { kantoRoute1Weathers } from "./kantoRoute1.weather.js";
+import { kantoRoute1WorldMap } from "./kantoRoute1.worldMap.js";
 
 export const kantoRoute1 = {
   id: "KANTO_ROUTE_1",
@@ -25,7 +26,7 @@ export const kantoRoute1 = {
   encounterRate: 255, // 256
   overworldPokemons: kantoRoute1OverworldPokemons,
   maxOP: 2,
-  worldMap: { x: 3, y: 5, w: 1, h: 3 },
+  worldMap: kantoRoute1WorldMap,
   isFlyable: false,
   isIndoor: false,
   npcs: KANTO_ROUTE_1_NPCS,

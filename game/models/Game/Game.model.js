@@ -61,7 +61,7 @@ export class Game {
     this.dayNightCycle = new DayNightCycle();
     this.encounterManager = new EncounterManager();
     this.mapNameWindow = new MapNameWindow(this);
-    this.worldMap = new WorldMap(this, "ENCOUNTER");
+    this.worldMap = new WorldMap(this);
     this.battleMenu = new BattleMenu(this);
     this.screenManager = new ScreenManager(this);
     this.battleManager = null;
@@ -77,7 +77,7 @@ export class Game {
   }
 
   init() {
-    this.startOpeningGameSequence();
+    this.openStartMenu();
     this.tileManager.load();
 
     animate(this, this.tileManager);
@@ -174,12 +174,16 @@ export class Game {
     this.screenManager.open(this.player.inventory, GAME_STATES.INVENTORY);
   }
 
-  openWorldMap() {
-    const pokemon =
-      this.screenManager.currentScreen.pokemonList.selectedPokemon;
+  openWorldMap(item = null) {
+    const selectedPokemonFromPokedex =
+      this.screenManager.currentScreen.pokemonList?.selectedPokemon;
 
     this.screenManager.setCurrentScreen(this.worldMap);
-    this.screenManager.currentScreen.open(pokemon);
+
+    if (selectedPokemonFromPokedex)
+      this.worldMap.open(selectedPokemonFromPokedex);
+    else if (item) this.worldMap.open(null, item);
+
     this.state = GAME_STATES.WORLDMAP;
   }
 
