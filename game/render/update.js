@@ -86,7 +86,7 @@ export const update = (game) => {
       game.dialogBox?.update(game.canvas.context, action);
       break;
     case GAME_STATES.WORLDMAP:
-      game.screenManager.currentScreen.update(game, action);
+      game.screenManager.currentScreen.update(game.canvas.context, action);
       break;
     case GAME_STATES.BATTLE_MENU:
       game.screenManager.currentScreen.update(game.canvas.context, action);
@@ -112,6 +112,7 @@ export const update = (game) => {
     case GAME_STATES.GENDER_MENU:
     case GAME_STATES.INVENTORY:
     case GAME_STATES.OPENING_GAME:
+    case GAME_STATES.TRAINER_CARD:
       game.screenManager.currentScreen.update(game.canvas.context, action);
       break;
     default:

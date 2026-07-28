@@ -8,6 +8,7 @@ export class Save {
     this.player = {
       tileX: 0,
       tileY: 0,
+      trainerId: 0,
       party: {
         slots: [],
       },
@@ -36,6 +37,7 @@ export class Save {
     this.playerPosition(game);
 
     this.flags = game.flags;
+    this.playerTrainerId(game);
 
     this.playerInventory(game);
 
@@ -71,6 +73,10 @@ export class Save {
   playerPosition(game) {
     this.player.tileX = game.player.tileX;
     this.player.tileY = game.player.tileY;
+  }
+
+  playerTrainerId(game) {
+    this.player.trainerId = game.player.trainerId;
   }
 
   playerInventory(game) {
@@ -124,6 +130,9 @@ export class Save {
   apply(game) {
     game.player.tileX = this.player.tileX;
     game.player.tileY = this.player.tileY;
+
+    game.player.trainerId = this.player.trainerId;
+
     game.player.position = {
       x: TILES_SIZE * game.player.tileX,
       y: TILES_SIZE * game.player.tileY,

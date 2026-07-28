@@ -98,6 +98,10 @@ export class Game {
     this.screenManager.open(new StartGameMenu(this), GAME_STATES.START_GAME);
   }
 
+  openTrainerCard() {
+    this.screenManager.open(this.player.trainerCard, GAME_STATES.TRAINER_CARD);
+  }
+
   openBattle(wildPokemon, tile, battleType) {
     this.battleManager = new BattleManager(
       this,
@@ -258,7 +262,8 @@ export class Game {
   }
 
   load() {
-    loadGame(this);
+    const hasGameLoaded = loadGame(this);
+    if (hasGameLoaded) this.closeStartMenu();
   }
 
   selectGender(genderId) {

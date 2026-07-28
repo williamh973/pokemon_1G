@@ -12,7 +12,7 @@ export const checkInteractions = (game, player) => {
 
   const foundedPokemonLearnedSurf = party.slots
     .find((slot) => slot)
-    .content.moves.find((move) => move.id === "surf");
+    .content?.moves?.find((move) => move.id === "surf");
 
   const isSurfPossible = checkSurfCanPossible(
     game,

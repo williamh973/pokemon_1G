@@ -54,7 +54,9 @@ export const update = (inventory, context, action) => {
         break;
 
       case INPUT_STATE.ACTION:
-        inventory.openContextMenu();
+        const item = inventory.categories[inventory.itemCurrentIndex];
+        if (item.id === "RETOUR") inventory.openItem(item.id);
+        else inventory.openContextMenu();
         break;
 
       case GAME_STATES.PLAYER_MENU:

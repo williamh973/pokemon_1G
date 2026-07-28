@@ -39,10 +39,10 @@ export class PokemonSummaryManager {
   nextPage(action) {
     this.activePage.isOpen = false;
 
-    if (action === "RIGHT") this.pageIndex++;
+    if (action === INPUT_STATE.RIGHT) this.pageIndex++;
     else this.pageIndex--;
 
-    if (action === "LEFT" && this.pageIndex < 0)
+    if (action === INPUT_STATE.LEFT && this.pageIndex < 0)
       this.pageIndex = this.pages.length - 1;
 
     if (this.pageIndex >= this.pages.length) this.pageIndex = 0;
@@ -62,13 +62,13 @@ export class PokemonSummaryManager {
     if (!this.hasFocus) return;
 
     switch (action) {
-      case "RIGHT":
-        this.nextPage("RIGHT");
+      case INPUT_STATE.RIGHT:
+        this.nextPage(INPUT_STATE.RIGHT);
         break;
-      case "LEFT":
-        this.nextPage("LEFT");
+      case INPUT_STATE.LEFT:
+        this.nextPage(INPUT_STATE.LEFT);
         break;
-      case "ACTION":
+      case INPUT_STATE.ACTION:
         break;
       case INPUT_STATE.ESCAPE:
         this.close();

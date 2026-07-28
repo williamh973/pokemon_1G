@@ -19,3 +19,7 @@ export let partySummaryBackgImg = createImg(
 export let openingBackgImage = createImg(
   "game/assets/images/ui/gameIntro/openingBackgImage.png"
 );
+
+export let trainerCardBackgImage = createImg(
+  "game/assets/images/ui/trainerCard.png"
+);

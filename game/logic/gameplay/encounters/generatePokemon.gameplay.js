@@ -20,7 +20,6 @@ export const generatePokemon = (
     exp: getExpForLevel(target.level, species.growthRate),
     nextLevelExp: getExpForLevel(target.level + 1, species.growthRate),
     item: generateItem(),
-    trainerId: generateTrainerId(),
     item: "Aucun",
     level: target.level,
     ivs,
@@ -55,11 +54,6 @@ const getMoves = (learnsets, level) => {
       precision: set.move.precision,
       desc: set.move.desc,
     }));
-};
-
-const generateTrainerId = () => {
-  const random = Math.floor(Math.random() * 100_000);
-  return random;
 };
 
 const generateItem = () => {

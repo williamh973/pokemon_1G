@@ -2,7 +2,6 @@ import { partyBackgImg } from "../../../../assets/images/ui/ui.asset.js";
 import { PARTY_SLOT_CONFIG } from "../../../../logic/gameplay/character/player/party/partySlots.config.js";
 import { GAME_STATES } from "../../../../logic/gameplay/game/states/states.gameplay.js";
 import { INPUT_STATE } from "../../../../logic/input/inputs.state.js";
-import { DIALOGS_TREE_DATABASE } from "../../../../shareds/dialogTree/dialogTree.database.js";
 import { PokemonPartySlot } from "../../../Slot/PokemonPartySlot/PokemonPartySlot.model.js";
 import { StatsBox } from "../../../pokemon/StatsBox/StatsBox.model.js";
 import { PartyPhaseManager } from "./PartyPhaseManager/PartyPhaseManager.model.js";
@@ -43,11 +42,21 @@ export class Party {
     );
   }
 
+  addTrainerId(pastPokemon) {
+    const newPokemon = {
+      ...pastPokemon,
+      trainerId: this.game.player.trainerId,
+    };
+    return newPokemon;
+  }
+
   addPokemonToFirstEmptySlot(pokemon) {
+    const addedPokemon = this.addTrainerId(pokemon);
+
     const emptySlot = this.slots.find((slot) => slot.content === null);
     if (!emptySlot) return false;
 
-    emptySlot.setPokemon(pokemon);
+    emptySlot.setPokemon(addedPokemon);
     return true;
   }
 

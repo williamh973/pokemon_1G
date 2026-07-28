@@ -5,6 +5,7 @@ import { Inventory } from "../../MainMenu/items/Inventory/Inventory.model.js";
 import { Pokedex } from "../../MainMenu/items/pokedex/pokedex.model.js";
 import { PLAYER_PATHS } from "../../../logic/gameplay/character/player/paths.gameplay.js";
 import { getSprites } from "../../../shareds/utils/character/player/player.utils.js";
+import { TrainerCard } from "../../MainMenu/items/TrainerCard/TrainerCard.model.js";
 
 export class Player extends Character {
   constructor(game, playedWith) {
@@ -14,7 +15,7 @@ export class Player extends Character {
       tileY: 6,
       sprites: getSprites(playedWith, "foot"),
     });
-
+    this.trainerId = Math.floor(Math.random() * 100_000);
     this.playedWith = playedWith;
     this.width = 29;
     this.height = 33;
@@ -28,10 +29,13 @@ export class Player extends Character {
     this.focusedStarter = {};
     this.gotPokedex = true;
     this.pokedex = new Pokedex(game);
+    this.badges = [];
+    this.money = 0;
     this.party = new Party(game);
     this.inventory = new Inventory(game);
-    this.trainerCard = {};
+    this.trainerCard = new TrainerCard(game);
     this.paths = PLAYER_PATHS;
+    this.alreadyVisitedMaps = [];
 
     this.speed = {
       walkSpeed: 20,

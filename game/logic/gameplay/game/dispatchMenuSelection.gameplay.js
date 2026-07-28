@@ -5,6 +5,7 @@ export const dispatchMenuSelection = (game, itemId, source) => {
     POKEDEX: () => game.openPokedex(),
     POKEMON: () => game.openParty(),
     SAC: () => game.openInventory(),
+    TRAINER_CARD: () => game.openTrainerCard(),
     SAUVER: () => game.attemptSave(),
     OPTIONS: () => game.openOptionsScreen(),
     RETOUR: () => game.handlerClosesFromReturnItem(),

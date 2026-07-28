@@ -109,6 +109,12 @@ export class MapManager {
     game.mapNameWindow.open();
   }
 
+  checkHasAlreadyVisitedMap(player) {
+    if (this.currentMap.isFlyable)
+      if (!player.alreadyVisitedMaps.includes(this.currentMap.id))
+        player.alreadyVisitedMaps.push(this.currentMap.id);
+  }
+
   updatePlayer(game, isCanMove, warp) {
     game.player.isCanMove = isCanMove;
     game.player.tileX = warp.to.x;
@@ -116,6 +122,8 @@ export class MapManager {
 
     game.player.position.x = warp.to.x * TILES_SIZE;
     game.player.position.y = warp.to.y * TILES_SIZE;
+
+    this.checkHasAlreadyVisitedMap(game.player);
 
     if (!warp.facing) return;
     game.player.setFacing(warp.facing);

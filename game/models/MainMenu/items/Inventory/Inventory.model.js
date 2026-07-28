@@ -23,7 +23,11 @@ export class Inventory extends Menu {
     this.width = this.canvas.width;
     this.height = this.canvas.height;
     this.categoryLabels = ["SOIN", "BALL", "RARE", "CT/CS"];
-    this.CANCEL_ITEM = { id: "RETOUR", name: "RETOUR" };
+    this.CANCEL_ITEM = {
+      id: "RETOUR",
+      name: "RETOUR",
+      desc: "Ferme l'inventaire.",
+    };
     this.cares = [this.CANCEL_ITEM];
     this.balls = [this.CANCEL_ITEM];
     this.keys = [this.CANCEL_ITEM];
@@ -149,9 +153,10 @@ export class Inventory extends Menu {
   }
 
   openContextMenu() {
-    this.cursor.state = this.cursor.state.focused;
-
     const item = this.categories[this.itemCurrentIndex];
+    if (item.id === "RETOUR") return;
+
+    this.cursor.state = this.cursor.state.focused;
 
     this.contextMenu = new InventoryContextMenu(this.game, item);
     this.contextMenu.open();
