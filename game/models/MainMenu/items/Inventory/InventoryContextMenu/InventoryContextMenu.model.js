@@ -21,12 +21,6 @@ export class InventoryContextMenu extends Menu {
     };
   }
 
-  //   reopenPartyMenu() {
-  //     this.game.openParty();
-  //     this.hasFocus = true;
-  //     this.isOpen = true;
-  //   }
-
   draw(context) {
     drawBox(
       context,
@@ -67,9 +61,17 @@ export class InventoryContextMenu extends Menu {
     if (this.item.id === "RETOUR") return this.openItem(this.item.id);
 
     const itemCanUsedInWorld = this.checkIfItemCanBeUsed();
-    if (!itemCanUsedInWorld && !this.game.battleManager)
-      return this.game.player.inventory.openDialogBox(false);
-    else this.game.handleItemSelection(this.item, this);
+    if (this.game.battleManager) {
+      if (itemCanUsedInWorld) {
+        const text = "Objet inutilisable en combat";
+        return this.game.player.inventory.openDialogBox(false, text);
+      } else {
+        this.game.handleItemSelection(this.item, this);
+      }
+    } else {
+      const text = "Objet utilisable uniquement \nen combat";
+      return this.game.player.inventory.openDialogBox(false, text);
+    }
   }
 
   update(context, action) {

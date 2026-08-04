@@ -53,7 +53,7 @@ export class EncounterManager {
           game.mapManager.currentMap.name
         );
 
-        game.openBattle(wildPokemon, tile, "WILD");
+        game.createBattle(wildPokemon, tile, "WILD");
 
         done();
       },

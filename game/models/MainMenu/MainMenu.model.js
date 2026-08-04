@@ -25,7 +25,7 @@ export class MainMenu extends Menu {
     else
       this.items = [
         { id: "SAC", name: "SAC" },
-        { id: "TRAINER_CARD", name: "SACHA" },
+        { id: "SACHA", name: "RED" },
         { id: "SAUVER", name: "SAUVER" },
         { id: "OPTIONS", name: "OPTIONS" },
         { id: "RETOUR", name: "RETOUR" },

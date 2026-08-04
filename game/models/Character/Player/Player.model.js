@@ -8,33 +8,31 @@ import { getSprites } from "../../../shareds/utils/character/player/player.utils
 import { TrainerCard } from "../../MainMenu/items/TrainerCard/TrainerCard.model.js";
 
 export class Player extends Character {
-  constructor(game, playedWith) {
+  constructor(game, genderId = "BOY") {
     super({
       id: "PLAYER",
       tileX: 7,
       tileY: 6,
-      sprites: getSprites(playedWith, "foot"),
+      sprites: getSprites(genderId, "foot"),
     });
+    this.gender = genderId;
     this.trainerId = Math.floor(Math.random() * 100_000);
-    this.playedWith = playedWith;
     this.width = 29;
     this.height = 33;
+    this.money = 0;
     this.entityType = "PLAYER";
-    this.name = "red";
     this.nickname = "RED";
-    this.abilities = "";
     this.hasWon = false;
     this.hasLose = false;
     this.isOnBike = false;
     this.focusedStarter = {};
     this.gotPokedex = true;
     this.pokedex = new Pokedex(game);
-    this.badges = [];
-    this.money = 0;
     this.party = new Party(game);
     this.inventory = new Inventory(game);
-    this.trainerCard = new TrainerCard(game);
+    this.trainerCard = new TrainerCard(game, this.gender);
     this.paths = PLAYER_PATHS;
+    this.badges = [];
     this.alreadyVisitedMaps = [];
 
     this.speed = {
@@ -80,8 +78,13 @@ export class Player extends Character {
     this.movementSpeed();
     if (wasMoving && !this.isMoving) game.mapManager.checkWarp(this, true);
 
-    this.isOnBike
-      ? (this.sprites = getSprites(this.playedWith, "bike"))
-      : (this.sprites = getSprites(this.playedWith, "foot"));
+    // this.isOnBike
+    //   ? (this.sprites = getSprites(this.gender, "bike"))
+    //   : (this.sprites = getSprites(this.gender, "foot"));
+
+    this.sprites =
+      this.isOnBike === true
+        ? getSprites(this.gender, "bike")
+        : getSprites(this.gender, "foot");
   }
 }

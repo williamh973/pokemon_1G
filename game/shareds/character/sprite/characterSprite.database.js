@@ -91,8 +91,6 @@ import {
   idlePlayerLeft,
   idlePlayerRight,
   idlePlayerUp,
-  presentationPlayer,
-  trainerCardPlayer,
   walkPlayerDown_stepA,
   walkPlayerDown_stepB,
   walkPlayerLeft_stepA,
@@ -104,7 +102,7 @@ import {
 } from "../../../assets/images/player/player.assets.js";
 
 export const CHARACTER_SPRITES = {
-  red: {
+  BOY: {
     world: {
       foot: {
         idle: {
@@ -147,29 +145,52 @@ export const CHARACTER_SPRITES = {
         },
       },
     },
-    genderMenu: presentationPlayer,
-    trainerCard: trainerCardPlayer,
   },
-  lira: {
-    idle: {
-      up: idlePlayerUp,
-      down: idlePlayerDown,
-      left: idlePlayerLeft,
-      right: idlePlayerRight,
-    },
-    jump: {
-      up: idlePlayerUp,
-      down: idlePlayerDown,
-      left: idlePlayerLeft,
-      right: idlePlayerRight,
-    },
-    walk: {
-      up: [walkPlayerUp_stepA, walkPlayerUp_stepB],
-      down: [walkPlayerDown_stepA, walkPlayerDown_stepB],
-      left: [walkPlayerLeft_stepA, walkPlayerLeft_stepB],
-      right: [walkPlayerRight_stepA, walkPlayerRight_stepB],
+  GIRL: {
+    world: {
+      foot: {
+        idle: {
+          up: idlePlayerUp,
+          down: idlePlayerDown,
+          left: idlePlayerLeft,
+          right: idlePlayerRight,
+        },
+        jump: {
+          up: idlePlayerUp,
+          down: idlePlayerDown,
+          left: idlePlayerLeft,
+          right: idlePlayerRight,
+        },
+        walk: {
+          up: [walkPlayerUp_stepA, walkPlayerUp_stepB],
+          down: [walkPlayerDown_stepA, walkPlayerDown_stepB],
+          left: [walkPlayerLeft_stepA, walkPlayerLeft_stepB],
+          right: [walkPlayerRight_stepA, walkPlayerRight_stepB],
+        },
+      },
+      bike: {
+        idle: {
+          up: bikeIdlePlayerUp,
+          down: bikeIdlePlayerDown,
+          left: bikeIdlePlayerLeft,
+          right: bikeIdlePlayerRight,
+        },
+        jump: {
+          up: bikeIdlePlayerUp,
+          down: bikeIdlePlayerDown,
+          left: bikeIdlePlayerLeft,
+          right: bikeIdlePlayerRight,
+        },
+        walk: {
+          up: [bikeWalkPlayerUp_stepA, bikeWalkPlayerUp_stepB],
+          down: [bikeWalkPlayerDown_stepA, bikeWalkPlayerDown_stepB],
+          left: [bikeWalkPlayerLeft_stepA, bikeWalkPlayerLeft_stepB],
+          right: [bikeWalkPlayerRight_stepA, bikeWalkPlayerRight_stepB],
+        },
+      },
     },
   },
+
   redMom: {
     idle: {
       up: idleMomUp,

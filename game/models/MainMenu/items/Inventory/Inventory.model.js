@@ -148,8 +148,8 @@ export class Inventory extends Menu {
     });
   }
 
-  openDialogBox(itemCanUsedInWorld) {
-    openDialogBox(this, itemCanUsedInWorld);
+  openDialogBox(CanitemUsedInOpenWorld, text) {
+    openDialogBox(this, CanitemUsedInOpenWorld, text);
   }
 
   openContextMenu() {

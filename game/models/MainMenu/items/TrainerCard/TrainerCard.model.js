@@ -1,12 +1,20 @@
-import { trainerCardBackgImage } from "../../../../assets/images/ui/ui.asset.js";
+import {
+  femaleTrainerCardBackgImage,
+  maleTrainerCardBackgImage,
+} from "../../../../assets/images/ui/ui.asset.js";
 import { INPUT_STATE } from "../../../../logic/input/inputs.state.js";
 import { drawText } from "../../../../shareds/utils/font/drawText.utils.js";
 import { textParams } from "../../../../shareds/utils/font/font.utils.js";
 
 export class TrainerCard {
-  constructor(game) {
+  constructor(game, gender) {
     this.game = game;
-    this.backgImg = trainerCardBackgImage;
+
+    this.backgImg =
+      gender === "GIRL"
+        ? femaleTrainerCardBackgImage
+        : maleTrainerCardBackgImage;
+
     this.position = {
       x: 0,
       y: 0,
@@ -37,6 +45,10 @@ export class TrainerCard {
     this.hasFocus = false;
   }
 
+  drawNickname(context, player) {
+    drawText(context, player.nickname, 102, 36);
+  }
+
   drawTrainerId(context, player) {
     drawText(context, player.trainerId, 225, 17);
   }
@@ -63,6 +75,7 @@ export class TrainerCard {
 
     const player = this.game.player;
 
+    this.drawNickname(context, player);
     this.drawTrainerId(context, player);
     this.drawMoney(context, player);
     this.drawPokemonCaught(context, player);

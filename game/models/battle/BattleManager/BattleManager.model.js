@@ -11,6 +11,9 @@ import { BattleSequenceManager } from "./BattleSequenceManager/BattleSequenceMan
 import { INPUT_STATE } from "../../../logic/input/inputs.state.js";
 import { DIALOGS_DATABASE } from "../../../shareds/dialogs/dialogs.database.js";
 import { BATTLE_MANAGER_STATES } from "../../../logic/gameplay/battleManager/slots/states/battleManager.states.js";
+import { BattleMovesMenu } from "./BattleMenu/BattleMovesMenu/BattleMovesMenu.model.js";
+import { GAME_STATES } from "../../../logic/gameplay/game/states/states.gameplay.js";
+import { BattleMenu } from "./BattleMenu/BattleMenu.model.js";
 
 export class BattleManager {
   constructor(game, wildPokemon, tile, weather, battleType) {
@@ -37,6 +40,9 @@ export class BattleManager {
     this.battleResult = null;
     this.currentTrainerPokemon = null;
     this.currentPlayerPokemon = this.getPlayerPartyPokemon(0);
+
+    this.battleMenu = new BattleMenu(this.game);
+    this.battleMovesMenu = new BattleMovesMenu(this.game);
 
     this.battleRenderer = new BattleRenderer(
       this.game,
@@ -75,6 +81,21 @@ export class BattleManager {
     });
 
     this.phaseManager = new BattlePhaseManager(this, this.sequenceManager);
+  }
+
+  openBattleMenu() {
+    this.battleMenu.open();
+    this.game.state = GAME_STATES.BATTLE_MENU;
+  }
+
+  openBattleMovesMenu() {
+    this.battleMovesMenu.currentPlayerPokemon = this.currentPlayerPokemon;
+    this.battleMovesMenu.open();
+    this.game.state = GAME_STATES.BATTLE_MOVES_MENU;
+  }
+
+  handleBattleMoves(playerPokemonSelectedMoveData) {
+    console.log(playerPokemonSelectedMoveData);
   }
 
   requestSwitch() {
@@ -117,11 +138,29 @@ export class BattleManager {
         const pokedexState = this.game.player.pokedex.pokemonList.pokedexState;
         pokedexState.addSee(this.wildPokemon.id);
 
-        this.game.stopWildBattle();
+        this.endBattle();
 
         this.hasPlayerEscaped = false;
       }
     }
+  }
+
+  playerWantQuitBattle() {
+    if (this.wildPokemon) this.hasPlayerEscaped = true;
+  }
+
+  endBattle() {
+    this.game.transition.start(
+      () => {
+        this.game.togglePause(false, true);
+      },
+      (done) => {
+        this.game.screenManager.close(GAME_STATES.WORLD);
+        this.game.onBattleEnded();
+        done();
+      },
+      () => {}
+    );
   }
 
   checkPokemonCaptured(action) {

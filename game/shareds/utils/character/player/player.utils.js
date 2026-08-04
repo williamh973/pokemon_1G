@@ -9,7 +9,7 @@ export const PLAYER_ABILITIES = {
   teleport: false,
 };
 
-export const getSprites = (playedWith, movementType) => ({
-  idle: CHARACTER_SPRITES[playedWith].world[movementType].idle,
-  walk: CHARACTER_SPRITES[playedWith].world[movementType].walk,
+export const getSprites = (gender, movementType) => ({
+  idle: CHARACTER_SPRITES[gender].world[movementType].idle,
+  walk: CHARACTER_SPRITES[gender].world[movementType].walk,
 });

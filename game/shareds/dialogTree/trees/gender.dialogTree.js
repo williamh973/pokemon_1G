@@ -8,14 +8,8 @@ export const GENDER_DIALOG_TREE = {
   },
   first: {
     text: "Un garçon, d'accord !",
-    action: (game) => {
-      game.playedWith = "red";
-    },
   },
   second: {
     text: "Une fille, d'accord !",
-    action: (game) => {
-      game.playedWith = "lira";
-    },
   },
 };

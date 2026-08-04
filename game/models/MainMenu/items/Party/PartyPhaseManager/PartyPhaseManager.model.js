@@ -89,7 +89,7 @@ export class PartyPhaseManager {
         break;
 
       case PARTY_PHASES_DATABASE.EVOLUTION:
-        this.game.openEvolution();
+        this.game.screenManager.openEvolution();
         return {
           finished: true,
           closeDialog: true,

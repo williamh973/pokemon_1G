@@ -5,7 +5,7 @@ export class TimeManager {
   constructor() {
     this.time = 2300; // 2950 = 19h45 / 1500 = 10h00
     this.dayDuration = 3600;
-    this.speed = 0.5; // 0.001 équivaut à  30 mn in game
+    this.speed = 0.001; // 0.001 équivaut à  30 mn in game
     this.active = true;
   }
 
@@ -17,8 +17,8 @@ export class TimeManager {
   }
 
   draw(context) {
-    textParams(context, "16", "red");
-    drawText(context, this.timeString, 20, 20);
+    textParams(context, "17", "whitesmoke");
+    drawText(context, this.timeString, 265, 290);
   }
 
   get normalizedTime() {

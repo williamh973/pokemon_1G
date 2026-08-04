@@ -41,6 +41,7 @@ export class OpeningGameSequence {
       player: null,
       pokemon: null,
     };
+
     this.playerSprites = [
       GAME_INTRO_PLAYER_MALE_RUN,
       GAME_INTRO_PLAYER_FEMALE_RUN,
@@ -48,31 +49,20 @@ export class OpeningGameSequence {
 
     this.timer = 200;
 
-    this.getPlayerSprite(Math.floor(Math.random() * 2));
     this.getPokemonSprite(Math.floor(Math.random() * 151));
   }
 
-  getPlayerSprite(random2) {
-    // this.spriteViewer.player = new SpriteViewer(
-    //   this.game,
-    //   this.playerSprites[random2],
-    //   this.playerSlot
-    // );
-    // this.spriteViewer.player.isOpen = true;
-  }
-
   getPokemonSprite(random151) {
-    if (POKEDEX_DATABASE[random151]?.id) {
-      this.spriteViewer.pokemon = new SpriteViewer(
-        this.game,
-        getAnimationConfig(POKEDEX_DATABASE[random151].id, "front"),
-        this.pokemonSlot
-      );
+    // if (POKEDEX_DATABASE[random151]?.id) {
+    this.spriteViewer.pokemon = new SpriteViewer(
+      this.game,
+      getAnimationConfig(POKEDEX_DATABASE[0].id, "front"), // DEV ONLY
+      this.pokemonSlot
+    );
+    this.setSpriteInitalPositions();
 
-      this.setSpriteInitalPositions();
-
-      this.spriteViewer.pokemon.isOpen = true;
-    }
+    this.spriteViewer.pokemon.isOpen = true;
+    // }
   }
 
   draw(context) {
@@ -97,9 +87,10 @@ export class OpeningGameSequence {
 
   spriteStandPosition() {
     return (
-      this.spriteViewer.pokemon.sprite.position.x >=
+      this.spriteViewer.pokemon?.sprite?.position.x >=
       this.pokemonSlot.position.x +
-        (this.pokemonSlot.width - this.spriteViewer.pokemon.sprite.frameWidth) /
+        (this.pokemonSlot.width -
+          this.spriteViewer.pokemon?.sprite?.frameWidth) /
           2
     );
   }
@@ -154,7 +145,7 @@ export class OpeningGameSequence {
 
     switch (action) {
       case "ACTION":
-        this.game.openStartMenu();
+        this.game.gamePhaseManager.setPhase("START_OR_CONTINUE");
         break;
     }
   }

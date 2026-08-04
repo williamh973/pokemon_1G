@@ -7,8 +7,7 @@ export class BattleMovesMenu extends Menu {
   constructor(game) {
     super(game);
 
-    this.currentPlayerPokemon = this.game.battleManager.currentPlayerPokemon;
-
+    this.currentPlayerPokemon = null;
     this.canvas = this.game.canvas;
     this.width = this.canvas.width / 2;
     this.height = this.canvas.height / 2;
@@ -19,12 +18,10 @@ export class BattleMovesMenu extends Menu {
     this.lineHeight = 40;
     this.items = [];
     this.selectedMoveData = null;
-
-    this.setItems();
   }
 
   setItems() {
-    this.currentPlayerPokemon.moves.forEach((move, index) => {
+    this.currentPlayerPokemon?.moves.forEach((move, index) => {
       let slot = new PokemonMoveSlot(
         {
           positionX: this.position.x + 25,
@@ -40,12 +37,13 @@ export class BattleMovesMenu extends Menu {
   }
 
   open() {
+    this.setItems();
     super.open();
   }
 
   close() {
     super.close();
-    this.game.openBattleMenu();
+    this.game.battleManager.openBattleMenu();
   }
 
   draw(context) {

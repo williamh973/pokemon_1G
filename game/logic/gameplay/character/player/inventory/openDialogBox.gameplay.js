@@ -1,4 +1,4 @@
-export const openDialogBox = (inventory, itemCanUsedInWorld) => {
+export const openDialogBox = (inventory, itemCanUsedInWorld, text) => {
   if (itemCanUsedInWorld) {
     const item = inventory.categories[inventory.itemCurrentIndex];
     item && item.desc
@@ -6,6 +6,5 @@ export const openDialogBox = (inventory, itemCanUsedInWorld) => {
       : inventory.dialogBox.open("", true);
   }
 
-  if (!itemCanUsedInWorld)
-    inventory.dialogBox.open("Objet utilisable uniquement \nen combat", true);
+  if (!itemCanUsedInWorld) inventory.dialogBox.open(text, true);
 };

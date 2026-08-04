@@ -3,12 +3,12 @@ import { GAME_STATES } from "./states/states.gameplay.js";
 export const handlerClosesFromReturnItem = (game) => {
   if (game.battleManager) {
     game.screenManager.setCurrentScreen(game.battleManager);
-    game.openBattleMenu();
+    game.battleManager.openBattleMenu();
   }
 
   switch (game.state) {
     case GAME_STATES.POKEDEX:
-      game.openPokedex();
+      game.screenManager.open(game.player.pokedex, GAME_STATES.POKEDEX);
       break;
     case GAME_STATES.PARTY:
       game.player.party.contextMenu.close();

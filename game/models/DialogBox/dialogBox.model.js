@@ -37,14 +37,14 @@ export class DialogBox {
       this.position.y,
       this.width,
       this.height,
-      "black",
-      "white"
+      "transparent",
+      "rgb(0, 0, 0, 0.7)"
     );
     if (this.text) this.drawText(context);
   }
 
   drawText(context) {
-    textParams(context, "26");
+    textParams(context, "26", "rgb(255, 255, 255, 0.9)");
 
     const page = this.pages[this.currentPageIndex];
     page.forEach((line, index) => {

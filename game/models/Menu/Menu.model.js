@@ -1,3 +1,4 @@
+import { INPUT_STATE } from "../../logic/input/inputs.state.js";
 import { drawText } from "../../shareds/utils/font/drawText.utils.js";
 import { textParams } from "../../shareds/utils/font/font.utils.js";
 import { Cursor } from "../Cursor/Cursor.model.js";
@@ -7,7 +8,7 @@ export class Menu {
     this.game = game;
     this.items = [];
     this.currentIndex = 0;
-    this.cursor = new Cursor();
+    this.cursor = new Cursor("MENU");
     this.isOpen = false;
     this.hasFocus = false;
     this.lineHeight = 25;
@@ -60,17 +61,17 @@ export class Menu {
 
   navigate(action) {
     switch (action) {
-      case "UP":
+      case INPUT_STATE.UP:
         if (this.currentIndex > 0) this.currentIndex--;
         break;
 
-      case "DOWN":
+      case INPUT_STATE.DOWN:
         if (this.currentIndex < this.items.length - 1) {
           this.currentIndex++;
         }
         break;
 
-      case "ACTION":
+      case INPUT_STATE.ACTION:
         this.openItem();
         break;
     }

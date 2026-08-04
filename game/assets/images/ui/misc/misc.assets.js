@@ -1,11 +1,17 @@
 import { createImg } from "../../../../shareds/utils/assets/assets.utils.js";
 
-export let rightArrow = createImg(
-  "game/assets/images/ui/misc/cursor_selection.png"
+export let rightArrowDefaultCursor = createImg(
+  "game/assets/images/ui/misc/cursor/rightArrowCursor_default.png"
 );
 
-export let focusedRightArrow = createImg(
-  "game/assets/images/ui/misc/cursor_activated.png"
+export let rightArrowFocusedCursor = createImg(
+  "game/assets/images/ui/misc/cursor/rightArrowCursor_focused.png"
 );
 
-export let kantoImg = createImg("game/assets/images/ui/misc/global_map.png");
+export let worldMapLockedCursor = createImg(
+  "game/assets/images/ui/misc/cursor/worldMapCursor_locked.png"
+);
+
+export let worldMapUnlockedCursor = createImg(
+  "game/assets/images/ui/misc/cursor/worldMapCursor_unlocked.png"
+);

@@ -8,7 +8,7 @@ export const STARTER_DIALOG_TREE = {
     setChoices: [POSSIBLE_CHOICES_DATABASE.yes, POSSIBLE_CHOICES_DATABASE.no],
   },
   first: {
-    text: "CHEN : Excellent choix !\nIl sera un parfait\ncompagnion !",
+    text: "CHEN : Excellent choix !\nIl sera un parfait\ncompagnon !",
     action: (game) => {
       const currentMap = game.mapManager.currentMap;
       const player = game.player;
@@ -30,6 +30,7 @@ export const STARTER_DIALOG_TREE = {
         player.nickname,
         "POKEBALL"
       );
+
       player.party.addPokemonToFirstEmptySlot(starter);
       game.player.pokedex.pokemonList.pokedexState.addCatch(starter.id);
       game.flags.OAK_LAB.PLAYER_STARTER_CHOSEN_DONE = true;

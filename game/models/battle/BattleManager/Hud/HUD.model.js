@@ -47,9 +47,6 @@ export class HUD {
   }
 
   drawLevel(context) {
-    const paddingX = 120;
-    const paddingY = 5;
-
     const levelWidth = context.measureText(this.pokemon.level).width;
 
     drawText(

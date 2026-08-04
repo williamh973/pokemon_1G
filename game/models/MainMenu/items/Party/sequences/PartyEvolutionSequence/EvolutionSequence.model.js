@@ -286,7 +286,7 @@ export class EvolutionSequence {
 
   quitSequence() {
     if (this.game.dialogBox.isOpen) this.game.dialogBox.close();
-    this.game.closeEvolution();
+    this.game.screenManager.closeEvolution();
     this.game.openParty();
   }
 

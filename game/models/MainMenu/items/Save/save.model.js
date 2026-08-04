@@ -8,7 +8,10 @@ export class Save {
     this.player = {
       tileX: 0,
       tileY: 0,
+      money: 0,
+      nickname: null,
       trainerId: 0,
+      gender: null,
       party: {
         slots: [],
       },
@@ -21,23 +24,32 @@ export class Save {
       },
     };
 
-    this.flags = null;
+    this.mainMenu = {};
     this.inventory = { categories: {} };
+
     this.map = {
       id: undefined,
       npcLocation: [],
       npcs: [],
       triggeredScenarios: [],
     };
+
+    this.flags = null;
     this.npcLocation = null;
-    this.mainMenu = {};
   }
 
   capture(game) {
     this.playerPosition(game);
 
     this.flags = game.flags;
+
+    this.playerMoney(game);
+
+    this.playerNickname(game);
+
     this.playerTrainerId(game);
+
+    this.playerGender(game);
 
     this.playerInventory(game);
 
@@ -75,8 +87,20 @@ export class Save {
     this.player.tileY = game.player.tileY;
   }
 
+  playerMoney(game) {
+    this.player.money = game.player.money;
+  }
+
+  playerNickname(game) {
+    this.player.nickname = game.player.nickname;
+  }
+
   playerTrainerId(game) {
     this.player.trainerId = game.player.trainerId;
+  }
+
+  playerGender(game) {
+    this.player.gender = game.player.gender;
   }
 
   playerInventory(game) {
@@ -131,7 +155,10 @@ export class Save {
     game.player.tileX = this.player.tileX;
     game.player.tileY = this.player.tileY;
 
+    game.player.money = this.player.money;
+    game.player.nickname = this.player.nickname;
     game.player.trainerId = this.player.trainerId;
+    game.player.gender = this.player.gender;
 
     game.player.position = {
       x: TILES_SIZE * game.player.tileX,

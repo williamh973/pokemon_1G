@@ -5,6 +5,7 @@ import { Slot } from "../../../../../Slot/Slot.model.js";
 import { drawText } from "../../../../../../shareds/utils/font/drawText.utils.js";
 import { textParams } from "../../../../../../shareds/utils/font/font.utils.js";
 import { getAnimationConfig } from "../../../../../../shareds/utils/pokemon/animations/pokemonAnimations.utils.js";
+import { GAME_STATES } from "../../../../../../logic/gameplay/game/states/states.gameplay.js";
 
 export class PokemonDetail {
   constructor(pokemonList, game, pokemon = "") {
@@ -23,6 +24,8 @@ export class PokemonDetail {
   }
 
   openSpriteViewer() {
+    console.log(this.pokemon);
+
     this.spriteViewer = new SpriteViewer(
       this.game,
       getAnimationConfig(this.pokemon.id, "front"),
@@ -52,7 +55,8 @@ export class PokemonDetail {
     this.closePokemonViewer();
     this.game.dialogBox.close();
     this.isOpen = false;
-    this.game.openPokedex();
+
+    this.game.screenManager.open(this.game.player.pokedex, GAME_STATES.POKEDEX);
   }
 
   draw(context) {

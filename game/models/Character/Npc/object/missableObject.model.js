@@ -61,14 +61,14 @@ export class MissableObject extends Npc {
     this.openSpriteViewer(game, starter);
   }
 
-  getItemInDatabase() {
+  getItemFromDatabase() {
     const category = ITEMS_DATABASE[this.category];
     const item = category[this.itemKey];
     return item;
   }
 
   interact(game) {
-    const item = this.getItemInDatabase();
+    const item = this.getItemFromDatabase();
     const mapId = game.mapManager.currentMap.id;
 
     if (item.isPokemon) return this.isStarterPokemon(game, item);

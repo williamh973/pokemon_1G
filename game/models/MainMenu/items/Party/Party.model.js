@@ -63,6 +63,7 @@ export class Party {
   open() {
     this.isOpen = true;
     this.hasFocus = true;
+    this.contextMenu = null;
   }
 
   openMainMenu() {

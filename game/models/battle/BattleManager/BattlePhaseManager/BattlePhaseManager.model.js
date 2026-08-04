@@ -3,7 +3,8 @@ import { DIALOGS_DATABASE } from "../../../../shareds/dialogs/dialogs.database.j
 import { BATTLE_PHASES } from "./battlePhase.js";
 
 export class BattlePhaseManager {
-  constructor(battleManager, sequenceManager) {
+  constructor(battleManager, sequenceManager, game) {
+    this.game = game;
     this.battleManager = battleManager;
     this.sequenceManager = sequenceManager;
     this.currentPhase = BATTLE_PHASES.INTRO;
@@ -53,7 +54,7 @@ export class BattlePhaseManager {
           )
         );
 
-        this.battleManager.game.openBattleMenu();
+        this.battleManager.openBattleMenu();
         break;
 
       case BATTLE_PHASES.CATCH_POKEMON:
@@ -62,7 +63,7 @@ export class BattlePhaseManager {
 
         this.battleManager.openDialogBox(
           DIALOGS_DATABASE.BATTLE_DIALOGS.playerUseBall(
-            this.battleManager.game.player.nickname,
+            this.game.player.nickname,
             this.battleManager.usedItem?.name
           )
         );

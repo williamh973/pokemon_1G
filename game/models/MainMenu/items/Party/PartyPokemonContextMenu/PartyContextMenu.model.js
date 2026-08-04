@@ -1,3 +1,4 @@
+import { GAME_STATES } from "../../../../../logic/gameplay/game/states/states.gameplay.js";
 import { INPUT_STATE } from "../../../../../logic/input/inputs.state.js";
 import { drawBox } from "../../../../../shareds/utils/box/box.utils.js";
 import { TILES_SIZE } from "../../../../../shareds/utils/tile/tile.utils.js";
@@ -44,7 +45,7 @@ export class PartyContextMenu extends Menu {
   }
 
   reopenPartyMenu() {
-    this.game.openParty();
+    this.game.screenManager.open(this.game.player.party, GAME_STATES.PARTY);
     this.hasFocus = true;
     this.isOpen = true;
   }

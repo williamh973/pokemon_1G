@@ -34,9 +34,9 @@ export class ChoiceMenu extends Menu {
     return this.items[this.currentIndex];
   }
 
-  saveCompleted() {
+  finalize() {
     this.dialogTree.finalize.action(this.game);
-    this.game.openDialogBox(this.dialogTree.finalize.text, null);
+    this.game.openDialogBox(this.dialogTree.finalize.text);
   }
 
   update(context, action) {
@@ -60,9 +60,9 @@ export class ChoiceMenu extends Menu {
             this.dialogTree.first.action(this.game);
 
             if (this.dialogTree.first.text)
-              this.game.openDialogBox(this.dialogTree.first.text, null, null);
+              this.game.openDialogBox(this.dialogTree.first.text);
 
-            if (this.game.isSaveCompleted) this.saveCompleted();
+            if (this.game.isSaveCompleted) this.finalize();
             break;
           case 1:
             this.dialogTree.second.action(this.game);

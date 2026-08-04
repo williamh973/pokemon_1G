@@ -43,6 +43,7 @@ export const update = (game) => {
   // console.log(game.state);
   // console.log("tileX", game.player.tileX, "tileY", game.player.tileY);
   // console.log(game.mapManager.previousMap);
+  // console.log(game.screenManager.currentScreen);
 
   game.tileManager.update();
   game.dayNightCycle.update(game);
@@ -90,12 +91,12 @@ export const update = (game) => {
       break;
     case GAME_STATES.BATTLE_MENU:
       game.screenManager.currentScreen.update(game.canvas.context, action);
-      game.battleMenu?.update(game.canvas.context, action);
+      game.battleManager.battleMenu?.update(game.canvas.context, action);
       game.weatherManager.update(game);
       break;
-    case GAME_STATES.BATTLE_ATTACKS_MENU:
+    case GAME_STATES.BATTLE_MOVES_MENU:
       game.screenManager.currentScreen.update(game.canvas.context, action);
-      game.battleMovesMenu?.update(game.canvas.context, action);
+      game.battleManager.battleMovesMenu?.update(game.canvas.context, action);
       game.weatherManager.update(game);
       break;
 
@@ -113,6 +114,7 @@ export const update = (game) => {
     case GAME_STATES.INVENTORY:
     case GAME_STATES.OPENING_GAME:
     case GAME_STATES.TRAINER_CARD:
+    case GAME_STATES.NICKNAME_MENU:
       game.screenManager.currentScreen.update(game.canvas.context, action);
       break;
     default:

@@ -1,10 +1,20 @@
-import { drawBox } from "../../../../../../shareds/utils/box/box.utils.js";
 import { drawText } from "../../../../../../shareds/utils/font/drawText.utils.js";
 import { WORLDMAP_CONFIG } from "../../../../../../render/config/worldMap/worldMap.config.js";
 import { idlePlayerDown } from "../../../../../../assets/images/player/player.assets.js";
 import { bikeIdlePlayerDown } from "../../../../../../assets/images/player/player.assets.js";
 import { WORLDMAP_STATES } from "../../../../../../logic/gameplay/worldMap/worldMap.states.js";
 import { textParams } from "../../../../../../shareds/utils/font/font.utils.js";
+import { Cursor } from "../../../../../Cursor/Cursor.model.js";
+import { INPUT_STATE } from "../../../../../../logic/input/inputs.state.js";
+import { loadTiles } from "../../../../../../logic/gameplay/worldMap/worldMapLoadTiles.gameplay.js";
+import { drawBackgImage } from "../../../../../../logic/gameplay/worldMap/worldMapBackgImage.gameplay.js";
+import { drawWorldMap } from "../../../../../../logic/gameplay/worldMap/drawWorldMap.gameplay.js";
+import { drawWeatherState } from "../../../../../../logic/gameplay/worldMap/drawWeatherState.gameplay.js";
+import { showPlayer } from "../../../../../../logic/gameplay/worldMap/showPlayer.gameplay..js";
+import { openWorldMap } from "../../../../../../logic/gameplay/worldMap/openWorldMap.gameplay.js";
+import { drawOverlays } from "../../../../../../logic/gameplay/worldMap/drawOverlays.gameplay.js";
+import { MAPS_DATABASE } from "../../../../../../shareds/map/maps.database.js";
+import { GAME_STATES } from "../../../../../../logic/gameplay/game/states/states.gameplay.js";
 
 export class WorldMap {
   constructor(game) {
@@ -20,57 +30,41 @@ export class WorldMap {
     this.scale = WORLDMAP_CONFIG.scale;
     this.state = null;
     this.selectedPokemon = null;
+    this.usedItem = null;
     this.hasFocus = false;
+    this.isPlayerVisible = true;
     this.isOpen = false;
     this.images = {};
     this.blinkTimer = 0;
     this.blinkOpacity = 0;
-    this.isPlayerVisible = true;
-    this.usedItem = null;
+
+    const MAP = this.game.mapManager.currentMap;
+    this.playerCurrentPosition = {
+      x: MAP.worldMap.playerPosition.x * WORLDMAP_CONFIG.tileSize,
+      y: MAP.worldMap.playerPosition.y * WORLDMAP_CONFIG.tileSize,
+    };
+
+    this.cursor = new Cursor("WORLDMAP");
+    this.cursor.position.x = this.playerCurrentPosition.x;
+    this.cursor.position.y = this.playerCurrentPosition.y;
 
     this.loadTiles();
   }
 
   loadTiles() {
-    for (let x = 0; x < WORLDMAP_CONFIG.width; x++) {
-      for (let y = 0; y < WORLDMAP_CONFIG.height; y++) {
-        const key = `${x},${y}`;
-        const img = new Image();
-        img.src = `${WORLDMAP_CONFIG.basePath}world_X${x}_Y${y}.png`;
-        this.images[key] = img;
-      }
-    }
+    loadTiles(this);
   }
 
   drawBackgImage(context) {
-    drawBox(
-      context,
-      this.position.x,
-      this.position.y,
-      this.game.canvas.width,
-      this.game.canvas.height,
-      "black",
-      "black"
-    );
+    drawBackgImage(context, this);
   }
 
   drawWorldMap(context) {
-    for (let x = 0; x < WORLDMAP_CONFIG.width; x++) {
-      for (let y = 0; y < WORLDMAP_CONFIG.height; y++) {
-        const key = `${x},${y}`;
-        const img = this.images[key];
+    drawWorldMap(context, this);
+  }
 
-        if (!img) continue;
-
-        context.drawImage(
-          img,
-          this.position.x + x * WORLDMAP_CONFIG.tileSize,
-          this.position.y + y * WORLDMAP_CONFIG.tileSize,
-          WORLDMAP_CONFIG.tileSize,
-          WORLDMAP_CONFIG.tileSize
-        );
-      }
-    }
+  drawDayTime(context) {
+    this.game.timeManager.draw(context);
   }
 
   draw(context) {
@@ -79,10 +73,18 @@ export class WorldMap {
     this.drawBackgImage(context);
 
     this.drawWorldMap(context);
+
+    this.drawWeatherState(context);
+    this.drawDayTime(context);
+  }
+
+  drawWeatherState(context) {
+    drawWeatherState(context, this);
   }
 
   drawInfos(context, weight, color) {
     const map = this.game.mapManager.currentMap;
+
     const text = this.selectedPokemon
       ? `Repère de ${this.selectedPokemon.name}`
       : `Vous êtes à ${map.name}`;
@@ -99,68 +101,32 @@ export class WorldMap {
   }
 
   showPlayer(context) {
-    this.drawInfos(context, "20", "rgb(255, 255, 255, 0.9)");
-
-    if (!this.isPlayerVisible) return;
-
-    const MAP = this.game.mapManager.currentMap;
-    const MAP_COORDS = {
-      x: MAP.worldMap.playerPosition.x * WORLDMAP_CONFIG.tileSize,
-      y: MAP.worldMap.playerPosition.y * WORLDMAP_CONFIG.tileSize,
-    };
-
-    const playerSprite = this.game.player.isOnBike
-      ? this.possiblePlayerImages.bikeIdleDown
-      : this.possiblePlayerImages.idleDown;
-
-    context.drawImage(
-      playerSprite,
-      MAP_COORDS.x,
-      MAP_COORDS.y,
-      playerSprite.width,
-      playerSprite.height
-    );
+    showPlayer(context, this.playerCurrentPosition, this);
   }
 
   drawOverlays(context, area) {
-    context.fillStyle = `rgba(255, 0, 0, ${this.blinkOpacity})`;
-    context.fillRect(
-      area.x * WORLDMAP_CONFIG.tileSize,
-      area.y * WORLDMAP_CONFIG.tileSize,
-      (area.w * WORLDMAP_CONFIG.tileSize) / 2, // area contient les coordonnées de la map :   export const palletTownWorldMap = {   pokemonNest: { x: 3, y: 7.5, w: 1, h: 1 },  playerPosition: { x: 2.95, y: 7.4 },};
-
-      (area.h * WORLDMAP_CONFIG.tileSize) / 2
-    );
+    drawOverlays(context, area, this);
   }
 
   open(selectedPokemonFromPokedex = null, item = null) {
-    this.selectedPokemon = null;
-    this.usedItem = null;
-
-    if (selectedPokemonFromPokedex) {
-      this.state = WORLDMAP_STATES.ENCOUNTER;
-      this.selectedPokemon = selectedPokemonFromPokedex;
-    }
-
-    if (item) {
-      this.state = WORLDMAP_STATES.PLAYER_POSITION;
-      this.usedItem = item;
-    }
-
-    this.isOpen = true;
-    this.hasFocus = true;
+    openWorldMap(selectedPokemonFromPokedex, item, this);
   }
 
   close() {
     this.isOpen = false;
     this.hasFocus = false;
 
-    this.redirectTo();
-  }
-
-  redirectTo() {
-    if (this.state === WORLDMAP_STATES.ENCOUNTER) this.game.openPokedex();
-    else this.game.openPlayerMenu();
+    switch (this.state) {
+      case WORLDMAP_STATES.ENCOUNTER:
+        this.game.screenManager.open(
+          this.game.player.pokedex,
+          GAME_STATES.POKEDEX
+        );
+        break;
+      case WORLDMAP_STATES.PLAYER_POSITION:
+        this.game.openPlayerMenu();
+        break;
+    }
   }
 
   handlerBlinkForPokemonNests() {
@@ -175,6 +141,37 @@ export class WorldMap {
       this.isPlayerVisible = !this.isPlayerVisible;
   }
 
+  getHoveredMap(context) {
+    return Object.values(MAPS_DATABASE).find((map) => {
+      if (!map.worldMap) return false;
+
+      const area = map.worldMap.townArea;
+      const cursorCenter = {
+        x: this.cursor.position.x + this.cursor.width / 2,
+        y: this.cursor.position.y + this.cursor.height / 2,
+      };
+      const left = area.x * WORLDMAP_CONFIG.tileSize;
+      const top = area.y * WORLDMAP_CONFIG.tileSize;
+      const right = (area.x + area.w) * WORLDMAP_CONFIG.tileSize;
+      const bottom = (area.y + area.h) * WORLDMAP_CONFIG.tileSize;
+
+      // context.strokeStyle = "red";
+      // context.strokeRect(
+      //   area?.x * WORLDMAP_CONFIG.tileSize,
+      //   area?.y * WORLDMAP_CONFIG.tileSize,
+      //   area.w * WORLDMAP_CONFIG.tileSize,
+      //   area.h * WORLDMAP_CONFIG.tileSize
+      // );
+
+      return (
+        cursorCenter.x >= left &&
+        cursorCenter.x <= right &&
+        cursorCenter.y >= top &&
+        cursorCenter.y <= bottom
+      );
+    });
+  }
+
   update(context, action) {
     if (!this.isOpen) return;
 
@@ -185,6 +182,11 @@ export class WorldMap {
 
     this.draw(context);
 
+    this.cursor.update(context, this.cursor.position.x, this.cursor.position.y);
+
+    const hoveredMap = this.getHoveredMap(context);
+    if (hoveredMap) drawText(context, hoveredMap.name, 100, 15);
+
     switch (this.state) {
       case WORLDMAP_STATES.ENCOUNTER:
         this.showSelectedPokemonAreas(context);
@@ -192,19 +194,26 @@ export class WorldMap {
       case WORLDMAP_STATES.PLAYER_POSITION:
         this.showPlayer(context);
         break;
-
-      default:
-        break;
     }
 
     if (!this.hasFocus) return;
 
     switch (action) {
-      case "ESCAPE":
+      case INPUT_STATE.ESCAPE:
         this.close();
         break;
 
-      default:
+      case INPUT_STATE.UP:
+        this.cursor.position.y -= 1;
+        break;
+      case INPUT_STATE.DOWN:
+        this.cursor.position.y += 1;
+        break;
+      case INPUT_STATE.RIGHT:
+        this.cursor.position.x += 1;
+        break;
+      case INPUT_STATE.LEFT:
+        this.cursor.position.x -= 1;
         break;
     }
   }

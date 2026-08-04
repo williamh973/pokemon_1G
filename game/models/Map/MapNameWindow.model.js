@@ -29,11 +29,16 @@ export class MapNameWindow {
   }
 
   drawText(context) {
-    textParams(context, "24", "rgb(255, 255, 255, 0.6)");
+    textParams(context, "24", "rgb(255, 255, 255, 0.9)");
+
+    const mapNameWidth = context.measureText(
+      this.game.mapManager.currentMap.name
+    ).width;
+
     drawText(
       context,
       this.game.mapManager.currentMap.name,
-      this.position.x + 10,
+      this.position.x + this.width / 2 - mapNameWidth / 2, // le positionnement n'est pas toujours correct selon la longueur du nom de map
       this.position.y + 10
     );
   }

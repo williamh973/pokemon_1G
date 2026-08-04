@@ -20,6 +20,14 @@ export let openingBackgImage = createImg(
   "game/assets/images/ui/gameIntro/openingBackgImage.png"
 );
 
-export let trainerCardBackgImage = createImg(
-  "game/assets/images/ui/trainerCard.png"
+export let maleTrainerCardBackgImage = createImg(
+  "game/assets/images/ui/maleTrainerCard.png"
+);
+
+export let femaleTrainerCardBackgImage = createImg(
+  "game/assets/images/ui/femaleTrainerCard.png"
+);
+
+export let nicknameBackgImage = createImg(
+  "game/assets/images/ui/nicknameBackgImage.png"
 );
