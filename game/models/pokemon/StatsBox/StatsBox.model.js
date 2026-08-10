@@ -120,7 +120,7 @@ export class StatsBox {
     );
   }
 
-  update(context, action) {
+  update(context) {
     if (!this.isOpen) return;
 
     this.draw(context);

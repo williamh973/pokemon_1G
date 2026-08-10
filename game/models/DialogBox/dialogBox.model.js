@@ -38,13 +38,13 @@ export class DialogBox {
       this.width,
       this.height,
       "transparent",
-      "rgb(0, 0, 0, 0.7)"
+      "rgb(0, 0, 0, 0.9)"
     );
     if (this.text) this.drawText(context);
   }
 
   drawText(context) {
-    textParams(context, "26", "rgb(255, 255, 255, 0.9)");
+    textParams(context, "25", "rgb(255, 255, 255, 0.9)");
 
     const page = this.pages[this.currentPageIndex];
     page.forEach((line, index) => {

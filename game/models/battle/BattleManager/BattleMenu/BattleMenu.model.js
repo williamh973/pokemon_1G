@@ -11,14 +11,15 @@ export class BattleMenu extends Menu {
     this.width = this.canvas.width / 2;
     this.position = {
       x: this.canvas.width / 2,
-      y: this.canvas.height - 65,
+      y: this.canvas.height - 70,
     };
+    this.isHovered = false;
     this.height = 65;
     this.items = [
-      { id: "ATTACK", name: "ATTACK" },
-      { id: "SAC", name: "SAC" },
-      { id: "POKEMON", name: "POKEMON" },
-      { id: "ESCAPE", name: "FUIR" },
+      { id: "ATTACK", name: "ATTACK", isHovered: false },
+      { id: "SAC", name: "SAC", isHovered: false },
+      { id: "POKEMON", name: "PKMN", isHovered: false },
+      { id: "ESCAPE", name: "FUIR", isHovered: false },
     ];
   }
 
@@ -27,19 +28,7 @@ export class BattleMenu extends Menu {
   }
 
   draw(context) {
-    drawBox(
-      context,
-      this.position.x,
-      this.position.y,
-      this.width,
-      this.height,
-      "black",
-      "white"
-    );
-
     this.drawItems(context);
-
-    this.showCursor(context);
   }
 
   resetCurrentIndex() {
@@ -47,27 +36,37 @@ export class BattleMenu extends Menu {
   }
 
   drawItems(context) {
-    textParams(context, "23");
-
     this.items.forEach((item, index) => {
+      item.isHovered = index === this.currentIndex;
+
       const col = index % 2;
       const row = Math.floor(index / 2);
-
       const positionX = this.position.x + 15 + col * 90;
-      const positionY = this.position.y + 10 + row * 25;
+      const positionY = this.position.y + 10 + row * 30;
+      const width = 70;
+      const height = 25;
 
-      drawText(context, item.name, positionX, positionY);
+      drawBox(
+        context,
+        positionX,
+        positionY,
+        width,
+        height,
+        item.isHovered ? "red" : "rgba(120, 170, 220, 0.35)",
+        "rgba(30, 60, 100, 0.65)"
+      );
+
+      textParams(context, "21", "rgb(255, 255, 255)");
+
+      const textWidth = context.measureText(item.name).width;
+
+      drawText(
+        context,
+        item.name,
+        positionX + width / 2 - textWidth / 2,
+        positionY
+      );
     });
-  }
-
-  showCursor(context) {
-    const column = this.currentIndex % 2;
-    const row = Math.floor(this.currentIndex / 2);
-
-    const x = this.position.x + 2 + column * 90;
-    const y = this.position.y + 16 + row * 25;
-
-    this.cursor.update(context, x, y);
   }
 
   update(context, action) {

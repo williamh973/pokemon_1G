@@ -43,21 +43,12 @@ export class EncounterManager {
   }
 
   startWildBattle(game, targetOP, tile) {
-    game.transition.start(
-      () => {
-        game.togglePause(true, false);
-      },
-      (done) => {
-        const wildPokemon = generatePokemon(
-          targetOP,
-          game.mapManager.currentMap.name
-        );
-
-        game.createBattle(wildPokemon, tile, "WILD");
-
-        done();
-      },
-      () => {}
+    const wildPokemon = generatePokemon(
+      targetOP,
+      game.mapManager.currentMap.name
     );
+    const battleType = "WILD";
+
+    game.createBattle(wildPokemon, tile, battleType);
   }
 }

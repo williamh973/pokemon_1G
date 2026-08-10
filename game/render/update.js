@@ -42,7 +42,6 @@ const handleDialogState = (game, event) => {
 export const update = (game) => {
   // console.log(game.state);
   // console.log("tileX", game.player.tileX, "tileY", game.player.tileY);
-  // console.log(game.mapManager.previousMap);
   // console.log(game.screenManager.currentScreen);
 
   game.tileManager.update();
@@ -89,37 +88,28 @@ export const update = (game) => {
     case GAME_STATES.WORLDMAP:
       game.screenManager.currentScreen.update(game.canvas.context, action);
       break;
-    case GAME_STATES.BATTLE_MENU:
-      game.screenManager.currentScreen.update(game.canvas.context, action);
-      game.battleManager.battleMenu?.update(game.canvas.context, action);
-      game.weatherManager.update(game);
-      break;
-    case GAME_STATES.BATTLE_MOVES_MENU:
-      game.screenManager.currentScreen.update(game.canvas.context, action);
-      game.battleManager.battleMovesMenu?.update(game.canvas.context, action);
-      game.weatherManager.update(game);
-      break;
-
     case GAME_STATES.BATTLE:
       game.screenManager.currentScreen.update(game.canvas.context, action);
       game.weatherManager.update(game);
+      game.dialogBox?.update(game.canvas.context, action);
+      break;
+    case GAME_STATES.BATTLE_MENU:
+      game.screenManager.currentScreen.update(game.canvas.context, action);
+      game.weatherManager.update(game);
+      game.dialogBox?.update(game.canvas.context, action);
+      game.battleManager.battleMenu?.update(game.canvas.context, action);
+      break;
+    case GAME_STATES.BATTLE_MOVES_MENU:
+      game.screenManager.currentScreen.update(game.canvas.context, action);
+      game.weatherManager.update(game);
+      game.dialogBox?.update(game.canvas.context, action);
+      game.battleManager.battleMovesMenu?.update(game.canvas.context, action);
       break;
 
-    case GAME_STATES.EVOLUTION:
-    case GAME_STATES.PARTY:
-    case GAME_STATES.POKEDEX:
-    case GAME_STATES.PARTY_SUMMARY:
-    case GAME_STATES.START_GAME:
-    case GAME_STATES.GENDER_MENU:
-    case GAME_STATES.INVENTORY:
-    case GAME_STATES.OPENING_GAME:
-    case GAME_STATES.TRAINER_CARD:
-    case GAME_STATES.NICKNAME_MENU:
-      game.screenManager.currentScreen.update(game.canvas.context, action);
-      break;
     default:
+      game.screenManager.currentScreen?.update(game.canvas.context, action);
       break;
   }
 
-  game.transition.update();
+  game.transition.update(game.canvas);
 };

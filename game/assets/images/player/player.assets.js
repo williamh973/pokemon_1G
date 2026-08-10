@@ -91,3 +91,93 @@ export let presentationPlayer = createImg(
 export let trainerCardPlayer = createImg(
   "game/assets/images/player/trainerCard/trainerCard.png"
 );
+
+//
+
+export let idleGPlayerDown = createImg(
+  "game/assets/images/player/overworld/girl/idle_down.png"
+);
+export let idleGPlayerUp = createImg(
+  "game/assets/images/player/overworld/girl/idle_up.png"
+);
+export let idleGPlayerLeft = createImg(
+  "game/assets/images/player/overworld/girl/idle_left.png"
+);
+export let idleGPlayerRight = createImg(
+  "game/assets/images/player/overworld/girl/idle_right.png"
+);
+
+export let walkGPlayerDown_stepA = createImg(
+  "game/assets/images/player/overworld/girl/walkDown_stepA.png"
+);
+export let walkGPlayerDown_stepB = createImg(
+  "game/assets/images/player/overworld/girl/walkDown_stepB.png"
+);
+export let walkGPlayerUp_stepA = createImg(
+  "game/assets/images/player/overworld/girl/walkUp_stepA.png"
+);
+export let walkGPlayerUp_stepB = createImg(
+  "game/assets/images/player/overworld/girl/walkUp_stepB.png"
+);
+
+export let walkPGlayerLeft_stepA = createImg(
+  "game/assets/images/player/overworld/girl/walkLeft_stepA.png"
+);
+
+export let walkGPlayerLeft_stepB = createImg(
+  "game/assets/images/player/overworld/girl/walkLeft_stepB.png"
+);
+
+export let walkGPlayerRight_stepA = createImg(
+  "game/assets/images/player/overworld/girl/walkRight_stepA.png"
+);
+
+export let walkGPlayerRight_stepB = createImg(
+  "game/assets/images/player/overworld/girl/walkRight_stepB.png"
+);
+
+export let bikeIdleGPlayerDown = createImg(
+  "game/assets/images/player/overworld/bike/idle_down.png"
+);
+export let bikeIdleGPlayerUp = createImg(
+  "game/assets/images/player/overworld/bike/idle_up.png"
+);
+export let bikeIdleGPlayerLeft = createImg(
+  "game/assets/images/player/overworld/bike/idle_left.png"
+);
+export let bikeIdleGPlayerRight = createImg(
+  "game/assets/images/player/overworld/bike/idle_right.png"
+);
+
+export let bikeWalkGPlayerDown_stepA = createImg(
+  "game/assets/images/player/overworld/bike/walkDown_stepA.png"
+);
+export let bikeWalkGPlayerDown_stepB = createImg(
+  "game/assets/images/player/overworld/bike/walkDown_stepB.png"
+);
+export let bikeWalkGPlayerUp_stepA = createImg(
+  "game/assets/images/player/overworld/bike/walkUp_stepA.png"
+);
+export let bikeWalkGPlayerUp_stepB = createImg(
+  "game/assets/images/player/overworld/bike/walkUp_stepB.png"
+);
+
+export let bikeWalkGPlayerLeft_stepA = createImg(
+  "game/assets/images/player/overworld/bike/walkLeft_stepA.png"
+);
+
+export let bikeWalkGPlayerLeft_stepB = createImg(
+  "game/assets/images/player/overworld/bike/walkLeft_stepB.png"
+);
+
+export let bikeWalkGPlayerRight_stepA = createImg(
+  "game/assets/images/player/overworld/bike/walkRight_stepA.png"
+);
+
+export let bikeWalkGPlayerRight_stepB = createImg(
+  "game/assets/images/player/overworld/bike/walkRight_stepB.png"
+);
+
+export let trainerCardGPlayer = createImg(
+  "game/assets/images/player/trainerCard/trainerCard.png"
+);

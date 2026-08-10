@@ -26,7 +26,7 @@ export class GamePhaseManager {
       case "OPENING_MENU":
         this.openScreen(
           new OpeningGameSequence(this.game),
-          GAME_STATES.OPENING_GAME
+          GAME_STATES.OPENING_MENU
         );
         break;
 

@@ -18,7 +18,7 @@ const FPS = () => {
 
 export const animate = (game, tileManager) => {
   requestAnimationFrame(() => animate(game, tileManager));
-  FPS();
+  // FPS();
 
   game.canvas.clear();
   game.canvas.draw();
@@ -27,6 +27,4 @@ export const animate = (game, tileManager) => {
 
   draw(game, tileManager);
   update(game);
-
-  game.transition.draw(game.canvas);
 };

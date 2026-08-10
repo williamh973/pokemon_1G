@@ -8,7 +8,7 @@ import { getSprites } from "../../../shareds/utils/character/player/player.utils
 import { TrainerCard } from "../../MainMenu/items/TrainerCard/TrainerCard.model.js";
 
 export class Player extends Character {
-  constructor(game, genderId = "BOY") {
+  constructor(game, genderId, nickname) {
     super({
       id: "PLAYER",
       tileX: 7,
@@ -21,7 +21,7 @@ export class Player extends Character {
     this.height = 33;
     this.money = 0;
     this.entityType = "PLAYER";
-    this.nickname = "RED";
+    this.nickname = nickname;
     this.hasWon = false;
     this.hasLose = false;
     this.isOnBike = false;

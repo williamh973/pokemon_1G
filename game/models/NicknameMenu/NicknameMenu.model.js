@@ -73,11 +73,8 @@ export class NicknameMenu extends Menu {
   validate() {
     if (this.nickname.length === 0) return;
 
-    this.game.player.nickname = this.nickname;
-
+    this.game.hasPlayerNicknameSelected(this.nickname);
     this.close();
-    this.game.state = GAME_STATES.WORLD;
-    this.game.togglePause(false, true);
   }
 
   draw(context) {

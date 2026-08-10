@@ -13,7 +13,10 @@ export class BattleRenderer {
 
   setBattleBackImg() {
     const background = BATTLE_BACKGROUND_DATABASE[this.tile.terrain];
+    const defaultBackground = BATTLE_BACKGROUND_DATABASE["default"];
+
     if (background) return (this.backgroundImg = background.image);
+    else return (this.backgroundImg = defaultBackground.image);
   }
 
   draw(context) {

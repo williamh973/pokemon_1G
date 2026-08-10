@@ -1,1 +1,1 @@
-export const FADING_TIME = 20;
+export const FADING_TIME = 40;

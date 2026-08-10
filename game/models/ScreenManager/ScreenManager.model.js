@@ -11,11 +11,17 @@ export class ScreenManager {
   }
 
   open(screen, state) {
-    this.setCurrentScreen(screen);
-    // console.log(this.currentScreen);
-    this.currentScreen.open();
+    this.game.transition.start(
+      () => {},
+      (done) => {
+        this.setCurrentScreen(screen);
+        this.currentScreen.open();
 
-    this.game.state = state;
+        this.game.state = state;
+        done();
+      },
+      () => {}
+    );
   }
 
   close(state) {

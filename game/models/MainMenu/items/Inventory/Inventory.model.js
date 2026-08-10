@@ -112,6 +112,7 @@ export class Inventory extends Menu {
     super.open();
     const item = this.categories[this.itemCurrentIndex];
     this.dialogBox.open(item.desc, true);
+    this.contextMenu?.close();
   }
 
   drawCategoryLabel(context) {

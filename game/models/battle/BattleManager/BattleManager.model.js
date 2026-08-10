@@ -8,12 +8,12 @@ import { HUD_CONFIG } from "../../../render/config/battle/hud.config.js";
 import { BATTLE_SLOT_CONFIG } from "../../../logic/gameplay/battleManager/slots/battleSlots.config.js";
 import { BattlePhaseManager } from "./BattlePhaseManager/BattlePhaseManager.model.js";
 import { BattleSequenceManager } from "./BattleSequenceManager/BattleSequenceManager.model.js";
-import { INPUT_STATE } from "../../../logic/input/inputs.state.js";
-import { DIALOGS_DATABASE } from "../../../shareds/dialogs/dialogs.database.js";
 import { BATTLE_MANAGER_STATES } from "../../../logic/gameplay/battleManager/slots/states/battleManager.states.js";
 import { BattleMovesMenu } from "./BattleMenu/BattleMovesMenu/BattleMovesMenu.model.js";
 import { GAME_STATES } from "../../../logic/gameplay/game/states/states.gameplay.js";
 import { BattleMenu } from "./BattleMenu/BattleMenu.model.js";
+import { BattleResultManager } from "./BattleResultManager/BattleResultManager.model.js";
+import { BattleStatsBox } from "../../pokemon/StatsBox/BattleStatsBox.model.js";
 
 export class BattleManager {
   constructor(game, wildPokemon, tile, weather, battleType) {
@@ -28,16 +28,13 @@ export class BattleManager {
       y: 0,
     };
     this.canvas = this.game.canvas;
-    this.width = this.canvas.width;
-    this.height = this.canvas.height;
+    this.width = 320;
+    this.height = 320;
     this.isOpen = false;
     this.hasPlayerEscaped = false;
-    this.hasCaptured = false;
     this.isAttemptSwitch = false;
     this.isUseItem = false;
     this.usedItem = null;
-    this.music = null;
-    this.battleResult = null;
     this.currentTrainerPokemon = null;
     this.currentPlayerPokemon = this.getPlayerPartyPokemon(0);
 
@@ -81,6 +78,15 @@ export class BattleManager {
     });
 
     this.phaseManager = new BattlePhaseManager(this, this.sequenceManager);
+    this.resultManager = new BattleResultManager(this);
+
+    this.debugStatsBoxes = [
+      new BattleStatsBox(this.game, this.wildPokemon.stats, { x: 330, y: 0 }),
+      new BattleStatsBox(this.game, this.currentPlayerPokemon.stats, {
+        x: 330,
+        y: 140,
+      }),
+    ];
   }
 
   openBattleMenu() {
@@ -130,84 +136,12 @@ export class BattleManager {
     this.isOpen = false;
   }
 
-  checkPlayerEscaped(action) {
-    if (this.hasPlayerEscaped) {
-      this.openDialogBox(`Vous prenez la fuite!`);
-
-      if (action === INPUT_STATE.ACTION) {
-        const pokedexState = this.game.player.pokedex.pokemonList.pokedexState;
-        pokedexState.addSee(this.wildPokemon.id);
-
-        this.endBattle();
-
-        this.hasPlayerEscaped = false;
-      }
-    }
-  }
-
   playerWantQuitBattle() {
     if (this.wildPokemon) this.hasPlayerEscaped = true;
   }
 
-  endBattle() {
-    this.game.transition.start(
-      () => {
-        this.game.togglePause(false, true);
-      },
-      (done) => {
-        this.game.screenManager.close(GAME_STATES.WORLD);
-        this.game.onBattleEnded();
-        done();
-      },
-      () => {}
-    );
-  }
-
-  checkPokemonCaptured(action) {
-    if (this.sequenceManager.battleCatchSequence?.hasCaptured) {
-      this.state = BATTLE_MANAGER_STATES.CAPTURED;
-
-      this.openDialogBox(
-        DIALOGS_DATABASE.BATTLE_DIALOGS.pokemonCaptured(this.wildPokemon.name)
-      );
-
-      if (
-        action === INPUT_STATE.ACTION &&
-        this.state === BATTLE_MANAGER_STATES.CAPTURED
-      ) {
-        this.state = BATTLE_MANAGER_STATES.ADD_POKEDEX;
-
-        const emptySlot = this.game.player.party.addPokemonToFirstEmptySlot(
-          this.wildPokemon
-        );
-
-        if (emptySlot) {
-          const pokedexState =
-            this.game.player.pokedex.pokemonList.pokedexState;
-          const hasPokedexAddedPokemon = pokedexState.addCatch(
-            this.wildPokemon.id
-          );
-
-          if (hasPokedexAddedPokemon) {
-            this.state = BATTLE_MANAGER_STATES.ADD_POKEDEX;
-            this.openDialogBox(`${this.wildPokemon.name} a été au pokedex !`);
-            this.game.stopWildBattle(); // Le déclencher avec un counter
-          } else this.game.stopWildBattle();
-        }
-
-        // this.openDialogBox(
-        //   `Plus de place dans l'équipe\n${this.wildPokemon.name} est transféré au pc`
-        // );
-      }
-    }
-  }
-
   update(context, action) {
     if (!this.isOpen) return;
-
-    this.checkPokemonCaptured(action);
-
-    this.checkPlayerEscaped(action);
 
     this.battleRenderer?.update(context);
 
@@ -218,7 +152,8 @@ export class BattleManager {
 
     this.phaseManager?.update(action);
 
-    if (this.game.dialogBox.isOpen)
-      this.game.dialogBox.update(this.game.canvas.context, action);
+    this.resultManager?.update(action);
+
+    for (const statBox of this.debugStatsBoxes) statBox?.update(context);
   }
 }

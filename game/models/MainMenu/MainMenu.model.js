@@ -4,7 +4,7 @@ import { Menu } from "../Menu/Menu.model.js";
 import { GAME_STATES } from "../../logic/gameplay/game/states/states.gameplay.js";
 
 export class MainMenu extends Menu {
-  constructor(game) {
+  constructor(game, nickname) {
     super(game);
 
     this.canvas = this.game.canvas;
@@ -14,18 +14,18 @@ export class MainMenu extends Menu {
       y: 0,
     };
     this.lineHeight = 40;
-    this.initItems();
+    this.initItems(nickname);
     this.updateHeight();
   }
 
-  initItems() {
+  initItems(nickname) {
     const SAVE_DATA = this.game.save;
 
     if (SAVE_DATA?.mainMenu.items) this.items = SAVE_DATA.mainMenu.items;
     else
       this.items = [
         { id: "SAC", name: "SAC" },
-        { id: "SACHA", name: "RED" },
+        { id: "TRAINER_CARD", name: nickname },
         { id: "SAUVER", name: "SAUVER" },
         { id: "OPTIONS", name: "OPTIONS" },
         { id: "RETOUR", name: "RETOUR" },

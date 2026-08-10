@@ -61,8 +61,8 @@ export class InventoryContextMenu extends Menu {
     if (this.item.id === "RETOUR") return this.openItem(this.item.id);
 
     const itemCanUsedInWorld = this.checkIfItemCanBeUsed();
-    if (this.game.battleManager) {
-      if (itemCanUsedInWorld) {
+    if (itemCanUsedInWorld) {
+      if (this.game.battleManager) {
         const text = "Objet inutilisable en combat";
         return this.game.player.inventory.openDialogBox(false, text);
       } else {

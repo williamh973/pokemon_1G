@@ -39,7 +39,7 @@ export class Game {
   constructor() {
     this.tileManager = new TileManager(TILES_SIZE);
     this.tileManager.load();
-    this.state = GAME_STATES.WORLD;
+    this.state = GAME_STATES.START_GAME;
     this.canvas = new Canvas(document.getElementById("canvas"));
     this.camera = new Camera(this.canvas);
     this.flags = GAME_FLAGS_DATABASE;
@@ -59,6 +59,7 @@ export class Game {
     this.worldMap = new WorldMap(this);
     this.mainMenu = new MainMenu(this);
     this.player = null;
+    this.playerGender = "";
     this.battleManager = null;
     this.choiceMenu = null;
     this.save = null;
@@ -77,15 +78,29 @@ export class Game {
   }
 
   startNewGame() {
-    this.screenManager.close();
     this.gamePhaseManager.setPhase("SELECT_GENDER");
   }
 
-  selectGender(genderId) {
-    this.player = new Player(this, genderId);
+  hasPlayerGenderSelected(genderId) {
+    this.playerGender = genderId;
 
-    this.screenManager.close();
     this.gamePhaseManager.setPhase("SELECT_PLAYER_NICKNAME");
+  }
+
+  hasPlayerNicknameSelected(nickname) {
+    this.createPlayer(nickname);
+    this.updateMainMenu();
+    this.screenManager.close(GAME_STATES.WORLD);
+    this.togglePause(false, true);
+  }
+
+  createPlayer(nickname) {
+    this.player = new Player(this, this.playerGender, nickname);
+  }
+
+  updateMainMenu() {
+    this.mainMenu.items.find((item) => item.id === "TRAINER_CARD").name =
+      this.player.nickname;
   }
 
   switchPokemon() {
@@ -154,7 +169,6 @@ export class Game {
   }
 
   onBattleEnded() {
-    this.battleManager.battleMenu.resetCurrentIndex();
     this.battleManager = null;
   }
 
@@ -176,7 +190,6 @@ export class Game {
   }
 
   closeAndReturnFromSubMenu() {
-    // Permet de sortir de l'inventaire selon la situation
     this.screenManager.close();
 
     if (this.battleManager) {

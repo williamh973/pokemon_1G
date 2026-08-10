@@ -36,9 +36,9 @@ export const dispatchMenuSelection = (game, itemId, source) => {
 
     CONTINUE: () => game.load(),
 
-    BOY: () => game.selectGender(itemId),
+    BOY: () => game.hasPlayerGenderSelected(itemId),
 
-    GIRL: () => game.selectGender(itemId),
+    GIRL: () => game.hasPlayerGenderSelected(itemId),
 
     SUMMARY: () => game.screenManager.openPokemonSummary(),
 
