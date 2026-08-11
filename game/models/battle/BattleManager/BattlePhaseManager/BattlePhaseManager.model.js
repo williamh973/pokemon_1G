@@ -3,8 +3,7 @@ import { DIALOGS_DATABASE } from "../../../../shareds/dialogs/dialogs.database.j
 import { BATTLE_PHASES } from "./battlePhase.js";
 
 export class BattlePhaseManager {
-  constructor(battleManager, sequenceManager, game) {
-    this.game = game;
+  constructor(battleManager, sequenceManager) {
     this.battleManager = battleManager;
     this.sequenceManager = sequenceManager;
     this.currentPhase = BATTLE_PHASES.INTRO;
@@ -60,10 +59,9 @@ export class BattlePhaseManager {
       case BATTLE_PHASES.CATCH_POKEMON:
         const BALL = this.battleManager.usedItem;
         sequence.initBattleCatchSequence(BALL);
-
         this.battleManager.openDialogBox(
           DIALOGS_DATABASE.BATTLE_DIALOGS.playerUseBall(
-            this.game.player.nickname,
+            this.battleManager.game.player.nickname,
             this.battleManager.usedItem?.name
           )
         );
@@ -81,6 +79,14 @@ export class BattlePhaseManager {
 
         sequence.startBattleSwitchSequence(key);
 
+        break;
+
+      case BATTLE_PHASES.POKEMON_USE_MOVE:
+        sequence.startPokemonUseMoveSequence(
+          this.battleManager.currentPlayerPokemon,
+          this.battleManager.selectedMove,
+          this.battleManager.wildPokemon
+        );
         break;
     }
   }

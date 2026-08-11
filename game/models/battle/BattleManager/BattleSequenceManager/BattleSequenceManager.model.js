@@ -12,7 +12,7 @@ export class BattleSequenceManager {
     this.viewers = context.viewers;
     this.battleRenderer = context.battleRenderer;
     this.wildPokemon = context.wildPokemon;
-    this.currentPlayerPokemon = context.currentPlayerPokemon;
+    // this.currentPlayerPokemon = context.currentPlayerPokemon;
     this.battleMenu = context.battleMenu;
 
     this.pokemonAppearsSequence = null;
@@ -87,9 +87,17 @@ export class BattleSequenceManager {
     this.battleSwitchSequence.start();
   }
 
+  startPokemonUseMoveSequence(currentPlayerPokemon, selectedMove, wildPokemon) {
+    this.pokemonUseMoveSequence = new PokemonUseMoveSequence(
+      this.game,
+      currentPlayerPokemon,
+      selectedMove,
+      wildPokemon
+    );
+    this.pokemonUseMoveSequence.start();
+  }
+
   update(context, action) {
-    // console.log(this.pokemonAppearsSequence, this.pokemonDisappearsSequence);
-    // console.log(this.battleRenderer.backHUD);
     if (this.introSequence?.isFinished) {
       this.battleRenderer.frontHUD?.update(context);
       this.battleRenderer.backHUD?.update(context);

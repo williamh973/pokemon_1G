@@ -14,6 +14,7 @@ import { GAME_STATES } from "../../../logic/gameplay/game/states/states.gameplay
 import { BattleMenu } from "./BattleMenu/BattleMenu.model.js";
 import { BattleResultManager } from "./BattleResultManager/BattleResultManager.model.js";
 import { BattleStatsBox } from "../../pokemon/StatsBox/BattleStatsBox.model.js";
+import { BATTLE_PHASES } from "./BattlePhaseManager/battlePhase.js";
 
 export class BattleManager {
   constructor(game, wildPokemon, tile, weather, battleType) {
@@ -35,6 +36,7 @@ export class BattleManager {
     this.isAttemptSwitch = false;
     this.isUseItem = false;
     this.usedItem = null;
+    this.selectedMove = null;
     this.currentTrainerPokemon = null;
     this.currentPlayerPokemon = this.getPlayerPartyPokemon(0);
 
@@ -73,7 +75,6 @@ export class BattleManager {
       viewers: this.viewers,
       battleRenderer: this.battleRenderer,
       wildPokemon: this.wildPokemon,
-      currentPlayerPokemon: this.currentPlayerPokemon,
       battleMenu: this.battleMenu,
     });
 
@@ -81,11 +82,21 @@ export class BattleManager {
     this.resultManager = new BattleResultManager(this);
 
     this.debugStatsBoxes = [
-      new BattleStatsBox(this.game, this.wildPokemon.stats, { x: 330, y: 0 }),
-      new BattleStatsBox(this.game, this.currentPlayerPokemon.stats, {
-        x: 330,
-        y: 140,
-      }),
+      new BattleStatsBox(
+        this.game,
+        this.wildPokemon,
+        { x: 330, y: 0 },
+        "front"
+      ),
+      new BattleStatsBox(
+        this.game,
+        this.currentPlayerPokemon,
+        {
+          x: 330,
+          y: 140,
+        },
+        "back"
+      ),
     ];
   }
 
@@ -100,8 +111,9 @@ export class BattleManager {
     this.game.state = GAME_STATES.BATTLE_MOVES_MENU;
   }
 
-  handleBattleMoves(playerPokemonSelectedMoveData) {
-    console.log(playerPokemonSelectedMoveData);
+  handleBattleMoves(moveData) {
+    this.selectedMove = moveData;
+    this.phaseManager.setPhase(BATTLE_PHASES.POKEMON_USE_MOVE);
   }
 
   requestSwitch() {

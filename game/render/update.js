@@ -108,6 +108,7 @@ export const update = (game) => {
 
     default:
       game.screenManager.currentScreen?.update(game.canvas.context, action);
+      game.dialogBox?.update(game.canvas.context, action);
       break;
   }
 

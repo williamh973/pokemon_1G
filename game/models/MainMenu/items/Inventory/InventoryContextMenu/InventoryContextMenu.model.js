@@ -69,8 +69,12 @@ export class InventoryContextMenu extends Menu {
         this.game.handleItemSelection(this.item, this);
       }
     } else {
-      const text = "Objet utilisable uniquement \nen combat";
-      return this.game.player.inventory.openDialogBox(false, text);
+      if (this.game.battleManager) {
+        this.game.handleItemSelection(this.item, this);
+      } else {
+        const text = "Objet utilisable uniquement \nen combat";
+        return this.game.player.inventory.openDialogBox(false, text);
+      }
     }
   }
 

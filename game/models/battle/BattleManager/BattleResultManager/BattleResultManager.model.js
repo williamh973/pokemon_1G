@@ -28,7 +28,7 @@ export class BattleResultManager {
     if (this.battleManager.sequenceManager.battleCatchSequence?.hasCaptured) {
       this.battleManager.state = BATTLE_MANAGER_STATES.CAPTURED;
 
-      this.openDialogBox(
+      this.battleManager.openDialogBox(
         DIALOGS_DATABASE.BATTLE_DIALOGS.pokemonCaptured(
           this.battleManager.wildPokemon.name
         )
@@ -55,8 +55,8 @@ export class BattleResultManager {
             this.battleManager.openDialogBox(
               `${this.battleManager.wildPokemon.name} a été au pokedex !`
             );
-            this.battleManager.game.stopWildBattle();
-          } else this.battleManager.game.stopWildBattle();
+            this.endBattle();
+          } else this.endBattle();
         } else {
           // PC logic
           this.battleManager.openDialogBox(

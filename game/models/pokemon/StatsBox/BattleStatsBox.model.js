@@ -3,10 +3,12 @@ import { drawText } from "../../../shareds/utils/font/drawText.utils.js";
 import { textParams } from "../../../shareds/utils/font/font.utils.js";
 
 export class BattleStatsBox {
-  constructor(game, stats, params) {
+  constructor(game, pokemon, params, side) {
     this.game = game;
-    this.stats = stats;
+    this.pokemon = pokemon;
+    this.stats = this.pokemon.stats;
     this.params = params;
+    this.side = side;
     this.canvas = this.game.canvas;
     this.position = {
       x: params.x,
