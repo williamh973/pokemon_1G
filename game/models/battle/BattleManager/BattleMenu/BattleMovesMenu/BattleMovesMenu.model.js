@@ -18,19 +18,28 @@ export class BattleMovesMenu extends Menu {
     this.lineHeight = 40;
     this.items = [];
     this.selectedMoveData = null;
+    this.slots = [
+      new PokemonMoveSlot({}),
+      new PokemonMoveSlot({}),
+      new PokemonMoveSlot({}),
+      new PokemonMoveSlot({}),
+    ];
   }
 
   setItems() {
     this.currentPlayerPokemon?.moves.forEach((move, index) => {
-      let slot = new PokemonMoveSlot(
-        {
-          positionX: this.position.x + 25,
-          positionY: this.position.y + 10 + this.lineHeight * index,
-          width: this.width - 25,
-          height: 40,
-        },
-        `MOVE_SLOT`
-      );
+      let slot = this.slots[index];
+      const slotConfig = {
+        positionX: this.position.x + 25,
+        positionY: this.position.y + 10 + this.lineHeight * index,
+        width: this.width - 25,
+        height: 40,
+      };
+      const slotId = `MOVE_SLOT`;
+
+      slot.config = slotConfig;
+      slot.id = slotId;
+
       slot.setMove(move);
       this.items.push(slot);
     });
@@ -42,6 +51,7 @@ export class BattleMovesMenu extends Menu {
   }
 
   close() {
+    this.items = [];
     super.close();
     this.game.battleManager.openBattleMenu();
   }

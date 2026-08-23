@@ -1,4 +1,4 @@
-import { BATTLE_MANAGER_STATES } from "../../../../logic/gameplay/battleManager/slots/states/battleManager.states.js";
+import { BATTLE_MANAGER_STATES } from "../../../../logic/gameplay/battleManager/states/battleManager.states.js";
 import { GAME_STATES } from "../../../../logic/gameplay/game/states/states.gameplay.js";
 import { INPUT_STATE } from "../../../../logic/input/inputs.state.js";
 import { DIALOGS_DATABASE } from "../../../../shareds/dialogs/dialogs.database.js";

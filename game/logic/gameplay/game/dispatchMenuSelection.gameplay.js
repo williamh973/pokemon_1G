@@ -48,8 +48,7 @@ export const dispatchMenuSelection = (game, itemId, source) => {
 
     SWITCH_POKEMON: () => game.switchPokemon(),
 
-    MOVE_SLOT: () =>
-      game.battleManager.handleBattleMoves(source.selectedMoveData),
+    MOVE_SLOT: () => game.battleManager.selecteMove(source.selectedMoveData),
 
     USE_ITEM_TO_PARTY: () => game.player.party.applyUsedItemEffect(),
   };

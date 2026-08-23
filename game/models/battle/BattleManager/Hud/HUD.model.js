@@ -98,8 +98,12 @@ export class HUD {
   }
 
   update(context) {
+    if (this.HPbar.targetHp !== this.pokemon.stats.hp)
+      this.HPbar.setHp(this.pokemon.stats.hp);
+
     this.draw(context);
     this.HPbar?.update(context);
+
     if (this.isPlayerHUD) this.expBar?.update(context);
   }
 }

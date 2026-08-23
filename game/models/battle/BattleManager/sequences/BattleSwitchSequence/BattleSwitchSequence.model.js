@@ -15,6 +15,8 @@ export class BattleSwitchSequence {
 
   updateHUD() {
     const currentPlayerPokemon = this.game.battleManager.currentPlayerPokemon;
+    this.game.battleManager.battleRenderer.backSlot.content =
+      currentPlayerPokemon;
 
     this.game.battleManager.battleRenderer.backHUD.pokemon =
       currentPlayerPokemon;

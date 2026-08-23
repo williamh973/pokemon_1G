@@ -53,6 +53,7 @@ const getMoves = (learnsets, level) => {
       power: set.move.power,
       precision: set.move.precision,
       desc: set.move.desc,
+      enabled: true,
     }));
 };
 

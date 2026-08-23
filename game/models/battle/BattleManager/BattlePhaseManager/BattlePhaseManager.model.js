@@ -53,6 +53,7 @@ export class BattlePhaseManager {
           )
         );
 
+        this.battleManager.battleMovesMenu.close();
         this.battleManager.openBattleMenu();
         break;
 
@@ -78,15 +79,10 @@ export class BattlePhaseManager {
         );
 
         sequence.startBattleSwitchSequence(key);
-
         break;
 
-      case BATTLE_PHASES.POKEMON_USE_MOVE:
-        sequence.startPokemonUseMoveSequence(
-          this.battleManager.currentPlayerPokemon,
-          this.battleManager.selectedMove,
-          this.battleManager.wildPokemon
-        );
+      case BATTLE_PHASES.EXECUTE_TURN:
+        this.battleManager.turnManager.startTurn(sequence);
         break;
     }
   }
@@ -134,6 +130,15 @@ export class BattlePhaseManager {
           this.battleManager.isAttemptSwitch = false;
           this.setPhase(BATTLE_PHASES.BATTLE_MENU);
         }
+        break;
+
+      case BATTLE_PHASES.EXECUTE_TURN:
+        if (this.battleManager.turnManager.isFinished) {
+          this.setPhase(BATTLE_PHASES.BATTLE_MENU);
+          break;
+        }
+
+        this.battleManager.turnManager.update(sequence);
         break;
 
       default:

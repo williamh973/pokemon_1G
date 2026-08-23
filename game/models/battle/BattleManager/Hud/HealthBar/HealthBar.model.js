@@ -4,7 +4,10 @@ import { textParams } from "../../../../../shareds/utils/font/font.utils.js";
 export class HealthBar {
   constructor(parent, currentHp, maxHp) {
     this.currentHp = currentHp;
+    this.targetHp = currentHp;
     this.maxHp = maxHp;
+    this.isAnimating = false;
+
     this.position = {
       x: parent.x,
       y: parent.y,
@@ -17,6 +20,32 @@ export class HealthBar {
       orange: "#f0c040",
       red: "#e04040",
     };
+  }
+
+  setHp(hp) {
+    if (this.targetHp === hp) return;
+
+    this.targetHp = hp;
+    this.isAnimating = true;
+  }
+
+  animateHp() {
+    if (this.currentHp === this.targetHp) {
+      this.isAnimating = false;
+      return;
+    }
+
+    const speed = 0.15;
+
+    if (this.currentHp > this.targetHp) {
+      this.currentHp = Math.max(this.targetHp, this.currentHp - speed);
+    } else {
+      this.currentHp = Math.min(this.targetHp, this.currentHp + speed);
+    }
+  }
+
+  isAnimationFinished() {
+    return !this.isAnimating;
   }
 
   handleHPColor(context, hpPercent) {
@@ -46,7 +75,7 @@ export class HealthBar {
     );
     context.fill();
 
-    const hpPercent = Math.max(0, this.currentHp / this.maxHp);
+    const hpPercent = Math.min(1, Math.max(0, this.currentHp / this.maxHp));
     const hpWidth = this.width * hpPercent;
 
     this.handleHPColor(context, hpPercent);
@@ -69,11 +98,12 @@ export class HealthBar {
     textParams(context, "18", "white");
     drawText(context, "PV", this.position.x - 20, this.position.y - 7);
 
-    const currentHpWidth = context.measureText(this.currentHp).width;
+    const displayedHp = Math.ceil(this.currentHp);
+    const currentHpWidth = context.measureText(displayedHp).width;
 
     drawText(
       context,
-      this.currentHp,
+      displayedHp,
       this.position.x + this.width / 2 - currentHpWidth - 7,
       this.position.y + 5
     );
@@ -94,6 +124,7 @@ export class HealthBar {
   }
 
   update(context) {
+    this.animateHp();
     this.draw(context);
   }
 }

@@ -8,7 +8,7 @@ export const kantoRoute1Encounters = {
       { chance: 235, pokemon: { id: "rattata", level: 4 } },
       { chance: 245, pokemon: { id: "pidgey", level: 4 } },
       { chance: 255, pokemon: { id: "pidgey", level: 5 } },
-      // { chance: 256, pokemon: { id: "onix", level: 2 } }, // pour dev
+      // { chance: 256, pokemon: { id: "pidgey", level: 7 } }, // pour dev
     ],
     night: [
       { chance: 180, pokemon: { id: "zubat", level: 2 } },

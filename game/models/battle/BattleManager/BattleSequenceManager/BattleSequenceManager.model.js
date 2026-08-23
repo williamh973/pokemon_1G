@@ -5,6 +5,7 @@ import { BattlePlayerThrowSequence } from "../sequences/BattlePlayerThrowSequenc
 import { BattleSwitchSequence } from "../sequences/BattleSwitchSequence/BattleSwitchSequence.model.js";
 import { PokemonAppearsSequence } from "../sequences/PokemonAppearsSequence/PokemonAppearsSequence.model.js";
 import { PokemonDisappearsSequence } from "../sequences/PokemonDisappearsSequence/PokemonDisappearsSequence.model.js";
+import { PokemonUseMoveSequence } from "../sequences/PokemonUseMoveSequence/PokemonUseMoveSequence.model.js";
 
 export class BattleSequenceManager {
   constructor(context) {
@@ -87,14 +88,12 @@ export class BattleSequenceManager {
     this.battleSwitchSequence.start();
   }
 
-  startPokemonUseMoveSequence(currentPlayerPokemon, selectedMove, wildPokemon) {
+  startPokemonUseMoveSequence(turnAction) {
     this.pokemonUseMoveSequence = new PokemonUseMoveSequence(
       this.game,
-      currentPlayerPokemon,
-      selectedMove,
-      wildPokemon
+      this.viewers,
+      turnAction
     );
-    this.pokemonUseMoveSequence.start();
   }
 
   update(context, action) {
@@ -115,11 +114,13 @@ export class BattleSequenceManager {
       if (this.battleCatchSequence) this.battleCatchSequence.isFinished = true;
     } else this.pokemonAppearsSequence?.update();
 
-    if (!this.battleCatchSequence?.isFinished) {
+    if (!this.battleCatchSequence?.isFinished)
       this.battleCatchSequence?.update(context);
-    }
 
     if (!this.battleSwitchSequence?.isFinished)
       this.battleSwitchSequence?.update(context);
+
+    if (!this.pokemonUseMoveSequence?.isFinished)
+      this.pokemonUseMoveSequence?.update(context);
   }
 }

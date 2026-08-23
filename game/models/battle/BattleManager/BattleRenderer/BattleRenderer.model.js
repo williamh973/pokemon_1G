@@ -11,6 +11,15 @@ export class BattleRenderer {
     this.backHUD = huds.backHUD;
   }
 
+  isPokemonHpAnimationFinished(pokemon) {
+    const hud =
+      this.frontHUD.pokemon === pokemon ? this.frontHUD : this.backHUD;
+
+    if (hud.HPbar.targetHp !== pokemon.stats.hp) return false;
+
+    return !hud.HPbar.isAnimating;
+  }
+
   setBattleBackImg() {
     const background = BATTLE_BACKGROUND_DATABASE[this.tile.terrain];
     const defaultBackground = BATTLE_BACKGROUND_DATABASE["default"];

@@ -13,6 +13,7 @@ export class Slot {
     this.hoveredBackImage = this.config.imageHovered;
     this.scale = this.config.scale;
     this.content = null;
+    this.attackDirection = this.config.attackDirection;
     this.isHovered = false;
   }
 

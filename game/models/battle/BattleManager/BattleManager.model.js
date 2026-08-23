@@ -8,13 +8,15 @@ import { HUD_CONFIG } from "../../../render/config/battle/hud.config.js";
 import { BATTLE_SLOT_CONFIG } from "../../../logic/gameplay/battleManager/slots/battleSlots.config.js";
 import { BattlePhaseManager } from "./BattlePhaseManager/BattlePhaseManager.model.js";
 import { BattleSequenceManager } from "./BattleSequenceManager/BattleSequenceManager.model.js";
-import { BATTLE_MANAGER_STATES } from "../../../logic/gameplay/battleManager/slots/states/battleManager.states.js";
+import { BATTLE_MANAGER_STATES } from "../../../logic/gameplay/battleManager/states/battleManager.states.js";
 import { BattleMovesMenu } from "./BattleMenu/BattleMovesMenu/BattleMovesMenu.model.js";
 import { GAME_STATES } from "../../../logic/gameplay/game/states/states.gameplay.js";
 import { BattleMenu } from "./BattleMenu/BattleMenu.model.js";
 import { BattleResultManager } from "./BattleResultManager/BattleResultManager.model.js";
 import { BattleStatsBox } from "../../pokemon/StatsBox/BattleStatsBox.model.js";
 import { BATTLE_PHASES } from "./BattlePhaseManager/battlePhase.js";
+import { AI } from "./AI/AI.model.js";
+import { TurnManager } from "./TurnManager/TurnManager.model.js";
 
 export class BattleManager {
   constructor(game, wildPokemon, tile, weather, battleType) {
@@ -37,6 +39,7 @@ export class BattleManager {
     this.isUseItem = false;
     this.usedItem = null;
     this.selectedMove = null;
+    this.wildPokemonSelectedMove = null;
     this.currentTrainerPokemon = null;
     this.currentPlayerPokemon = this.getPlayerPartyPokemon(0);
 
@@ -68,6 +71,10 @@ export class BattleManager {
         this.battleRenderer.backSlot
       ),
     };
+
+    this.battleRenderer.frontSlot.content = this.wildPokemon;
+    this.battleRenderer.backSlot.content = this.currentPlayerPokemon;
+
     this.viewers.back.sprite.isPlaying = false;
 
     this.sequenceManager = new BattleSequenceManager({
@@ -98,6 +105,13 @@ export class BattleManager {
         "back"
       ),
     ];
+
+    this.wildPokemonAI = new AI();
+    this.turnManager = new TurnManager(this);
+  }
+
+  isHpAnimationFinished(pokemon) {
+    return this.battleRenderer.isPokemonHpAnimationFinished(pokemon);
   }
 
   openBattleMenu() {
@@ -111,9 +125,18 @@ export class BattleManager {
     this.game.state = GAME_STATES.BATTLE_MOVES_MENU;
   }
 
-  handleBattleMoves(moveData) {
+  selecteMove(moveData) {
     this.selectedMove = moveData;
-    this.phaseManager.setPhase(BATTLE_PHASES.POKEMON_USE_MOVE);
+
+    this.wildPokemonSelectMove();
+
+    this.phaseManager.setPhase(BATTLE_PHASES.EXECUTE_TURN);
+  }
+
+  wildPokemonSelectMove() {
+    this.wildPokemonSelectedMove = this.wildPokemonAI.chooseMove(
+      this.wildPokemon
+    );
   }
 
   requestSwitch() {

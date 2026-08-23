@@ -1,3 +1,4 @@
+import { INPUT_STATE } from "../../logic/input/inputs.state.js";
 import { drawBox } from "../../shareds/utils/box/box.utils.js";
 import { drawText } from "../../shareds/utils/font/drawText.utils.js";
 import { textParams } from "../../shareds/utils/font/font.utils.js";
@@ -7,10 +8,26 @@ export class DialogBox {
     this.game = game;
     this.width = this.game.canvas.width;
     this.height = 65;
+
     this.position = {
       x: 0,
       y: this.game.canvas.height - this.height,
     };
+
+    this.initialPosition = {
+      x: this.position.x,
+      y: this.position.y,
+    };
+
+    this.animation = {
+      shakeDistance: 5,
+      shakeSpeed: 4,
+      shakeCount: 0,
+      maxShakeCount: 4,
+      direction: 1,
+      isFinished: true,
+    };
+
     this.text = null;
     this.maxLines = 2;
     this.currentPageIndex = 0;
@@ -18,6 +35,36 @@ export class DialogBox {
     this.hasCurrentPageRead = false;
     this.ignoreNextAction = ignoreNextAction;
     this.hasFocus = false;
+  }
+
+  shakeAnimation() {
+    if (this.animation.isFinished) return;
+
+    this.position.y += this.animation.shakeSpeed * this.animation.direction;
+
+    if (
+      Math.abs(this.position.y - this.initialPosition.y) >=
+      this.animation.shakeDistance
+    ) {
+      this.animation.direction *= -1;
+      this.animation.shakeCount++;
+    }
+
+    if (this.animation.shakeCount >= this.animation.maxShakeCount) {
+      this.position.y = this.initialPosition.y;
+
+      this.animation.shakeCount = 0;
+      this.animation.direction = 1;
+      this.animation.isFinished = true;
+    }
+  }
+
+  startShakeAnimation() {
+    this.animation.shakeCount = 0;
+    this.animation.direction = 1;
+    this.animation.isFinished = false;
+
+    this.position.x = this.initialPosition.x;
   }
 
   createPages(text) {
@@ -83,8 +130,12 @@ export class DialogBox {
 
   update(context, action) {
     if (!this.isOpen) return;
+
+    this.shakeAnimation();
+
     this.draw(context);
-    if (!this.hasFocus || action !== "ACTION") return;
+
+    if (!this.hasFocus || action !== INPUT_STATE.ACTION) return;
 
     if (this.ignoreNextAction) {
       this.ignoreNextAction = false;
