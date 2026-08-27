@@ -86,7 +86,7 @@ export class BattlePhaseManager {
         this.battleManager.turnManager.startTurn(sequence);
         break;
 
-      case BATTLE_PHASES.KO:
+      case BATTLE_PHASES.DETERMINE_KO:
         const { target } = this.battleManager.turnManager.koAction;
         this.battleManager.openDialogBox(
           DIALOGS_DATABASE.BATTLE_DIALOGS.pokemonKO(target.name)
@@ -165,20 +165,25 @@ export class BattlePhaseManager {
       case BATTLE_PHASES.EXECUTE_TURN:
         this.battleManager.turnManager.update(sequence);
 
-        if (this.battleManager.turnManager.state === TURN_STATES.KO) {
-          this.setPhase(BATTLE_PHASES.KO);
+        if (this.battleManager.turnManager.state === TURN_STATES.DETERMINE_KO) {
+          this.setPhase(BATTLE_PHASES.DETERMINE_KO);
           break;
         }
 
-        if (this.battleManager.turnManager.isFinished) {
+        if (this.battleManager.turnManager.isFinished)
           this.setPhase(BATTLE_PHASES.BATTLE_MENU);
-        }
-
         break;
 
-      case BATTLE_PHASES.KO:
+      case BATTLE_PHASES.DETERMINE_KO:
         if (action === INPUT_STATE.ACTION) {
-          this.setPhase(BATTLE_PHASES.EXP_GAIN); // Dans le cas ou le pokemon ayant mis ko n'est pas mis lui-même ko par un move type recoil
+          this.sequenceManager.startPokemonFaintSequence();
+          this.setPhase(BATTLE_PHASES.FAINT);
+        }
+        break;
+
+      case BATTLE_PHASES.FAINT:
+        if (this.sequenceManager.pokemonFaintSequence?.isFinished) {
+          this.setPhase(BATTLE_PHASES.EXP_GAIN);
         }
         break;
 
@@ -186,19 +191,12 @@ export class BattlePhaseManager {
         const resultManager = this.battleManager.resultManager;
 
         if (!resultManager.isExpGainStarted) {
-          if (action === INPUT_STATE.ACTION) {
-            console.log("start Exp Gain Animation");
-            resultManager.startExpGain();
-          }
-
+          if (action === INPUT_STATE.ACTION) resultManager.startExpGain();
           break;
         }
 
-        if (resultManager.isExpGainFinished) {
-          console.log("Exp Gain Animation terminé");
+        if (resultManager.isExpGainFinished)
           this.setPhase(BATTLE_PHASES.END_BATTLE_OR_CONTINUE);
-        }
-
         break;
 
       default:

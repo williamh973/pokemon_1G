@@ -3,7 +3,6 @@ import { TURN_STATES } from "../../../../logic/gameplay/battleManager/turnManage
 import { GAME_STATES } from "../../../../logic/gameplay/game/states/states.gameplay.js";
 import { INPUT_STATE } from "../../../../logic/input/inputs.state.js";
 import { DIALOGS_DATABASE } from "../../../../shareds/dialogs/dialogs.database.js";
-import { gainExp } from "../../../../shareds/utils/pokemon/experience/experience.utils.js";
 
 export class BattleResultManager {
   constructor(battleManager) {
@@ -17,7 +16,7 @@ export class BattleResultManager {
   checkPokemonKo() {
     const turnManager = this.battleManager.turnManager;
 
-    if (turnManager.state !== TURN_STATES.KO) return;
+    if (turnManager.state !== TURN_STATES.DETERMINE_KO) return;
     if (this.isKoProcessed) return;
 
     const koAction = turnManager.koAction;
@@ -26,15 +25,14 @@ export class BattleResultManager {
 
     const koPokemon = koAction.target;
 
-    if (koPokemon === this.battleManager.wildPokemon) {
-      this.isKoProcessed = true;
-    }
+    if (koPokemon === this.battleManager.wildPokemon) this.isKoProcessed = true;
 
-    // if (koPokemon === this.battleManager.currentPlayerPokemon) {
-    //   // Pokémon du joueur KO
-    //   // → choisir un autre Pokémon
-    //   // → ou défaite
-    // }
+    if (koPokemon === this.battleManager.currentPlayerPokemon) {
+      this.isKoProcessed = true;
+      // Pokémon du joueur KO
+      // → choisir un autre Pokémon
+      // → ou défaite
+    }
   }
 
   startExpGain() {

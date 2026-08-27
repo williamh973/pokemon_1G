@@ -5,6 +5,7 @@ import { BattlePlayerThrowSequence } from "../sequences/BattlePlayerThrowSequenc
 import { BattleSwitchSequence } from "../sequences/BattleSwitchSequence/BattleSwitchSequence.model.js";
 import { PokemonAppearsSequence } from "../sequences/PokemonAppearsSequence/PokemonAppearsSequence.model.js";
 import { PokemonDisappearsSequence } from "../sequences/PokemonDisappearsSequence/PokemonDisappearsSequence.model.js";
+import { PokemonFaintSequence } from "../sequences/PokemonFaintSequence/PokemonFaintSequence.model.js";
 import { PokemonUseMoveSequence } from "../sequences/PokemonUseMoveSequence/PokemonUseMoveSequence.model.js";
 
 export class BattleSequenceManager {
@@ -18,6 +19,7 @@ export class BattleSequenceManager {
 
     this.pokemonAppearsSequence = null;
     this.pokemonDisappearsSequence = null;
+    this.pokemonFaintSequence = null;
   }
 
   startIntroSequence() {
@@ -96,6 +98,12 @@ export class BattleSequenceManager {
     );
   }
 
+  startPokemonFaintSequence() {
+    this.pokemonFaintSequence = new PokemonFaintSequence(this.game);
+
+    this.pokemonFaintSequence.start();
+  }
+
   update(context, action) {
     if (this.introSequence?.isFinished) {
       this.battleRenderer.frontHUD?.update(context);
@@ -122,5 +130,8 @@ export class BattleSequenceManager {
 
     if (!this.pokemonUseMoveSequence?.isFinished)
       this.pokemonUseMoveSequence?.update(context);
+
+    if (!this.pokemonFaintSequence?.isFinished)
+      this.pokemonFaintSequence?.update();
   }
 }

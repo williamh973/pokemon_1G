@@ -158,7 +158,7 @@ export class TurnManager {
   checkActionTargetKO(action) {
     if (action.target.stats.hp <= 0) {
       this.koAction = action;
-      this.state = TURN_STATES.KO;
+      this.state = TURN_STATES.DETERMINE_KO;
       console.log(`${this.koAction.target.name} est KO`);
       return;
     }
