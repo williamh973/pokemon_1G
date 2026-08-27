@@ -1,16 +1,58 @@
 import { BATTLE_MANAGER_STATES } from "../../../../logic/gameplay/battleManager/states/battleManager.states.js";
+import { TURN_STATES } from "../../../../logic/gameplay/battleManager/turnManager/states/turnManager.states.js";
 import { GAME_STATES } from "../../../../logic/gameplay/game/states/states.gameplay.js";
 import { INPUT_STATE } from "../../../../logic/input/inputs.state.js";
 import { DIALOGS_DATABASE } from "../../../../shareds/dialogs/dialogs.database.js";
+import { gainExp } from "../../../../shareds/utils/pokemon/experience/experience.utils.js";
 
 export class BattleResultManager {
   constructor(battleManager) {
     this.battleManager = battleManager;
+    this.isKoProcessed = false;
+    this.gainedExp = null;
+    this.isExpGainStarted = false;
+    this.isExpGainFinished = false;
+  }
+
+  checkPokemonKo() {
+    const turnManager = this.battleManager.turnManager;
+
+    if (turnManager.state !== TURN_STATES.KO) return;
+    if (this.isKoProcessed) return;
+
+    const koAction = turnManager.koAction;
+
+    if (!koAction) return;
+
+    const koPokemon = koAction.target;
+
+    if (koPokemon === this.battleManager.wildPokemon) {
+      this.isKoProcessed = true;
+    }
+
+    // if (koPokemon === this.battleManager.currentPlayerPokemon) {
+    //   // Pokémon du joueur KO
+    //   // → choisir un autre Pokémon
+    //   // → ou défaite
+    // }
+  }
+
+  startExpGain() {
+    this.isExpGainStarted = true;
+
+    const wildPokemonXp = this.battleManager.wildPokemon.exp;
+    const { pokemon } = this.battleManager.turnManager.koAction;
+
+    pokemon.exp += wildPokemonXp;
+
+    console.log("XP finale :", pokemon.exp);
   }
 
   checkPlayerEscaped(action) {
     if (this.battleManager.hasPlayerEscaped) {
-      this.battleManager.openDialogBox(`Vous prenez la fuite!`);
+      this.battleManager.openDialogBox(
+        DIALOGS_DATABASE.BATTLE_DIALOGS.playerEscape()
+      );
 
       if (action === INPUT_STATE.ACTION) {
         const pokedexState =
@@ -53,14 +95,18 @@ export class BattleResultManager {
           if (hasPokedexAddedPokemon) {
             this.battleManager.state = BATTLE_MANAGER_STATES.ADD_POKEDEX;
             this.battleManager.openDialogBox(
-              `${this.battleManager.wildPokemon.name} a été au pokedex !`
+              DIALOGS_DATABASE.BATTLE_DIALOGS.wildPokemonAddedToPokedex(
+                this.battleManager.wildPokemon.name
+              )
             );
             this.endBattle();
           } else this.endBattle();
         } else {
           // PC logic
           this.battleManager.openDialogBox(
-            `Plus de place dans l'équipe\n${this.battleManager.wildPokemon.name} est transféré au pc`
+            DIALOGS_DATABASE.BATTLE_DIALOGS.pokemonSentToPc(
+              this.battleManager.wildPokemon.name
+            )
           );
         }
       }
@@ -83,7 +129,16 @@ export class BattleResultManager {
   }
 
   update(action) {
+    this.checkPokemonKo();
     this.checkPlayerEscaped(action);
     this.checkPokemonCaptured(action);
+
+    if (this.isExpGainStarted && !this.isExpGainFinished) {
+      const { pokemon } = this.battleManager.turnManager.koAction;
+
+      if (this.battleManager.isExpAnimationFinished(pokemon)) {
+        this.isExpGainFinished = true;
+      }
+    }
   }
 }

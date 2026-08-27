@@ -20,6 +20,25 @@ export class BattleRenderer {
     return !hud.HPbar.isAnimating;
   }
 
+  isPokemonExpAnimationFinished(pokemon) {
+    let hud = null;
+
+    if (this.frontHUD.pokemon === pokemon) {
+      hud = this.frontHUD;
+    } else if (this.backHUD.pokemon === pokemon) {
+      hud = this.backHUD;
+    } else {
+      return false;
+    }
+
+    const expBar = hud.expBar;
+
+    if (expBar.targetExp !== pokemon.exp) return false;
+    if (expBar.currentExp !== pokemon.exp) return false;
+
+    return !expBar.isAnimating;
+  }
+
   setBattleBackImg() {
     const background = BATTLE_BACKGROUND_DATABASE[this.tile.terrain];
     const defaultBackground = BATTLE_BACKGROUND_DATABASE["default"];

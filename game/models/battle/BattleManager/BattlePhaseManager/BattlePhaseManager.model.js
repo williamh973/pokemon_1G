@@ -1,3 +1,4 @@
+import { TURN_STATES } from "../../../../logic/gameplay/battleManager/turnManager/states/turnManager.states.js";
 import { INPUT_STATE } from "../../../../logic/input/inputs.state.js";
 import { DIALOGS_DATABASE } from "../../../../shareds/dialogs/dialogs.database.js";
 import { BATTLE_PHASES } from "./battlePhase.js";
@@ -84,6 +85,35 @@ export class BattlePhaseManager {
       case BATTLE_PHASES.EXECUTE_TURN:
         this.battleManager.turnManager.startTurn(sequence);
         break;
+
+      case BATTLE_PHASES.KO:
+        const { target } = this.battleManager.turnManager.koAction;
+        this.battleManager.openDialogBox(
+          DIALOGS_DATABASE.BATTLE_DIALOGS.pokemonKO(target.name)
+        );
+        break;
+
+      case BATTLE_PHASES.EXP_GAIN:
+        const { pokemon } = this.battleManager.turnManager.koAction;
+        const wildPokemonXp = this.battleManager.wildPokemon.exp;
+
+        this.battleManager.openDialogBox(
+          DIALOGS_DATABASE.BATTLE_DIALOGS.gainExp(pokemon.name, wildPokemonXp)
+        );
+        console.log(
+          DIALOGS_DATABASE.BATTLE_DIALOGS.gainExp(pokemon.name, wildPokemonXp)
+        );
+        break;
+
+      case BATTLE_PHASES.END_BATTLE_OR_CONTINUE:
+        console.log(this.battleManager.battleType);
+        if (this.battleManager.battleType === "WILD") {
+          this.battleManager.resultManager.endBattle();
+          console.log("end battle");
+        } else {
+          // le battleType serait "trainer" et devra set la phase d'apparition du pokemon suivant du trainer
+        }
+        break;
     }
   }
 
@@ -133,12 +163,42 @@ export class BattlePhaseManager {
         break;
 
       case BATTLE_PHASES.EXECUTE_TURN:
-        if (this.battleManager.turnManager.isFinished) {
-          this.setPhase(BATTLE_PHASES.BATTLE_MENU);
+        this.battleManager.turnManager.update(sequence);
+
+        if (this.battleManager.turnManager.state === TURN_STATES.KO) {
+          this.setPhase(BATTLE_PHASES.KO);
           break;
         }
 
-        this.battleManager.turnManager.update(sequence);
+        if (this.battleManager.turnManager.isFinished) {
+          this.setPhase(BATTLE_PHASES.BATTLE_MENU);
+        }
+
+        break;
+
+      case BATTLE_PHASES.KO:
+        if (action === INPUT_STATE.ACTION) {
+          this.setPhase(BATTLE_PHASES.EXP_GAIN); // Dans le cas ou le pokemon ayant mis ko n'est pas mis lui-même ko par un move type recoil
+        }
+        break;
+
+      case BATTLE_PHASES.EXP_GAIN:
+        const resultManager = this.battleManager.resultManager;
+
+        if (!resultManager.isExpGainStarted) {
+          if (action === INPUT_STATE.ACTION) {
+            console.log("start Exp Gain Animation");
+            resultManager.startExpGain();
+          }
+
+          break;
+        }
+
+        if (resultManager.isExpGainFinished) {
+          console.log("Exp Gain Animation terminé");
+          this.setPhase(BATTLE_PHASES.END_BATTLE_OR_CONTINUE);
+        }
+
         break;
 
       default:

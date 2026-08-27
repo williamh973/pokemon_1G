@@ -17,7 +17,6 @@ import { BattleStatsBox } from "../../pokemon/StatsBox/BattleStatsBox.model.js";
 import { BATTLE_PHASES } from "./BattlePhaseManager/battlePhase.js";
 import { AI } from "./AI/AI.model.js";
 import { TurnManager } from "./TurnManager/TurnManager.model.js";
-
 export class BattleManager {
   constructor(game, wildPokemon, tile, weather, battleType) {
     this.game = game;
@@ -114,6 +113,10 @@ export class BattleManager {
     return this.battleRenderer.isPokemonHpAnimationFinished(pokemon);
   }
 
+  isExpAnimationFinished(pokemon) {
+    return this.battleRenderer.isPokemonExpAnimationFinished(pokemon);
+  }
+
   openBattleMenu() {
     this.battleMenu.open();
     this.game.state = GAME_STATES.BATTLE_MENU;
@@ -177,7 +180,6 @@ export class BattleManager {
 
   update(context, action) {
     if (!this.isOpen) return;
-
     this.battleRenderer?.update(context);
 
     for (const viewer of Object.values(this.viewers))
@@ -185,9 +187,8 @@ export class BattleManager {
 
     this.sequenceManager?.update(context, action);
 
-    this.phaseManager?.update(action);
-
     this.resultManager?.update(action);
+    this.phaseManager?.update(action);
 
     for (const statBox of this.debugStatsBoxes) statBox?.update(context);
   }

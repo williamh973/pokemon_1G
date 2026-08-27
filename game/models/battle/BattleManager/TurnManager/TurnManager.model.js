@@ -1,6 +1,7 @@
 import { calculateMoveDamages } from "../../../../logic/gameplay/battleManager/turnManager/damages/calculateDamages.gameplay.js";
 import { determineOrder } from "../../../../logic/gameplay/battleManager/turnManager/determineOrder/determineOrder.gameplay.js";
 import { TURN_STATES } from "../../../../logic/gameplay/battleManager/turnManager/states/turnManager.states.js";
+import { DIALOGS_DATABASE } from "../../../../shareds/dialogs/dialogs.database.js";
 
 export class TurnManager {
   constructor(battleManager) {
@@ -56,9 +57,11 @@ export class TurnManager {
     this.isPPDeducted = false;
 
     this.battleManager.openDialogBox(
-      `${action.pokemon.name} ${action.trainerId ? "" : "ennemi "}utilise ${
+      DIALOGS_DATABASE.BATTLE_DIALOGS.pokemonUseMove(
+        action.pokemon.name,
+        action.trainerId,
         action.move.name
-      } !`
+      )
     );
 
     this.wait(
@@ -100,7 +103,7 @@ export class TurnManager {
     if (!isMoveSuccessful) {
       console.log(`${action.pokemon.name} rate son attaque !`);
       this.battleManager.openDialogBox(
-        `${action.pokemon.name} rate son attaque !`
+        DIALOGS_DATABASE.BATTLE_DIALOGS.pokemonMissMove(action.pokemon.name)
       );
 
       this.wait(
@@ -152,16 +155,20 @@ export class TurnManager {
     }
   }
 
+  checkActionTargetKO(action) {
+    if (action.target.stats.hp <= 0) {
+      this.koAction = action;
+      this.state = TURN_STATES.KO;
+      console.log(`${this.koAction.target.name} est KO`);
+      return;
+    }
+  }
+
   checkActionAnimationFinished(sequence, action) {
     if (this.isActionAnimationFinished(sequence, action)) {
       console.log("pokemonUseMoveSequence est fini");
 
-      if (action.target.stats.hp <= 0) {
-        this.koAction = action;
-        this.state = TURN_STATES.KO;
-        this.battleManager.openDialogBox(`${action.target.name} est K.O !`);
-        return;
-      }
+      this.checkActionTargetKO(action);
 
       this.onActionFinished(sequence);
     }
@@ -179,9 +186,6 @@ export class TurnManager {
         this.checkPokemonUseMoveSequenceFinished(sequence, action);
 
         this.checkActionAnimationFinished(sequence, action);
-        break;
-
-      case TURN_STATES.KO:
         break;
 
       case TURN_STATES.END:

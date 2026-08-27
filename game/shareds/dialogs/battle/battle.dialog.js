@@ -1,4 +1,19 @@
 export const BATTLE_DIALOGS = {
+  gainExp: (pokemon, expGained) =>
+    `${pokemon} a gagné \n${expGained} points d'EXP !`,
+
+  wildPokemonAddedToPokedex: (wildPokemon) =>
+    `${wildPokemon} a été ajouté au pokedex !`,
+
+  playerEscape: () => `Vous prenez la fuite!`,
+
+  pokemonUseMove: (pokemon, trainerId, move) =>
+    `${pokemon} ${trainerId ? "" : "ennemi "}utilise ${move} !`,
+
+  pokemonKO: (pokemon) => `${pokemon} est K.O !`,
+
+  pokemonMissMove: (pokemon) => `${pokemon} rate son attaque !`,
+
   wildPokemonEscaped: (pokemon) => `Mince! ${pokemon} s'est \nlibéré.`,
 
   wildPokemonAppears: (pokemon) => `Un ${pokemon} sauvage apparait!`,

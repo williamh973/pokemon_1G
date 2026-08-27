@@ -1,9 +1,10 @@
+import { SPECIES_DATABASE } from "../../../../../shareds/pokemon/species/species.database.js";
 import { drawText } from "../../../../../shareds/utils/font/drawText.utils.js";
 import { textParams } from "../../../../../shareds/utils/font/font.utils.js";
 import { getExpForLevel } from "../../../../../shareds/utils/pokemon/experience/experience.utils.js";
 
 export class ExpBar {
-  constructor(parent, pokemon) {
+  constructor(parent, currentExp, pokemon) {
     this.pokemon = pokemon;
     this.position = {
       x: parent.x,
@@ -16,26 +17,66 @@ export class ExpBar {
       gray: "#494B52",
       blue: "#27ADF5",
     };
+    this.isAnimating = false;
+    this.currentExp = currentExp;
+    this.targetExp = currentExp;
+    this.speciesGrowthRate = SPECIES_DATABASE[this.pokemon.id].growthRate;
   }
 
-  drawExp(context) {
-    drawText(context, "EXP", this.position.x - 26, this.position.y - 6);
+  setExp(exp) {
+    console.log(
+      "SET EXP",
+      "current:",
+      this.currentExp,
+      "target avant:",
+      this.targetExp,
+      "nouvelle target:",
+      exp
+    );
+    if (this.targetExp === exp) return;
+
+    this.targetExp = exp;
+    this.isAnimating = true;
+  }
+
+  animateExp() {
+    if (this.currentExp === this.targetExp) {
+      this.isAnimating = false;
+      return;
+    }
+
+    const speed = 0.5;
+
+    if (this.currentExp > this.targetExp) {
+      this.currentExp = Math.max(this.targetExp, this.currentExp - speed);
+    } else {
+      this.currentExp = Math.min(this.targetExp, this.currentExp + speed);
+    }
+  }
+
+  isAnimationFinished() {
+    return !this.isAnimating;
   }
 
   getExpPercent() {
     const currentLevelExp = getExpForLevel(
       this.pokemon.level,
-      this.pokemon.growthRate
+      this.speciesGrowthRate
     );
 
     const nextLevelExp = getExpForLevel(
       this.pokemon.level + 1,
-      this.pokemon.growthRate
+      this.speciesGrowthRate
     );
 
-    const currentExp = this.pokemon.exp;
+    const levelExpRange = nextLevelExp - currentLevelExp;
+    const currentLevelProgress = this.currentExp - currentLevelExp;
 
-    return (currentExp - currentLevelExp) / (nextLevelExp - currentLevelExp);
+    return currentLevelProgress / levelExpRange;
+  }
+
+  drawExp(context) {
+    drawText(context, "EXP", this.position.x - 26, this.position.y - 6);
   }
 
   draw(context) {
@@ -74,6 +115,8 @@ export class ExpBar {
   }
 
   update(context) {
+    if (this.isAnimating) this.animateExp();
+
     this.draw(context);
   }
 }

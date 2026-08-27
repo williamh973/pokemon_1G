@@ -18,3 +18,13 @@ export function getExpForLevel(level, growthRate) {
       return Math.floor((5 * Math.pow(level, 3)) / 4);
   }
 }
+
+export const gainExp = (wildPokemonXp, playerPokemon) => {
+  const expBeforeGain = playerPokemon.exp;
+
+  return {
+    expBeforeGain,
+    expForNextLevel: playerPokemon.nextLevelExp,
+    level: playerPokemon.level,
+  };
+};

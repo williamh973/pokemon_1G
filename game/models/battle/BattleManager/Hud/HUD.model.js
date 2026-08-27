@@ -27,6 +27,7 @@ export class HUD {
         x: this.position.x + 34,
         y: this.position.y + 57,
       },
+      this.pokemon.exp,
       this.pokemon
     );
   }
@@ -100,6 +101,9 @@ export class HUD {
   update(context) {
     if (this.HPbar.targetHp !== this.pokemon.stats.hp)
       this.HPbar.setHp(this.pokemon.stats.hp);
+
+    if (this.expBar.targetExp !== this.pokemon.exp)
+      this.expBar.setExp(this.pokemon.exp);
 
     this.draw(context);
     this.HPbar?.update(context);

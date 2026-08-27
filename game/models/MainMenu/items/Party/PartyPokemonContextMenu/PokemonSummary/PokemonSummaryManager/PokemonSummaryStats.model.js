@@ -22,6 +22,7 @@ export class PokemonSummaryStats extends BasePokemonSummary {
         x: this.position.x + 210,
         y: this.position.y + 160,
       },
+      this.pokemon.exp,
       this.pokemon
     );
   }
