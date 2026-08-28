@@ -1,5 +1,6 @@
 import { calculateMoveDamages } from "../../../../logic/gameplay/battleManager/turnManager/damages/calculateDamages.gameplay.js";
 import { determineOrder } from "../../../../logic/gameplay/battleManager/turnManager/determineOrder/determineOrder.gameplay.js";
+import { applyMoveEffect } from "../../../../logic/gameplay/battleManager/turnManager/moves/applyMoveEffect.gameplay.js";
 import { TURN_STATES } from "../../../../logic/gameplay/battleManager/turnManager/states/turnManager.states.js";
 import { DIALOGS_DATABASE } from "../../../../shareds/dialogs/dialogs.database.js";
 
@@ -142,6 +143,8 @@ export class TurnManager {
         const damages = calculateMoveDamages(action);
 
         action.target.stats.hp = Math.max(0, action.target.stats.hp - damages);
+
+        applyMoveEffect(action);
 
         this.isDamageApplied = true;
 

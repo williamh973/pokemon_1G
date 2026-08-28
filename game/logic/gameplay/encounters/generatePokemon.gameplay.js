@@ -1,5 +1,6 @@
 import { SPECIES_DATABASE } from "../../../shareds/pokemon/species/species.database.js";
 import { getExpForLevel } from "../../../shareds/utils/pokemon/experience/experience.utils.js";
+import { createStatStages } from "../battleManager/turnManager/statStages/statStages.gameplay.js";
 
 export const generatePokemon = (
   target,
@@ -20,7 +21,6 @@ export const generatePokemon = (
     exp: getExpForLevel(target.level, species.growthRate),
     nextLevelExp: getExpForLevel(target.level + 1, species.growthRate),
     item: generateItem(),
-    item: "Aucun",
     level: target.level,
     ivs,
     evs,
@@ -35,6 +35,7 @@ export const generatePokemon = (
       ...stats,
       maxHp: stats.hp,
     },
+    statStages: createStatStages(),
   };
   return pokemon;
 };
@@ -53,6 +54,7 @@ const getMoves = (learnsets, level) => {
       power: set.move.power,
       precision: set.move.precision,
       desc: set.move.desc,
+      effect: set.move.effect,
       enabled: true,
     }));
 };

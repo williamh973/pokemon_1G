@@ -178,6 +178,14 @@ export class BattleManager {
     if (this.wildPokemon) this.hasPlayerEscaped = true;
   }
 
+  updateDebugStatsBoxes(target, key) {
+    let foundeDdebugStatsBox = this.debugStatsBoxes.find(
+      (statBox) => statBox.side === key
+    );
+    foundeDdebugStatsBox.stats = this.currentPlayerPokemon.stats;
+    if (target) foundeDdebugStatsBox.statStages = target.statStages;
+  } // for debug
+
   update(context, action) {
     if (!this.isOpen) return;
     this.battleRenderer?.update(context);

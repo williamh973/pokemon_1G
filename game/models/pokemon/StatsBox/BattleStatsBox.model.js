@@ -7,6 +7,7 @@ export class BattleStatsBox {
     this.game = game;
     this.pokemon = pokemon;
     this.stats = this.pokemon.stats;
+    this.statStages = this.pokemon.statStages;
     this.params = params;
     this.side = side;
     this.canvas = this.game.canvas;
@@ -14,7 +15,7 @@ export class BattleStatsBox {
       x: params.x,
       y: params.y,
     };
-    this.width = 90;
+    this.width = 120;
     this.height = 120;
     this.isOpen = true;
   }
@@ -23,6 +24,16 @@ export class BattleStatsBox {
     drawBox(
       context,
       this.position.x,
+      this.position.y,
+      this.width,
+      this.height,
+      "black",
+      "white"
+    );
+
+    drawBox(
+      context,
+      this.position.x + this.width + 20,
       this.position.y,
       this.width,
       this.height,
@@ -39,14 +50,31 @@ export class BattleStatsBox {
     this.drawStatRow(context, "PV", this.stats.hp, paddingX, 15);
 
     this.drawStatRow(context, "Att", this.stats.attack, paddingX, 30);
+    this.drawStatRow(context, "", this.statStages.attack, paddingX + 30, 45);
 
     this.drawStatRow(context, "Def", this.stats.defense, paddingX, 45);
+    this.drawStatRow(context, "", this.statStages.defense, paddingX + 30, 45);
 
     this.drawStatRow(context, "AttSpc", this.stats.specialAtt, paddingX, 60);
+    this.drawStatRow(
+      context,
+      "",
+      this.statStages.specialAtt,
+      paddingX + 30,
+      45
+    );
 
     this.drawStatRow(context, "DefSpc", this.stats.specialDef, paddingX, 75);
+    this.drawStatRow(
+      context,
+      "",
+      this.statStages.specialDef,
+      paddingX + 30,
+      45
+    );
 
     this.drawStatRow(context, "Spd", this.stats.speed, paddingX, 90);
+    this.drawStatRow(context, "", this.statStages.speed, paddingX + 30, 45);
   }
 
   drawStatRow(context, titleStat, stat, paddingX, paddingY) {

@@ -46,6 +46,7 @@ export class TailWhipAnimation {
 
     if (this.shakeCount >= this.maxShakeCount) {
       sprite.position.x = this.targetInitialPositionX;
+
       this.isFinished = true;
     }
   }

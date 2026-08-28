@@ -1,3 +1,5 @@
+import { getStatStageMultiplier } from "../statStages/getStatStageMultiplier.gameplay.js";
+
 export const calculateMoveDamages = (action) => {
   const pokemon = action.pokemon;
   const pokemonLevel = action.pokemon.level;
@@ -8,8 +10,17 @@ export const calculateMoveDamages = (action) => {
 
   const isPhysical = move.class.includes("PHYSICAL");
 
-  const attack = isPhysical ? pokemon.stats.attack : pokemon.stats.specialAtt;
-  const defense = isPhysical ? target.stats.defense : target.stats.specialDef;
+  const attackStage =
+    pokemon.statStages[isPhysical ? "attack" : "specialAtt"] ?? 0;
+  const defenseStage =
+    target.statStages[isPhysical ? "defense" : "specialDef"] ?? 0;
 
+  const attack =
+    pokemon.stats[isPhysical ? "attack" : "specialAtt"] *
+    getStatStageMultiplier(attackStage);
+
+  const defense =
+    target.stats[isPhysical ? "defense" : "specialDef"] *
+    getStatStageMultiplier(defenseStage);
   return Math.floor((levelFactor * movePower * (attack / defense)) / 30);
 };

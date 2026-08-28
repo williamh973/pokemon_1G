@@ -42,14 +42,6 @@ export class BattleSwitchSequence {
     this.game.battleManager.currentPlayerPokemon = this.playerTargetPokemon;
   }
 
-  updateDebugStatsBoxes() {
-    let foundeDdebugStatsBox = this.game.battleManager.debugStatsBoxes.find(
-      (statBox) => statBox.side === this.key
-    );
-    foundeDdebugStatsBox.stats =
-      this.game.battleManager.currentPlayerPokemon.stats;
-  } // for debug
-
   start() {
     this.isStarted = true;
     this.sequenceManager.startPokemonDisappearsSequence(this.key);
@@ -69,7 +61,7 @@ export class BattleSwitchSequence {
 
           this.updateCurrentPlayerPokemon();
           this.updateHUD();
-          this.updateDebugStatsBoxes(); // for debug
+          this.game.battleManager.updateDebugStatsBoxes(this.key); // for debug
 
           sequence.startPlayerThrowSequence();
 

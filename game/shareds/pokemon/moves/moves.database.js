@@ -8,6 +8,12 @@ export const MOVES_DATABASE = {
     power: 0,
     precision: 100,
     desc: "Attaque sonore. Baisse l'Attaque.",
+
+    effect: {
+      type: "STAT_STAGE",
+      stat: "attack",
+      amount: -1,
+    },
   },
   scratch: {
     id: "scratch",
@@ -38,6 +44,12 @@ export const MOVES_DATABASE = {
     power: 0,
     precision: 100,
     desc: "Réduit la Défense de l'adversaire d'un niveau.",
+
+    effect: {
+      type: "STAT_STAGE",
+      stat: "defense",
+      amount: -1,
+    },
   },
   vineWhip: {
     id: "vineWhip",
@@ -78,6 +90,12 @@ export const MOVES_DATABASE = {
     power: 0,
     precision: 85,
     desc: "Attaque sonore. Baisse la Défense de la cible de 2 niveaux.",
+
+    effect: {
+      type: "STAT_STAGE",
+      stat: "defense",
+      amount: -2,
+    },
   },
   embrace: {
     id: "embrace",
