@@ -41,7 +41,7 @@ export class BattleMenu extends Menu {
 
       const col = index % 2;
       const row = Math.floor(index / 2);
-      const positionX = this.position.x + 15 + col * 90;
+      const positionX = this.position.x + 10 + col * 75;
       const positionY = this.position.y + 10 + row * 30;
       const width = 70;
       const height = 25;

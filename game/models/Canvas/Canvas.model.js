@@ -6,7 +6,7 @@ export class Canvas {
       x: 0,
       y: 0,
     };
-    this.width = 320; // 320
+    this.width = 430; // 320
     this.height = 320; // 320
     canvas.width = this.width;
     canvas.height = this.height;

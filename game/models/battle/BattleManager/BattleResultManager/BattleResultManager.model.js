@@ -46,24 +46,6 @@ export class BattleResultManager {
     console.log("XP finale :", pokemon.exp);
   }
 
-  checkPlayerEscaped(action) {
-    if (this.battleManager.hasPlayerEscaped) {
-      this.battleManager.openDialogBox(
-        DIALOGS_DATABASE.BATTLE_DIALOGS.playerEscape()
-      );
-
-      if (action === INPUT_STATE.ACTION) {
-        const pokedexState =
-          this.battleManager.game.player.pokedex.pokemonList.pokedexState;
-
-        pokedexState.addSee(this.battleManager.wildPokemon.id);
-        this.endBattle();
-
-        this.battleManager.hasPlayerEscaped = false;
-      }
-    }
-  }
-
   checkPokemonCaptured(action) {
     if (this.battleManager.sequenceManager.battleCatchSequence?.hasCaptured) {
       this.battleManager.state = BATTLE_MANAGER_STATES.CAPTURED;
@@ -128,7 +110,6 @@ export class BattleResultManager {
 
   update(action) {
     this.checkPokemonKo();
-    this.checkPlayerEscaped(action);
     this.checkPokemonCaptured(action);
 
     if (this.isExpGainStarted && !this.isExpGainFinished) {

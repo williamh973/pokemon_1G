@@ -31,6 +31,10 @@ export class Party {
     this.initSlots();
   }
 
+  hasAvailablePokemon() {
+    return this.slots.some((slot) => slot.content && slot.content.stats.hp > 0);
+  }
+
   initSlots() {
     this.slots.push(
       new PokemonPartySlot(PARTY_SLOT_CONFIG.first),

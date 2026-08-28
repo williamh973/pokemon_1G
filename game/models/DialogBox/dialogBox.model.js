@@ -19,14 +19,8 @@ export class DialogBox {
       y: this.position.y,
     };
 
-    this.animation = {
-      shakeDistance: 5,
-      shakeSpeed: 4,
-      shakeCount: 0,
-      maxShakeCount: 4,
-      direction: 1,
-      isFinished: true,
-    };
+    this.animation = null;
+    this.isFinished = true;
 
     this.text = null;
     this.maxLines = 2;
@@ -38,33 +32,39 @@ export class DialogBox {
   }
 
   shakeAnimation() {
-    if (this.animation.isFinished) return;
+    if (this.isFinished) return;
 
-    this.position.y += this.animation.shakeSpeed * this.animation.direction;
+    this.position[this.animation.axe] +=
+      this.animation.shakeSpeed * this.animation.direction;
 
     if (
-      Math.abs(this.position.y - this.initialPosition.y) >=
-      this.animation.shakeDistance
+      Math.abs(
+        this.position[this.animation.axe] -
+          this.initialPosition[this.animation.axe]
+      ) >= this.animation.shakeDistance
     ) {
       this.animation.direction *= -1;
       this.animation.shakeCount++;
     }
 
     if (this.animation.shakeCount >= this.animation.maxShakeCount) {
-      this.position.y = this.initialPosition.y;
+      this.position[this.animation.axe] =
+        this.initialPosition[this.animation.axe];
 
       this.animation.shakeCount = 0;
       this.animation.direction = 1;
-      this.animation.isFinished = true;
+      this.isFinished = true;
     }
   }
 
-  startShakeAnimation() {
-    this.animation.shakeCount = 0;
-    this.animation.direction = 1;
-    this.animation.isFinished = false;
+  startShakeAnimation(contextAnimation) {
+    this.animation = {
+      ...contextAnimation,
+      shakeCount: 0,
+      direction: contextAnimation.direction ?? 1,
+    };
 
-    this.position.x = this.initialPosition.x;
+    this.isFinished = false;
   }
 
   createPages(text) {

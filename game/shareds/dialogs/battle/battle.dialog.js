@@ -28,8 +28,7 @@ export const BATTLE_DIALOGS = {
 
   whatShouldPokemonDo: (pokemon) => `Que doit faire\n${pokemon} ?`,
 
-  playerLoseBattle: (player) =>
-    `${player} n'a plus de pokémon en forme et se hâte vers le centre pokémon le plus proche`,
+  playerLoseBattle: (player) => `${player} n'a plus n\de pokémon en forme.`,
 
   trainerDefeated: (player, trainer, pokeDollar) =>
     `${trainer} a été vaincu, ${player} gagne ${pokeDollar} P$`,

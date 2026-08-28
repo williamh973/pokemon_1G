@@ -87,9 +87,10 @@ export class BattlePhaseManager {
         break;
 
       case BATTLE_PHASES.DETERMINE_KO:
-        const { target } = this.battleManager.turnManager.koAction;
         this.battleManager.openDialogBox(
-          DIALOGS_DATABASE.BATTLE_DIALOGS.pokemonKO(target.name)
+          DIALOGS_DATABASE.BATTLE_DIALOGS.pokemonKO(
+            this.battleManager.turnManager.koAction.target.name
+          )
         );
         break;
 
@@ -106,13 +107,37 @@ export class BattlePhaseManager {
         break;
 
       case BATTLE_PHASES.END_BATTLE_OR_CONTINUE:
-        console.log(this.battleManager.battleType);
-        if (this.battleManager.battleType === "WILD") {
-          this.battleManager.resultManager.endBattle();
-          console.log("end battle");
-        } else {
-          // le battleType serait "trainer" et devra set la phase d'apparition du pokemon suivant du trainer
-        }
+        const { target } = this.battleManager.turnManager.koAction;
+        const availableSlot =
+          this.battleManager.game.player.party.hasAvailablePokemon();
+
+        if (target.trainerId) {
+          if (availableSlot) {
+            console.log("Le joueur a au moins un pokémon en forme.");
+            this.setPhase(BATTLE_PHASES.CONTINUE);
+          } else {
+            console.log("Le joueur n'a plus de pokémon en forme.");
+            this.setPhase(BATTLE_PHASES.PLAYER_LOST_BATTLE);
+          }
+        } else this.setPhase(BATTLE_PHASES.END_BATTLE);
+        break;
+
+      case BATTLE_PHASES.PLAYER_LOST_BATTLE:
+        const player = this.battleManager.game.player;
+        this.battleManager.openDialogBox(
+          DIALOGS_DATABASE.BATTLE_DIALOGS.playerLoseBattle(player.nickname)
+        );
+        break;
+
+      case BATTLE_PHASES.PLAYER_ESCAPE:
+        this.battleManager.openDialogBox(
+          DIALOGS_DATABASE.BATTLE_DIALOGS.playerEscape()
+        );
+        break;
+
+      case BATTLE_PHASES.END_BATTLE:
+        this.battleManager.resultManager.endBattle();
+        console.log("end battle");
         break;
     }
   }
@@ -148,6 +173,9 @@ export class BattlePhaseManager {
 
         if (this.battleManager.isAttemptSwitch)
           this.setPhase(BATTLE_PHASES.SWITCH);
+
+        if (this.battleManager.hasPlayerEscaped)
+          this.setPhase(BATTLE_PHASES.PLAYER_ESCAPE);
         break;
 
       case BATTLE_PHASES.CATCH_POKEMON:
@@ -183,7 +211,12 @@ export class BattlePhaseManager {
 
       case BATTLE_PHASES.FAINT:
         if (this.sequenceManager.pokemonFaintSequence?.isFinished) {
-          this.setPhase(BATTLE_PHASES.EXP_GAIN);
+          const hasTargetTrainerId =
+            this.battleManager.turnManager.koAction.target.trainerId;
+
+          if (hasTargetTrainerId)
+            this.setPhase(BATTLE_PHASES.END_BATTLE_OR_CONTINUE);
+          else this.setPhase(BATTLE_PHASES.EXP_GAIN);
         }
         break;
 
@@ -197,6 +230,20 @@ export class BattlePhaseManager {
 
         if (resultManager.isExpGainFinished)
           this.setPhase(BATTLE_PHASES.END_BATTLE_OR_CONTINUE);
+        break;
+
+      case BATTLE_PHASES.PLAYER_LOST_BATTLE:
+        if (action === INPUT_STATE.ACTION)
+          this.setPhase(BATTLE_PHASES.END_BATTLE);
+        break;
+
+      case BATTLE_PHASES.PLAYER_ESCAPE:
+        if (action === INPUT_STATE.ACTION) {
+          this.battleManager.game.player.pokedex.pokemonList.pokedexState.addSee(
+            this.battleManager.wildPokemon.id
+          );
+          this.setPhase(BATTLE_PHASES.END_BATTLE);
+        }
         break;
 
       default:

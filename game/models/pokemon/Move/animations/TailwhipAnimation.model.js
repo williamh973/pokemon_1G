@@ -8,7 +8,6 @@ export class TailWhipAnimation {
     this.target = this.turnAction.target;
     this.move = this.turnAction.move;
 
-    // On récupère le sprite de la cible
     if (this.viewers.front.slot.content === this.target) {
       this.targetViewer = this.viewers.front;
       this.key = "front";
