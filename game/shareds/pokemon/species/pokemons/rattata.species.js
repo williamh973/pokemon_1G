@@ -29,7 +29,7 @@ export const RATTATA_SPECIES = {
     levelUp: [
       { level: 1, move: MOVES_DATABASE.tackle },
       { level: 1, move: MOVES_DATABASE.tailWhip },
-      // { level: 7, move: MOVES_DATABASE.quickAttack },
+      { level: 7, move: MOVES_DATABASE.quickAttack },
     ],
     tmhm: [
       "Toxik",

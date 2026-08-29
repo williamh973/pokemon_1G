@@ -14,6 +14,7 @@ export class AnimatedSprite {
     this.frameDelay = this.config.frameDelay;
     this.scale = this.config.scale;
     this.loop = this.config.loop ?? true;
+    this.flipX = false;
     this.currentFrame = 0;
     this.counter = 0;
     this.isPlaying = isPlaying;
@@ -52,16 +53,40 @@ export class AnimatedSprite {
   }
 
   draw(context) {
-    context.drawImage(
-      this.image,
-      this.currentFrame * this.frameWidth,
-      0,
-      this.frameWidth,
-      this.frameHeight,
-      this.position.x,
-      this.position.y,
-      this.frameWidth * this.scale,
-      this.frameHeight * this.scale
-    );
+    const width = this.frameWidth * this.scale;
+    const height = this.frameHeight * this.scale;
+
+    context.save();
+
+    if (this.flipX) {
+      context.translate(this.position.x + width, this.position.y);
+      context.scale(-1, 1);
+
+      context.drawImage(
+        this.image,
+        this.currentFrame * this.frameWidth,
+        0,
+        this.frameWidth,
+        this.frameHeight,
+        0,
+        0,
+        width,
+        height
+      );
+    } else {
+      context.drawImage(
+        this.image,
+        this.currentFrame * this.frameWidth,
+        0,
+        this.frameWidth,
+        this.frameHeight,
+        this.position.x,
+        this.position.y,
+        width,
+        height
+      );
+    }
+
+    context.restore();
   }
 }

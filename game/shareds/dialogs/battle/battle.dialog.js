@@ -1,11 +1,17 @@
 export const BATTLE_DIALOGS = {
+  statStageChanged: (stat, pokemon, direction, intensity = "") =>
+    ` ${stat} de ${pokemon} \n ${direction} ${intensity} !`,
+
+  statStageChangedNoMore: (stat, pokemon, direction) =>
+    `Mais ${stat} de ${pokemon} \nne peut plus ${direction} !`,
+
   gainExp: (pokemon, expGained) =>
     `${pokemon} a gagné \n${expGained} points d'EXP !`,
 
   wildPokemonAddedToPokedex: (wildPokemon) =>
     `${wildPokemon} a été ajouté au pokedex !`,
 
-  playerEscape: () => `Vous prenez la fuite!`,
+  playerEscape: () => `Vous prenez la fuite !`,
 
   pokemonUseMove: (pokemon, trainerId, move) =>
     `${pokemon} ${trainerId ? "" : "ennemi "}utilise ${move} !`,
@@ -16,7 +22,7 @@ export const BATTLE_DIALOGS = {
 
   wildPokemonEscaped: (pokemon) => `Mince! ${pokemon} s'est \nlibéré.`,
 
-  wildPokemonAppears: (pokemon) => `Un ${pokemon} sauvage apparait!`,
+  wildPokemonAppears: (pokemon) => `Un ${pokemon} sauvage \napparait !`,
 
   trainerWantsToFight: (trainer) => `${trainer} veut se battre!`,
 
@@ -28,7 +34,7 @@ export const BATTLE_DIALOGS = {
 
   whatShouldPokemonDo: (pokemon) => `Que doit faire\n${pokemon} ?`,
 
-  playerLoseBattle: (player) => `${player} n'a plus n\de pokémon en forme.`,
+  playerLoseBattle: (player) => `${player} n'a plus \nde pokémon en forme.`,
 
   trainerDefeated: (player, trainer, pokeDollar) =>
     `${trainer} a été vaincu, ${player} gagne ${pokeDollar} P$`,

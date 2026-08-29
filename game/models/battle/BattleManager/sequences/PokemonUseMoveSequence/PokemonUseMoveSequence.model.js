@@ -17,9 +17,9 @@ export class PokemonUseMoveSequence {
     );
   }
 
-  update() {
+  update(context) {
     if (!this.animation?.isFinished) {
-      this.animation?.update();
+      this.animation?.update(context);
     } else {
       this.animation = null;
       this.isFinished = true;

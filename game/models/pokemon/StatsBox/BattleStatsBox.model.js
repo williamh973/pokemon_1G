@@ -50,7 +50,7 @@ export class BattleStatsBox {
     this.drawStatRow(context, "PV", this.stats.hp, paddingX, 15);
 
     this.drawStatRow(context, "Att", this.stats.attack, paddingX, 30);
-    this.drawStatRow(context, "", this.statStages.attack, paddingX + 30, 45);
+    this.drawStatRow(context, "", this.statStages.attack, paddingX + 30, 30);
 
     this.drawStatRow(context, "Def", this.stats.defense, paddingX, 45);
     this.drawStatRow(context, "", this.statStages.defense, paddingX + 30, 45);
@@ -61,7 +61,7 @@ export class BattleStatsBox {
       "",
       this.statStages.specialAtt,
       paddingX + 30,
-      45
+      60
     );
 
     this.drawStatRow(context, "DefSpc", this.stats.specialDef, paddingX, 75);
@@ -70,11 +70,11 @@ export class BattleStatsBox {
       "",
       this.statStages.specialDef,
       paddingX + 30,
-      45
+      75
     );
 
     this.drawStatRow(context, "Spd", this.stats.speed, paddingX, 90);
-    this.drawStatRow(context, "", this.statStages.speed, paddingX + 30, 45);
+    this.drawStatRow(context, "", this.statStages.speed, paddingX + 30, 90);
   }
 
   drawStatRow(context, titleStat, stat, paddingX, paddingY) {

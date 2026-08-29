@@ -191,7 +191,7 @@ export class BattlePhaseManager {
         break;
 
       case BATTLE_PHASES.EXECUTE_TURN:
-        this.battleManager.turnManager.update(sequence);
+        this.battleManager.turnManager.update(sequence, action);
 
         if (this.battleManager.turnManager.state === TURN_STATES.DETERMINE_KO) {
           this.setPhase(BATTLE_PHASES.DETERMINE_KO);

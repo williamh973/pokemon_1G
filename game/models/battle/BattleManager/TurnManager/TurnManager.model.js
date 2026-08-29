@@ -1,7 +1,9 @@
 import { calculateMoveDamages } from "../../../../logic/gameplay/battleManager/turnManager/damages/calculateDamages.gameplay.js";
 import { determineOrder } from "../../../../logic/gameplay/battleManager/turnManager/determineOrder/determineOrder.gameplay.js";
+import { handlerMoveEffectDialogs } from "../../../../logic/gameplay/battleManager/turnManager/handlerMoveEffectDialogs/handlerMoveEffectDialogs.gameplay.js";
 import { applyMoveEffect } from "../../../../logic/gameplay/battleManager/turnManager/moves/applyMoveEffect.gameplay.js";
 import { TURN_STATES } from "../../../../logic/gameplay/battleManager/turnManager/states/turnManager.states.js";
+import { INPUT_STATE } from "../../../../logic/input/inputs.state.js";
 import { DIALOGS_DATABASE } from "../../../../shareds/dialogs/dialogs.database.js";
 
 export class TurnManager {
@@ -27,6 +29,12 @@ export class TurnManager {
     this.state = TURN_STATES.WAITING;
     this.waitTimer = duration;
     this.waitCooldown = duration;
+    this.callbackFnAfterWait = callbackFn;
+    this.nextStateAfterWait = nextState;
+  }
+
+  waitForAction(callbackFn, nextState) {
+    this.state = TURN_STATES.WAITING_FOR_ACTION;
     this.callbackFnAfterWait = callbackFn;
     this.nextStateAfterWait = nextState;
   }
@@ -138,34 +146,47 @@ export class TurnManager {
   }
 
   checkPokemonUseMoveSequenceFinished(sequence, action) {
-    if (sequence.pokemonUseMoveSequence?.isFinished && !this.isDamageApplied) {
-      if (!this.isDamageApplied) {
-        const damages = calculateMoveDamages(action);
+    if (!sequence.pokemonUseMoveSequence?.isFinished || this.isDamageApplied) {
+      return false;
+    }
 
-        action.target.stats.hp = Math.max(0, action.target.stats.hp - damages);
+    const damages = calculateMoveDamages(action);
 
-        applyMoveEffect(action);
+    action.target.stats.hp = Math.max(0, action.target.stats.hp - damages);
 
-        this.isDamageApplied = true;
+    this.isDamageApplied = true;
 
-        if (action.target === this.battleManager.currentPlayerPokemon) {
-          if (damages > 0)
-            this.battleManager.game.dialogBox.startShakeAnimation({
-              axe: "y",
-              shakeDistance: 5,
-              shakeSpeed: 4,
-              maxShakeCount: 4,
-            });
-          else
-            this.battleManager.game.dialogBox.startShakeAnimation({
-              axe: "x",
-              shakeDistance: 10,
-              shakeSpeed: 4,
-              maxShakeCount: 2,
-            });
-        }
+    if (action.target === this.battleManager.currentPlayerPokemon) {
+      if (damages > 0) {
+        this.battleManager.game.dialogBox.startShakeAnimation({
+          axe: "y",
+          shakeDistance: 5,
+          shakeSpeed: 4,
+          maxShakeCount: 4,
+        });
+      } else {
+        this.battleManager.game.dialogBox.startShakeAnimation({
+          axe: "x",
+          shakeDistance: 10,
+          shakeSpeed: 4,
+          maxShakeCount: 2,
+        });
       }
     }
+
+    const effectResult = applyMoveEffect(action);
+
+    if (effectResult) {
+      handlerMoveEffectDialogs(this.battleManager, effectResult);
+
+      this.waitForAction(() => {
+        this.checkActionAnimationFinished(sequence, action);
+      }, this.state);
+
+      return true;
+    }
+
+    return false;
   }
 
   checkActionTargetKO(action) {
@@ -182,12 +203,11 @@ export class TurnManager {
       console.log("pokemonUseMoveSequence est fini");
 
       this.checkActionTargetKO(action);
-
       this.onActionFinished(sequence);
     }
   }
 
-  update(sequence) {
+  update(sequence, actionInput) {
     switch (this.state) {
       case TURN_STATES.FIRST_ACTION:
       case TURN_STATES.SECOND_ACTION:
@@ -196,7 +216,12 @@ export class TurnManager {
             ? this.firstAction
             : this.secondAction;
 
-        this.checkPokemonUseMoveSequenceFinished(sequence, action);
+        const isWaitingForAction = this.checkPokemonUseMoveSequenceFinished(
+          sequence,
+          action
+        );
+
+        if (isWaitingForAction) break;
 
         this.checkActionAnimationFinished(sequence, action);
         break;
@@ -213,6 +238,16 @@ export class TurnManager {
         if (this.waitCooldown <= 0) {
           this.state = this.nextStateAfterWait;
           this.waitCooldown = this.waitTimer;
+
+          const callback = this.callbackFnAfterWait;
+          this.callbackFnAfterWait = null;
+          callback?.();
+        }
+        break;
+
+      case TURN_STATES.WAITING_FOR_ACTION:
+        if (actionInput === INPUT_STATE.ACTION) {
+          this.state = this.nextStateAfterWait;
 
           const callback = this.callbackFnAfterWait;
           this.callbackFnAfterWait = null;
