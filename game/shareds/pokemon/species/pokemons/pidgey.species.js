@@ -27,9 +27,9 @@ export const PIDGEY_SPECIES = {
   evolutions: [{ method: "level", level: 18, target: "pidgeotto" }],
   learnset: {
     levelUp: [
-      { level: 1, move: MOVES_DATABASE.tackle },
-      { level: 6, move: "Jet de Sable" },
-      { level: 9, move: "Tornade" },
+      // { level: 1, move: MOVES_DATABASE.tackle },
+      // { level: 6, move: "Jet de Sable" },
+      { level: 1, move: MOVES_DATABASE.gust },
     ],
     tmhm: [
       "Coupe-Vent",
