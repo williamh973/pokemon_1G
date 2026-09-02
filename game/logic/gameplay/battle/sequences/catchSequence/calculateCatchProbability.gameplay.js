@@ -9,7 +9,7 @@ export const calculateCatchProbability = (usedItem, wildPokemon) => {
   firstFormulaValue > maxSpeciesCatchRate
     ? (isCaptureGuaranteed = true)
     : (isCaptureGuaranteed = false);
-  isCaptureGuaranteed = true; // dev only
+  // isCaptureGuaranteed = true; // dev only
 
   const secondFormulaValue = generateSecondFormula(firstFormulaValue);
   const randomCount = 4;

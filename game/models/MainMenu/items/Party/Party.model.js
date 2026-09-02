@@ -55,12 +55,10 @@ export class Party {
   }
 
   addPokemonToFirstEmptySlot(pokemon) {
-    const addedPokemon = this.addTrainerId(pokemon);
+    const firstEmptySlot = this.slots.find((slot) => slot.content === null);
+    if (!firstEmptySlot) return false;
 
-    const emptySlot = this.slots.find((slot) => slot.content === null);
-    if (!emptySlot) return false;
-
-    emptySlot.setPokemon(addedPokemon);
+    firstEmptySlot.setPokemon(this.addTrainerId(pokemon));
     return true;
   }
 

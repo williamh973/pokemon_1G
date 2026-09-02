@@ -63,8 +63,10 @@ export const attemptMove = (character, dx, dy, game) => {
   if (isSolidAt) return;
 
   const targetOP = checkOPAt(game, character, targetX, targetY);
-  if (targetOP)
+  if (targetOP) {
+    game.togglePause(true, false);
     return game.encounterManager.startWildBattle(game, targetOP, tile);
+  }
 
   attemptEncounterWildPokemon(game, character, tile);
 

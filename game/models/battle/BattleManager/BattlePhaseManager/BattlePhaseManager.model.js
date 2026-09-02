@@ -58,13 +58,64 @@ export class BattlePhaseManager {
         this.battleManager.openBattleMenu();
         break;
 
-      case BATTLE_PHASES.CATCH_POKEMON:
+      case BATTLE_PHASES.PLAYER_TRY_CATCH_POKEMON:
         const BALL = this.battleManager.usedItem;
         sequence.initBattleCatchSequence(BALL);
         this.battleManager.openDialogBox(
           DIALOGS_DATABASE.BATTLE_DIALOGS.playerUseBall(
             this.battleManager.game.player.nickname,
             this.battleManager.usedItem?.name
+          )
+        );
+        break;
+
+      case BATTLE_PHASES.POKEMON_ESCAPED:
+        this.battleManager.openDialogBox(
+          DIALOGS_DATABASE.BATTLE_DIALOGS.wildPokemonEscaped(
+            this.battleManager.wildPokemon.name
+          )
+        );
+        break;
+
+      case BATTLE_PHASES.POKEMON_CAUGHT:
+        this.battleManager.openDialogBox(
+          DIALOGS_DATABASE.BATTLE_DIALOGS.pokemonCaptured(
+            this.battleManager.wildPokemon.name
+          )
+        );
+        break;
+
+      case BATTLE_PHASES.POKEMON_ADDED_TO_PARTY:
+        const addedPokemonToPlayerParty =
+          this.battleManager.game.player.party.addPokemonToFirstEmptySlot(
+            this.battleManager.wildPokemon
+          );
+
+        if (addedPokemonToPlayerParty) {
+          this.setPhase(BATTLE_PHASES.CHECK_POKEDEX);
+        } else this.setPhase(BATTLE_PHASES.TRANSFERT_POKEMON_TO_PC);
+        break;
+
+      case BATTLE_PHASES.CHECK_POKEDEX:
+        const hasPokemonAddedToPokedexState =
+          this.battleManager.game.player.pokedex.pokemonList.pokedexState.addCatch(
+            this.battleManager.wildPokemon.id
+          );
+
+        if (hasPokemonAddedToPokedexState) {
+          this.battleManager.openDialogBox(
+            DIALOGS_DATABASE.BATTLE_DIALOGS.wildPokemonAddedToPokedex(
+              this.battleManager.wildPokemon.name
+            )
+          );
+        } else this.setPhase(BATTLE_PHASES.END_BATTLE);
+        break;
+
+      case BATTLE_PHASES.TRANSFERT_POKEMON_TO_PC:
+        // TRANSFERT LOGIC
+        this.battleManager.openDialogBox(
+          DIALOGS_DATABASE.BATTLE_DIALOGS.pokemonSentToPc(
+            this.battleManager.wildPokemon.name
           )
         );
         break;
@@ -169,7 +220,7 @@ export class BattlePhaseManager {
           this.battleManager.isUseItem &&
           this.battleManager.usedItem.effect === "CATCH"
         )
-          this.setPhase(BATTLE_PHASES.CATCH_POKEMON);
+          this.setPhase(BATTLE_PHASES.PLAYER_TRY_CATCH_POKEMON);
 
         if (this.battleManager.isAttemptSwitch)
           this.setPhase(BATTLE_PHASES.SWITCH);
@@ -178,9 +229,40 @@ export class BattlePhaseManager {
           this.setPhase(BATTLE_PHASES.PLAYER_ESCAPE);
         break;
 
-      case BATTLE_PHASES.CATCH_POKEMON:
-        if (sequence.battleCatchSequence?.isFinished)
+      case BATTLE_PHASES.PLAYER_TRY_CATCH_POKEMON:
+        if (sequence.battleCatchSequence?.hasCaptured) {
+          this.setPhase(BATTLE_PHASES.POKEMON_CAUGHT);
+          break;
+        }
+
+        if (sequence.battleCatchSequence?.hasEscaped) {
+          this.setPhase(BATTLE_PHASES.POKEMON_ESCAPED);
+          break;
+        }
+
+        if (sequence.battleCatchSequence?.isFinished) {
           this.setPhase(BATTLE_PHASES.BATTLE_MENU);
+        }
+        break;
+
+      case BATTLE_PHASES.POKEMON_ESCAPED:
+        if (action === INPUT_STATE.ACTION)
+          this.setPhase(BATTLE_PHASES.BATTLE_MENU);
+        break;
+
+      case BATTLE_PHASES.POKEMON_CAUGHT:
+        if (action === INPUT_STATE.ACTION)
+          this.setPhase(BATTLE_PHASES.POKEMON_ADDED_TO_PARTY);
+        break;
+
+      case BATTLE_PHASES.CHECK_POKEDEX:
+        if (action === INPUT_STATE.ACTION)
+          this.setPhase(BATTLE_PHASES.END_BATTLE);
+        break;
+
+      case BATTLE_PHASES.TRANSFERT_POKEMON_TO_PC:
+        if (action === INPUT_STATE.ACTION)
+          this.setPhase(BATTLE_PHASES.END_BATTLE);
         break;
 
       case BATTLE_PHASES.SWITCH:

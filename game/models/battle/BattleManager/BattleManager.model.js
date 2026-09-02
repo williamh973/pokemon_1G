@@ -8,7 +8,6 @@ import { HUD_CONFIG } from "../../../render/config/battle/hud.config.js";
 import { BATTLE_SLOT_CONFIG } from "../../../logic/gameplay/battleManager/slots/battleSlots.config.js";
 import { BattlePhaseManager } from "./BattlePhaseManager/BattlePhaseManager.model.js";
 import { BattleSequenceManager } from "./BattleSequenceManager/BattleSequenceManager.model.js";
-import { BATTLE_MANAGER_STATES } from "../../../logic/gameplay/battleManager/states/battleManager.states.js";
 import { BattleMovesMenu } from "./BattleMenu/BattleMovesMenu/BattleMovesMenu.model.js";
 import { GAME_STATES } from "../../../logic/gameplay/game/states/states.gameplay.js";
 import { BattleMenu } from "./BattleMenu/BattleMenu.model.js";
@@ -22,11 +21,9 @@ export class BattleManager {
   constructor(game, wildPokemon, tile, weather, battleType) {
     this.game = game;
     this.wildPokemon = wildPokemon;
-    console.log(this.wildPokemon); // apparait plusieurs fois
     this.tile = tile;
     this.weather = weather;
     this.battleType = battleType;
-    this.state = BATTLE_MANAGER_STATES.INTRO;
     this.position = {
       x: 0,
       y: 0,

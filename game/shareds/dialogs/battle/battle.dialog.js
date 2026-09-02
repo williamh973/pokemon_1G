@@ -20,7 +20,8 @@ export const BATTLE_DIALOGS = {
 
   pokemonMissMove: (pokemon) => `${pokemon} rate son attaque !`,
 
-  wildPokemonEscaped: (pokemon) => `Mince! ${pokemon} s'est \nlibéré.`,
+  wildPokemonEscaped: (pokemon) =>
+    `Mince! Le ${pokemon}\nsauvage s'est libéré !`,
 
   wildPokemonAppears: (pokemon) => `Un ${pokemon} sauvage \napparait !`,
 

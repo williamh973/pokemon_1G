@@ -1,13 +1,11 @@
-import { BATTLE_MANAGER_STATES } from "../../../../logic/gameplay/battleManager/states/battleManager.states.js";
 import { resetTeamStatStages } from "../../../../logic/gameplay/battleManager/turnManager/statStages/resetStatStages.gameplay.js";
 import { TURN_STATES } from "../../../../logic/gameplay/battleManager/turnManager/states/turnManager.states.js";
 import { GAME_STATES } from "../../../../logic/gameplay/game/states/states.gameplay.js";
-import { INPUT_STATE } from "../../../../logic/input/inputs.state.js";
-import { DIALOGS_DATABASE } from "../../../../shareds/dialogs/dialogs.database.js";
 
 export class BattleResultManager {
   constructor(battleManager) {
     this.battleManager = battleManager;
+    this.battlePhaseManager = this.battleManager.phaseManager;
     this.isKoProcessed = false;
     this.gainedExp = null;
     this.isExpGainStarted = false;
@@ -47,53 +45,6 @@ export class BattleResultManager {
     console.log("XP finale :", pokemon.exp);
   }
 
-  checkPokemonCaptured(action) {
-    if (this.battleManager.sequenceManager.battleCatchSequence?.hasCaptured) {
-      this.battleManager.state = BATTLE_MANAGER_STATES.CAPTURED;
-
-      this.battleManager.openDialogBox(
-        DIALOGS_DATABASE.BATTLE_DIALOGS.pokemonCaptured(
-          this.battleManager.wildPokemon.name
-        )
-      );
-
-      if (
-        action === INPUT_STATE.ACTION &&
-        this.battleManager.state === BATTLE_MANAGER_STATES.CAPTURED
-      ) {
-        const emptySlot =
-          this.battleManager.game.player.party.addPokemonToFirstEmptySlot(
-            this.battleManager.wildPokemon
-          );
-
-        if (emptySlot) {
-          const pokedexState =
-            this.battleManager.game.player.pokedex.pokemonList.pokedexState;
-          const hasPokedexAddedPokemon = pokedexState.addCatch(
-            this.battleManager.wildPokemon.id
-          );
-
-          if (hasPokedexAddedPokemon) {
-            this.battleManager.state = BATTLE_MANAGER_STATES.ADD_POKEDEX;
-            this.battleManager.openDialogBox(
-              DIALOGS_DATABASE.BATTLE_DIALOGS.wildPokemonAddedToPokedex(
-                this.battleManager.wildPokemon.name
-              )
-            );
-            this.endBattle();
-          } else this.endBattle();
-        } else {
-          // PC logic
-          this.battleManager.openDialogBox(
-            DIALOGS_DATABASE.BATTLE_DIALOGS.pokemonSentToPc(
-              this.battleManager.wildPokemon.name
-            )
-          );
-        }
-      }
-    }
-  }
-
   endBattle() {
     resetTeamStatStages(this.battleManager.game.player.party);
 
@@ -113,7 +64,6 @@ export class BattleResultManager {
 
   update(action) {
     this.checkPokemonKo();
-    this.checkPokemonCaptured(action);
 
     if (this.isExpGainStarted && !this.isExpGainFinished) {
       const { pokemon } = this.battleManager.turnManager.koAction;
