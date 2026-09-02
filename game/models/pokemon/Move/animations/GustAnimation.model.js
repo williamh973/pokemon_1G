@@ -27,18 +27,14 @@ export class GustAnimation {
 
     const targetSprite = this.targetViewer.sprite;
 
-    // Centre de l'orbite
     this.centerX = targetSprite.position.x;
     this.centerY = targetSprite.position.y;
 
-    // Taille de l'orbite
     this.radiusX = 50;
     this.radiusY = 15;
 
-    // Progression angulaire
     this.angle = Math.PI;
 
-    // Vitesse de rotation
     this.speed = 0.08;
 
     this.viewer.isOpen = true;
@@ -49,12 +45,6 @@ export class GustAnimation {
   update(context) {
     if (this.isFinished) return;
 
-    /*
-     * Orbite elliptique :
-     *
-     * x = centre + cos(angle) * rayonX
-     * y = centre + sin(angle) * rayonY
-     */
     this.viewer.sprite.position.x =
       this.centerX + Math.cos(this.angle) * this.radiusX;
 
@@ -63,14 +53,8 @@ export class GustAnimation {
 
     this.viewer.update(context);
 
-    /*
-     * La tornade continue son orbite.
-     */
     this.angle += this.speed;
 
-    /*
-     * Une révolution complète est effectuée.
-     */
     if (this.angle >= Math.PI * 3.5) {
       this.viewer.isOpen = false;
       this.isFinished = true;

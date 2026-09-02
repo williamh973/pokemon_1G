@@ -5,7 +5,7 @@ export const PIDGEY_SPECIES = {
   id: "pidgey",
   pokedexId: "016",
   name: "ROUCOOL",
-  types: ["FLIGHT", "NORMAL"],
+  types: ["FLYING", "NORMAL"],
   femaleRate: 50,
   catchRate: 255,
   growthRate: GROWTH_RATES_DATABASE.FAST,
@@ -28,8 +28,8 @@ export const PIDGEY_SPECIES = {
   learnset: {
     levelUp: [
       // { level: 1, move: MOVES_DATABASE.tackle },
-      // { level: 6, move: "Jet de Sable" },
-      { level: 1, move: MOVES_DATABASE.gust },
+      { level: 1, move: MOVES_DATABASE.sandAttack },
+      { level: 9, move: MOVES_DATABASE.gust },
     ],
     tmhm: [
       "Coupe-Vent",

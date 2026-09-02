@@ -1,6 +1,3 @@
-import { TYPES_CONFIG } from "../../../../../../../render/config/pokemon/type/types.config.js";
-import { drawText } from "../../../../../../../shareds/utils/font/drawText.utils.js";
-import { textParams } from "../../../../../../../shareds/utils/font/font.utils.js";
 import { PokemonMoveSlot } from "../../../../../../Slot/PokemonMoveSlot/PokemonMoveSlot.model.js";
 import { BasePokemonSummary } from "../BasePokemonSummary.model.js";
 

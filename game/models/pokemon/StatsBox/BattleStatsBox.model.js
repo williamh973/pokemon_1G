@@ -75,6 +75,14 @@ export class BattleStatsBox {
 
     this.drawStatRow(context, "Spd", this.stats.speed, paddingX, 90);
     this.drawStatRow(context, "", this.statStages.speed, paddingX + 30, 90);
+
+    this.drawStatRow(
+      context,
+      "accur. stg",
+      this.statStages.accuracy,
+      paddingX + 30,
+      105
+    );
   }
 
   drawStatRow(context, titleStat, stat, paddingX, paddingY) {

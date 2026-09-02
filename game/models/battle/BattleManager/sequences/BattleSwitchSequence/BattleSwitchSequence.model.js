@@ -61,7 +61,10 @@ export class BattleSwitchSequence {
 
           this.updateCurrentPlayerPokemon();
           this.updateHUD();
-          this.game.battleManager.updateDebugStatsBoxes(this.key); // for debug
+          this.game.battleManager.updateDebugStatsBoxes(
+            this.game.battleManager.currentPlayerPokemon,
+            this.key
+          ); // for debug
 
           sequence.startPlayerThrowSequence();
 

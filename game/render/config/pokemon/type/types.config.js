@@ -18,7 +18,7 @@ export const TYPES_CONFIG = {
   NORMAL: {
     image: createImg("game/assets/images/types/normal.png"),
   },
-  FLIGHT: {
+  FLYING: {
     image: createImg("game/assets/images/types/flying.png"),
   },
   ROCK: {
@@ -29,5 +29,8 @@ export const TYPES_CONFIG = {
   },
   WATER: {
     image: createImg("game/assets/images/types/water.png"),
+  },
+  GROUND: {
+    image: createImg("game/assets/images/types/ground.png"),
   },
 };

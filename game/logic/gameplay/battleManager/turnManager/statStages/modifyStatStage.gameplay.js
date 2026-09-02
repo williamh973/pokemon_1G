@@ -3,7 +3,7 @@ export const modifyStatStage = (pokemon, stat, amount) => {
 
   const newStage = Math.max(-6, Math.min(6, currentStage + amount));
 
-  pokemon.statStages[stat] = Math.max(-6, Math.min(6, currentStage + amount));
+  pokemon.statStages[stat] = newStage;
 
   return {
     isAffected: newStage !== currentStage,

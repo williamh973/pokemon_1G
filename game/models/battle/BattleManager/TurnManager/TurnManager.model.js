@@ -2,6 +2,7 @@ import { calculateMoveDamages } from "../../../../logic/gameplay/battleManager/t
 import { determineOrder } from "../../../../logic/gameplay/battleManager/turnManager/determineOrder/determineOrder.gameplay.js";
 import { handlerMoveEffectDialogs } from "../../../../logic/gameplay/battleManager/turnManager/handlerMoveEffectDialogs/handlerMoveEffectDialogs.gameplay.js";
 import { applyMoveEffect } from "../../../../logic/gameplay/battleManager/turnManager/moves/applyMoveEffect.gameplay.js";
+import { getAccuracyStageMultiplier } from "../../../../logic/gameplay/battleManager/turnManager/statStages/getAccuracyStageMultiplier.gameplay.js";
 import { TURN_STATES } from "../../../../logic/gameplay/battleManager/turnManager/states/turnManager.states.js";
 import { INPUT_STATE } from "../../../../logic/input/inputs.state.js";
 import { DIALOGS_DATABASE } from "../../../../shareds/dialogs/dialogs.database.js";
@@ -61,7 +62,16 @@ export class TurnManager {
   }
 
   executeAction(sequence, action) {
-    console.log(this.state);
+    console.log(
+      this.state,
+      "| Move utilisé : ",
+      action.move,
+      "| Lanceur : ",
+      action.pokemon,
+      "| Cible : ",
+      action.target
+    );
+
     this.isDamageApplied = false;
     this.isPPDeducted = false;
 
@@ -84,12 +94,18 @@ export class TurnManager {
 
   checkMovePrecision(action) {
     const random100 = Math.floor(Math.random() * 100) + 1;
-    const isSuccessful = random100 <= action.move.precision;
+
+    const accuracyStage = action.pokemon.statStages.accuracy;
+    const accuracy =
+      action.move.precision * getAccuracyStageMultiplier(accuracyStage);
+
+    const isSuccessful = random100 <= accuracy;
 
     console.log(
       `${action.pokemon.name} utilise ${action.move.name}`,
       `| random: ${random100}`,
-      `| précision: ${action.move.precision}`,
+      `| précision de base: ${action.move.precision}`,
+      `| précision réelle: ${accuracy}`,
       `| résultat: ${isSuccessful ? "RÉUSSI" : "RATÉ"}`
     );
 
@@ -175,8 +191,8 @@ export class TurnManager {
     }
 
     const effectResult = applyMoveEffect(action);
-
     if (effectResult) {
+      console.log("move effect result: ", effectResult);
       handlerMoveEffectDialogs(this.battleManager, effectResult);
 
       this.waitForAction(() => {

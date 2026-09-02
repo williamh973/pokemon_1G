@@ -17,10 +17,12 @@ import { BattleStatsBox } from "../../pokemon/StatsBox/BattleStatsBox.model.js";
 import { BATTLE_PHASES } from "./BattlePhaseManager/battlePhase.js";
 import { AI } from "./AI/AI.model.js";
 import { TurnManager } from "./TurnManager/TurnManager.model.js";
+
 export class BattleManager {
   constructor(game, wildPokemon, tile, weather, battleType) {
     this.game = game;
     this.wildPokemon = wildPokemon;
+    console.log(this.wildPokemon); // apparait plusieurs fois
     this.tile = tile;
     this.weather = weather;
     this.battleType = battleType;

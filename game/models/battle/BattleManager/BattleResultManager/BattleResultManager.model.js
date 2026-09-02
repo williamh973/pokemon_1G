@@ -1,4 +1,5 @@
 import { BATTLE_MANAGER_STATES } from "../../../../logic/gameplay/battleManager/states/battleManager.states.js";
+import { resetTeamStatStages } from "../../../../logic/gameplay/battleManager/turnManager/statStages/resetStatStages.gameplay.js";
 import { TURN_STATES } from "../../../../logic/gameplay/battleManager/turnManager/states/turnManager.states.js";
 import { GAME_STATES } from "../../../../logic/gameplay/game/states/states.gameplay.js";
 import { INPUT_STATE } from "../../../../logic/input/inputs.state.js";
@@ -94,6 +95,8 @@ export class BattleResultManager {
   }
 
   endBattle() {
+    resetTeamStatStages(this.battleManager.game.player.party);
+
     this.battleManager.game.transition.start(
       () => {
         this.battleManager.game.togglePause(false, true);

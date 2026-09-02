@@ -5,7 +5,7 @@ export const ZUBAT_SPECIES = {
   id: "zubat",
   pokedexId: "041",
   name: "NOSFERAPTI",
-  types: ["POISON", "FLIGHT"],
+  types: ["POISON", "FLYING"],
   femaleRate: 50,
   catchRate: 255,
   growthRate: GROWTH_RATES_DATABASE.MEDIUM_FAST,
