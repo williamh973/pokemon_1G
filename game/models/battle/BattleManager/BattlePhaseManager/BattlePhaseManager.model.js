@@ -93,7 +93,7 @@ export class BattlePhaseManager {
 
         if (addedPokemonToPlayerParty) {
           this.setPhase(BATTLE_PHASES.CHECK_POKEDEX);
-        } else this.setPhase(BATTLE_PHASES.TRANSFERT_POKEMON_TO_PC);
+        } else this.setPhase(BATTLE_PHASES.TRANSFER_POKEMON_TO_PC);
         break;
 
       case BATTLE_PHASES.CHECK_POKEDEX:
@@ -111,7 +111,7 @@ export class BattlePhaseManager {
         } else this.setPhase(BATTLE_PHASES.END_BATTLE);
         break;
 
-      case BATTLE_PHASES.TRANSFERT_POKEMON_TO_PC:
+      case BATTLE_PHASES.TRANSFER_POKEMON_TO_PC:
         // TRANSFERT LOGIC
         this.battleManager.openDialogBox(
           DIALOGS_DATABASE.BATTLE_DIALOGS.pokemonSentToPc(
@@ -260,7 +260,7 @@ export class BattlePhaseManager {
           this.setPhase(BATTLE_PHASES.END_BATTLE);
         break;
 
-      case BATTLE_PHASES.TRANSFERT_POKEMON_TO_PC:
+      case BATTLE_PHASES.TRANSFER_POKEMON_TO_PC:
         if (action === INPUT_STATE.ACTION)
           this.setPhase(BATTLE_PHASES.END_BATTLE);
         break;

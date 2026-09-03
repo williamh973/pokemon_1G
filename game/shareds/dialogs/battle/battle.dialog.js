@@ -1,4 +1,6 @@
 export const BATTLE_DIALOGS = {
+  statusChanged: (pokemon, status) => ` ${pokemon} est ${status} !`,
+
   statStageChanged: (stat, pokemon, direction, intensity = "") =>
     ` ${stat} de ${pokemon} \n ${direction} ${intensity} !`,
 

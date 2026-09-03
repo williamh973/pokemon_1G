@@ -1,3 +1,4 @@
+import { STATUS_CONFIG } from "../../../../render/config/pokemon/status/status.config.js";
 import { drawBox } from "../../../../shareds/utils/box/box.utils.js";
 import { drawText } from "../../../../shareds/utils/font/drawText.utils.js";
 import { textParams } from "../../../../shareds/utils/font/font.utils.js";
@@ -82,6 +83,19 @@ export class HUD {
 
     textParams(context, "12", "whitesmoke");
     this.drawGender(context);
+
+    if (this.pokemon.status) this.drawStatus(context);
+  }
+
+  drawStatus(context) {
+    const STATUS = STATUS_CONFIG;
+    context.drawImage(
+      STATUS[this.pokemon.status].image,
+      this.position.x + 5,
+      35,
+      STATUS.dimensions.width * STATUS.dimensions.scale,
+      STATUS.dimensions.height * STATUS.dimensions.scale
+    );
   }
 
   draw(context) {

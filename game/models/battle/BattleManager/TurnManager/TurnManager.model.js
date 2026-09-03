@@ -1,11 +1,15 @@
 import { calculateMoveDamages } from "../../../../logic/gameplay/battleManager/turnManager/damages/calculateDamages.gameplay.js";
 import { determineOrder } from "../../../../logic/gameplay/battleManager/turnManager/determineOrder/determineOrder.gameplay.js";
+import { checkDialogBoxShakeAnimation } from "../../../../logic/gameplay/battleManager/turnManager/dialogBox/dialogBoxShakeAnimation.gameplay.js";
 import { handlerMoveEffectDialogs } from "../../../../logic/gameplay/battleManager/turnManager/handlerMoveEffectDialogs/handlerMoveEffectDialogs.gameplay.js";
+import { handlerStatusEffectDialogs } from "../../../../logic/gameplay/battleManager/turnManager/handlerMoveEffectDialogs/handlerStatusEffectDialogs.gameplay.js";
+import { applyStatusEffect } from "../../../../logic/gameplay/battleManager/turnManager/moves/applyStatusEffect.gameplay.js";
 import { applyMoveEffect } from "../../../../logic/gameplay/battleManager/turnManager/moves/applyMoveEffect.gameplay.js";
 import { getAccuracyStageMultiplier } from "../../../../logic/gameplay/battleManager/turnManager/statStages/getAccuracyStageMultiplier.gameplay.js";
 import { TURN_STATES } from "../../../../logic/gameplay/battleManager/turnManager/states/turnManager.states.js";
 import { INPUT_STATE } from "../../../../logic/input/inputs.state.js";
 import { DIALOGS_DATABASE } from "../../../../shareds/dialogs/dialogs.database.js";
+import { processPokemonStatus } from "../../../../logic/gameplay/pokemon/status/processPokemonStatus.gameplay.js";
 
 export class TurnManager {
   constructor(battleManager) {
@@ -74,6 +78,15 @@ export class TurnManager {
 
     this.isDamageApplied = false;
     this.isPPDeducted = false;
+
+    const processStatusResult = processPokemonStatus(action.pokemon);
+    console.log(processStatusResult);
+
+    if (!processStatusResult.canUseMove) {
+      // afficher le dialogue
+      // puis passer à l'action suivante
+      return;
+    }
 
     this.battleManager.openDialogBox(
       DIALOGS_DATABASE.BATTLE_DIALOGS.pokemonUseMove(
@@ -162,9 +175,8 @@ export class TurnManager {
   }
 
   checkPokemonUseMoveSequenceFinished(sequence, action) {
-    if (!sequence.pokemonUseMoveSequence?.isFinished || this.isDamageApplied) {
+    if (!sequence.pokemonUseMoveSequence?.isFinished || this.isDamageApplied)
       return false;
-    }
 
     const damages = calculateMoveDamages(action);
 
@@ -172,28 +184,13 @@ export class TurnManager {
 
     this.isDamageApplied = true;
 
-    if (action.target === this.battleManager.currentPlayerPokemon) {
-      if (damages > 0) {
-        this.battleManager.game.dialogBox.startShakeAnimation({
-          axe: "y",
-          shakeDistance: 5,
-          shakeSpeed: 4,
-          maxShakeCount: 4,
-        });
-      } else {
-        this.battleManager.game.dialogBox.startShakeAnimation({
-          axe: "x",
-          shakeDistance: 10,
-          shakeSpeed: 4,
-          maxShakeCount: 2,
-        });
-      }
-    }
+    if (action.target === this.battleManager.currentPlayerPokemon)
+      checkDialogBoxShakeAnimation(this.battleManager, damages);
 
-    const effectResult = applyMoveEffect(action);
-    if (effectResult) {
-      console.log("move effect result: ", effectResult);
-      handlerMoveEffectDialogs(this.battleManager, effectResult);
+    const moveEffectResult = applyMoveEffect(action);
+    if (moveEffectResult) {
+      console.log("move effect result: ", moveEffectResult);
+      handlerMoveEffectDialogs(this.battleManager, moveEffectResult);
 
       this.waitForAction(() => {
         this.checkActionAnimationFinished(sequence, action);
@@ -210,15 +207,28 @@ export class TurnManager {
       this.koAction = action;
       this.state = TURN_STATES.DETERMINE_KO;
       console.log(`${this.koAction.target.name} est KO`);
-      return;
+      return true;
     }
+    return false;
   }
 
   checkActionAnimationFinished(sequence, action) {
     if (this.isActionAnimationFinished(sequence, action)) {
       console.log("pokemonUseMoveSequence est fini");
 
-      this.checkActionTargetKO(action);
+      if (this.checkActionTargetKO(action)) return;
+
+      const statusEffectResult = applyStatusEffect(action);
+      if (statusEffectResult?.isAffected) {
+        handlerStatusEffectDialogs(this.battleManager, statusEffectResult);
+
+        this.waitForAction(() => {
+          this.checkActionAnimationFinished(sequence, action);
+        }, this.state);
+
+        return true;
+      }
+
       this.onActionFinished(sequence);
     }
   }

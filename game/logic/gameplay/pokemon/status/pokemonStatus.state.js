@@ -1,0 +1,8 @@
+export const POKEMON_STATUS = {
+  NONE: null,
+  BURN: "BURN",
+  PARALYSIS: "PARALYSIS",
+  POISON: "POISON",
+  SLEEP: "SLEEP",
+  FREEZE: "FREEZE",
+};

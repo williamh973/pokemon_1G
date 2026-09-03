@@ -1,3 +1,5 @@
+import { POKEMON_STATUS } from "../../../logic/gameplay/pokemon/status/pokemonStatus.state.js";
+
 export const MOVES_DATABASE = {
   sandAttack: {
     id: "sandAttack",
@@ -167,6 +169,12 @@ export const MOVES_DATABASE = {
     power: 40,
     precision: 100,
     desc: "10% de chance de brûler la cible.",
+
+    effect: {
+      type: "STATUS",
+      status: POKEMON_STATUS.BURN,
+      percentage: 10,
+    },
   },
   surf: {
     id: "surf",
