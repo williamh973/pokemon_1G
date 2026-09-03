@@ -1,7 +1,7 @@
 import { POKEMON_STATUS } from "./pokemonStatus.state.js";
 
-const deduction8 = (pokemonHp) => {
-  return Math.floor(pokemonHp / 8);
+const deduction8 = (maxHp) => {
+  return Math.floor(maxHp / 8);
 };
 
 const random = (percent) => {
@@ -16,14 +16,14 @@ export const processPokemonStatus = (pokemon) => {
     case POKEMON_STATUS.BURN:
       pokemon.stats.hp = Math.max(
         0,
-        pokemon.stats.hp - deduction8(pokemon.stats.hp)
+        pokemon.stats.hp - deduction8(pokemon.stats.maxHp)
       );
       break;
 
     case POKEMON_STATUS.POISON:
       pokemon.stats.hp = Math.max(
         0,
-        pokemon.stats.hp - deduction8(pokemon.stats.hp)
+        pokemon.stats.hp - deduction8(pokemon.stats.maxHp)
       );
       break;
 
@@ -35,6 +35,7 @@ export const processPokemonStatus = (pokemon) => {
   }
 
   return {
+    statusProcessed: pokemon.status !== POKEMON_STATUS.NONE,
     canUseMove: canUseMove,
     pokemon: pokemon,
   };

@@ -2,9 +2,9 @@ export class PokemonFaintSequence {
   constructor(game) {
     this.game = game;
 
-    const { target } = this.game.battleManager.turnManager.koAction;
+    const { fainted } = this.game.battleManager.turnManager.koAction;
 
-    if (this.game.battleManager.wildPokemon === target) this.key = "front";
+    if (this.game.battleManager.wildPokemon === fainted) this.key = "front";
     else this.key = "back";
 
     this.viewer = this.game.battleManager.viewers[this.key];

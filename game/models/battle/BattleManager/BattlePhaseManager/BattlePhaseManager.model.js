@@ -140,29 +140,29 @@ export class BattlePhaseManager {
       case BATTLE_PHASES.DETERMINE_KO:
         this.battleManager.openDialogBox(
           DIALOGS_DATABASE.BATTLE_DIALOGS.pokemonKO(
-            this.battleManager.turnManager.koAction.target.name
+            this.battleManager.turnManager.koAction.fainted.name
           )
         );
         break;
 
       case BATTLE_PHASES.EXP_GAIN:
-        const { pokemon } = this.battleManager.turnManager.koAction;
+        const { active } = this.battleManager.turnManager.koAction;
         const wildPokemonXp = this.battleManager.wildPokemon.exp;
 
         this.battleManager.openDialogBox(
-          DIALOGS_DATABASE.BATTLE_DIALOGS.gainExp(pokemon.name, wildPokemonXp)
+          DIALOGS_DATABASE.BATTLE_DIALOGS.gainExp(active.name, wildPokemonXp)
         );
         console.log(
-          DIALOGS_DATABASE.BATTLE_DIALOGS.gainExp(pokemon.name, wildPokemonXp)
+          DIALOGS_DATABASE.BATTLE_DIALOGS.gainExp(active.name, wildPokemonXp)
         );
         break;
 
       case BATTLE_PHASES.END_BATTLE_OR_CONTINUE:
-        const { target } = this.battleManager.turnManager.koAction;
+        const { fainted } = this.battleManager.turnManager.koAction;
         const availableSlot =
           this.battleManager.game.player.party.hasAvailablePokemon();
 
-        if (target.trainerId) {
+        if (fainted.trainerId) {
           if (availableSlot) {
             console.log("Le joueur a au moins un pokémon en forme.");
             this.setPhase(BATTLE_PHASES.CONTINUE);
@@ -294,7 +294,7 @@ export class BattlePhaseManager {
       case BATTLE_PHASES.FAINT:
         if (this.sequenceManager.pokemonFaintSequence?.isFinished) {
           const hasTargetTrainerId =
-            this.battleManager.turnManager.koAction.target.trainerId;
+            this.battleManager.turnManager.koAction.fainted.trainerId;
 
           if (hasTargetTrainerId)
             this.setPhase(BATTLE_PHASES.END_BATTLE_OR_CONTINUE);

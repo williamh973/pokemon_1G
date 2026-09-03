@@ -1,4 +1,4 @@
-import { DIALOGS_DATABASE } from "../../../../../shareds/dialogs/dialogs.database.js";
+import { DIALOGS_DATABASE } from "../../../../../../shareds/dialogs/dialogs.database.js";
 
 const getStatusLabel = (status) => {
   const labels = {

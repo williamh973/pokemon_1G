@@ -22,7 +22,7 @@ export class BattleResultManager {
 
     if (!koAction) return;
 
-    const koPokemon = koAction.target;
+    const koPokemon = koAction.fainted;
 
     if (koPokemon === this.battleManager.wildPokemon) this.isKoProcessed = true;
 
@@ -38,11 +38,11 @@ export class BattleResultManager {
     this.isExpGainStarted = true;
 
     const wildPokemonXp = this.battleManager.wildPokemon.exp;
-    const { pokemon } = this.battleManager.turnManager.koAction;
+    const { active } = this.battleManager.turnManager.koAction;
 
-    pokemon.exp += wildPokemonXp;
+    active.exp += wildPokemonXp;
 
-    console.log("XP finale :", pokemon.exp);
+    console.log("XP finale :", active.exp);
   }
 
   endBattle() {
