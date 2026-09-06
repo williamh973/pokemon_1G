@@ -5,9 +5,7 @@ import { TURN_STATES } from "../states/turnManager.states.js";
 export const processActionStatus = (turnManager, sequence, action) => {
   const processStatusResult = processPokemonStatus(action.pokemon);
 
-  if (!processStatusResult.statusProcessed) {
-    return false;
-  }
+  if (!processStatusResult.statusProcessed) return false;
 
   handlerStatusProcessDialogs(turnManager.battleManager, processStatusResult);
 

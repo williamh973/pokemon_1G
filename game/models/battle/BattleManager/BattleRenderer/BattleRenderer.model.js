@@ -4,7 +4,7 @@ export class BattleRenderer {
   constructor(game, slots, huds, tile) {
     this.game = game;
     this.tile = tile;
-    this.backgroundImg = this.setBattleBackImg();
+    this.battleBackgroundImage = this.setBattleBackImg();
     this.frontSlot = slots.frontSlot;
     this.backSlot = slots.backSlot;
     this.frontHUD = huds.frontHUD;
@@ -40,16 +40,22 @@ export class BattleRenderer {
   }
 
   setBattleBackImg() {
-    const background = BATTLE_BACKGROUND_DATABASE[this.tile.terrain];
-    const defaultBackground = BATTLE_BACKGROUND_DATABASE["default"];
+    const backgroundFromDB = BATTLE_BACKGROUND_DATABASE[this.tile.terrain];
+    if (backgroundFromDB) {
+      return (this.battleBackgroundImage = backgroundFromDB.image);
+    } else {
+      const defaultBackground = BATTLE_BACKGROUND_DATABASE["default"];
+      return (this.battleBackgroundImage = defaultBackground.image);
+    }
+  }
 
-    if (background) return (this.backgroundImg = background.image);
-    else return (this.backgroundImg = defaultBackground.image);
+  setBattleBackgroundFromMoveAnimation(image) {
+    this.battleBackgroundImage = image;
   }
 
   draw(context) {
     context.drawImage(
-      this.backgroundImg,
+      this.battleBackgroundImage,
       this.game.canvas.position.x,
       this.game.canvas.position.y,
       this.game.canvas.width,

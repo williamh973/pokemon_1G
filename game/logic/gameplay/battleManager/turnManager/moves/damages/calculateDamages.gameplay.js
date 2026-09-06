@@ -1,4 +1,4 @@
-import { getStatStageMultiplier } from "../statStages/getStatStageMultiplier.gameplay.js";
+import { getStatStageMultiplier } from "../../statStages/getStatStageMultiplier.gameplay.js";
 
 export const calculateMoveDamages = (action) => {
   const pokemon = action.pokemon;

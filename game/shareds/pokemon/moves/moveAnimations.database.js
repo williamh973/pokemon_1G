@@ -6,6 +6,7 @@ import { SandAttackAnimation } from "../../../models/pokemon/Move/animations/San
 import { ScratchAnimation } from "../../../models/pokemon/Move/animations/ScratchAnimation.model.js";
 import { TackleAnimation } from "../../../models/pokemon/Move/animations/TackleAnimation.model.js";
 import { TailWhipAnimation } from "../../../models/pokemon/Move/animations/TailwhipAnimation.model.js";
+import { HypnosisAnimation } from "../../../models/pokemon/Move/animations/hypnosisAnimation.model.js";
 
 export const MOVE_ANIMATIONS_DATABASE = {
   tackle: TackleAnimation,
@@ -16,5 +17,6 @@ export const MOVE_ANIMATIONS_DATABASE = {
   quickAttack: QuickAttackAnimation,
   gust: GustAnimation,
   sandAttack: SandAttackAnimation,
+  hypnosis: HypnosisAnimation,
   //   watergun: WaterGunAnimation,
 };

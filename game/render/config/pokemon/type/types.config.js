@@ -33,4 +33,7 @@ export const TYPES_CONFIG = {
   GROUND: {
     image: createImg("game/assets/images/types/ground.png"),
   },
+  PSYCHIC: {
+    image: createImg("game/assets/images/types/psychic.png"),
+  },
 };

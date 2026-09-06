@@ -92,7 +92,7 @@ export class HUD {
     context.drawImage(
       STATUS[this.pokemon.status].image,
       this.position.x + 5,
-      35,
+      this.position.y + 35,
       STATUS.dimensions.width * STATUS.dimensions.scale,
       STATUS.dimensions.height * STATUS.dimensions.scale
     );

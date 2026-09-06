@@ -28,9 +28,15 @@ export const processPokemonStatus = (pokemon) => {
       break;
 
     case POKEMON_STATUS.PARALYSIS:
-    case POKEMON_STATUS.SLEEP:
-    case POKEMON_STATUS.FREEZE:
       canUseMove = random(25);
+      break;
+
+    case POKEMON_STATUS.SLEEP:
+      canUseMove = false;
+      break;
+
+    case POKEMON_STATUS.FREEZE:
+      canUseMove = random(20);
       break;
   }
 

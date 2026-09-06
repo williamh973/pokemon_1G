@@ -27,9 +27,11 @@ export const RATTATA_SPECIES = {
   evolutions: [{ method: "level", level: 27, target: "raticate" }],
   learnset: {
     levelUp: [
-      { level: 1, move: MOVES_DATABASE.tackle },
-      { level: 1, move: MOVES_DATABASE.tailWhip },
-      { level: 7, move: MOVES_DATABASE.quickAttack },
+      { level: 1, move: MOVES_DATABASE.hypnosis },
+      // { level: 1, move: MOVES_DATABASE.tailWhip },
+      // { level: 1, move: MOVES_DATABASE.tackle },
+
+      // { level: 7, move: MOVES_DATABASE.quickAttack },
     ],
     tmhm: [
       "Toxik",

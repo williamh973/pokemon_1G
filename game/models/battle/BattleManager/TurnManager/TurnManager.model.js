@@ -1,18 +1,14 @@
-import { calculateMoveDamages } from "../../../../logic/gameplay/battleManager/turnManager/damages/calculateDamages.gameplay.js";
 import { determineOrder } from "../../../../logic/gameplay/battleManager/turnManager/determineOrder/determineOrder.gameplay.js";
-import { checkDialogBoxShakeAnimation } from "../../../../logic/gameplay/battleManager/turnManager/dialogBox/dialogBoxShakeAnimation.gameplay.js";
-import { handlerMoveEffectDialogs } from "../../../../logic/gameplay/battleManager/turnManager/handlerDialogs/handlerMoveEffectDialogs.gameplay.js";
-import { handlerStatusEffectDialogs } from "../../../../logic/gameplay/battleManager/turnManager/handlerDialogs/status/handlerStatusEffectDialogs.gameplay.js";
-import { applyStatusEffect } from "../../../../logic/gameplay/battleManager/turnManager/moves/applyStatusEffect.gameplay.js";
-import { applyMoveEffect } from "../../../../logic/gameplay/battleManager/turnManager/moves/applyMoveEffect.gameplay.js";
 import { getAccuracyStageMultiplier } from "../../../../logic/gameplay/battleManager/turnManager/statStages/getAccuracyStageMultiplier.gameplay.js";
 import { TURN_STATES } from "../../../../logic/gameplay/battleManager/turnManager/states/turnManager.states.js";
 import { INPUT_STATE } from "../../../../logic/input/inputs.state.js";
 import { DIALOGS_DATABASE } from "../../../../shareds/dialogs/dialogs.database.js";
-import { processPokemonStatus } from "../../../../logic/gameplay/pokemon/status/processPokemonStatus.gameplay.js";
-import { handlerStatusProcessDialogs } from "../../../../logic/gameplay/battleManager/turnManager/handlerDialogs/status/handlerStatusProcessDialogs.gameplay.js";
 import { startTurn } from "../../../../logic/gameplay/battleManager/turnManager/turn/startTurn.gameplay.js";
 import { processActionStatus } from "../../../../logic/gameplay/battleManager/turnManager/status/processActionStatus.gameplay.js";
+import { processMovesEffect } from "../../../../logic/gameplay/battleManager/turnManager/moves/processMovesEffect.gameplay.js";
+import { applyMoveDamage } from "../../../../logic/gameplay/battleManager/turnManager/moves/damages/applyMoveDamage.gameplay.js";
+import { processStatusEffect } from "../../../../logic/gameplay/battleManager/turnManager/moves/processStatusEffect.gameplay.js";
+import { checkMovePrecision } from "../../../../logic/gameplay/battleManager/turnManager/moves/precision/checkMovePrecision.gameplay.js";
 
 export class TurnManager {
   constructor(battleManager) {
@@ -80,9 +76,7 @@ export class TurnManager {
     this.isDamageApplied = false;
     this.isPPDeducted = false;
 
-    if (processActionStatus(this, sequence, action)) {
-      return;
-    }
+    if (processActionStatus(this, sequence, action)) return;
 
     this.executeMove(sequence, action);
   }
@@ -106,40 +100,20 @@ export class TurnManager {
   }
 
   checkMovePrecision(action) {
-    const random100 = Math.floor(Math.random() * 100) + 1;
-
-    const accuracyStage = action.pokemon.statStages.accuracy;
-
-    const accuracy =
-      action.move.precision * getAccuracyStageMultiplier(accuracyStage);
-
-    const isSuccessful = random100 <= accuracy;
-
-    console.log(
-      `${action.pokemon.name} utilise ${action.move.name}`,
-      `| random: ${random100}`,
-      `| précision de base: ${action.move.precision}`,
-      `| précision réelle: ${accuracy}`,
-      `| résultat: ${isSuccessful ? "RÉUSSI" : "RATÉ"}`
-    );
-
-    return isSuccessful;
+    return checkMovePrecision(action);
   }
 
   deductMovePP(action) {
     if (this.isPPDeducted) return;
 
     action.move.currentPP = Math.max(0, action.move.currentPP - 1);
-
     this.isPPDeducted = true;
   }
 
   pokemonAttemptMove(sequence, action) {
     const isMoveSuccessful = this.checkMovePrecision(action);
 
-    if (!this.isPPDeducted) {
-      this.deductMovePP(action);
-    }
+    if (!this.isPPDeducted) this.deductMovePP(action);
 
     if (!isMoveSuccessful) {
       console.log(`${action.pokemon.name} rate son attaque !`);
@@ -182,38 +156,15 @@ export class TurnManager {
   }
 
   checkPokemonUseMoveSequenceFinished(sequence, action) {
-    if (!sequence.pokemonUseMoveSequence?.isFinished || this.isDamageApplied) {
+    if (!sequence.pokemonUseMoveSequence?.isFinished || this.isDamageApplied)
       return false;
-    }
 
-    const damages = calculateMoveDamages(action);
+    applyMoveDamage(this, action);
 
-    action.target.stats.hp = Math.max(0, action.target.stats.hp - damages);
-
-    this.isDamageApplied = true;
-
-    if (action.target === this.battleManager.currentPlayerPokemon) {
-      checkDialogBoxShakeAnimation(this.battleManager, damages);
-    }
-
-    const moveEffectResult = applyMoveEffect(action);
-
-    if (moveEffectResult) {
-      console.log("move effect result: ", moveEffectResult);
-
-      handlerMoveEffectDialogs(this.battleManager, moveEffectResult);
-
-      this.waitForAction(() => {
-        this.checkActionAnimationFinished(sequence, action);
-      }, this.state);
-
-      return true;
-    }
-
-    return false;
+    return processMovesEffect(this, action, sequence);
   }
 
-  checkActionTargetKO(action) {
+  handleTargetKO(action) {
     if (action.target.stats.hp <= 0) {
       this.koAction = {
         ...action,
@@ -232,27 +183,13 @@ export class TurnManager {
   }
 
   checkActionAnimationFinished(sequence, action) {
-    if (!this.isActionAnimationFinished(sequence, action)) {
-      return;
-    }
+    if (!this.isActionAnimationFinished(sequence, action)) return;
 
     console.log("pokemonUseMoveSequence est fini");
 
-    if (this.checkActionTargetKO(action)) {
-      return;
-    }
+    if (this.handleTargetKO(action)) return;
 
-    const statusEffectResult = applyStatusEffect(action);
-
-    if (statusEffectResult?.isAffected) {
-      handlerStatusEffectDialogs(this.battleManager, statusEffectResult);
-
-      this.waitForAction(() => {
-        this.checkActionAnimationFinished(sequence, action);
-      }, this.state);
-
-      return;
-    }
+    if (processStatusEffect(this, sequence, action)) return;
 
     this.onActionFinished(sequence);
   }
@@ -279,9 +216,8 @@ export class TurnManager {
       }
 
       case TURN_STATES.END:
-        if (!this.isFinished) {
-          this.isFinished = true;
-        }
+        if (!this.isFinished) this.isFinished = true;
+
         break;
 
       case TURN_STATES.WAITING:

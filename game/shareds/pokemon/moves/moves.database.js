@@ -113,7 +113,7 @@ export const MOVES_DATABASE = {
     id: "creaking",
     name: "Grincement",
     type: ["NORMAL"],
-    class: ["PHYSICAL"],
+    class: ["STATUT"],
     pp: 40,
     power: 0,
     precision: 85,
@@ -155,10 +155,11 @@ export const MOVES_DATABASE = {
     power: 150,
     precision: 90,
     priority: 0,
+    desc: "Le lanceur doit se reposer au tour suivant.",
+
     effects: {
       recharge: true,
     },
-    desc: "Le lanceur doit se reposer au tour suivant.",
   },
   ember: {
     id: "ember",
@@ -174,6 +175,22 @@ export const MOVES_DATABASE = {
       type: "STATUS",
       status: POKEMON_STATUS.BURN,
       percentage: 10,
+    },
+  },
+  hypnosis: {
+    id: "hypnosis",
+    name: "Hypnose",
+    type: ["PSYCHIC"],
+    class: ["STATUT"],
+    pp: 20,
+    power: 0,
+    precision: 100, // 60
+    desc: "Endort la cible.",
+
+    effect: {
+      type: "STATUS",
+      status: POKEMON_STATUS.SLEEP,
+      percentage: 100,
     },
   },
   surf: {
