@@ -36,4 +36,7 @@ export const TYPES_CONFIG = {
   PSYCHIC: {
     image: createImg("game/assets/images/types/psychic.png"),
   },
+  ICE: {
+    image: createImg("game/assets/images/types/ice.png"),
+  },
 };

@@ -38,6 +38,18 @@ export const generatePokemon = (
     },
     statStages: createStatStages(),
     status: POKEMON_STATUS.NONE,
+    volatils: {
+      sleepTurns: 0,
+      confusionTurns: 0,
+      isScared: false,
+
+      trapped: {
+        turns: 0,
+        move: null,
+      },
+
+      // infatuatedBy: null,
+    },
   };
   return pokemon;
 };

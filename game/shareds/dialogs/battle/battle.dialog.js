@@ -1,4 +1,12 @@
 export const BATTLE_DIALOGS = {
+  criticalHit: () => "Coup critique !",
+
+  thawedOut: (pokemon) => `${pokemon} est dégelé !`,
+
+  wokenUp: (pokemon) => `${pokemon} se réveille !`,
+
+  alreadyAsleep: (pokemon) => `Mais ${pokemon} est déjà\nendormis !`,
+
   processStatus: (pokemon, status) => `${pokemon} ${status}`,
 
   statusChanged: (pokemon, status) => ` ${pokemon} est ${status} !`,
@@ -18,7 +26,7 @@ export const BATTLE_DIALOGS = {
   playerEscape: () => `Vous prenez la fuite !`,
 
   pokemonUseMove: (pokemon, trainerId, move) =>
-    `${pokemon} ${trainerId ? "" : "ennemi "}utilise ${move} !`,
+    `${pokemon} ${trainerId ? "" : "ennemi "}utilise\n${move} !`,
 
   pokemonKO: (pokemon) => `${pokemon} est K.O !`,
 

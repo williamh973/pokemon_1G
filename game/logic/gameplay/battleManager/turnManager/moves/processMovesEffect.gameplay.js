@@ -2,9 +2,13 @@ import { handlerMoveEffectDialogs } from "../handlerDialogs/handlerMoveEffectDia
 import { applyMoveEffect } from "./applyMoveEffect.gameplay.js";
 
 export const processMovesEffect = (turnManager, action, sequence) => {
+  if (turnManager.isMoveEffectProcessed) return false;
+
   const moveEffectResult = applyMoveEffect(action);
 
   if (moveEffectResult) {
+    turnManager.isMoveEffectProcessed = true;
+
     console.log("move effect result: ", moveEffectResult);
 
     handlerMoveEffectDialogs(turnManager.battleManager, moveEffectResult);

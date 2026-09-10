@@ -1,5 +1,4 @@
 import { determineOrder } from "../../../../logic/gameplay/battleManager/turnManager/determineOrder/determineOrder.gameplay.js";
-import { getAccuracyStageMultiplier } from "../../../../logic/gameplay/battleManager/turnManager/statStages/getAccuracyStageMultiplier.gameplay.js";
 import { TURN_STATES } from "../../../../logic/gameplay/battleManager/turnManager/states/turnManager.states.js";
 import { INPUT_STATE } from "../../../../logic/input/inputs.state.js";
 import { DIALOGS_DATABASE } from "../../../../shareds/dialogs/dialogs.database.js";
@@ -9,6 +8,7 @@ import { processMovesEffect } from "../../../../logic/gameplay/battleManager/tur
 import { applyMoveDamage } from "../../../../logic/gameplay/battleManager/turnManager/moves/damages/applyMoveDamage.gameplay.js";
 import { processStatusEffect } from "../../../../logic/gameplay/battleManager/turnManager/moves/processStatusEffect.gameplay.js";
 import { checkMovePrecision } from "../../../../logic/gameplay/battleManager/turnManager/moves/precision/checkMovePrecision.gameplay.js";
+import { handleCriticalHitDialog } from "../../../../logic/gameplay/battleManager/turnManager/moves/damages/criticalHit/handleCriticalHitDialog.gameplay.js";
 
 export class TurnManager {
   constructor(battleManager) {
@@ -27,6 +27,8 @@ export class TurnManager {
 
     this.isDamageApplied = false;
     this.isPPDeducted = false;
+    this.isMoveEffectProcessed = false;
+    this.isStatusEffectProcessed = false;
     this.isFinished = false;
 
     this.waitTimer = 0;
@@ -75,6 +77,8 @@ export class TurnManager {
 
     this.isDamageApplied = false;
     this.isPPDeducted = false;
+    this.isMoveEffectProcessed = false;
+    this.isStatusEffectProcessed = false;
 
     if (processActionStatus(this, sequence, action)) return;
 
@@ -111,9 +115,9 @@ export class TurnManager {
   }
 
   pokemonAttemptMove(sequence, action) {
-    const isMoveSuccessful = this.checkMovePrecision(action);
-
     if (!this.isPPDeducted) this.deductMovePP(action);
+
+    const isMoveSuccessful = this.checkMovePrecision(action);
 
     if (!isMoveSuccessful) {
       console.log(`${action.pokemon.name} rate son attaque !`);
@@ -159,7 +163,24 @@ export class TurnManager {
     if (!sequence.pokemonUseMoveSequence?.isFinished || this.isDamageApplied)
       return false;
 
-    applyMoveDamage(this, action);
+    const applyMoveDamageResult = applyMoveDamage(this, action);
+
+    console.log(
+      "damages : ",
+      applyMoveDamageResult.criticalHitResult.damages,
+      "isCriticalHit : ",
+      applyMoveDamageResult.criticalHitResult.isCriticalHit
+    );
+
+    if (
+      handleCriticalHitDialog(
+        this,
+        sequence,
+        action,
+        applyMoveDamageResult.criticalHitResult
+      )
+    )
+      return true;
 
     return processMovesEffect(this, action, sequence);
   }

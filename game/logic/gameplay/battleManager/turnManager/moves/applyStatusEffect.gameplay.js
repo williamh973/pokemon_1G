@@ -1,3 +1,4 @@
+import { randomBetween } from "../../../../../shareds/utils/math/math.utils.js";
 import { POKEMON_STATUS } from "../../../pokemon/status/pokemonStatus.state.js";
 
 export const applyStatusEffect = (action) => {
@@ -10,10 +11,18 @@ export const applyStatusEffect = (action) => {
 
     action.target.status = action.move.effect.status;
 
+    if (action.target.status === POKEMON_STATUS.SLEEP)
+      action.target.volatils.sleepTurns = randomBetween(1, 4);
+
     return {
       isAffected: true,
       status: action.move.effect.status,
       pokemon: action.target,
     };
-  }
+  } else
+    return {
+      isAffected: false,
+      reason: "ALREADY_STATUS",
+      pokemon: action.target,
+    };
 };

@@ -3,7 +3,7 @@ import { DIALOGS_DATABASE } from "../../../../../../shareds/dialogs/dialogs.data
 const getStatusLabel = (status) => {
   const labels = {
     BURN: "brûlé",
-    PARALYSIS: "paralysé",
+    PARALYSIS: "paralysé,\n il peut ne pas attaquer",
     POISON: "empoisonné",
     SLEEP: "endormis",
     FREEZE: "gelé",

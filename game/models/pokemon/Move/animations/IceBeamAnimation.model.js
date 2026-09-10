@@ -1,8 +1,8 @@
-import { HYPNOSIS_ANIMATION } from "../../../../render/config/battle/pokemon/moves/hypnosisAnimation.config.js";
+import { ICE_BEAM_ANIMATION } from "../../../../render/config/battle/pokemon/moves/iceBeamAnimation.config.js";
 import { createImg } from "../../../../shareds/utils/assets/assets.utils.js";
 import { SpriteViewer } from "../../../SpriteViewer/SpriteViewer.model.js";
 
-export class HypnosisAnimation {
+export class IceBeamAnimation {
   constructor(game, viewers, turnAction) {
     this.game = game;
     this.viewers = viewers;
@@ -45,37 +45,25 @@ export class HypnosisAnimation {
       this.targetViewer.sprite.frameHeight / 2;
 
     this.beams = [];
+    this.piecesIces = [];
 
     this.timer = 0;
     this.duration = 45;
 
-    this.initialBattleBackgImage =
-      this.game.battleManager.battleRenderer.battleBackgroundImage;
-
-    this.imageZ = null;
-
-    this.changeBattleBackImage();
     this.createBeams();
+    this.createPiecesOfIce();
 
     this.isFinished = false;
   }
 
-  changeBattleBackImage() {
-    this.game.battleManager.battleRenderer.setBattleBackgroundFromMoveAnimation(
-      createImg(
-        "game/assets/images/pokemons/moves/hypnosis/hypnosisBackground.png"
-      )
-    );
-  }
-
   createBeams() {
-    const beamCount = 8;
+    const beamCount = 16;
 
     for (let i = 0; i < beamCount; i++) {
       const viewer = new SpriteViewer(
         this.game,
         {
-          ...HYPNOSIS_ANIMATION,
+          ...ICE_BEAM_ANIMATION,
           loop: true,
         },
         this.targetViewer.slot
@@ -88,26 +76,32 @@ export class HypnosisAnimation {
 
       this.beams.push({
         viewer,
-
         progress: 0,
-
-        delay: i * 7,
+        delay: i * 4,
       });
     }
   }
 
-  update(context) {
-    switch (this.state) {
-      case "BEAM":
-        this.updateBeam(context);
-        break;
+  createPiecesOfIce() {
+    const iceCount = 4;
 
-      case "FALLING_ASLEEP":
-        this.updateFallingAsleep(context);
-        break;
+    for (let i = 0; i < iceCount; i++) {
+      const image = createImg(
+        "game/assets/images/pokemons/moves/iceBeam/iceBeamHexagonShape.png"
+      );
 
-      default:
-        break;
+      this.piecesIces.push({
+        image,
+
+        x: 0,
+        y: 0,
+
+        delay: Math.random() * 40,
+
+        opacity: 0,
+
+        floatOffset: Math.random() * Math.PI * 2,
+      });
     }
   }
 
@@ -149,45 +143,92 @@ export class HypnosisAnimation {
       beam.viewer.isOpen = false;
     }
 
-    this.state = "FALLING_ASLEEP";
+    this.state = "FREEZING";
 
-    this.startAsleep();
+    this.startFreezing();
   }
 
-  startAsleep() {
-    this.sleepTimer = 0;
-    this.sleepDuration = 60;
+  startFreezing() {
+    this.freezeTimer = 0;
+    this.freezeDuration = 120;
 
-    this.imageZ = createImg(
-      "game/assets/images/pokemons/moves/hypnosis/hypnosisZ.png"
-    );
-
-    this.imageZX =
+    const targetX =
       this.targetViewer.sprite.position.x +
       this.targetViewer.sprite.frameWidth / 2;
 
-    this.imageZY =
+    const targetY =
       this.targetViewer.sprite.position.y +
       this.targetViewer.sprite.frameHeight / 2;
 
-    this.imageZInitialY = this.imageZY;
+    this.piecesIces.forEach((ice) => {
+      const radiusX = 20 + Math.random() * 30;
+      const radiusY = 20 + Math.random() * 30;
+
+      ice.x = targetX + (Math.random() < 0.5 ? -radiusX : radiusX);
+
+      ice.y = targetY + (Math.random() < 0.5 ? -radiusY : radiusY);
+
+      ice.opacity = 0;
+    });
   }
 
-  updateFallingAsleep(context) {
-    this.sleepTimer++;
+  updateFreeze(context) {
+    this.freezeTimer++;
 
-    this.imageZY = this.imageZInitialY--;
+    for (const ice of this.piecesIces) {
+      const localTimer = this.freezeTimer - ice.delay;
 
-    context.drawImage(this.imageZ, this.imageZX, this.imageZY);
+      if (localTimer < 0) continue;
 
-    if (this.sleepTimer >= this.sleepDuration) {
+      const cycleDuration = 60;
+      const cycle = localTimer % cycleDuration;
+
+      let opacity;
+
+      if (cycle < 15) {
+        opacity = cycle / 15;
+      } else if (cycle < 40) {
+        opacity = 1;
+      } else {
+        opacity = 1 - (cycle - 40) / 20;
+      }
+
+      ice.opacity = opacity;
+
+      const floatX = Math.sin(this.freezeTimer * 0.08 + ice.floatOffset) * 3;
+
+      const floatY = Math.cos(this.freezeTimer * 0.06 + ice.floatOffset) * 3;
+
+      context.save();
+
+      context.globalAlpha = ice.opacity;
+
+      context.drawImage(ice.image, ice.x + floatX, ice.y + floatY);
+
+      context.restore();
+    }
+
+    if (this.freezeTimer >= this.freezeDuration) {
       this.onFinished();
     }
   }
 
   onFinished() {
-    this.game.battleManager.battleRenderer.setBattleBackImg();
-
     this.isFinished = true;
+  }
+
+  update(context) {
+    switch (this.state) {
+      case "BEAM":
+        this.updateBeam(context);
+        break;
+
+      case "FREEZING":
+        this.updateFreeze(context);
+        break;
+
+      default:
+        break;
+    }
   }
 }

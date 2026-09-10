@@ -1,32 +1,6 @@
 import { POKEMON_STATUS } from "../../../logic/gameplay/pokemon/status/pokemonStatus.state.js";
 
 export const MOVES_DATABASE = {
-  sandAttack: {
-    id: "sandAttack",
-    name: "Jet de Sable",
-    type: ["GROUND"],
-    class: ["STATUT"],
-    pp: 15,
-    power: 0,
-    precision: 100,
-    desc: "Baisse la Précision de la cible d'un niveau.",
-
-    effect: {
-      type: "STAT_STAGE",
-      stat: "accuracy",
-      amount: -1,
-    },
-  },
-  gust: {
-    id: "gust",
-    name: "Tornade",
-    type: ["FLYING"],
-    class: ["PHYSICAL"],
-    pp: 35,
-    power: 40,
-    precision: 100,
-    desc: "La puissance est doublée si la cible est dans les airs.",
-  },
   growl: {
     id: "growl",
     name: "Rugissement",
@@ -41,7 +15,52 @@ export const MOVES_DATABASE = {
       type: "STAT_STAGE",
       stat: "attack",
       amount: -1,
+      percentage: 100,
     },
+  },
+  acid: {
+    id: "acid",
+    name: "Acide",
+    type: ["POISON"],
+    class: ["PHYSICAL"],
+    pp: 30,
+    power: 40,
+    precision: 100,
+    desc: "33.2% de chance de baisser la Défense des cibles d'un niveau.",
+
+    effect: {
+      type: "STAT_STAGE",
+      stat: "defense",
+      amount: -1,
+      percentage: 100,
+    },
+  },
+  sandAttack: {
+    id: "sandAttack",
+    name: "Jet de Sable",
+    type: ["GROUND"],
+    class: ["STATUT"],
+    pp: 15,
+    power: 0,
+    precision: 100,
+    desc: "Baisse la Précision de la cible d'un niveau.",
+
+    effect: {
+      type: "STAT_STAGE",
+      stat: "accuracy",
+      amount: -1,
+      percentage: 100,
+    },
+  },
+  gust: {
+    id: "gust",
+    name: "Tornade",
+    type: ["FLYING"],
+    class: ["PHYSICAL"],
+    pp: 35,
+    power: 40,
+    precision: 100,
+    desc: "La puissance est doublée si la cible est dans les airs.",
   },
   scratch: {
     id: "scratch",
@@ -77,6 +96,7 @@ export const MOVES_DATABASE = {
       type: "STAT_STAGE",
       stat: "defense",
       amount: -1,
+      percentage: 100,
     },
   },
   vineWhip: {
@@ -123,6 +143,7 @@ export const MOVES_DATABASE = {
       type: "STAT_STAGE",
       stat: "defense",
       amount: -2,
+      percentage: 100,
     },
   },
   embrace: {
@@ -184,7 +205,7 @@ export const MOVES_DATABASE = {
     class: ["STATUT"],
     pp: 20,
     power: 0,
-    precision: 100, // 60
+    precision: 60, // 60
     desc: "Endort la cible.",
 
     effect: {
@@ -202,5 +223,37 @@ export const MOVES_DATABASE = {
     power: 95,
     precision: 100,
     desc: "Déferle une immense vague sur l'ennemi.",
+  },
+  iceBeam: {
+    id: "iceBeam",
+    name: "Laser Glace",
+    type: ["ICE"],
+    class: ["SPECIAL"],
+    pp: 10,
+    power: 95,
+    precision: 100,
+    desc: "10% de chance de geler la cible.",
+
+    effect: {
+      type: "STATUS",
+      status: POKEMON_STATUS.FREEZE,
+      percentage: 10,
+    },
+  },
+  thunderWave: {
+    id: "thunderWave",
+    name: "Cage-Éclair",
+    type: ["ELECTRIK"],
+    class: ["STATUS"],
+    pp: 20,
+    power: 0,
+    precision: 100,
+    desc: "Paralyse la cible.",
+
+    effect: {
+      type: "STATUS",
+      status: POKEMON_STATUS.PARALYSIS,
+      percentage: 100,
+    },
   },
 };
