@@ -129,7 +129,6 @@ export class BattleManager {
 
   selecteMove(moveData) {
     this.selectedMove = moveData;
-
     this.wildPokemonSelectMove();
 
     this.phaseManager.setPhase(BATTLE_PHASES.EXECUTE_TURN);

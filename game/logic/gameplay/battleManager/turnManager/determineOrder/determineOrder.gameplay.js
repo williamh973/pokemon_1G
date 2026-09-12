@@ -14,7 +14,7 @@ export const determineOrder = (turnManager) => {
 
   const order = [player, wild].sort((a, b) => {
     const priorityDifference = (b.move.priority ?? 0) - (a.move.priority ?? 0);
-
+    console.log(b.move, a.move);
     if (priorityDifference !== 0) return priorityDifference;
 
     return b.pokemon.stats.speed - a.pokemon.stats.speed;

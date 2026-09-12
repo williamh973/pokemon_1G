@@ -1,6 +1,8 @@
 import { getAccuracyStageMultiplier } from "../../statStages/getAccuracyStageMultiplier.gameplay.js";
 
 export const checkMovePrecision = (action) => {
+  if (action.move?.selfTarget) return true;
+
   const random100 = Math.floor(Math.random() * 100) + 1;
 
   const accuracyStage = action.pokemon.statStages.accuracy;

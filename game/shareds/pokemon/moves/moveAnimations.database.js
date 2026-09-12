@@ -8,6 +8,7 @@ import { ScratchAnimation } from "../../../models/pokemon/Move/animations/Scratc
 import { TackleAnimation } from "../../../models/pokemon/Move/animations/TackleAnimation.model.js";
 import { TailWhipAnimation } from "../../../models/pokemon/Move/animations/TailwhipAnimation.model.js";
 import { ThunderWaveAnimation } from "../../../models/pokemon/Move/animations/ThunderWaveAnimation.model.js";
+import { FocusEnergyAnimation } from "../../../models/pokemon/Move/animations/focusEnergyAnimation.model.js";
 import { HypnosisAnimation } from "../../../models/pokemon/Move/animations/hypnosisAnimation.model.js";
 import { IceBeamAnimation } from "../../../models/pokemon/Move/animations/iceBeamAnimation.model.js";
 
@@ -24,5 +25,6 @@ export const MOVE_ANIMATIONS_DATABASE = {
   iceBeam: IceBeamAnimation,
   thunderWave: ThunderWaveAnimation,
   acid: AcidAnimation,
+  focusEnergy: FocusEnergyAnimation,
   //   watergun: WaterGunAnimation,
 };

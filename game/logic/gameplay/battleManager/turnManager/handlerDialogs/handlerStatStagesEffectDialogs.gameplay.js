@@ -13,7 +13,10 @@ const getStatLabel = (stat) => {
   return labels[stat] ?? stat;
 };
 
-export const handlerMoveEffectDialogs = (battleManager, moveEffectResult) => {
+export const handlerStatStagesEffectDialogs = (
+  battleManager,
+  moveEffectResult
+) => {
   const intensity = Math.abs(moveEffectResult.amount) >= 2 ? "beaucoup" : "";
 
   moveEffectResult.isAffected

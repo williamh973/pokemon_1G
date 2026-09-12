@@ -43,12 +43,30 @@ export class EncounterManager {
   }
 
   startWildBattle(game, targetOP, tile) {
-    const wildPokemon = generatePokemon(
-      targetOP,
-      game.mapManager.currentMap.name
+    // dev only
+    const pokemonTest = {
+      id: "charmander",
+      level: 5,
+    };
+
+    game.player.party.slots = [];
+    game.player.party.initSlots();
+    game.player.party.addPokemonToFirstEmptySlot(
+      generatePokemon(pokemonTest, game.mapManager.currentMap.name)
     );
+    //
+
+    const wildPokemon = {
+      id: "charizard",
+      level: 5,
+    };
+
     const battleType = "WILD";
 
-    game.createBattle(wildPokemon, tile, battleType);
+    game.createBattle(
+      generatePokemon(wildPokemon, game.mapManager.currentMap.name),
+      tile,
+      battleType
+    );
   }
 }

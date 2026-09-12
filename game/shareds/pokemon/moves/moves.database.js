@@ -1,6 +1,34 @@
 import { POKEMON_STATUS } from "../../../logic/gameplay/pokemon/status/pokemonStatus.state.js";
 
 export const MOVES_DATABASE = {
+  armor: {
+    id: "armor",
+    name: "Armure",
+    type: ["NORMAL"],
+    class: ["STATUT"],
+    pp: 30,
+    power: 0,
+    precision: 100,
+    desc: "Augmente la Défense du lanceur d'un niveau.",
+    selfTarget: true,
+
+    effect: {
+      type: "STAT_STAGE",
+      stat: "defense",
+      amount: 1,
+      percentage: 100,
+    },
+  },
+  focusEnergy: {
+    id: "focusEnergy",
+    name: "Puissance",
+    type: ["NORMAL"],
+    class: ["STATUT"],
+    pp: 30,
+    power: 0,
+    precision: 100,
+    desc: "augmente les chances de coups critiques.",
+  },
   growl: {
     id: "growl",
     name: "Rugissement",

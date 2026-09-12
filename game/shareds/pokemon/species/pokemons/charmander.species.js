@@ -27,9 +27,13 @@ export const CHARMANDER_SPECIES = {
   evolutions: [{ method: "level", level: 16, target: "charmeleon" }],
   learnset: {
     levelUp: [
+      { level: 1, move: MOVES_DATABASE.acid },
+      { level: 1, move: MOVES_DATABASE.focusEnergy },
       { level: 1, move: MOVES_DATABASE.scratch },
-      { level: 1, move: MOVES_DATABASE.growl },
-      { level: 1, move: MOVES_DATABASE.ember },
+      { level: 1, move: MOVES_DATABASE.quickAttack },
+
+      // { level: 1, move: MOVES_DATABASE.growl },
+      // { level: 1, move: MOVES_DATABASE.ember },
     ],
     tmhm: [
       "Ultimapoing",

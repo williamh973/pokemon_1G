@@ -42,6 +42,7 @@ export const generatePokemon = (
       sleepTurns: 0,
       confusionTurns: 0,
       isScared: false,
+      hasBoostedByFocusEnergy: false,
 
       trapped: {
         turns: 0,
@@ -68,7 +69,9 @@ const getMoves = (learnsets, level) => {
       power: set.move.power,
       precision: set.move.precision,
       desc: set.move.desc,
-      effect: set.move.effect,
+      effect: set.move.effect ?? null,
+      priority: set.move.priority ?? null,
+      selfTarget: set.move.selfTarget ?? null,
       enabled: true,
     }));
 };
