@@ -9,6 +9,7 @@ import { applyMoveDamage } from "../../../../logic/gameplay/battleManager/turnMa
 import { processStatusEffect } from "../../../../logic/gameplay/battleManager/turnManager/moves/processStatusEffect.gameplay.js";
 import { checkMovePrecision } from "../../../../logic/gameplay/battleManager/turnManager/moves/precision/checkMovePrecision.gameplay.js";
 import { handleCriticalHitDialog } from "../../../../logic/gameplay/battleManager/turnManager/moves/damages/criticalHit/handleCriticalHitDialog.gameplay.js";
+import { handleTargetKO } from "../../../../logic/gameplay/battleManager/turnManager/handleKO/handleTargetKO.gameplay.js";
 
 export class TurnManager {
   constructor(battleManager) {
@@ -165,13 +166,6 @@ export class TurnManager {
 
     const applyMoveDamageResult = applyMoveDamage(this, action);
 
-    console.log(
-      "damages : ",
-      applyMoveDamageResult.criticalHitResult.damages,
-      "isCriticalHit : ",
-      applyMoveDamageResult.criticalHitResult.isCriticalHit
-    );
-
     if (
       handleCriticalHitDialog(
         this,
@@ -186,19 +180,7 @@ export class TurnManager {
   }
 
   handleTargetKO(action) {
-    if (action.target.stats.hp <= 0) {
-      this.koAction = {
-        ...action,
-        active: action.pokemon,
-        fainted: action.target,
-      };
-
-      this.state = TURN_STATES.DETERMINE_KO;
-
-      console.log(`${this.koAction.fainted.name} est KO`);
-
-      return true;
-    }
+    handleTargetKO(this, action);
 
     return false;
   }

@@ -1,4 +1,6 @@
 export const BATTLE_DIALOGS = {
+  drain: (pokemon) => `La vie de ${pokemon} \nest aspiré`,
+
   noEffect: () => "Sans effet.",
 
   boostedByFocusEnergy: (pokemon) => `${pokemon} se gonfle`,

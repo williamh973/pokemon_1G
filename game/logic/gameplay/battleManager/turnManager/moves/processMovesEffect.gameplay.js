@@ -1,4 +1,5 @@
 import { handlerStatStagesEffectDialogs } from "../handlerDialogs/handlerStatStagesEffectDialogs.gameplay.js";
+import { handlerDrainEffectDialogs } from "../handlerDialogs/moves/handlerDrainEffectDialogs.gameplay.js";
 import { handlerFocusEnergyEffectDialogs } from "../handlerDialogs/moves/handlerFocusEnergyEffectDialogs.gameplay.js";
 import { applyMoveEffect } from "./applyMoveEffect.gameplay.js";
 import { checkFocusEnergyApply } from "./focusEnergy/checkFocusEnergyApply.gameplay.js";
@@ -6,17 +7,28 @@ import { checkFocusEnergyApply } from "./focusEnergy/checkFocusEnergyApply.gamep
 export const processMovesEffect = (turnManager, action, sequence) => {
   if (turnManager.isMoveEffectProcessed) return false;
 
-  const statStagesMoveEffectResult = applyMoveEffect(action);
+  const moveEffectResult = applyMoveEffect(action);
 
-  if (statStagesMoveEffectResult) {
+  if (moveEffectResult) {
     turnManager.isMoveEffectProcessed = true;
 
-    console.log("stat stages move effect result: ", statStagesMoveEffectResult);
+    switch (action.move.effect?.type) {
+      case "STAT_STAGE":
+        handlerStatStagesEffectDialogs(
+          turnManager.battleManager,
+          moveEffectResult
+        );
+        break;
 
-    handlerStatStagesEffectDialogs(
-      turnManager.battleManager,
-      statStagesMoveEffectResult
-    );
+      case "DRAIN":
+        handlerDrainEffectDialogs(turnManager.battleManager, action);
+        break;
+
+      default:
+        break;
+    }
+
+    console.log("move effect result: ", moveEffectResult);
 
     turnManager.waitForAction(() => {
       turnManager.checkActionAnimationFinished(sequence, action);

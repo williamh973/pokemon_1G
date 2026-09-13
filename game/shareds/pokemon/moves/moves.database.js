@@ -137,8 +137,8 @@ export const MOVES_DATABASE = {
     precision: 100,
     desc: "Fouette l'adversaire avec des lianes.",
   },
-  vampirism: {
-    id: "vampirism",
+  leechLife: {
+    id: "leechLife",
     name: "Vampirisme",
     type: ["INSECT"],
     class: ["PHYSICAL"],
@@ -146,6 +146,13 @@ export const MOVES_DATABASE = {
     power: 20,
     precision: 100,
     desc: "Convertit 50% des dégâts infligés à la cible en PV pour le lanceur.",
+
+    effect: {
+      type: "DRAIN",
+      stat: "hp",
+      amount: 50,
+      percentage: 100,
+    },
   },
   ultrasound: {
     id: "ultrasound",

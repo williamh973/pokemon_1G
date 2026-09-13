@@ -3,6 +3,7 @@ import { EmberAnimation } from "../../../models/pokemon/Move/animations/EmberAni
 import { GrowlAnimation } from "../../../models/pokemon/Move/animations/GrowlAnimation.model.js";
 import { GustAnimation } from "../../../models/pokemon/Move/animations/GustAnimation.model.js";
 import { HardenAnimation } from "../../../models/pokemon/Move/animations/HardenAnimation.model.js";
+import { LeechLifeAnimation } from "../../../models/pokemon/Move/animations/LeechLifeAnimation.model.js";
 import { QuickAttackAnimation } from "../../../models/pokemon/Move/animations/QuickAttackAnimation.model.js";
 import { SandAttackAnimation } from "../../../models/pokemon/Move/animations/SandAttackAnimation.model.js";
 import { ScratchAnimation } from "../../../models/pokemon/Move/animations/ScratchAnimation.model.js";
@@ -28,5 +29,6 @@ export const MOVE_ANIMATIONS_DATABASE = {
   acid: AcidAnimation,
   focusEnergy: FocusEnergyAnimation,
   harden: HardenAnimation,
+  leechLife: LeechLifeAnimation,
   //   watergun: WaterGunAnimation,
 };

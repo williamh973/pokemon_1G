@@ -17,5 +17,12 @@ export const applyMoveDamage = (turnManager, action) => {
   if (action.target === turnManager.battleManager.currentPlayerPokemon)
     checkDialogBoxShakeAnimation(turnManager.battleManager, damages);
 
+  console.log(
+    "damages : ",
+    damages,
+    "isCriticalHit : ",
+    criticalHitResult.isCriticalHit
+  );
+
   return { criticalHitResult: criticalHitResult };
 };

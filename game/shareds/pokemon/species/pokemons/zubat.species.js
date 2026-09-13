@@ -27,7 +27,7 @@ export const ZUBAT_SPECIES = {
   evolutions: [{ method: "level", level: 22, target: "golbat" }],
   learnset: {
     levelUp: [
-      { level: 1, move: MOVES_DATABASE.vampirism },
+      { level: 1, move: MOVES_DATABASE.leechLife },
       { level: 10, move: MOVES_DATABASE.ultrasound },
     ],
     tmhm: [

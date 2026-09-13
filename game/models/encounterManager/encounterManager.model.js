@@ -57,7 +57,7 @@ export class EncounterManager {
     //
 
     const wildPokemon = {
-      id: "charizard",
+      id: "zubat",
       level: 5,
     };
 
