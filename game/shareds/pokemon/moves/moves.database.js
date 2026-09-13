@@ -1,8 +1,8 @@
 import { POKEMON_STATUS } from "../../../logic/gameplay/pokemon/status/pokemonStatus.state.js";
 
 export const MOVES_DATABASE = {
-  armor: {
-    id: "armor",
+  harden: {
+    id: "harden",
     name: "Armure",
     type: ["NORMAL"],
     class: ["STATUT"],

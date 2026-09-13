@@ -9,7 +9,7 @@ export const applyMoveEffect = (action) => {
   if (action.move.effect?.type === "STAT_STAGE") {
     if (random(action.move.effect?.percentage)) {
       return modifyStatStage(
-        action.target,
+        action.move.selfTarget ? action.pokemon : action.target,
         action.move.effect.stat,
         action.move.effect.amount
       );

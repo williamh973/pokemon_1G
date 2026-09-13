@@ -28,7 +28,7 @@ export const CHARIZARD_SPECIES = {
   learnset: {
     levelUp: [
       { level: 1, move: MOVES_DATABASE.focusEnergy },
-      { level: 1, move: MOVES_DATABASE.quickAttack },
+      // { level: 1, move: MOVES_DATABASE.quickAttack },
 
       // { level: 1, move: MOVES_DATABASE.tackle },
       // { level: 1, move: MOVES_DATABASE.tailWhip },
