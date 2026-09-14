@@ -3,14 +3,15 @@ import { processMovesEffect } from "../../processMovesEffect.gameplay.js";
 
 export const handleCriticalHitDialog = (
   turnManager,
-  sequence,
+  damages,
   action,
+  sequence,
   criticalHitResult
 ) => {
   if (!criticalHitResult.isCriticalHit) return false;
 
   turnManager.waitForAction(() => {
-    processMovesEffect(turnManager, action, sequence);
+    processMovesEffect(turnManager, damages, action, sequence);
   }, turnManager.state);
 
   turnManager.battleManager.openDialogBox(

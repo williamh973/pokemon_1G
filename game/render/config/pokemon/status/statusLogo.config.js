@@ -1,6 +1,6 @@
 import { createImg } from "../../../../shareds/utils/assets/assets.utils.js";
 
-export const STATUS_CONFIG = {
+export const STATUS_LOGO_CONFIG = {
   dimensions: {
     width: 20,
     height: 8,

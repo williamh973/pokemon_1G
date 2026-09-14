@@ -28,7 +28,7 @@ export const ZUBAT_SPECIES = {
   learnset: {
     levelUp: [
       { level: 1, move: MOVES_DATABASE.leechLife },
-      { level: 10, move: MOVES_DATABASE.ultrasound },
+      { level: 1, move: MOVES_DATABASE.supersonic },
     ],
     tmhm: [
       "Coupe-Vent",

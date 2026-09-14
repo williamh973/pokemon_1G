@@ -10,6 +10,7 @@ import { processStatusEffect } from "../../../../logic/gameplay/battleManager/tu
 import { checkMovePrecision } from "../../../../logic/gameplay/battleManager/turnManager/moves/precision/checkMovePrecision.gameplay.js";
 import { handleCriticalHitDialog } from "../../../../logic/gameplay/battleManager/turnManager/moves/damages/criticalHit/handleCriticalHitDialog.gameplay.js";
 import { handleTargetKO } from "../../../../logic/gameplay/battleManager/turnManager/handleKO/handleTargetKO.gameplay.js";
+import { processActionVolatile } from "../../../../logic/gameplay/battleManager/turnManager/moves/volatiles/processActionVolatils.gameplay.js";
 
 export class TurnManager {
   constructor(battleManager) {
@@ -82,6 +83,8 @@ export class TurnManager {
     this.isStatusEffectProcessed = false;
 
     if (processActionStatus(this, sequence, action)) return;
+
+    if (processActionVolatile(this, sequence, action)) return;
 
     this.executeMove(sequence, action);
   }
@@ -169,14 +172,20 @@ export class TurnManager {
     if (
       handleCriticalHitDialog(
         this,
-        sequence,
+        applyMoveDamageResult.damages,
         action,
+        sequence,
         applyMoveDamageResult.criticalHitResult
       )
     )
       return true;
 
-    return processMovesEffect(this, action, sequence);
+    return processMovesEffect(
+      this,
+      applyMoveDamageResult.damages,
+      action,
+      sequence
+    );
   }
 
   handleTargetKO(action) {

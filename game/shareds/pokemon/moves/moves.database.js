@@ -1,6 +1,22 @@
 import { POKEMON_STATUS } from "../../../logic/gameplay/pokemon/status/pokemonStatus.state.js";
 
 export const MOVES_DATABASE = {
+  supersonic: {
+    id: "supersonic",
+    name: "Ultrason",
+    type: ["NORMAL"],
+    class: ["STATUT"],
+    pp: 20,
+    power: 0,
+    precision: 100,
+    desc: "Attaque sonore. Rend confus la cible.",
+
+    effect: {
+      type: "VOLATILE",
+      volatile: "CONFUSION",
+      percentage: 100,
+    },
+  },
   harden: {
     id: "harden",
     name: "Armure",
@@ -140,7 +156,7 @@ export const MOVES_DATABASE = {
   leechLife: {
     id: "leechLife",
     name: "Vampirisme",
-    type: ["INSECT"],
+    type: ["BUG"],
     class: ["PHYSICAL"],
     pp: 15,
     power: 20,
@@ -153,16 +169,6 @@ export const MOVES_DATABASE = {
       amount: 50,
       percentage: 100,
     },
-  },
-  ultrasound: {
-    id: "ultrasound",
-    name: "Ultrason",
-    type: ["NORMAL"],
-    class: ["STATUT"],
-    pp: 20,
-    power: 0,
-    precision: 55,
-    desc: "Attaque sonore. Rend confus la cible.",
   },
   creaking: {
     id: "creaking",

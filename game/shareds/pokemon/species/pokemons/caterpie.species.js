@@ -43,12 +43,12 @@ export const CATERPIE_SPECIES = {
     levelUp: [
       {
         level: 1,
-        move: MOVES_DATABASE.tackle,
+        move: MOVES_DATABASE.focusEnergy,
       },
-      {
-        level: 1,
-        move: MOVES_DATABASE.stringShot,
-      },
+      // {
+      //   level: 1,
+      //   move: MOVES_DATABASE.stringShot,
+      // },
     ],
 
     tmhm: [],

@@ -1,9 +1,17 @@
 export const BATTLE_DIALOGS = {
-  drain: (pokemon) => `La vie de ${pokemon} \nest aspiré`,
+  confusedNoMore: (pokemon) => `${pokemon} n'est plus confus.`,
+
+  confusionDeals: () => `La confusion lui inflige des\ndégâts.`,
+
+  confusing: (pokemon) => `${pokemon} est confus.`,
+
+  becomesConfusing: (pokemon) => `Cela rend ${pokemon} \nconfus`,
+
+  drain: (pokemon) => `La vie de ${pokemon} \nest aspiré.`,
 
   noEffect: () => "Sans effet.",
 
-  boostedByFocusEnergy: (pokemon) => `${pokemon} se gonfle`,
+  boostedByFocusEnergy: (pokemon) => `${pokemon} se gonfle.`,
 
   criticalHit: () => "Coup critique !",
 

@@ -13,6 +13,7 @@ import { ThunderWaveAnimation } from "../../../models/pokemon/Move/animations/Th
 import { FocusEnergyAnimation } from "../../../models/pokemon/Move/animations/focusEnergyAnimation.model.js";
 import { HypnosisAnimation } from "../../../models/pokemon/Move/animations/hypnosisAnimation.model.js";
 import { IceBeamAnimation } from "../../../models/pokemon/Move/animations/iceBeamAnimation.model.js";
+import { SupersonicAnimation } from "../../../models/pokemon/Move/animations/supersonicAnimation.model.js";
 
 export const MOVE_ANIMATIONS_DATABASE = {
   tackle: TackleAnimation,
@@ -30,5 +31,6 @@ export const MOVE_ANIMATIONS_DATABASE = {
   focusEnergy: FocusEnergyAnimation,
   harden: HardenAnimation,
   leechLife: LeechLifeAnimation,
+  supersonic: SupersonicAnimation,
   //   watergun: WaterGunAnimation,
 };

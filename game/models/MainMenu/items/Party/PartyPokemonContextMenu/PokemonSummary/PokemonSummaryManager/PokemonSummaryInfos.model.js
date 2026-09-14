@@ -1,4 +1,4 @@
-import { TYPES_CONFIG } from "../../../../../../../render/config/pokemon/type/types.config.js";
+import { TYPES_LOGO_CONFIG } from "../../../../../../../render/config/pokemon/type/typesLogo.config.js";
 import { drawText } from "../../../../../../../shareds/utils/font/drawText.utils.js";
 import { BasePokemonSummary } from "../BasePokemonSummary.model.js";
 
@@ -31,7 +31,7 @@ export class PokemonSummaryInfos extends BasePokemonSummary {
   types(context) {
     drawText(context, "TYPE", 185, 45);
 
-    const TYPES = TYPES_CONFIG;
+    const TYPES = TYPES_LOGO_CONFIG;
     this.species.types.forEach((type, index) => {
       context.drawImage(
         TYPES[type].image,

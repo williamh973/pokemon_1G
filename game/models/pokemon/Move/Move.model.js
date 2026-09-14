@@ -1,4 +1,4 @@
-import { TYPES_CONFIG } from "../../../render/config/pokemon/type/types.config.js";
+import { TYPES_LOGO_CONFIG } from "../../../render/config/pokemon/type/typesLogo.config.js";
 import { drawText } from "../../../shareds/utils/font/drawText.utils.js";
 import { textParams } from "../../../shareds/utils/font/font.utils.js";
 
@@ -9,7 +9,7 @@ export class Move {
   }
 
   drawMoveType(context) {
-    const TYPES = TYPES_CONFIG;
+    const TYPES = TYPES_LOGO_CONFIG;
 
     context.drawImage(
       TYPES[this.move.type].image,

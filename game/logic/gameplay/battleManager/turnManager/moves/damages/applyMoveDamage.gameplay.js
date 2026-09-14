@@ -24,5 +24,5 @@ export const applyMoveDamage = (turnManager, action) => {
     criticalHitResult.isCriticalHit
   );
 
-  return { criticalHitResult: criticalHitResult };
+  return { damages: damages, criticalHitResult: criticalHitResult };
 };

@@ -1,4 +1,4 @@
-import { STATUS_CONFIG } from "../../../../render/config/pokemon/status/status.config.js";
+import { STATUS_LOGO_CONFIG } from "../../../../render/config/pokemon/status/statusLogo.config.js";
 import { drawBox } from "../../../../shareds/utils/box/box.utils.js";
 import { drawText } from "../../../../shareds/utils/font/drawText.utils.js";
 import { textParams } from "../../../../shareds/utils/font/font.utils.js";
@@ -88,7 +88,7 @@ export class HUD {
   }
 
   drawStatus(context) {
-    const STATUS = STATUS_CONFIG;
+    const STATUS = STATUS_LOGO_CONFIG;
     context.drawImage(
       STATUS[this.pokemon.status].image,
       this.position.x + 5,

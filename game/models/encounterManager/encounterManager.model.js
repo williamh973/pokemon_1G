@@ -45,7 +45,7 @@ export class EncounterManager {
   startWildBattle(game, targetOP, tile) {
     // dev only
     const pokemonTest = {
-      id: "charmander",
+      id: "zubat",
       level: 5,
     };
 
@@ -57,7 +57,7 @@ export class EncounterManager {
     //
 
     const wildPokemon = {
-      id: "zubat",
+      id: "caterpie",
       level: 5,
     };
 

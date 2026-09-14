@@ -1,13 +1,14 @@
 import { handlerStatStagesEffectDialogs } from "../handlerDialogs/handlerStatStagesEffectDialogs.gameplay.js";
+import { handlerConfusionEffectDialogs } from "../handlerDialogs/moves/handlerConfusionEffectDialogs.gameplay.js";
 import { handlerDrainEffectDialogs } from "../handlerDialogs/moves/handlerDrainEffectDialogs.gameplay.js";
 import { handlerFocusEnergyEffectDialogs } from "../handlerDialogs/moves/handlerFocusEnergyEffectDialogs.gameplay.js";
 import { applyMoveEffect } from "./applyMoveEffect.gameplay.js";
 import { checkFocusEnergyApply } from "./focusEnergy/checkFocusEnergyApply.gameplay.js";
 
-export const processMovesEffect = (turnManager, action, sequence) => {
+export const processMovesEffect = (turnManager, damages, action, sequence) => {
   if (turnManager.isMoveEffectProcessed) return false;
 
-  const moveEffectResult = applyMoveEffect(action);
+  const moveEffectResult = applyMoveEffect(damages, action);
 
   if (moveEffectResult) {
     turnManager.isMoveEffectProcessed = true;
@@ -22,6 +23,10 @@ export const processMovesEffect = (turnManager, action, sequence) => {
 
       case "DRAIN":
         handlerDrainEffectDialogs(turnManager.battleManager, action);
+        break;
+
+      case "VOLATILE":
+        handlerConfusionEffectDialogs(turnManager.battleManager, action.target);
         break;
 
       default:

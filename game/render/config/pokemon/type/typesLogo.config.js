@@ -1,11 +1,12 @@
 import { createImg } from "../../../../shareds/utils/assets/assets.utils.js";
 
-export const TYPES_CONFIG = {
+export const TYPES_LOGO_CONFIG = {
   dimensions: {
     width: 32,
     height: 12,
     scale: 1.1,
   },
+
   BUG: {
     image: createImg("game/assets/images/types/insect.png"),
   },
