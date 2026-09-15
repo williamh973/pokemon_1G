@@ -36,9 +36,9 @@ export const processPokemonStatus = (pokemon) => {
       break;
 
     case POKEMON_STATUS.SLEEP:
-      pokemon.volatils.sleepTurns--;
+      pokemon.sleepTurns--;
 
-      if (pokemon.volatils.sleepTurns <= 0) {
+      if (pokemon.sleepTurns <= 0) {
         console.log(`${pokemon.name} se réveille !`);
         pokemon.status = POKEMON_STATUS.NONE;
         hasWokenUp = true;

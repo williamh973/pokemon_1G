@@ -25,7 +25,7 @@ export const applyMoveEffect = (damages, action) => {
 
     case "VOLATILE":
       if (random(action.move.effect?.percentage))
-        return modifyVolatile(action.target, action.move.effect?.volatile);
+        return modifyVolatile(action, action.move.effect?.volatile);
       break;
     default:
       break;

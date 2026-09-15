@@ -1,6 +1,6 @@
 import { deductStatHP } from "./deductStatHP.gameplay.js";
 
-export const processVolatileConsequence = (pokemon) => {
+export const processVolatileEffect = (pokemon) => {
   let canUseMove = true;
 
   if (pokemon.volatils.confusionTurns < 1) {
@@ -14,9 +14,9 @@ export const processVolatileConsequence = (pokemon) => {
   pokemon.volatils.confusionTurns -= 1;
 
   if (pokemon.volatils.confusionTurns === 0) {
-    console.log("CA PASSE");
     return {
       isAffected: true,
+      volatile: "CONFUSION",
       hasConfusedNoMore: true,
       pokemon,
       canUseMove,
@@ -28,6 +28,7 @@ export const processVolatileConsequence = (pokemon) => {
   if (random100 <= 50)
     return {
       isAffected: true,
+      volatile: "CONFUSION",
       resist: true,
       pokemon,
       canUseMove,
@@ -37,6 +38,7 @@ export const processVolatileConsequence = (pokemon) => {
 
   return {
     isAffected: true,
+    volatile: "CONFUSION",
     resist: false,
     pokemon,
     canUseMove: false,

@@ -11,7 +11,8 @@ export const BATTLE_DIALOGS = {
 
   noEffect: () => "Sans effet.",
 
-  boostedByFocusEnergy: (pokemon) => `${pokemon} se gonfle.`,
+  boostedByFocusEnergy: (pokemon, trainerId) =>
+    `${pokemon} ${trainerId ? "" : "ennemi "}se gonfle.`,
 
   criticalHit: () => "Coup critique !",
 

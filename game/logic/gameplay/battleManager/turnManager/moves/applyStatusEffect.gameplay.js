@@ -12,7 +12,7 @@ export const applyStatusEffect = (action) => {
     action.target.status = action.move.effect.status;
 
     if (action.target.status === POKEMON_STATUS.SLEEP)
-      action.target.volatils.sleepTurns = randomBetween(1, 4);
+      action.target.sleepTurns = randomBetween(1, 4);
 
     return {
       isAffected: true,

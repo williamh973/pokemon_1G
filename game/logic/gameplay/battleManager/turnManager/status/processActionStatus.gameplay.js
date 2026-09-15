@@ -9,7 +9,7 @@ export const processActionStatus = (turnManager, sequence, action) => {
   console.log(
     `[STATUS] ${action.pokemon.name} | ` +
       `status=${action.pokemon.status} | ` +
-      `sleepTurns=${action.pokemon.volatils.sleepTurns} | ` +
+      `sleepTurns=${action.pokemon.sleepTurns} | ` +
       `canUseMove=${processStatusResult.canUseMove}`
   );
 

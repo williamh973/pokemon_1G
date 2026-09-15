@@ -1,6 +1,16 @@
 import { POKEMON_STATUS } from "../../../logic/gameplay/pokemon/status/pokemonStatus.state.js";
 
 export const MOVES_DATABASE = {
+  vineWhip: {
+    id: "vineWhip",
+    name: "Fouet Lianes",
+    type: ["GRASS"],
+    class: ["PHYSICAL"],
+    pp: 10,
+    power: 35,
+    precision: 100,
+    desc: "Fouette l'adversaire avec des lianes.",
+  },
   supersonic: {
     id: "supersonic",
     name: "Ultrason",
@@ -8,7 +18,7 @@ export const MOVES_DATABASE = {
     class: ["STATUT"],
     pp: 20,
     power: 0,
-    precision: 100,
+    precision: 55,
     desc: "Attaque sonore. Rend confus la cible.",
 
     effect: {
@@ -44,6 +54,11 @@ export const MOVES_DATABASE = {
     power: 0,
     precision: 100,
     desc: "augmente les chances de coups critiques.",
+    effect: {
+      type: "VOLATILE",
+      volatile: "FOCUS_ENERGY",
+      percentage: 100,
+    },
   },
   growl: {
     id: "growl",
@@ -143,16 +158,7 @@ export const MOVES_DATABASE = {
       percentage: 100,
     },
   },
-  vineWhip: {
-    id: "vineWhip",
-    name: "Fouet Lianes",
-    type: ["GRASS"],
-    class: ["PHYSICAL"],
-    pp: 10,
-    power: 35,
-    precision: 100,
-    desc: "Fouette l'adversaire avec des lianes.",
-  },
+
   leechLife: {
     id: "leechLife",
     name: "Vampirisme",
@@ -170,8 +176,8 @@ export const MOVES_DATABASE = {
       percentage: 100,
     },
   },
-  creaking: {
-    id: "creaking",
+  screech: {
+    id: "screech",
     name: "Grincement",
     type: ["NORMAL"],
     class: ["STATUT"],
@@ -187,8 +193,8 @@ export const MOVES_DATABASE = {
       percentage: 100,
     },
   },
-  embrace: {
-    id: "embrace",
+  bind: {
+    id: "bind",
     name: "Étreinte",
     type: ["NORMAL"],
     class: ["PHYSICAL"],
@@ -197,6 +203,7 @@ export const MOVES_DATABASE = {
     precision: 75,
     desc: "Ligote la cible pour lui infliger les même dégats que le premier coup à la fin de chaque tour pendant 2 à 5 tours.",
   },
+
   quickAttack: {
     id: "quickAttack",
     name: "Vive-Attaque",
@@ -219,8 +226,8 @@ export const MOVES_DATABASE = {
     priority: 0,
     desc: "Le lanceur doit se reposer au tour suivant.",
 
-    effects: {
-      recharge: true,
+    consequence: {
+      type: "RECHARGE",
     },
   },
   ember: {

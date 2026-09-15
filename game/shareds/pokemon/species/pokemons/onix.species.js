@@ -27,9 +27,9 @@ export const ONIX_SPECIES = {
   evolutions: [{ method: "metal_skin", level: 0, target: "steelix" }],
   learnset: {
     levelUp: [
+      { level: 1, move: MOVES_DATABASE.hyperBeam },
+      { level: 1, move: MOVES_DATABASE.focusEnergy },
       { level: 1, move: MOVES_DATABASE.tackle },
-      { level: 1, move: MOVES_DATABASE.creaking },
-      { level: 15, move: MOVES_DATABASE.embrace },
     ],
     tmhm: [
       "Toxik",

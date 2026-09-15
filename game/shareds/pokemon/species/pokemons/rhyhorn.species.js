@@ -37,8 +37,8 @@ export const RHYHORN_SPECIES = {
 
   learnset: {
     levelUp: [
-      { level: 1, move: MOVES_DATABASE.hornAttack },
-      { level: 1, move: MOVES_DATABASE.tailWhip },
+      { level: 1, move: MOVES_DATABASE.screech },
+      // { level: 1, move: MOVES_DATABASE.hornAttack },
       { level: 10, move: MOVES_DATABASE.stomp },
       { level: 15, move: MOVES_DATABASE.furyAttack },
       { level: 20, move: MOVES_DATABASE.scaryFace },

@@ -1,4 +1,5 @@
 import { AcidAnimation } from "../../../models/pokemon/Move/animations/AcidAnimation.model.js";
+import { ScreechAnimation } from "../../../models/pokemon/Move/animations/ScreechAnimation.model.js";
 import { EmberAnimation } from "../../../models/pokemon/Move/animations/EmberAnimation.model.js";
 import { GrowlAnimation } from "../../../models/pokemon/Move/animations/GrowlAnimation.model.js";
 import { GustAnimation } from "../../../models/pokemon/Move/animations/GustAnimation.model.js";
@@ -14,6 +15,7 @@ import { FocusEnergyAnimation } from "../../../models/pokemon/Move/animations/fo
 import { HypnosisAnimation } from "../../../models/pokemon/Move/animations/hypnosisAnimation.model.js";
 import { IceBeamAnimation } from "../../../models/pokemon/Move/animations/iceBeamAnimation.model.js";
 import { SupersonicAnimation } from "../../../models/pokemon/Move/animations/supersonicAnimation.model.js";
+import { HyperBeamAnimation } from "../../../models/pokemon/Move/animations/HyperBeamAnimation.model.js";
 
 export const MOVE_ANIMATIONS_DATABASE = {
   tackle: TackleAnimation,
@@ -32,5 +34,7 @@ export const MOVE_ANIMATIONS_DATABASE = {
   harden: HardenAnimation,
   leechLife: LeechLifeAnimation,
   supersonic: SupersonicAnimation,
+  screech: ScreechAnimation,
+  hyperBeam: HyperBeamAnimation,
   //   watergun: WaterGunAnimation,
 };

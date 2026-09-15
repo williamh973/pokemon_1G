@@ -2,14 +2,15 @@ import { DIALOGS_DATABASE } from "../../../../../../shareds/dialogs/dialogs.data
 
 export const handlerFocusEnergyEffectDialogs = (
   battleManager,
-  focusEnergyMoveEffectResult
+  moveEffectResult
 ) => {
-  if (focusEnergyMoveEffectResult.hasBoostedByFocusEnergy) {
+  if (moveEffectResult.alreadyBoostedByFocusEnergy)
+    battleManager.openDialogBox(DIALOGS_DATABASE.BATTLE_DIALOGS.noEffect());
+  else
     battleManager.openDialogBox(
       DIALOGS_DATABASE.BATTLE_DIALOGS.boostedByFocusEnergy(
-        focusEnergyMoveEffectResult.pokemon.name
+        moveEffectResult.pokemon.name,
+        moveEffectResult.pokemon.trainerId
       )
     );
-  } else
-    battleManager.openDialogBox(DIALOGS_DATABASE.BATTLE_DIALOGS.noEffect());
 };

@@ -38,11 +38,12 @@ export const generatePokemon = (
     },
     statStages: createStatStages(),
     status: POKEMON_STATUS.NONE,
+    sleepTurns: 0,
     volatils: {
-      sleepTurns: 0,
       confusionTurns: 0,
       isScared: false,
       hasBoostedByFocusEnergy: false,
+      recharge: false,
 
       trapped: {
         turns: 0,
