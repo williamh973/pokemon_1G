@@ -18,6 +18,7 @@ export const generatePokemon = (
   const pokemon = {
     id: species.id,
     name: species.name,
+    types: species.types,
     gender: generateGender(species),
     exp: getExpForLevel(target.level, species.growthRate),
     nextLevelExp: getExpForLevel(target.level + 1, species.growthRate),

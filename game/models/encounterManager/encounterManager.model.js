@@ -46,7 +46,7 @@ export class EncounterManager {
     // dev only
     const pokemonTest = {
       id: "onix",
-      level: 5,
+      level: 20,
     };
 
     game.player.party.slots = [];
@@ -57,8 +57,8 @@ export class EncounterManager {
     //
 
     const wildPokemon = {
-      id: "onix",
-      level: 5,
+      id: "butterfree",
+      level: 20,
     };
 
     const battleType = "WILD";

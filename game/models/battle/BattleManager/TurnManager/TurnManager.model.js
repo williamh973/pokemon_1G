@@ -167,7 +167,17 @@ export class TurnManager {
     if (!sequence.pokemonUseMoveSequence?.isFinished || this.isDamageApplied)
       return false;
 
-    const applyMoveDamageResult = applyMoveDamage(this, action);
+    if (action.move.power <= 0) {
+      this.isDamageApplied = true;
+
+      return processMovesEffect(this, 0, action, sequence);
+    }
+
+    const applyMoveDamageResult = applyMoveDamage(
+      this,
+      action,
+      this.battleManager.weather
+    );
 
     if (
       handleCriticalHitDialog(
@@ -177,8 +187,9 @@ export class TurnManager {
         sequence,
         applyMoveDamageResult.criticalHitResult
       )
-    )
+    ) {
       return true;
+    }
 
     return processMovesEffect(
       this,

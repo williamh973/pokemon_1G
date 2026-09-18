@@ -1,0 +1,10 @@
+export const SIMPLE_TYPE_INEFFECTIVE = {
+  NORMAL: ["GHOST"],
+  FIGHT: ["GHOST"],
+  POISON: ["STEEL"],
+  GROUND: ["FLYING"],
+  WATER: [],
+  ELECTRIK: ["GROUND"],
+  PSYCHIC: ["DARK"],
+  DRAGON: ["FAIRY"],
+};

@@ -2,15 +2,11 @@ import { checkDialogBoxShakeAnimation } from "../../dialogBox/dialogBoxShakeAnim
 import { calculateMoveDamages } from "./calculateDamages.gameplay.js";
 import { calculateCriticalHit } from "./criticalHit/calculateCriticalHit.gameplay.js";
 
-export const applyMoveDamage = (turnManager, action) => {
-  const damages = calculateMoveDamages(action);
+export const applyMoveDamage = (turnManager, action, weather) => {
+  const criticalHitResult = calculateCriticalHit(action);
+  const damages = calculateMoveDamages(action, criticalHitResult.CC, weather);
 
-  const criticalHitResult = calculateCriticalHit(damages, action);
-
-  action.target.stats.hp = Math.max(
-    0,
-    action.target.stats.hp - criticalHitResult.damages
-  );
+  action.target.stats.hp = Math.max(0, action.target.stats.hp - damages);
 
   turnManager.isDamageApplied = true;
 
@@ -20,9 +16,14 @@ export const applyMoveDamage = (turnManager, action) => {
   console.log(
     "damages : ",
     damages,
-    "isCriticalHit : ",
+    "| CC : ",
+    criticalHitResult.CC,
+    "| isCriticalHit : ",
     criticalHitResult.isCriticalHit
   );
 
-  return { damages: damages, criticalHitResult: criticalHitResult };
+  return {
+    damages,
+    criticalHitResult,
+  };
 };

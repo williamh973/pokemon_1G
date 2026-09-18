@@ -35,11 +35,10 @@ export const BUTTERFREE_SPECIES = {
 
   learnset: {
     levelUp: [
-      { level: 1, move: MOVES_DATABASE.confusion },
-      { level: 10, move: MOVES_DATABASE.confusion },
-      { level: 12, move: MOVES_DATABASE.poisonPowder },
-      { level: 13, move: MOVES_DATABASE.stunSpore },
-      { level: 14, move: MOVES_DATABASE.sleepPowder },
+      { level: 1, move: MOVES_DATABASE.acid },
+      { level: 1, move: MOVES_DATABASE.ember },
+      { level: 1, move: MOVES_DATABASE.gust },
+      { level: 1, move: MOVES_DATABASE.iceBeam },
       { level: 18, move: MOVES_DATABASE.supersonic },
       { level: 23, move: MOVES_DATABASE.whirlwind },
       { level: 28, move: MOVES_DATABASE.psybeam },

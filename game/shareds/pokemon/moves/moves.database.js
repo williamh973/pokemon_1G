@@ -207,7 +207,7 @@ export const MOVES_DATABASE = {
   quickAttack: {
     id: "quickAttack",
     name: "Vive-Attaque",
-    type: ["NORMAL"],
+    type: ["ROCK"],
     class: ["PHYSICAL"],
     pp: 30,
     power: 40,

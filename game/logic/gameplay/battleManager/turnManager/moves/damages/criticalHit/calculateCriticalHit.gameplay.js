@@ -1,4 +1,4 @@
-export const calculateCriticalHit = (damages, action) => {
+export const calculateCriticalHit = (action) => {
   const move = action.move;
   const pokemon = action.pokemon;
   const hasBoostedByFocusEnergy = pokemon.volatils.hasBoostedByFocusEnergy;
@@ -10,16 +10,24 @@ export const calculateCriticalHit = (damages, action) => {
     ? criticalHitBoostedRate
     : criticalHitBasicRate;
 
-  if (move.power <= 0) return { damages, isCriticalHit: false };
+  if (move.power <= 0)
+    return {
+      CC: 1,
+      isCriticalHit: false,
+    };
 
   const random100 = Math.floor(Math.random() * 100) + 1;
 
-  if (random100 > criticalHitRate) return { damages, isCriticalHit: false };
+  if (random100 > criticalHitRate)
+    return {
+      CC: 1,
+      isCriticalHit: false,
+    };
 
-  const criticalHitPercent = (2 * pokemon.level + 5) / (pokemon.level + 5);
+  const CC = (2 * (pokemon.level * 2) + 5) / (pokemon.level + 5);
 
   return {
-    damages: damages * criticalHitPercent,
+    CC,
     isCriticalHit: true,
   };
 };
