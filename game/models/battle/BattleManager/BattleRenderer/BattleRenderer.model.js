@@ -20,6 +20,18 @@ export class BattleRenderer {
     return !hud.HPbar.isAnimating;
   }
 
+  getPokemonExpBar(pokemon) {
+    if (this.frontHUD.pokemon === pokemon) {
+      return this.frontHUD.expBar;
+    }
+
+    if (this.backHUD.pokemon === pokemon) {
+      return this.backHUD.expBar;
+    }
+
+    return null;
+  }
+
   isPokemonExpAnimationFinished(pokemon) {
     let hud = null;
 
@@ -31,12 +43,9 @@ export class BattleRenderer {
       return false;
     }
 
-    const expBar = hud.expBar;
+    if (!hud) return false;
 
-    if (expBar.targetExp !== pokemon.exp) return false;
-    if (expBar.currentExp !== pokemon.exp) return false;
-
-    return !expBar.isAnimating;
+    return !hud.expBar.isAnimating;
   }
 
   setBattleBackImg() {

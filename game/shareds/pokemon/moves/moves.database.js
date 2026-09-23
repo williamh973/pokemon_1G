@@ -1,47 +1,20 @@
 import { POKEMON_STATUS } from "../../../logic/gameplay/pokemon/status/pokemonStatus.state.js";
 
 export const MOVES_DATABASE = {
-  vineWhip: {
-    id: "vineWhip",
-    name: "Fouet Lianes",
-    type: ["GRASS"],
+  acid: {
+    id: "acid",
+    name: "Acide",
+    type: ["POISON"],
     class: ["PHYSICAL"],
-    pp: 10,
-    power: 35,
-    precision: 100,
-    desc: "Fouette l'adversaire avec des lianes.",
-  },
-  supersonic: {
-    id: "supersonic",
-    name: "Ultrason",
-    type: ["NORMAL"],
-    class: ["STATUT"],
-    pp: 20,
-    power: 0,
-    precision: 55,
-    desc: "Attaque sonore. Rend confus la cible.",
-
-    effect: {
-      type: "VOLATILE",
-      volatile: "CONFUSION",
-      percentage: 100,
-    },
-  },
-  harden: {
-    id: "harden",
-    name: "Armure",
-    type: ["NORMAL"],
-    class: ["STATUT"],
     pp: 30,
-    power: 0,
+    power: 40,
     precision: 100,
-    desc: "Augmente la Défense du lanceur d'un niveau.",
-    selfTarget: true,
+    desc: "33.2% de chance de baisser la Défense des cibles d'un niveau.",
 
     effect: {
       type: "STAT_STAGE",
       stat: "defense",
-      amount: 1,
+      amount: -1,
       percentage: 100,
     },
   },
@@ -77,20 +50,21 @@ export const MOVES_DATABASE = {
       percentage: 100,
     },
   },
-  acid: {
-    id: "acid",
-    name: "Acide",
-    type: ["POISON"],
-    class: ["PHYSICAL"],
+  harden: {
+    id: "harden",
+    name: "Armure",
+    type: ["NORMAL"],
+    class: ["STATUT"],
     pp: 30,
-    power: 40,
+    power: 0,
     precision: 100,
-    desc: "33.2% de chance de baisser la Défense des cibles d'un niveau.",
+    desc: "Augmente la Défense du lanceur d'un niveau.",
+    selfTarget: true,
 
     effect: {
       type: "STAT_STAGE",
       stat: "defense",
-      amount: -1,
+      amount: 1,
       percentage: 100,
     },
   },
@@ -159,6 +133,22 @@ export const MOVES_DATABASE = {
     },
   },
 
+  iceBeam: {
+    id: "iceBeam",
+    name: "Laser Glace",
+    type: ["ICE"],
+    class: ["SPECIAL"],
+    pp: 10,
+    power: 95,
+    precision: 100,
+    desc: "10% de chance de geler la cible.",
+
+    effect: {
+      type: "STATUS",
+      status: POKEMON_STATUS.FREEZE,
+      percentage: 10,
+    },
+  },
   leechLife: {
     id: "leechLife",
     name: "Vampirisme",
@@ -202,26 +192,19 @@ export const MOVES_DATABASE = {
     power: 15,
     precision: 75,
     desc: "Ligote la cible pour lui infliger les même dégats que le premier coup à la fin de chaque tour pendant 2 à 5 tours.",
+
+    effect: {
+      type: "TRAPPED",
+    },
   },
 
-  quickAttack: {
-    id: "quickAttack",
-    name: "Vive-Attaque",
-    type: ["ROCK"],
-    class: ["PHYSICAL"],
-    pp: 30,
-    power: 40,
-    precision: 100,
-    priority: 1,
-    desc: "Le lanceur attaque en premier",
-  },
   hyperBeam: {
     id: "hyperBeam",
     name: "Ultralaser",
     type: ["NORMAL"],
     class: ["PHYSICAL"],
     pp: 5,
-    power: 150,
+    power: 150, // 150
     precision: 90,
     priority: 0,
     desc: "Le lanceur doit se reposer au tour suivant.",
@@ -253,12 +236,39 @@ export const MOVES_DATABASE = {
     class: ["STATUT"],
     pp: 20,
     power: 0,
-    precision: 60, // 60
+    precision: 60,
     desc: "Endort la cible.",
 
     effect: {
       type: "STATUS",
       status: POKEMON_STATUS.SLEEP,
+      percentage: 100,
+    },
+  },
+  quickAttack: {
+    id: "quickAttack",
+    name: "Vive-Attaque",
+    type: ["NORMAL"],
+    class: ["PHYSICAL"],
+    pp: 30,
+    power: 40,
+    precision: 100,
+    priority: 1,
+    desc: "Le lanceur attaque en premier",
+  },
+  supersonic: {
+    id: "supersonic",
+    name: "Ultrason",
+    type: ["NORMAL"],
+    class: ["STATUT"],
+    pp: 20,
+    power: 0,
+    precision: 55,
+    desc: "Attaque sonore. Rend confus la cible.",
+
+    effect: {
+      type: "VOLATILE",
+      volatile: "CONFUSION",
       percentage: 100,
     },
   },
@@ -271,22 +281,6 @@ export const MOVES_DATABASE = {
     power: 95,
     precision: 100,
     desc: "Déferle une immense vague sur l'ennemi.",
-  },
-  iceBeam: {
-    id: "iceBeam",
-    name: "Laser Glace",
-    type: ["ICE"],
-    class: ["SPECIAL"],
-    pp: 10,
-    power: 95,
-    precision: 100,
-    desc: "10% de chance de geler la cible.",
-
-    effect: {
-      type: "STATUS",
-      status: POKEMON_STATUS.FREEZE,
-      percentage: 10,
-    },
   },
   thunderWave: {
     id: "thunderWave",
@@ -303,5 +297,15 @@ export const MOVES_DATABASE = {
       status: POKEMON_STATUS.PARALYSIS,
       percentage: 100,
     },
+  },
+  vineWhip: {
+    id: "vineWhip",
+    name: "Fouet Lianes",
+    type: ["GRASS"],
+    class: ["PHYSICAL"],
+    pp: 10,
+    power: 35,
+    precision: 100,
+    desc: "Fouette l'adversaire avec des lianes.",
   },
 };

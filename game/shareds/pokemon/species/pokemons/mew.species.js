@@ -26,14 +26,7 @@ export const MEW_SPECIES = {
   },
   evolutions: [],
   learnset: {
-    levelUp: [
-      { level: 1, move: MOVES_DATABASE.pound },
-      { level: 10, move: MOVES_DATABASE.transform },
-      { level: 20, move: MOVES_DATABASE.megakick },
-      { level: 30, move: MOVES_DATABASE.psychic },
-      { level: 40, move: MOVES_DATABASE.metronome },
-      { level: 50, move: MOVES_DATABASE.barrier },
-    ],
+    levelUp: [{ level: 1, move: MOVES_DATABASE.hyperBeam }],
     tmhm: [
       "Ultimapoing",
       "Danse Lames",

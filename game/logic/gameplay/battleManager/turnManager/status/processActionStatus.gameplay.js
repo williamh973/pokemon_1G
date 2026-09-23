@@ -10,7 +10,8 @@ export const processActionStatus = (turnManager, sequence, action) => {
     `[STATUS] ${action.pokemon.name} | ` +
       `status=${action.pokemon.status} | ` +
       `sleepTurns=${action.pokemon.sleepTurns} | ` +
-      `canUseMove=${processStatusResult.canUseMove}`
+      `canUseMove=${processStatusResult.canUseMove} | ` +
+      `hasParalized=${processStatusResult.hasParalized} `
   );
 
   if (processStatusResult.hasWokenUp) {

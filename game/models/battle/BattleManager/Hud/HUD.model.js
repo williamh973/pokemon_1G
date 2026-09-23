@@ -116,9 +116,6 @@ export class HUD {
     if (this.HPbar.targetHp !== this.pokemon.stats.hp)
       this.HPbar.setHp(this.pokemon.stats.hp);
 
-    if (this.expBar.targetExp !== this.pokemon.exp)
-      this.expBar.setExp(this.pokemon.exp);
-
     this.draw(context);
     this.HPbar?.update(context);
 

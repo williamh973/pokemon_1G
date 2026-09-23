@@ -1,0 +1,6 @@
+export const EXP_STATES = {
+  IDLE: "IDLE",
+  ANIMATING: "ANIMATING",
+  LEVEL_UP: "LEVEL_UP",
+  FINISHED: "FINISHED",
+};

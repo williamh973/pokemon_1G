@@ -11,6 +11,9 @@ import { checkMovePrecision } from "../../../../logic/gameplay/battleManager/tur
 import { handleCriticalHitDialog } from "../../../../logic/gameplay/battleManager/turnManager/moves/damages/criticalHit/handleCriticalHitDialog.gameplay.js";
 import { handleTargetKO } from "../../../../logic/gameplay/battleManager/turnManager/handleKO/handleTargetKO.gameplay.js";
 import { processActionVolatile } from "../../../../logic/gameplay/battleManager/turnManager/moves/volatiles/processActionVolatils.gameplay.js";
+import { handlerEfficienciesDialogs } from "../../../../logic/gameplay/battleManager/turnManager/handlerDialogs/efficiencies/handlerEfficienciesDialogs.gameplay.js";
+import { processMoveConsequence } from "../../../../logic/gameplay/battleManager/turnManager/moves/processMoveConsequence.gameplay.js";
+import { processActionConsequence } from "../../../../logic/gameplay/battleManager/turnManager/moves/consequences/processActionConsequence.gameplay.js";
 
 export class TurnManager {
   constructor(battleManager) {
@@ -86,6 +89,8 @@ export class TurnManager {
 
     if (processActionVolatile(this, sequence, action)) return;
 
+    if (processActionConsequence(this, sequence, action)) return;
+
     this.executeMove(sequence, action);
   }
 
@@ -131,7 +136,7 @@ export class TurnManager {
       );
 
       this.wait(
-        40,
+        60,
         () => {
           this.onActionFinished(sequence);
         },
@@ -179,21 +184,32 @@ export class TurnManager {
       this.battleManager.weather
     );
 
+    processMoveConsequence(action);
+
     if (
       handleCriticalHitDialog(
         this,
-        applyMoveDamageResult.damages,
+        applyMoveDamageResult.calculResult.damages,
         action,
         sequence,
         applyMoveDamageResult.criticalHitResult
       )
-    ) {
+    )
       return true;
-    }
+
+    if (
+      handlerEfficienciesDialogs(
+        this,
+        applyMoveDamageResult.calculResult,
+        action,
+        sequence
+      )
+    )
+      return true;
 
     return processMovesEffect(
       this,
-      applyMoveDamageResult.damages,
+      applyMoveDamageResult.calculResult.damages,
       action,
       sequence
     );

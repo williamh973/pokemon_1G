@@ -55,6 +55,36 @@ export const POKEMON_ICON_CONFIG_DATABASE = {
     height: 55,
     scale: 1,
   },
+  caterpie: {
+    image: createImg("game/assets/images/pokemons/1G/icons/caterpie.png"),
+    width: 55,
+    height: 55,
+    scale: 1,
+  },
+  metapod: {
+    image: createImg("game/assets/images/pokemons/1G/icons/metapod.png"),
+    width: 55,
+    height: 55,
+    scale: 1,
+  },
+  weedle: {
+    image: createImg("game/assets/images/pokemons/1G/icons/weedle.png"),
+    width: 55,
+    height: 55,
+    scale: 1,
+  },
+  kakuna: {
+    image: createImg("game/assets/images/pokemons/1G/icons/kakuna.png"),
+    width: 55,
+    height: 55,
+    scale: 1,
+  },
+  beedrill: {
+    image: createImg("game/assets/images/pokemons/1G/icons/beedrill.png"),
+    width: 55,
+    height: 55,
+    scale: 1,
+  },
 
   pidgey: {
     image: createImg("game/assets/images/pokemons/1G/icons/pidgey.png"),
@@ -101,6 +131,36 @@ export const POKEMON_ICON_CONFIG_DATABASE = {
   },
   onix: {
     image: createImg("game/assets/images/pokemons/1G/icons/onix.png"),
+    width: 55,
+    height: 55,
+    scale: 1,
+  },
+  dratini: {
+    image: createImg("game/assets/images/pokemons/1G/icons/dratini.png"),
+    width: 55,
+    height: 55,
+    scale: 1,
+  },
+  dragonair: {
+    image: createImg("game/assets/images/pokemons/1G/icons/dragonair.png"),
+    width: 55,
+    height: 55,
+    scale: 1,
+  },
+  dragonite: {
+    image: createImg("game/assets/images/pokemons/1G/icons/dragonite.png"),
+    width: 55,
+    height: 55,
+    scale: 1,
+  },
+  mewtwo: {
+    image: createImg("game/assets/images/pokemons/1G/icons/mewtwo.png"),
+    width: 55,
+    height: 55,
+    scale: 1,
+  },
+  mew: {
+    image: createImg("game/assets/images/pokemons/1G/icons/mew.png"),
     width: 55,
     height: 55,
     scale: 1,

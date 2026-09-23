@@ -146,14 +146,23 @@ export class BattlePhaseManager {
         break;
 
       case BATTLE_PHASES.EXP_GAIN:
+        const resultManager = this.battleManager.resultManager;
+        resultManager.calculateExpGain();
+
         const { active } = this.battleManager.turnManager.koAction;
-        const wildPokemonXp = this.battleManager.wildPokemon.exp;
 
         this.battleManager.openDialogBox(
-          DIALOGS_DATABASE.BATTLE_DIALOGS.gainExp(active.name, wildPokemonXp)
+          DIALOGS_DATABASE.BATTLE_DIALOGS.gainExp(
+            active.name,
+            resultManager.gainedExp
+          )
         );
         console.log(
-          DIALOGS_DATABASE.BATTLE_DIALOGS.gainExp(active.name, wildPokemonXp)
+          DIALOGS_DATABASE.BATTLE_DIALOGS.gainExp(
+            active.name,
+            resultManager.gainedExp
+          ),
+          this.currentPhase
         );
         break;
 

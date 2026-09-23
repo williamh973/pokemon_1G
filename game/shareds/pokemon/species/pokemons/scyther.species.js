@@ -32,7 +32,7 @@ export const SCYTHER_SPECIES = {
   learnset: {
     levelUp: [
       { level: 1, move: MOVES_DATABASE.quickAttack },
-      { level: 1, move: MOVES_DATABASE.leer },
+      { level: 1, move: MOVES_DATABASE.harden },
       { level: 17, move: MOVES_DATABASE.focusEnergy },
       { level: 20, move: MOVES_DATABASE.doubleTeam },
       { level: 25, move: MOVES_DATABASE.furyCutter },

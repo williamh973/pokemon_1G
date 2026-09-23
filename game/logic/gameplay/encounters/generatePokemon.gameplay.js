@@ -72,6 +72,7 @@ const getMoves = (learnsets, level) => {
       precision: set.move.precision,
       desc: set.move.desc,
       effect: set.move.effect ?? null,
+      consequence: set.move.consequence ?? null,
       priority: set.move.priority ?? null,
       selfTarget: set.move.selfTarget ?? null,
       enabled: true,

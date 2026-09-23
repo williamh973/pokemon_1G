@@ -37,14 +37,14 @@ export const PIKACHU_SPECIES = {
 
   learnset: {
     levelUp: [
-      { level: 1, move: MOVES_DATABASE.thundershock },
       { level: 1, move: MOVES_DATABASE.growl },
-      { level: 9, move: MOVES_DATABASE.tailWhip },
-      { level: 16, move: MOVES_DATABASE.quickAttack },
-      { level: 26, move: MOVES_DATABASE.spark },
-      { level: 33, move: MOVES_DATABASE.agility },
-      { level: 43, move: MOVES_DATABASE.thunderWave },
-      { level: 50, move: MOVES_DATABASE.thunder },
+      // { level: 1, move: MOVES_DATABASE.thundershock },
+      // { level: 9, move: MOVES_DATABASE.tailWhip },
+      // { level: 16, move: MOVES_DATABASE.quickAttack },
+      // { level: 26, move: MOVES_DATABASE.spark },
+      // { level: 33, move: MOVES_DATABASE.agility },
+      // { level: 43, move: MOVES_DATABASE.thunderWave },
+      // { level: 50, move: MOVES_DATABASE.thunder },
     ],
 
     tmhm: [

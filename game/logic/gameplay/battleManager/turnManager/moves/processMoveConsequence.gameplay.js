@@ -1,4 +1,4 @@
-export const processMoveConsequence = (turnManager, action, sequence) => {
+export const processMoveConsequence = (action) => {
   if (!action.move.consequence) return false;
 
   switch (action.move.consequence.type) {
@@ -9,6 +9,4 @@ export const processMoveConsequence = (turnManager, action, sequence) => {
     default:
       break;
   }
-
-  return false;
 };

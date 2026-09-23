@@ -44,21 +44,21 @@ export class EncounterManager {
 
   startWildBattle(game, targetOP, tile) {
     // dev only
-    const pokemonTest = {
-      id: "onix",
-      level: 20,
-    };
+    // const pokemonTest = {
+    //   id: "mew",
+    //   level: 5,
+    // };
 
-    game.player.party.slots = [];
-    game.player.party.initSlots();
-    game.player.party.addPokemonToFirstEmptySlot(
-      generatePokemon(pokemonTest, game.mapManager.currentMap.name)
-    );
+    // game.player.party.slots = [];
+    // game.player.party.initSlots();
+    // game.player.party.addPokemonToFirstEmptySlot(
+    //   generatePokemon(pokemonTest, game.mapManager.currentMap.name)
+    // );
     //
 
     const wildPokemon = {
-      id: "butterfree",
-      level: 20,
+      id: "pikachu",
+      level: 2,
     };
 
     const battleType = "WILD";

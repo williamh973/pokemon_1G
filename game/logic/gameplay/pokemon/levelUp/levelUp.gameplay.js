@@ -2,20 +2,27 @@ import { getExpForLevel } from "../../../../shareds/utils/pokemon/experience/exp
 import { getSpeciesData } from "../../../../shareds/utils/pokemon/species/species.utils.js";
 import { calculateStats } from "../../encounters/generatePokemon.gameplay.js";
 
-export const levelUp = (slot = null, pokemon) => {
+export const levelUpProcess = (
+  selectedSlot = null,
+  pokemon,
+  resetExp = true
+) => {
   const SPECIES = getSpeciesData(pokemon.id);
-  const evs = 0;
+  const evs = pokemon.evs;
   const pastStats = pokemon.stats;
 
   if (pokemon.level >= 100)
     return {
       success: false,
-      text: `Sans effet, déjà au niveau max !`,
+      text: `Mais ${pokemon.name} est déjà \nau niveau max.`,
     };
 
   pokemon.level += 1;
 
-  pokemon.exp = getExpForLevel(pokemon.level, SPECIES.growthRate);
+  if (resetExp) {
+    pokemon.exp = getExpForLevel(pokemon.level, SPECIES.growthRate);
+  }
+
   pokemon.nextLevelExp = getExpForLevel(pokemon.level + 1, SPECIES.growthRate);
 
   pokemon.stats = calculateStats(
@@ -30,9 +37,9 @@ export const levelUp = (slot = null, pokemon) => {
     maxHp: pokemon.stats.hp,
   };
 
-  if (slot) {
-    slot.HPbar.currentHp = pokemon.stats.hp;
-    slot.HPbar.maxHp = pokemon.stats.hp;
+  if (selectedSlot) {
+    selectedSlot.HPbar.currentHp = pokemon.stats.hp;
+    selectedSlot.HPbar.maxHp = pokemon.stats.hp;
   }
 
   return {
@@ -40,5 +47,6 @@ export const levelUp = (slot = null, pokemon) => {
     text: `${pokemon.name} monte au niveau ${pokemon.level} !`,
     pastStats: pastStats,
     newStats: pokemon.stats,
+    pokemon,
   };
 };

@@ -1,4 +1,14 @@
 export const BATTLE_DIALOGS = {
+  toBeExhausted: (pokemon, trainerId) =>
+    `${pokemon} ${trainerId ? "" : "ennemi"} est à plat.`,
+
+  superEffective: () => `C'est super efficace !`,
+
+  notVeryEffective: () => `Ce n'est pas très efficace !`,
+
+  ineffective: (pokemon, trainerId) =>
+    `Cela n'affecte pas ${pokemon} ${trainerId ? "" : "ennemi."}`,
+
   confusedNoMore: (pokemon) => `${pokemon} n'est plus confus.`,
 
   confusionDeals: () => `La confusion lui inflige des\ndégâts.`,

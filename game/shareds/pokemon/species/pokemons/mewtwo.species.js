@@ -5,17 +5,11 @@ export const MEWTWO_SPECIES = {
   id: "mewtwo",
   pokedexId: "150",
   name: "MEWTWO",
-
   types: ["PSYCHIC"],
-
   femaleRate: 0,
-
   catchRate: 3,
-
   growthRate: GROWTH_RATES_DATABASE.SLOW,
-
   baseExp: 220,
-
   baseStats: {
     hp: 106,
     attack: 110,
@@ -24,27 +18,24 @@ export const MEWTWO_SPECIES = {
     specialDef: 90,
     speed: 130,
   },
-
   animations: {
     idle: {
       front: "mewtwo_front_idle",
       back: "mewtwo_back_idle",
     },
   },
-
   evolutions: [],
-
   learnset: {
     levelUp: [
-      { level: 1, move: MOVES_DATABASE.confusion },
-      { level: 1, move: MOVES_DATABASE.disable },
-      { level: 8, move: MOVES_DATABASE.swift },
-      { level: 15, move: MOVES_DATABASE.psychic },
-      { level: 22, move: MOVES_DATABASE.barrier },
-      { level: 29, move: MOVES_DATABASE.recover },
-      { level: 36, move: MOVES_DATABASE.mist },
-      { level: 43, move: MOVES_DATABASE.amnesia },
-      { level: 50, move: MOVES_DATABASE.psychic },
+      { level: 1, move: MOVES_DATABASE.tackle },
+      // { level: 1, move: MOVES_DATABASE.disable },
+      // { level: 8, move: MOVES_DATABASE.swift },
+      // { level: 15, move: MOVES_DATABASE.psychic },
+      // { level: 22, move: MOVES_DATABASE.barrier },
+      // { level: 29, move: MOVES_DATABASE.recover },
+      // { level: 36, move: MOVES_DATABASE.mist },
+      // { level: 43, move: MOVES_DATABASE.amnesia },
+      // { level: 50, move: MOVES_DATABASE.psychic },
     ],
 
     tmhm: [

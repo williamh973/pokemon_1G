@@ -53,9 +53,10 @@ export const calculateMoveDamages = (action, CC, weather) => {
     TYPE1,
     TYPE2,
     MOD3,
+    weather,
   });
 
-  return Math.floor(
+  const damageFormulas = Math.floor(
     (((((((pokemonLevel * 2) / 5 + 2) * movePower * attack) / 50 / defense) *
       MOD1 +
       2) *
@@ -68,4 +69,9 @@ export const calculateMoveDamages = (action, CC, weather) => {
       TYPE2 *
       MOD3
   );
+
+  return {
+    damages: damageFormulas,
+    efficiencies: { TYPE1, TYPE2 },
+  };
 };

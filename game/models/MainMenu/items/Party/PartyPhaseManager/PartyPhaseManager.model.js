@@ -1,6 +1,6 @@
 import { checkEvolution } from "../../../../../logic/gameplay/pokemon/evolutions/evolution.gameplay.js";
 import { checkLearnset } from "../../../../../logic/gameplay/pokemon/learnsets/learnset.gameplay.js";
-import { levelUp } from "../../../../../logic/gameplay/pokemon/levelUp/levelUp.gameplay.js";
+import { levelUpProcess } from "../../../../../logic/gameplay/pokemon/levelUp/levelUp.gameplay.js";
 import { EvolutionSequence } from "../sequences/PartyEvolutionSequence/EvolutionSequence.model.js";
 import { PARTY_PHASES_DATABASE } from "./partyPhases.database.js";
 
@@ -26,7 +26,10 @@ export class PartyPhaseManager {
   begin() {
     switch (this.currentPhase) {
       case PARTY_PHASES_DATABASE.LEVEL_UP:
-        const levelUpResult = levelUp(this.selectedSlot, this.selectedPokemon);
+        const levelUpResult = levelUpProcess(
+          this.selectedSlot,
+          this.selectedPokemon
+        );
 
         return {
           stats: levelUpResult,

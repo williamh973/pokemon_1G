@@ -5,7 +5,7 @@ export const SQUIRTLE_SPECIES = {
   id: "squirtle",
   pokedexId: "007",
   name: "CARAPUCE",
-  types: ["NORMAL"],
+  types: ["WATER"],
   femaleRate: 50,
   catchRate: 45,
   growthRate: GROWTH_RATES_DATABASE.MEDIUM_SLOW,

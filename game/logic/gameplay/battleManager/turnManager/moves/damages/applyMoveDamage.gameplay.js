@@ -4,18 +4,28 @@ import { calculateCriticalHit } from "./criticalHit/calculateCriticalHit.gamepla
 
 export const applyMoveDamage = (turnManager, action, weather) => {
   const criticalHitResult = calculateCriticalHit(action);
-  const damages = calculateMoveDamages(action, criticalHitResult.CC, weather);
+  const calculResult = calculateMoveDamages(
+    action,
+    criticalHitResult.CC,
+    weather
+  );
 
-  action.target.stats.hp = Math.max(0, action.target.stats.hp - damages);
+  action.target.stats.hp = Math.max(
+    0,
+    action.target.stats.hp - calculResult.damages
+  );
 
   turnManager.isDamageApplied = true;
 
   if (action.target === turnManager.battleManager.currentPlayerPokemon)
-    checkDialogBoxShakeAnimation(turnManager.battleManager, damages);
+    checkDialogBoxShakeAnimation(
+      turnManager.battleManager,
+      calculResult.damages
+    );
 
   console.log(
-    "damages : ",
-    damages,
+    "calculResult : ",
+    calculResult,
     "| CC : ",
     criticalHitResult.CC,
     "| isCriticalHit : ",
@@ -23,7 +33,7 @@ export const applyMoveDamage = (turnManager, action, weather) => {
   );
 
   return {
-    damages,
+    calculResult,
     criticalHitResult,
   };
 };

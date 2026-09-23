@@ -25,7 +25,6 @@ export class ExpBar {
 
   setExp(exp) {
     console.log(
-      "SET EXP",
       "current:",
       this.currentExp,
       "target avant:",

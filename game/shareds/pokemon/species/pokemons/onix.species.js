@@ -5,7 +5,7 @@ export const ONIX_SPECIES = {
   id: "onix",
   pokedexId: "095",
   name: "ONIX",
-  types: ["ROCK"],
+  types: ["ROCK", "GROUND"],
   femaleRate: 50,
   catchRate: 45,
   growthRate: GROWTH_RATES_DATABASE.MEDIUM_FAST,
