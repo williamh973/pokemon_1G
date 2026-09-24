@@ -58,7 +58,7 @@ export class EncounterManager {
 
     const wildPokemon = {
       id: "pikachu",
-      level: 2,
+      level: 4,
     };
 
     const battleType = "WILD";

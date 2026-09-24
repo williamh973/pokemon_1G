@@ -39,7 +39,8 @@ export class HyperBeamAnimation {
 
     this.pokemonCenterX =
       this.pokemonViewer.sprite.position.x +
-      this.pokemonViewer.sprite.frameWidth / 2;
+      this.pokemonViewer.sprite.frameWidth / 2 +
+      40;
 
     this.pokemonCenterY =
       this.pokemonViewer.sprite.position.y +

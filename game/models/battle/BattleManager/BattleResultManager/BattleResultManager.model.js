@@ -2,7 +2,8 @@ import { EXP_STATES } from "../../../../logic/gameplay/battleManager/experience/
 import { resetTeamStatStages } from "../../../../logic/gameplay/battleManager/turnManager/statStages/resetStatStages.gameplay.js";
 import { TURN_STATES } from "../../../../logic/gameplay/battleManager/turnManager/states/turnManager.states.js";
 import { GAME_STATES } from "../../../../logic/gameplay/game/states/states.gameplay.js";
-import { levelUpProcess } from "../../../../logic/gameplay/pokemon/levelUp/levelUp.gameplay.js";
+import { levelUpProcess } from "../../../../logic/gameplay/pokemon/levelUp/levelUpProcess.gameplay.js";
+import { INPUT_STATE } from "../../../../logic/input/inputs.state.js";
 import { calculateExpGain } from "../experiences/calculateExpGain.gameplay.js";
 
 export class BattleResultManager {
@@ -11,6 +12,7 @@ export class BattleResultManager {
     this.battlePhaseManager = this.battleManager.phaseManager;
 
     this.isKoProcessed = false;
+    this.isLevelUpProcessed = false;
 
     this.expState = EXP_STATES.IDLE;
 
@@ -44,9 +46,7 @@ export class BattleResultManager {
   calculateExpGain() {
     const { fainted } = this.battleManager.turnManager.koAction;
 
-    this.gainedExp = 300; // calculateExpGain(fainted);
-
-    console.log("XP à gagner :", this.gainedExp);
+    this.gainedExp = 300; //calculateExpGain(fainted);
   }
 
   hasLevelUp(pokemon) {
@@ -61,9 +61,6 @@ export class BattleResultManager {
     this.targetExp = active.exp + this.gainedExp;
 
     active.exp = this.targetExp;
-
-    console.log("XP gagnée :", this.gainedExp);
-    console.log("XP totale :", active.exp);
 
     const animationTarget = this.hasLevelUp(active)
       ? active.nextLevelExp
@@ -98,37 +95,55 @@ export class BattleResultManager {
   update(action) {
     this.checkPokemonKo();
 
-    if (this.expState === EXP_STATES.ANIMATING) {
-      const { active } = this.battleManager.turnManager.koAction;
+    const activePokemon = this.battleManager.turnManager.koAction?.active;
 
-      if (this.battleManager.isExpAnimationFinished(active)) {
-        if (this.hasLevelUp(active)) {
-          this.expState = EXP_STATES.LEVEL_UP;
-        } else {
-          this.expState = EXP_STATES.FINISHED;
+    switch (this.expState) {
+      case EXP_STATES.ANIMATING:
+        if (this.battleManager.isExpAnimationFinished(activePokemon)) {
+          if (this.hasLevelUp(activePokemon)) {
+            this.isLevelUpProcessed = false;
+            this.expState = EXP_STATES.LEVEL_UP;
+          } else this.expState = EXP_STATES.FINISHED;
         }
-      }
-    }
+        break;
 
-    if (this.expState === EXP_STATES.LEVEL_UP) {
-      const { active } = this.battleManager.turnManager.koAction;
+      case EXP_STATES.LEVEL_UP:
+        if (!this.isLevelUpProcessed) {
+          this.isLevelUpProcessed = true;
 
-      console.log(`${active.name} : LEVEL_UP → traitement du level-up`);
+          console.log("AVANT LEVEL UP", {
+            level: activePokemon.level,
+            exp: activePokemon.exp,
+            nextLevelExp: activePokemon.nextLevelExp,
+          });
 
-      const levelUpResult = levelUpProcess(null, active, false);
+          const levelUpResult = levelUpProcess(null, activePokemon, false);
 
-      if (levelUpResult.success && levelUpResult.text)
-        this.battleManager.openDialogBox(levelUpResult.text);
+          console.log("APRÈS LEVEL UP", {
+            level: activePokemon.level,
+            exp: activePokemon.exp,
+            nextLevelExp: activePokemon.nextLevelExp,
+            hasLevelUp: this.hasLevelUp(activePokemon),
+          });
 
-      console.log("Pokémon après level-up :", levelUpResult.pokemon);
+          if (levelUpResult.success && levelUpResult.text) {
+            this.battleManager.openDialogBox(levelUpResult.text);
+          }
+        }
 
-      const animationTarget = this.hasLevelUp(active)
-        ? active.nextLevelExp
-        : active.exp;
+        if (action === INPUT_STATE.ACTION) {
+          const animationTarget = this.hasLevelUp(activePokemon)
+            ? activePokemon.nextLevelExp
+            : activePokemon.exp;
 
-      this.setExpBarTarget(levelUpResult.pokemon, animationTarget);
+          this.setExpBarTarget(activePokemon, animationTarget);
 
-      this.expState = EXP_STATES.ANIMATING;
+          this.expState = EXP_STATES.ANIMATING;
+        }
+        break;
+
+      default:
+        break;
     }
   }
 }

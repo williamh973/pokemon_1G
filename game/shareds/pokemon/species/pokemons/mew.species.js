@@ -26,7 +26,10 @@ export const MEW_SPECIES = {
   },
   evolutions: [],
   learnset: {
-    levelUp: [{ level: 1, move: MOVES_DATABASE.hyperBeam }],
+    levelUp: [
+      { level: 1, move: MOVES_DATABASE.hyperBeam },
+      { level: 6, move: MOVES_DATABASE.acid },
+    ],
     tmhm: [
       "Ultimapoing",
       "Danse Lames",

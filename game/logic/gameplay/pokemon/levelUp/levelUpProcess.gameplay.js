@@ -2,6 +2,13 @@ import { getExpForLevel } from "../../../../shareds/utils/pokemon/experience/exp
 import { getSpeciesData } from "../../../../shareds/utils/pokemon/species/species.utils.js";
 import { calculateStats } from "../../encounters/generatePokemon.gameplay.js";
 
+const updatePartySlot = (selectedSlot) => {
+  if (selectedSlot) {
+    selectedSlot.HPbar.currentHp = pokemon.stats.hp;
+    selectedSlot.HPbar.maxHp = pokemon.stats.hp;
+  }
+};
+
 export const levelUpProcess = (
   selectedSlot = null,
   pokemon,
@@ -19,9 +26,7 @@ export const levelUpProcess = (
 
   pokemon.level += 1;
 
-  if (resetExp) {
-    pokemon.exp = getExpForLevel(pokemon.level, SPECIES.growthRate);
-  }
+  if (resetExp) pokemon.exp = getExpForLevel(pokemon.level, SPECIES.growthRate);
 
   pokemon.nextLevelExp = getExpForLevel(pokemon.level + 1, SPECIES.growthRate);
 
@@ -32,15 +37,15 @@ export const levelUpProcess = (
     pokemon.level
   );
 
+  const hpIncrease = pokemon.stats.hp - pastStats.maxHp;
+
   pokemon.stats = {
     ...pokemon.stats,
+    hp: pastStats.hp + hpIncrease,
     maxHp: pokemon.stats.hp,
   };
 
-  if (selectedSlot) {
-    selectedSlot.HPbar.currentHp = pokemon.stats.hp;
-    selectedSlot.HPbar.maxHp = pokemon.stats.hp;
-  }
+  updatePartySlot(selectedSlot);
 
   return {
     success: true,

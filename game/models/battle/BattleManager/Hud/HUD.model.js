@@ -15,6 +15,7 @@ export class HUD {
     this.width = hudParams.width;
     this.setHudHeight(hudParams);
     this.pokemon = pokemon;
+
     this.HPbar = new HealthBar(
       {
         x: this.position.x + 55,
@@ -23,6 +24,7 @@ export class HUD {
       this.pokemon.stats.hp,
       this.pokemon.stats.maxHp
     );
+
     this.expBar = new ExpBar(
       {
         x: this.position.x + 34,
@@ -115,6 +117,8 @@ export class HUD {
   update(context) {
     if (this.HPbar.targetHp !== this.pokemon.stats.hp)
       this.HPbar.setHp(this.pokemon.stats.hp);
+
+    this.HPbar?.setMaxHp(this.pokemon.stats.maxHp);
 
     this.draw(context);
     this.HPbar?.update(context);

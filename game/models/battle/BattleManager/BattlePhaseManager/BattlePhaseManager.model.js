@@ -1,3 +1,4 @@
+import { EXP_STATES } from "../../../../logic/gameplay/battleManager/experience/expStates.states.js";
 import { TURN_STATES } from "../../../../logic/gameplay/battleManager/turnManager/states/turnManager.states.js";
 import { INPUT_STATE } from "../../../../logic/input/inputs.state.js";
 import { DIALOGS_DATABASE } from "../../../../shareds/dialogs/dialogs.database.js";
@@ -314,13 +315,17 @@ export class BattlePhaseManager {
       case BATTLE_PHASES.EXP_GAIN:
         const resultManager = this.battleManager.resultManager;
 
-        if (!resultManager.isExpGainStarted) {
-          if (action === INPUT_STATE.ACTION) resultManager.startExpGain();
+        if (resultManager.expState === EXP_STATES.IDLE) {
+          if (action === INPUT_STATE.ACTION) {
+            resultManager.startExpGain();
+          }
           break;
         }
 
-        if (resultManager.isExpGainFinished)
+        if (resultManager.expState === EXP_STATES.FINISHED) {
           this.setPhase(BATTLE_PHASES.END_BATTLE_OR_CONTINUE);
+        }
+
         break;
 
       case BATTLE_PHASES.PLAYER_LOST_BATTLE:

@@ -1,6 +1,6 @@
 import { checkEvolution } from "../../../../../logic/gameplay/pokemon/evolutions/evolution.gameplay.js";
 import { checkLearnset } from "../../../../../logic/gameplay/pokemon/learnsets/learnset.gameplay.js";
-import { levelUpProcess } from "../../../../../logic/gameplay/pokemon/levelUp/levelUp.gameplay.js";
+import { levelUpProcess } from "../../../../../logic/gameplay/pokemon/levelUp/levelUpProcess.gameplay.js";
 import { EvolutionSequence } from "../sequences/PartyEvolutionSequence/EvolutionSequence.model.js";
 import { PARTY_PHASES_DATABASE } from "./partyPhases.database.js";
 

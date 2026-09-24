@@ -29,6 +29,10 @@ export class HealthBar {
     this.isAnimating = true;
   }
 
+  setMaxHp(maxHp) {
+    this.maxHp = maxHp;
+  }
+
   animateHp() {
     if (this.currentHp === this.targetHp) {
       this.isAnimating = false;
