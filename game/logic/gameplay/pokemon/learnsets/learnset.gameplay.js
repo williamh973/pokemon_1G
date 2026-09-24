@@ -1,9 +1,16 @@
 import { getSpeciesData } from "../../../../shareds/utils/pokemon/species/species.utils.js";
 
 const wouldLikeLearn = (pokemon, foundedLearnset) => {
-  const wouldLikeLearnText = `${pokemon.name} voudrait apprendre \n ${foundedLearnset?.move.name} \n mais ${pokemon.name} possède déjà 4 capacités.`;
+  const wouldLikeLearnText =
+    `${pokemon.name} voudrait apprendre\n` +
+    `${foundedLearnset.move.name}\n` +
+    `mais ${pokemon.name} possède déjà 4 capacités.`;
+
   return {
     success: false,
+    noLearnset: false,
+    wantsToLearn: true,
+    move: foundedLearnset.move,
     text: wouldLikeLearnText,
   };
 };

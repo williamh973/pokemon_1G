@@ -5,6 +5,7 @@ import { textParams } from "../../shareds/utils/font/font.utils.js";
 
 export class DialogBox {
   constructor(game, ignoreNextAction = false) {
+    // ignoreNextAction = Le prochain ACTION qui arrive ne doit pas être considéré comme une validation.
     this.game = game;
     this.width = this.game.canvas.width;
     this.height = 65;

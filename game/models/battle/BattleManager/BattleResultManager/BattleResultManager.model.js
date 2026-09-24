@@ -2,6 +2,8 @@ import { EXP_STATES } from "../../../../logic/gameplay/battleManager/experience/
 import { resetTeamStatStages } from "../../../../logic/gameplay/battleManager/turnManager/statStages/resetStatStages.gameplay.js";
 import { TURN_STATES } from "../../../../logic/gameplay/battleManager/turnManager/states/turnManager.states.js";
 import { GAME_STATES } from "../../../../logic/gameplay/game/states/states.gameplay.js";
+import { checkEvolution } from "../../../../logic/gameplay/pokemon/evolutions/evolution.gameplay.js";
+import { checkLearnset } from "../../../../logic/gameplay/pokemon/learnsets/learnset.gameplay.js";
 import { levelUpProcess } from "../../../../logic/gameplay/pokemon/levelUp/levelUpProcess.gameplay.js";
 import { INPUT_STATE } from "../../../../logic/input/inputs.state.js";
 import { calculateExpGain } from "../experiences/calculateExpGain.gameplay.js";
@@ -96,6 +98,7 @@ export class BattleResultManager {
     this.checkPokemonKo();
 
     const activePokemon = this.battleManager.turnManager.koAction?.active;
+    console.log("expState :   ", this.expState);
 
     switch (this.expState) {
       case EXP_STATES.ANIMATING:
@@ -111,35 +114,66 @@ export class BattleResultManager {
         if (!this.isLevelUpProcessed) {
           this.isLevelUpProcessed = true;
 
-          console.log("AVANT LEVEL UP", {
-            level: activePokemon.level,
-            exp: activePokemon.exp,
-            nextLevelExp: activePokemon.nextLevelExp,
-          });
+          const selectedSlot = null;
+          const resetExp = false;
 
-          const levelUpResult = levelUpProcess(null, activePokemon, false);
-
-          console.log("APRÈS LEVEL UP", {
-            level: activePokemon.level,
-            exp: activePokemon.exp,
-            nextLevelExp: activePokemon.nextLevelExp,
-            hasLevelUp: this.hasLevelUp(activePokemon),
-          });
+          const levelUpResult = levelUpProcess(
+            selectedSlot,
+            activePokemon,
+            resetExp
+          );
 
           if (levelUpResult.success && levelUpResult.text) {
-            this.battleManager.openDialogBox(levelUpResult.text);
+            this.battleManager.openDialogBox(levelUpResult.text); // Mew monte au niveau X !
+            console.log(levelUpResult.text);
           }
         }
 
-        if (action === INPUT_STATE.ACTION) {
-          const animationTarget = this.hasLevelUp(activePokemon)
-            ? activePokemon.nextLevelExp
-            : activePokemon.exp;
+        this.expState = EXP_STATES.CHECK_LEARNSET;
 
-          this.setExpBarTarget(activePokemon, animationTarget);
+        break;
 
-          this.expState = EXP_STATES.ANIMATING;
+      case EXP_STATES.CHECK_LEARNSET:
+        const learnsetResult = checkLearnset(activePokemon);
+
+        if (learnsetResult.noLearnset) {
+          this.expState = EXP_STATES.CHECK_EVOLUTION;
         }
+
+        if (learnsetResult.success) {
+          this.battleManager.openDialogBox(learnsetResult.text);
+          console.log(learnsetResult.text); // Mew apprend XXX !
+
+          this.expState = EXP_STATES.CHECK_EVOLUTION;
+        }
+
+        break;
+
+      case EXP_STATES.CHECK_EVOLUTION:
+        const evolution = checkEvolution(activePokemon);
+
+        if (evolution.success) {
+          this.expState = EXP_STATES.EVOLUTION;
+          this.battleManager.openDialogBox(evolution.text); // `Quoi ! Mew évolue !?`
+          console.log(evolution.text);
+        }
+
+        if (!evolution.success) {
+          if (action === INPUT_STATE.ACTION) {
+            console.log("Pas d'évolution, reprise de l'animation de la ExpBar");
+            const animationTarget = this.hasLevelUp(activePokemon)
+              ? activePokemon.nextLevelExp
+              : activePokemon.exp;
+
+            this.setExpBarTarget(activePokemon, animationTarget);
+
+            this.expState = EXP_STATES.ANIMATING;
+          }
+        }
+        break;
+
+      case EXP_STATES.EVOLUTION:
+        this.battleManager.game.screenManager.openEvolution(); // Ouvre l'écran d'évolution et commence la séquence
         break;
 
       default:

@@ -10,7 +10,7 @@ export const checkEvolution = (pokemon) => {
       success: false,
     };
 
-  if (foundedEvolution.method === "level") {
+  if (foundedEvolution?.method === "level") {
     const evolutionText = `Quoi ! ${pokemon.name} évolue !`;
     return {
       success: true,
@@ -18,4 +18,8 @@ export const checkEvolution = (pokemon) => {
       foundedEvolution: foundedEvolution.target,
     };
   }
+
+  return {
+    success: false,
+  };
 };

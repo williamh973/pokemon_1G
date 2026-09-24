@@ -2,7 +2,7 @@ import { checkEvolution } from "../../../../../logic/gameplay/pokemon/evolutions
 import { checkLearnset } from "../../../../../logic/gameplay/pokemon/learnsets/learnset.gameplay.js";
 import { levelUpProcess } from "../../../../../logic/gameplay/pokemon/levelUp/levelUpProcess.gameplay.js";
 import { EvolutionSequence } from "../sequences/PartyEvolutionSequence/EvolutionSequence.model.js";
-import { PARTY_PHASES_DATABASE } from "./partyPhases.database.js";
+import { PARTY_PHASES } from "./partyPhases.database.js";
 
 export class PartyPhaseManager {
   constructor(party, game, usedItem, selectedSlot) {
@@ -12,6 +12,7 @@ export class PartyPhaseManager {
     this.selectedPokemon = selectedSlot.content;
     this.currentPhase = usedItem.effect;
     this.previousPhase = this.currentPhase;
+
     this.evolutionSequence = new EvolutionSequence(
       this.game,
       this.selectedPokemon
@@ -25,7 +26,7 @@ export class PartyPhaseManager {
 
   begin() {
     switch (this.currentPhase) {
-      case PARTY_PHASES_DATABASE.LEVEL_UP:
+      case PARTY_PHASES.LEVEL_UP:
         const levelUpResult = levelUpProcess(
           this.selectedSlot,
           this.selectedPokemon
@@ -40,10 +41,10 @@ export class PartyPhaseManager {
 
   next() {
     switch (this.currentPhase) {
-      case PARTY_PHASES_DATABASE.LEVEL_UP:
+      case PARTY_PHASES.LEVEL_UP:
         // console.log("LEVEL_UP");
 
-        this.setPhase(PARTY_PHASES_DATABASE.CHECK_LEARNSET);
+        this.setPhase(PARTY_PHASES.CHECK_LEARNSET);
 
         return {
           closeDialog: true,
@@ -51,31 +52,29 @@ export class PartyPhaseManager {
           nextPhase: true,
         };
 
-      case PARTY_PHASES_DATABASE.CHECK_LEARNSET:
+      case PARTY_PHASES.CHECK_LEARNSET:
         // console.log("CHECK_LEARNSET");
         const learnset = checkLearnset(this.selectedPokemon);
 
         if (learnset.noLearnset) {
-          this.setPhase(PARTY_PHASES_DATABASE.CHECK_EVOLUTION);
+          this.setPhase(PARTY_PHASES.CHECK_EVOLUTION);
           return this.next();
         }
 
         if (learnset.success) {
-          this.setPhase(PARTY_PHASES_DATABASE.CHECK_EVOLUTION);
+          this.setPhase(PARTY_PHASES.CHECK_EVOLUTION);
           return {
             dialog: learnset.text,
           };
         }
 
-      case PARTY_PHASES_DATABASE.LEARN_MOVE:
-        // ...
         break;
 
-      case PARTY_PHASES_DATABASE.CHECK_EVOLUTION:
+      case PARTY_PHASES.CHECK_EVOLUTION:
         const evolution = checkEvolution(this.selectedPokemon);
 
         if (evolution.success) {
-          this.setPhase(PARTY_PHASES_DATABASE.EVOLUTION);
+          this.setPhase(PARTY_PHASES.EVOLUTION);
 
           return {
             dialog: evolution.text,
@@ -91,14 +90,14 @@ export class PartyPhaseManager {
         }
         break;
 
-      case PARTY_PHASES_DATABASE.EVOLUTION:
+      case PARTY_PHASES.EVOLUTION:
         this.game.screenManager.openEvolution();
         return {
           finished: true,
           closeDialog: true,
         };
 
-      case PARTY_PHASES_DATABASE.END:
+      case PARTY_PHASES.END:
         return {
           finished: true,
           closeDialog: true,
