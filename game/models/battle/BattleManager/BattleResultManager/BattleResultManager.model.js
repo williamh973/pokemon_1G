@@ -21,6 +21,8 @@ export class BattleResultManager {
     this.gainedExp = null;
 
     this.targetExp = null;
+
+    this.moveToLearn = null;
   }
 
   checkPokemonKo() {
@@ -98,7 +100,7 @@ export class BattleResultManager {
     this.checkPokemonKo();
 
     const activePokemon = this.battleManager.turnManager.koAction?.active;
-    console.log("expState :   ", this.expState);
+    // console.log("expState :   ", this.expState);
 
     switch (this.expState) {
       case EXP_STATES.ANIMATING:
@@ -138,13 +140,36 @@ export class BattleResultManager {
 
         if (learnsetResult.noLearnset) {
           this.expState = EXP_STATES.CHECK_EVOLUTION;
+          break;
         }
 
-        if (learnsetResult.success) {
+        if (learnsetResult.learnedMove) {
           this.battleManager.openDialogBox(learnsetResult.text);
           console.log(learnsetResult.text); // Mew apprend XXX !
 
           this.expState = EXP_STATES.CHECK_EVOLUTION;
+          break;
+        }
+
+        if (learnsetResult.wantsToLearn) {
+          this.moveToLearn = learnsetResult.move;
+
+          if (action === INPUT_STATE.ACTION) {
+            this.battleManager.openDialogBox(learnsetResult.text);
+            console.log(learnsetResult.text);
+
+            this.expState = EXP_STATES.LEARN_MOVE;
+          }
+          break;
+        }
+        break;
+
+      case EXP_STATES.LEARN_MOVE:
+        if (this.battleManager.game.dialogBox.noMorePage()) {
+          console.log(this.battleManager.game.dialogBox.noMorePage());
+
+          if (action === INPUT_STATE.ACTION)
+            this.battleManager.openBattleLearnMoveMenu();
         }
 
         break;

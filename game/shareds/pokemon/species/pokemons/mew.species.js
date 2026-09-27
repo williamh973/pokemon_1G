@@ -28,6 +28,10 @@ export const MEW_SPECIES = {
   learnset: {
     levelUp: [
       { level: 1, move: MOVES_DATABASE.hyperBeam },
+      { level: 1, move: MOVES_DATABASE.ember },
+      { level: 1, move: MOVES_DATABASE.focusEnergy },
+      { level: 1, move: MOVES_DATABASE.growl },
+
       { level: 6, move: MOVES_DATABASE.acid },
     ],
     tmhm: [

@@ -1,4 +1,3 @@
-import { TYPES_LOGO_CONFIG } from "../../../render/config/pokemon/type/typesLogo.config.js";
 import { drawText } from "../../../shareds/utils/font/drawText.utils.js";
 import { textParams } from "../../../shareds/utils/font/font.utils.js";
 
@@ -8,68 +7,21 @@ export class Move {
     this.slotConfig = slotConfig;
   }
 
-  drawMoveType(context) {
-    const TYPES = TYPES_LOGO_CONFIG;
-
-    context.drawImage(
-      TYPES[this.move.type].image,
-      this.slotConfig.positionX,
-      this.slotConfig.positionY,
-      TYPES.dimensions.width * TYPES.dimensions.scale,
-      TYPES.dimensions.height * TYPES.dimensions.scale
-    );
-  }
-
   moveName(context) {
+    const textWidth = context.measureText(this.move.name).width;
+
     drawText(
       context,
       this.move.name,
-      this.slotConfig.positionX + 40,
-      this.slotConfig.positionY
-    );
-  }
-
-  moveCurrentPP(context) {
-    drawText(
-      context,
-      this.move.currentPP,
-      this.slotConfig.positionX + 80,
-      this.slotConfig.positionY + this.slotConfig.height / 2
-    );
-  }
-
-  moveMaxPP(context) {
-    drawText(
-      context,
-      this.move.maxPP,
-      this.slotConfig.positionX + 110,
-      this.slotConfig.positionY + this.slotConfig.height / 2
+      this.slotConfig.positionX + this.slotConfig.width / 2 - textWidth / 2,
+      this.slotConfig.positionY + 2
     );
   }
 
   draw(context) {
-    this.drawMoveType(context);
-
-    textParams(context, "20");
+    textParams(context, "20", "rgb(255, 255, 255, 0.9)");
 
     this.moveName(context);
-
-    drawText(
-      context,
-      "PP",
-      this.slotConfig.positionX + 60,
-      this.slotConfig.positionY + this.slotConfig.height / 2
-    );
-
-    this.moveCurrentPP(context);
-
-    drawText(
-      context,
-      "/",
-      this.slotConfig.positionX + 100,
-      this.slotConfig.positionY + this.slotConfig.height / 2
-    );
-    this.moveMaxPP(context);
   }
 
   update(context) {

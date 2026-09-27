@@ -44,10 +44,10 @@ export class EncounterManager {
 
   startWildBattle(game, targetOP, tile) {
     // dev only
-    // const pokemonTest = {
-    //   id: "mew",
-    //   level: 5,
-    // };
+    const pokemonTest = {
+      id: "mew",
+      level: 5,
+    };
 
     // game.player.party.slots = [];
     // game.player.party.initSlots();

@@ -15,6 +15,7 @@ export class PokemonMoveSlot extends Slot {
 
   update(context) {
     super.update(context);
+
     if (this.content) this.content.update(context);
   }
 }

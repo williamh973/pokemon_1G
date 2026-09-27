@@ -3,12 +3,12 @@ import { getSpeciesData } from "../../../../shareds/utils/pokemon/species/specie
 const wouldLikeLearn = (pokemon, foundedLearnset) => {
   const wouldLikeLearnText =
     `${pokemon.name} voudrait apprendre\n` +
-    `${foundedLearnset.move.name}\n` +
-    `mais ${pokemon.name} possède déjà 4 capacités.`;
+    `${foundedLearnset.move.name} mais il\n` +
+    `possède déjà 4 capacités.\n` +
+    `Oublier une capacité pour\n` +
+    `apprendre ${foundedLearnset.move.name} ?`;
 
   return {
-    success: false,
-    noLearnset: false,
     wantsToLearn: true,
     move: foundedLearnset.move,
     text: wouldLikeLearnText,
@@ -16,12 +16,7 @@ const wouldLikeLearn = (pokemon, foundedLearnset) => {
 };
 
 const checkMoveAlreadyLearned = (moves, foundedLearnset) => {
-  const pokemonAlreadyHasMove = moves.filter(
-    (move) => move.id === foundedLearnset.move.id
-  );
-  if (pokemonAlreadyHasMove.length === 1) {
-    return true;
-  } else return false;
+  return moves.some((move) => move.id === foundedLearnset.move.id);
 };
 
 export const checkLearnset = (pokemon) => {
@@ -60,15 +55,13 @@ export const checkLearnset = (pokemon) => {
         const learnMoveText = `${pokemon.name} apprend ${foundedLearnset?.move.name} !`;
 
         return {
-          success: true,
+          learnedMove: true,
           text: learnMoveText,
-          noLearnset: false,
         };
       }
     }
   } else
     return {
-      success: false,
       noLearnset: true,
     };
 };

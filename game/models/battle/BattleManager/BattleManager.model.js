@@ -16,6 +16,7 @@ import { BattleStatsBox } from "../../pokemon/StatsBox/BattleStatsBox.model.js";
 import { BATTLE_PHASES } from "./BattlePhaseManager/battlePhase.js";
 import { AI } from "./AI/AI.model.js";
 import { TurnManager } from "./TurnManager/TurnManager.model.js";
+import { BattleLearnMoveMenu } from "./BattleMenu/BattleLearnMoveMenu/BattleLearnMoveMenu.model.js";
 
 export class BattleManager {
   constructor(game, wildPokemon, tile, weather, battleType) {
@@ -34,6 +35,7 @@ export class BattleManager {
     this.isOpen = false;
     this.hasPlayerEscaped = false;
     this.isAttemptSwitch = false;
+    this.dialogResult = null;
     this.isUseItem = false;
     this.usedItem = null;
     this.selectedMove = null;
@@ -43,6 +45,7 @@ export class BattleManager {
 
     this.battleMenu = new BattleMenu(this.game);
     this.battleMovesMenu = new BattleMovesMenu(this.game);
+    this.battleLearnMoveMenu = new BattleLearnMoveMenu(this.game);
 
     this.battleRenderer = new BattleRenderer(
       this.game,
@@ -121,6 +124,11 @@ export class BattleManager {
     this.game.state = GAME_STATES.BATTLE_MENU;
   }
 
+  openBattleLearnMoveMenu() {
+    this.battleLearnMoveMenu.open();
+    this.game.state = GAME_STATES.BATTLE_LEARN_MOVES_MENU;
+  }
+
   openBattleMovesMenu() {
     this.battleMovesMenu.currentPlayerPokemon = this.currentPlayerPokemon;
     this.battleMovesMenu.open();
@@ -192,6 +200,8 @@ export class BattleManager {
       viewer.update(context, null);
 
     this.sequenceManager?.update(context, action);
+
+    // this.dialogResult = this.game.dialogBox.update(context, action);
 
     this.resultManager?.update(action);
     this.phaseManager?.update(action);

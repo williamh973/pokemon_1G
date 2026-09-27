@@ -1,7 +1,9 @@
 import { INPUT_STATE } from "../../../../../logic/input/inputs.state.js";
 import { drawBox } from "../../../../../shareds/utils/box/box.utils.js";
+import { textParams } from "../../../../../shareds/utils/font/font.utils.js";
 import { Menu } from "../../../../Menu/Menu.model.js";
 import { PokemonMoveSlot } from "../../../../Slot/PokemonMoveSlot/PokemonMoveSlot.model.js";
+import { BattleMoveInfo } from "./BattleMoveInfos/BattleMoveInfos.model.js";
 
 export class BattleMovesMenu extends Menu {
   constructor(game) {
@@ -9,13 +11,12 @@ export class BattleMovesMenu extends Menu {
 
     this.currentPlayerPokemon = null;
     this.canvas = this.game.canvas;
-    this.width = this.canvas.width / 2;
-    this.height = this.canvas.height / 2;
+    this.width = this.canvas.width;
+    this.height = 70;
     this.position = {
-      x: this.canvas.width - this.width,
+      x: 0,
       y: this.canvas.height - this.height,
     };
-    this.lineHeight = 40;
     this.items = [];
     this.selectedMoveData = null;
     this.slots = [
@@ -24,21 +25,28 @@ export class BattleMovesMenu extends Menu {
       new PokemonMoveSlot({}),
       new PokemonMoveSlot({}),
     ];
+
+    this.battleMoveInfo = new BattleMoveInfo();
+  }
+
+  getSlotConfig(index) {
+    const col = index % 2;
+    const row = Math.floor(index / 2);
+
+    return {
+      positionX: this.position.x + 3 + col * 115,
+      positionY: this.position.y + 7 + row * 33,
+      width: 110,
+      height: 28,
+    };
   }
 
   setItems() {
     this.currentPlayerPokemon?.moves.forEach((move, index) => {
       let slot = this.slots[index];
-      const slotConfig = {
-        positionX: this.position.x + 25,
-        positionY: this.position.y + 10 + this.lineHeight * index,
-        width: this.width - 25,
-        height: 40,
-      };
-      const slotId = `MOVE_SLOT`;
 
-      slot.config = slotConfig;
-      slot.id = slotId;
+      slot.config = this.getSlotConfig(index);
+      slot.id = `MOVE_SLOT`;
 
       slot.setMove(move);
       this.items.push(slot);
@@ -57,17 +65,21 @@ export class BattleMovesMenu extends Menu {
   }
 
   draw(context) {
-    drawBox(
-      context,
-      this.position.x,
-      this.position.y,
-      this.width,
-      this.height,
-      "black",
-      "white"
-    );
+    this.items.forEach((item, index) => {
+      item.isHovered = index === this.currentIndex;
 
-    this.showCursor(context);
+      const { positionX, positionY, width, height } = item.config;
+
+      drawBox(
+        context,
+        positionX,
+        positionY,
+        width,
+        height,
+        item.isHovered ? "red" : "rgba(120, 170, 220, 0.35)",
+        "rgba(30, 60, 100, 1)"
+      );
+    });
   }
 
   openItem() {
@@ -77,16 +89,43 @@ export class BattleMovesMenu extends Menu {
     this.game.handleMenuSelection(moveSlotId, this);
   }
 
-  update(context, action) {
-    super.update(action);
+  updateSelectedMove() {
+    const selectedSlot = this.items[this.currentIndex];
 
+    if (!selectedSlot) return;
+
+    this.battleMoveInfo.setMove(selectedSlot.content.move);
+  }
+
+  update(context, action) {
     if (!this.isOpen || !this.hasFocus) return;
 
     this.draw(context);
 
     for (const move of this.items) move.update(context);
 
+    this.updateSelectedMove();
+    this.battleMoveInfo.update(context);
+
     switch (action) {
+      case INPUT_STATE.ACTION:
+        this.openItem();
+        break;
+      case INPUT_STATE.RIGHT:
+        if (this.currentIndex % 2 === 0) this.currentIndex++;
+        break;
+
+      case INPUT_STATE.LEFT:
+        if (this.currentIndex % 2 === 1) this.currentIndex--;
+        break;
+
+      case INPUT_STATE.DOWN:
+        if (this.currentIndex < 2) this.currentIndex += 2;
+        break;
+
+      case INPUT_STATE.UP:
+        if (this.currentIndex >= 2) this.currentIndex -= 2;
+        break;
       case INPUT_STATE.ESCAPE:
         this.close();
         break;
