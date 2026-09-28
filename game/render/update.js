@@ -40,7 +40,7 @@ const handleDialogState = (game, event) => {
 };
 
 export const update = (game) => {
-  console.log(game.state);
+  // console.log(game.state);
   // console.log("tileX", game.player.tileX, "tileY", game.player.tileY);
   // console.log(game.screenManager.currentScreen);
 

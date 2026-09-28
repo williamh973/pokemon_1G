@@ -35,7 +35,6 @@ export class BattleManager {
     this.isOpen = false;
     this.hasPlayerEscaped = false;
     this.isAttemptSwitch = false;
-    this.dialogResult = null;
     this.isUseItem = false;
     this.usedItem = null;
     this.selectedMove = null;
@@ -200,8 +199,6 @@ export class BattleManager {
       viewer.update(context, null);
 
     this.sequenceManager?.update(context, action);
-
-    // this.dialogResult = this.game.dialogBox.update(context, action);
 
     this.resultManager?.update(action);
     this.phaseManager?.update(action);

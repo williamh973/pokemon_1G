@@ -156,21 +156,22 @@ export class BattleResultManager {
 
           if (action === INPUT_STATE.ACTION) {
             this.battleManager.openDialogBox(learnsetResult.text);
-            console.log(learnsetResult.text);
-
-            this.expState = EXP_STATES.LEARN_MOVE;
+            this.expState = EXP_STATES.LEARN_DIALOG;
           }
           break;
         }
         break;
 
-      case EXP_STATES.LEARN_MOVE:
-        if (this.battleManager.game.dialogBox.noMorePage()) {
+      case EXP_STATES.LEARN_DIALOG:
+        if (!this.battleManager.game.dialogBox.hasNextPage()) {
+          this.expState = EXP_STATES.LEARN_MOVE;
           console.log(this.battleManager.game.dialogBox.noMorePage());
-
-          if (action === INPUT_STATE.ACTION)
-            this.battleManager.openBattleLearnMoveMenu();
         }
+        break;
+
+      case EXP_STATES.LEARN_MOVE:
+        if (action === INPUT_STATE.ACTION)
+          this.battleManager.openBattleLearnMoveMenu();
 
         break;
 
