@@ -3,6 +3,7 @@ import { GenderMenu } from "../GenderMenu/GenderMenu.model.js";
 import { NicknameMenu } from "../NicknameMenu/NicknameMenu.model.js";
 import { OpeningGameSequence } from "../OpeningGameSequence/OpeningGameSequence.model.js";
 import { StartGameMenu } from "../StartGameMenu/StartGameMenu.model.js";
+import { EvolutionSequence } from "../pokemon/Evolution/EvolutionSequence.model.js";
 
 export class GamePhaseManager {
   constructor(game) {
@@ -40,6 +41,16 @@ export class GamePhaseManager {
 
       case "SELECT_PLAYER_NICKNAME":
         this.openScreen(new NicknameMenu(this.game), GAME_STATES.NICKNAME_MENU);
+        break;
+
+      case "EVOLUTION":
+        this.openScreen(
+          new EvolutionSequence(
+            this.game,
+            this.game.selectedPokemonForEvolution
+          ),
+          GAME_STATES.EVOLUTION
+        );
         break;
     }
   }

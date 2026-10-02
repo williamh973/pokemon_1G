@@ -121,6 +121,12 @@ export const update = (game) => {
       );
       break;
 
+    case GAME_STATES.PARTY_LEARN_MOVES_MENU:
+      game.screenManager.currentScreen.update(game.canvas.context, action);
+      game.dialogBox?.update(game.canvas.context, action);
+      game.player.party.partyLearnMoveMenu?.update(game.canvas.context, action);
+      break;
+
     default:
       game.screenManager.currentScreen?.update(game.canvas.context, action);
       game.dialogBox?.update(game.canvas.context, action);

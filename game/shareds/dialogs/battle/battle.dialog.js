@@ -74,6 +74,8 @@ export const BATTLE_DIALOGS = {
 
   playerLoseBattle: (player) => `${player} n'a plus \nde pokémon en forme.`,
 
+  wantsToChooseOtherPokemon: () => `Choisir quel pokémon ?`,
+
   trainerDefeated: (player, trainer, pokeDollar) =>
     `${trainer} a été vaincu, ${player} gagne ${pokeDollar} P$`,
 

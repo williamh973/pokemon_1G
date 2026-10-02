@@ -1,9 +1,14 @@
-import { EXP_STATES } from "../../../../logic/gameplay/battleManager/experience/expStates.states.js";
+import { BATTLE_RESULT_STATES } from "../../../../logic/gameplay/battleManager/resultManager/resultManager.states.js";
+import { resetTeamVolatils } from "../../../../logic/gameplay/battleManager/turnManager/moves/volatiles/resetTeamVolatils.gameplay.js";
 import { resetTeamStatStages } from "../../../../logic/gameplay/battleManager/turnManager/statStages/resetStatStages.gameplay.js";
 import { TURN_STATES } from "../../../../logic/gameplay/battleManager/turnManager/states/turnManager.states.js";
 import { GAME_STATES } from "../../../../logic/gameplay/game/states/states.gameplay.js";
 import { checkEvolution } from "../../../../logic/gameplay/pokemon/evolutions/evolution.gameplay.js";
-import { checkLearnset } from "../../../../logic/gameplay/pokemon/learnsets/learnset.gameplay.js";
+import {
+  checkLearnset,
+  replaceMoveDialog,
+} from "../../../../logic/gameplay/pokemon/learnsets/learnset.gameplay.js";
+import { replacePokemonMove } from "../../../../logic/gameplay/pokemon/learnsets/replaceMove.gameplay.js";
 import { levelUpProcess } from "../../../../logic/gameplay/pokemon/levelUp/levelUpProcess.gameplay.js";
 import { INPUT_STATE } from "../../../../logic/input/inputs.state.js";
 import { calculateExpGain } from "../experiences/calculateExpGain.gameplay.js";
@@ -15,13 +20,15 @@ export class BattleResultManager {
 
     this.isKoProcessed = false;
     this.isLevelUpProcessed = false;
+    this.isEvolutionStarted = false;
 
-    this.expState = EXP_STATES.IDLE;
+    this.state = BATTLE_RESULT_STATES.IDLE;
 
     this.gainedExp = null;
 
     this.targetExp = null;
 
+    this.replacedMove = null;
     this.moveToLearn = null;
   }
 
@@ -50,7 +57,7 @@ export class BattleResultManager {
   calculateExpGain() {
     const { fainted } = this.battleManager.turnManager.koAction;
 
-    this.gainedExp = 300; //calculateExpGain(fainted);
+    this.gainedExp = calculateExpGain(fainted);
   }
 
   hasLevelUp(pokemon) {
@@ -58,7 +65,7 @@ export class BattleResultManager {
   }
 
   startExpGain() {
-    this.expState = EXP_STATES.ANIMATING;
+    this.state = BATTLE_RESULT_STATES.ANIMATING;
 
     const { active } = this.battleManager.turnManager.koAction;
 
@@ -79,8 +86,23 @@ export class BattleResultManager {
     expBar.setExp(targetExp);
   }
 
+  resumeExpAfterEvolution() {
+    const activePokemon = this.battleManager.turnManager.koAction?.active;
+
+    if (!activePokemon) return;
+
+    const animationTarget = this.hasLevelUp(activePokemon)
+      ? activePokemon.nextLevelExp
+      : activePokemon.exp;
+
+    this.setExpBarTarget(activePokemon, animationTarget);
+
+    this.state = BATTLE_RESULT_STATES.ANIMATING;
+  }
+
   endBattle() {
     resetTeamStatStages(this.battleManager.game.player.party);
+    resetTeamVolatils(this.battleManager.game.player.party);
 
     this.battleManager.game.transition.start(
       () => {
@@ -100,19 +122,19 @@ export class BattleResultManager {
     this.checkPokemonKo();
 
     const activePokemon = this.battleManager.turnManager.koAction?.active;
-    // console.log("expState :   ", this.expState);
+    // console.log("state :   ", this.state);
 
-    switch (this.expState) {
-      case EXP_STATES.ANIMATING:
+    switch (this.state) {
+      case BATTLE_RESULT_STATES.ANIMATING:
         if (this.battleManager.isExpAnimationFinished(activePokemon)) {
           if (this.hasLevelUp(activePokemon)) {
             this.isLevelUpProcessed = false;
-            this.expState = EXP_STATES.LEVEL_UP;
-          } else this.expState = EXP_STATES.FINISHED;
+            this.state = BATTLE_RESULT_STATES.LEVEL_UP;
+          } else this.state = BATTLE_RESULT_STATES.FINISHED;
         }
         break;
 
-      case EXP_STATES.LEVEL_UP:
+      case BATTLE_RESULT_STATES.LEVEL_UP:
         if (!this.isLevelUpProcessed) {
           this.isLevelUpProcessed = true;
 
@@ -131,15 +153,17 @@ export class BattleResultManager {
           }
         }
 
-        this.expState = EXP_STATES.CHECK_LEARNSET;
+        this.state = BATTLE_RESULT_STATES.CHECK_LEARNSET;
 
         break;
 
-      case EXP_STATES.CHECK_LEARNSET:
+      case BATTLE_RESULT_STATES.CHECK_LEARNSET:
         const learnsetResult = checkLearnset(activePokemon);
 
         if (learnsetResult.noLearnset) {
-          this.expState = EXP_STATES.CHECK_EVOLUTION;
+          if (action === INPUT_STATE.ACTION) {
+            this.state = BATTLE_RESULT_STATES.CHECK_EVOLUTION;
+          }
           break;
         }
 
@@ -147,7 +171,9 @@ export class BattleResultManager {
           this.battleManager.openDialogBox(learnsetResult.text);
           console.log(learnsetResult.text); // Mew apprend XXX !
 
-          this.expState = EXP_STATES.CHECK_EVOLUTION;
+          if (action === INPUT_STATE.ACTION) {
+            this.state = BATTLE_RESULT_STATES.CHECK_EVOLUTION;
+          }
           break;
         }
 
@@ -155,33 +181,56 @@ export class BattleResultManager {
           this.moveToLearn = learnsetResult.move;
 
           if (action === INPUT_STATE.ACTION) {
-            this.battleManager.openDialogBox(learnsetResult.text);
-            this.expState = EXP_STATES.LEARN_DIALOG;
+            this.battleManager.openDialogBox(learnsetResult.text); // Mew voudrait apprendre...
+            this.state = BATTLE_RESULT_STATES.WANTS_TO_LEARN_DIALOG;
           }
           break;
         }
         break;
 
-      case EXP_STATES.LEARN_DIALOG:
+      case BATTLE_RESULT_STATES.WANTS_TO_LEARN_DIALOG:
         if (!this.battleManager.game.dialogBox.hasNextPage()) {
-          this.expState = EXP_STATES.LEARN_MOVE;
+          this.state = BATTLE_RESULT_STATES.LEARN_MOVE;
           console.log(this.battleManager.game.dialogBox.noMorePage());
         }
         break;
 
-      case EXP_STATES.LEARN_MOVE:
-        if (action === INPUT_STATE.ACTION)
-          this.battleManager.openBattleLearnMoveMenu();
-
+      case BATTLE_RESULT_STATES.LEARN_MOVE:
+        this.battleManager.openBattleLearnMoveMenu();
         break;
 
-      case EXP_STATES.CHECK_EVOLUTION:
+      case BATTLE_RESULT_STATES.REPLACE_MOVE_DIALOG:
+        replacePokemonMove(activePokemon, this.replacedMove, this.moveToLearn);
+
+        const replaceMoveResult = replaceMoveDialog(
+          activePokemon,
+          this.replacedMove,
+          this.moveToLearn
+        );
+
+        if (action === INPUT_STATE.ACTION) {
+          this.battleManager.openDialogBox(replaceMoveResult.text);
+          this.state = BATTLE_RESULT_STATES.FINISH_REPLACE_MOVE_DIALOG;
+        }
+        break;
+
+      case BATTLE_RESULT_STATES.FINISH_REPLACE_MOVE_DIALOG:
+        if (!this.battleManager.game.dialogBox.hasNextPage()) {
+          if (action === INPUT_STATE.ACTION) {
+            this.state = BATTLE_RESULT_STATES.CHECK_EVOLUTION;
+          }
+        }
+        break;
+
+      case BATTLE_RESULT_STATES.CHECK_EVOLUTION:
         const evolution = checkEvolution(activePokemon);
 
         if (evolution.success) {
-          this.expState = EXP_STATES.EVOLUTION;
           this.battleManager.openDialogBox(evolution.text); // `Quoi ! Mew évolue !?`
-          console.log(evolution.text);
+
+          if (action === INPUT_STATE.ACTION) {
+            this.state = BATTLE_RESULT_STATES.EVOLUTION;
+          }
         }
 
         if (!evolution.success) {
@@ -193,13 +242,16 @@ export class BattleResultManager {
 
             this.setExpBarTarget(activePokemon, animationTarget);
 
-            this.expState = EXP_STATES.ANIMATING;
+            this.state = BATTLE_RESULT_STATES.ANIMATING;
           }
         }
         break;
 
-      case EXP_STATES.EVOLUTION:
-        this.battleManager.game.screenManager.openEvolution(); // Ouvre l'écran d'évolution et commence la séquence
+      case BATTLE_RESULT_STATES.EVOLUTION:
+        if (this.isEvolutionStarted) break;
+
+        this.isEvolutionStarted = true;
+        this.battleManager.game.createEvolutionSequence(activePokemon); // j'ai bien la dialogBox qui s'affiche mais l'écran ne s'ouvre pas
         break;
 
       default:

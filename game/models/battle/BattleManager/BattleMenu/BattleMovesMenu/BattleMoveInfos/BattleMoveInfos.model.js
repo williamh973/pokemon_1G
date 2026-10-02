@@ -4,12 +4,12 @@ import { drawText } from "../../../../../../shareds/utils/font/drawText.utils.js
 import { textParams } from "../../../../../../shareds/utils/font/font.utils.js";
 
 export class BattleMoveInfo {
-  constructor() {
+  constructor(learnMod = false, learnMoveMenuPositionY) {
     this.move = null;
 
     this.config = {
       positionX: 233,
-      positionY: 257,
+      positionY: learnMod ? learnMoveMenuPositionY + 6 : 257,
       width: 82,
       height: 62,
     };

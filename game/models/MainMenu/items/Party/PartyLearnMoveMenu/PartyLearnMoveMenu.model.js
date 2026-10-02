@@ -1,13 +1,14 @@
-import { BATTLE_RESULT_STATES } from "../../../../../logic/gameplay/battleManager/resultManager/resultManager.states.js";
+import { GAME_STATES } from "../../../../../logic/gameplay/game/states/states.gameplay.js";
 import { INPUT_STATE } from "../../../../../logic/input/inputs.state.js";
 import { drawBox } from "../../../../../shareds/utils/box/box.utils.js";
 import { drawText } from "../../../../../shareds/utils/font/drawText.utils.js";
 import { textParams } from "../../../../../shareds/utils/font/font.utils.js";
 import { Menu } from "../../../../Menu/Menu.model.js";
 import { PokemonMoveSlot } from "../../../../Slot/PokemonMoveSlot/PokemonMoveSlot.model.js";
-import { BattleMoveInfo } from "../BattleMovesMenu/BattleMoveInfos/BattleMoveInfos.model.js";
+import { BattleMoveInfo } from "../../../../battle/BattleManager/BattleMenu/BattleMovesMenu/BattleMoveInfos/BattleMoveInfos.model.js";
+import { PARTY_PHASES } from "../PartyPhaseManager/partyPhases.database.js";
 
-export class BattleLearnMoveMenu extends Menu {
+export class PartyLearnMoveMenu extends Menu {
   constructor(game) {
     super(game);
 
@@ -69,7 +70,9 @@ export class BattleLearnMoveMenu extends Menu {
       slot.setMove(move);
 
       this.items.push(slot);
+      console.log(this.items);
     });
+
     this.items.push({
       id: "RETOUR",
       name: "RETOUR",
@@ -91,8 +94,12 @@ export class BattleLearnMoveMenu extends Menu {
 
     super.close();
 
-    this.game.battleManager.resultManager.state =
-      BATTLE_RESULT_STATES.REPLACE_MOVE_DIALOG;
+    const party = this.game.player.party;
+
+    party.hasFocus = true;
+    this.game.state = GAME_STATES.PARTY;
+
+    party.partyPhaseManager.setPhase(PARTY_PHASES.REPLACE_MOVE_DIALOG);
   }
 
   draw(context) {
@@ -130,11 +137,8 @@ export class BattleLearnMoveMenu extends Menu {
 
     if (!selectedSlot || selectedSlot.id === "RETOUR") return;
 
-    this.selectedMoveData = selectedSlot.content.move;
-
-    this.game.battleManager.resultManager.replacedMove = this.selectedMoveData;
-
-    this.selectedMoveData = this.moveToLearn;
+    this.game.player.party.partyPhaseManager.replacedMove =
+      selectedSlot.content.move;
 
     this.close();
   }

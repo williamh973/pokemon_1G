@@ -29,7 +29,7 @@ export const ITEM_EFFECTS = {
     game.screenManager.close(GAME_STATES.WORLD);
 
     game.player.party.usedItem = item;
-    game.openParty();
+    game.screenManager.open(game.player.party, GAME_STATES.PARTY);
     game.dialogBox.open(`Donner à quel POKéMON ?`, false);
   },
 

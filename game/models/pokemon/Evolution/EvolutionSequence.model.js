@@ -1,11 +1,12 @@
-import { evolutionBackgImg } from "../../../../../../assets/images/ui/ui.asset.js";
-import { calculateStats } from "../../../../../../logic/gameplay/encounters/generatePokemon.gameplay.js";
-import { INPUT_STATE } from "../../../../../../logic/input/inputs.state.js";
-import { SPECIES_DATABASE } from "../../../../../../shareds/pokemon/species/species.database.js";
-import { getAnimationConfig } from "../../../../../../shareds/utils/pokemon/animations/pokemonAnimations.utils.js";
-import { getSpeciesData } from "../../../../../../shareds/utils/pokemon/species/species.utils.js";
-import { Slot } from "../../../../../Slot/Slot.model.js";
-import { SpriteViewer } from "../../../../../SpriteViewer/SpriteViewer.model.js";
+import { evolutionBackgImg } from "../../../assets/images/ui/ui.asset.js";
+import { calculateStats } from "../../../logic/gameplay/encounters/generatePokemon.gameplay.js";
+import { GAME_STATES } from "../../../logic/gameplay/game/states/states.gameplay.js";
+import { INPUT_STATE } from "../../../logic/input/inputs.state.js";
+import { SPECIES_DATABASE } from "../../../shareds/pokemon/species/species.database.js";
+import { getAnimationConfig } from "../../../shareds/utils/pokemon/animations/pokemonAnimations.utils.js";
+import { getSpeciesData } from "../../../shareds/utils/pokemon/species/species.utils.js";
+import { Slot } from "../../Slot/Slot.model.js";
+import { SpriteViewer } from "../../SpriteViewer/SpriteViewer.model.js";
 
 export class EvolutionSequence {
   constructor(game, pokemon) {
@@ -287,7 +288,13 @@ export class EvolutionSequence {
   quitSequence() {
     if (this.game.dialogBox.isOpen) this.game.dialogBox.close();
     this.game.screenManager.closeEvolution();
-    this.game.openParty();
+
+    if (this.game.battleManager) {
+      this.game.screenManager.open(this.game.battleManager, GAME_STATES.BATTLE);
+      this.game.battleManager.resultManager.resumeExpAfterEvolution();
+      return;
+    } else
+      this.game.screenManager.open(this.game.player.party, GAME_STATES.PARTY);
   }
 
   update(context, action) {

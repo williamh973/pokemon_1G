@@ -34,6 +34,7 @@ import { GAME_STATES } from "../../logic/gameplay/game/states/states.gameplay.js
 import { dispatchItemsSelection } from "../../logic/gameplay/items/dispatchItemsSelection.gameplay.js";
 import { Save } from "../MainMenu/items/Save/save.model.js";
 import { GamePhaseManager } from "../IntroManager/IntroManager.model.js";
+import { EvolutionSequence } from "../pokemon/Evolution/EvolutionSequence.model.js";
 
 export class Game {
   constructor() {
@@ -65,11 +66,22 @@ export class Game {
     this.save = null;
     this.activeNpc = null;
     this.dialogCallback = null;
+    this.evolutionSequence = null;
+    this.selectedPokemonForEvolution = null;
     this.isAttemptSave = false;
     this.isSaveCompleted = false;
     this.isPaused = false;
 
     this.init();
+  }
+
+  createEvolutionSequence(selectedPokemon) {
+    this.selectedPokemonForEvolution = selectedPokemon;
+    this.gamePhaseManager.setPhase("EVOLUTION");
+  }
+
+  openLearnMoveMenu(pokemon, moveToLearn) {
+    this.player.party.openLearnMoveMenu(pokemon, moveToLearn);
   }
 
   init() {

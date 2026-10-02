@@ -39,10 +39,7 @@ export class ScreenManager {
   }
 
   openEvolution() {
-    this.open(
-      this.game.player.party.partyPhaseManager.evolutionSequence,
-      GAME_STATES.EVOLUTION
-    );
+    this.open(this.game.evolutionSequence, GAME_STATES.EVOLUTION);
   }
 
   closeEvolution() {

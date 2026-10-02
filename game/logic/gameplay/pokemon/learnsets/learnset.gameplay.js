@@ -15,6 +15,18 @@ const wouldLikeLearn = (pokemon, foundedLearnset) => {
   };
 };
 
+export const replaceMoveDialog = (pokemon, replacedMove, moveToLearn) => {
+  const replaceMoveText =
+    `${pokemon.name} ne sait plus\n` +
+    `comment utiliser ${replacedMove.name}\n` +
+    `et ${pokemon.name} apprend ${moveToLearn.name}`;
+
+  return {
+    hasReplacedMove: true,
+    text: replaceMoveText,
+  };
+};
+
 const checkMoveAlreadyLearned = (moves, foundedLearnset) => {
   return moves.some((move) => move.id === foundedLearnset.move.id);
 };

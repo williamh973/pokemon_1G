@@ -2,7 +2,7 @@ import { getExpForLevel } from "../../../../shareds/utils/pokemon/experience/exp
 import { getSpeciesData } from "../../../../shareds/utils/pokemon/species/species.utils.js";
 import { calculateStats } from "../../encounters/generatePokemon.gameplay.js";
 
-const updatePartySlot = (selectedSlot) => {
+const updatePartySlot = (selectedSlot, pokemon) => {
   if (selectedSlot) {
     selectedSlot.HPbar.currentHp = pokemon.stats.hp;
     selectedSlot.HPbar.maxHp = pokemon.stats.hp;
@@ -45,7 +45,7 @@ export const levelUpProcess = (
     maxHp: pokemon.stats.hp,
   };
 
-  updatePartySlot(selectedSlot);
+  updatePartySlot(selectedSlot, pokemon);
 
   return {
     success: true,

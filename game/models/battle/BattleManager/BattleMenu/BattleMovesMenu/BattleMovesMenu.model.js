@@ -1,6 +1,5 @@
 import { INPUT_STATE } from "../../../../../logic/input/inputs.state.js";
 import { drawBox } from "../../../../../shareds/utils/box/box.utils.js";
-import { textParams } from "../../../../../shareds/utils/font/font.utils.js";
 import { Menu } from "../../../../Menu/Menu.model.js";
 import { PokemonMoveSlot } from "../../../../Slot/PokemonMoveSlot/PokemonMoveSlot.model.js";
 import { BattleMoveInfo } from "./BattleMoveInfos/BattleMoveInfos.model.js";
@@ -42,8 +41,10 @@ export class BattleMovesMenu extends Menu {
   }
 
   setItems() {
+    this.items = [];
+
     this.currentPlayerPokemon?.moves.forEach((move, index) => {
-      let slot = this.slots[index];
+      const slot = this.slots[index];
 
       slot.config = this.getSlotConfig(index);
       slot.id = `MOVE_SLOT`;
@@ -55,6 +56,7 @@ export class BattleMovesMenu extends Menu {
 
   open() {
     this.setItems();
+
     super.open();
   }
 

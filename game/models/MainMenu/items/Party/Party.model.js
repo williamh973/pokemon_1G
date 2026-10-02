@@ -4,6 +4,7 @@ import { GAME_STATES } from "../../../../logic/gameplay/game/states/states.gamep
 import { INPUT_STATE } from "../../../../logic/input/inputs.state.js";
 import { PokemonPartySlot } from "../../../Slot/PokemonPartySlot/PokemonPartySlot.model.js";
 import { StatsBox } from "../../../pokemon/StatsBox/StatsBox.model.js";
+import { PartyLearnMoveMenu } from "./PartyLearnMoveMenu/PartyLearnMoveMenu.model.js";
 import { PartyPhaseManager } from "./PartyPhaseManager/PartyPhaseManager.model.js";
 import { PartyContextMenu } from "./PartyPokemonContextMenu/PartyContextMenu.model.js";
 
@@ -28,6 +29,8 @@ export class Party {
     this.statsBox = null;
     this.selectedPokemon = null;
     this.partyPhaseManager = null;
+    this.partyLearnMoveMenu = new PartyLearnMoveMenu(this.game);
+
     this.initSlots();
   }
 
@@ -122,6 +125,16 @@ export class Party {
     this.handlePhaseResult(this.partyPhaseManager.begin());
   }
 
+  openLearnMoveMenu(pokemon, moveToLearn) {
+    this.partyLearnMoveMenu.currentPlayerPokemon = pokemon;
+    this.partyLearnMoveMenu.moveToLearn = moveToLearn;
+
+    this.partyLearnMoveMenu.open();
+
+    this.hasFocus = false;
+    this.game.state = GAME_STATES.PARTY_LEARN_MOVES_MENU;
+  }
+
   handlePhaseResult(result) {
     if (!result) return;
 
@@ -139,14 +152,12 @@ export class Party {
       );
     }
 
-    if (result.dialog) this.game.dialogBox.open(result.dialog);
+    if (result.dialog) this.game.dialogBox.open(result.dialog, true);
 
     if (result.closeStats && this.statsBox) {
       this.statsBox.isOpen = false;
       this.statsBox = null;
     }
-
-    if (result.next) result.next();
 
     if (result.closeDialog) this.game.dialogBox.close();
 
@@ -170,8 +181,6 @@ export class Party {
 
     this.statsBox?.update(context, action);
 
-    this.game.dialogBox?.update(this.game.canvas.context, action);
-
     if (!this.isOpen || !this.hasFocus) return;
 
     switch (action) {
@@ -185,9 +194,10 @@ export class Party {
         if (this.currentIndex < filledSlots.length - 1) this.currentIndex++;
         break;
 
-      case INPUT_STATE.ACTION:
+      case INPUT_STATE.ACTION: {
         if (this.partyPhaseManager) {
-          const result = this.partyPhaseManager.next();
+          const result = this.partyPhaseManager.next(action);
+
           this.handlePhaseResult(result);
 
           if (result?.nextPhase) {
@@ -199,6 +209,7 @@ export class Party {
         }
 
         break;
+      }
 
       case GAME_STATES.PLAYER_MENU:
       case INPUT_STATE.ESCAPE:

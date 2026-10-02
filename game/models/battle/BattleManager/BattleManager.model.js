@@ -124,6 +124,13 @@ export class BattleManager {
   }
 
   openBattleLearnMoveMenu() {
+    const activePokemon = this.turnManager.koAction?.active;
+
+    const moveToLearn = this.resultManager.moveToLearn;
+
+    this.battleLearnMoveMenu.currentPlayerPokemon = activePokemon;
+    this.battleLearnMoveMenu.moveToLearn = moveToLearn;
+
     this.battleLearnMoveMenu.open();
     this.game.state = GAME_STATES.BATTLE_LEARN_MOVES_MENU;
   }

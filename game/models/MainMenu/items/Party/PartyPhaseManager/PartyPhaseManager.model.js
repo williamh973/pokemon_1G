@@ -1,7 +1,11 @@
 import { checkEvolution } from "../../../../../logic/gameplay/pokemon/evolutions/evolution.gameplay.js";
-import { checkLearnset } from "../../../../../logic/gameplay/pokemon/learnsets/learnset.gameplay.js";
+import {
+  checkLearnset,
+  replaceMoveDialog,
+} from "../../../../../logic/gameplay/pokemon/learnsets/learnset.gameplay.js";
+import { replacePokemonMove } from "../../../../../logic/gameplay/pokemon/learnsets/replaceMove.gameplay.js";
 import { levelUpProcess } from "../../../../../logic/gameplay/pokemon/levelUp/levelUpProcess.gameplay.js";
-import { EvolutionSequence } from "../sequences/PartyEvolutionSequence/EvolutionSequence.model.js";
+import { INPUT_STATE } from "../../../../../logic/input/inputs.state.js";
 import { PARTY_PHASES } from "./partyPhases.database.js";
 
 export class PartyPhaseManager {
@@ -12,11 +16,7 @@ export class PartyPhaseManager {
     this.selectedPokemon = selectedSlot.content;
     this.currentPhase = usedItem.effect;
     this.previousPhase = this.currentPhase;
-
-    this.evolutionSequence = new EvolutionSequence(
-      this.game,
-      this.selectedPokemon
-    );
+    this.replacedMove = null;
   }
 
   setPhase(phase) {
@@ -39,7 +39,7 @@ export class PartyPhaseManager {
     }
   }
 
-  next() {
+  next(action) {
     switch (this.currentPhase) {
       case PARTY_PHASES.LEVEL_UP:
         // console.log("LEVEL_UP");
@@ -52,19 +52,93 @@ export class PartyPhaseManager {
           nextPhase: true,
         };
 
-      case PARTY_PHASES.CHECK_LEARNSET:
-        // console.log("CHECK_LEARNSET");
-        const learnset = checkLearnset(this.selectedPokemon);
+      case PARTY_PHASES.CHECK_LEARNSET: {
+        const learnsetResult = checkLearnset(this.selectedPokemon);
 
-        if (learnset.noLearnset) {
+        if (learnsetResult.noLearnset) {
           this.setPhase(PARTY_PHASES.CHECK_EVOLUTION);
-          return this.next();
+          return this.next(action);
         }
 
-        if (learnset.success) {
-          this.setPhase(PARTY_PHASES.CHECK_EVOLUTION);
+        if (learnsetResult.learnedMove) {
+          this.setPhase(PARTY_PHASES.LEARNSET_DIALOG);
+
           return {
-            dialog: learnset.text,
+            dialog: learnsetResult.text,
+          };
+        }
+
+        if (learnsetResult.wantsToLearn) {
+          this.moveToLearn = learnsetResult.move;
+
+          this.setPhase(PARTY_PHASES.WANTS_TO_LEARN_DIALOG);
+
+          return {
+            dialog: learnsetResult.text,
+          };
+        }
+
+        break;
+      }
+
+      case PARTY_PHASES.LEARNSET_DIALOG:
+        if (!this.game.dialogBox.hasNextPage()) {
+          this.setPhase(PARTY_PHASES.CHECK_EVOLUTION);
+
+          return {
+            closeDialog: true,
+            nextPhase: true,
+          };
+        }
+
+        break;
+
+      case PARTY_PHASES.WANTS_TO_LEARN_DIALOG:
+        if (!this.game.dialogBox.hasNextPage()) {
+          this.setPhase(PARTY_PHASES.LEARN_MOVE);
+
+          return {
+            closeDialog: true,
+            nextPhase: true,
+          };
+        }
+
+        break;
+
+      case PARTY_PHASES.LEARN_MOVE:
+        this.game.openLearnMoveMenu(this.selectedPokemon, this.moveToLearn);
+
+        return {
+          nextPhase: false,
+        };
+
+      case PARTY_PHASES.REPLACE_MOVE_DIALOG: {
+        replacePokemonMove(
+          this.selectedPokemon,
+          this.replacedMove,
+          this.moveToLearn
+        );
+
+        const replaceMoveResult = replaceMoveDialog(
+          this.selectedPokemon,
+          this.replacedMove,
+          this.moveToLearn
+        );
+
+        this.setPhase(PARTY_PHASES.FINISH_REPLACE_MOVE_DIALOG);
+
+        return {
+          dialog: replaceMoveResult.text,
+        };
+      }
+
+      case PARTY_PHASES.FINISH_REPLACE_MOVE_DIALOG:
+        if (!this.game.dialogBox.hasNextPage()) {
+          this.setPhase(PARTY_PHASES.CHECK_EVOLUTION);
+
+          return {
+            closeDialog: true,
+            nextPhase: true,
           };
         }
 
@@ -91,7 +165,7 @@ export class PartyPhaseManager {
         break;
 
       case PARTY_PHASES.EVOLUTION:
-        this.game.screenManager.openEvolution();
+        this.game.createEvolutionSequence(this.selectedPokemon);
         return {
           finished: true,
           closeDialog: true,
