@@ -24,7 +24,7 @@ export const MEW_SPECIES = {
       back: "mew_back_idle",
     },
   },
-  evolutions: [{ method: "level", level: 6, target: "scyther" }],
+  evolutions: [],
   learnset: {
     levelUp: [
       { level: 1, move: MOVES_DATABASE.hyperBeam },

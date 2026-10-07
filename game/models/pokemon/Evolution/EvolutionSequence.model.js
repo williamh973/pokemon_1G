@@ -292,7 +292,6 @@ export class EvolutionSequence {
     if (this.game.battleManager) {
       this.game.screenManager.open(this.game.battleManager, GAME_STATES.BATTLE);
       this.game.battleManager.resultManager.resumeExpAfterEvolution();
-      return;
     } else
       this.game.screenManager.open(this.game.player.party, GAME_STATES.PARTY);
   }

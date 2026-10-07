@@ -52,7 +52,7 @@ export class PokemonList extends Menu {
   }
 
   checkPokedexState(context, positionX, positionY, pokemon) {
-    // this.pokedexState.see(pokemon.id); // pour dev
+    // this.pokedexState.addSee(pokemon.id); // pour dev
 
     if (this.pokedexState.getSeen(pokemon.id)) {
       this.showPokemon(context, positionX, positionY, pokemon);

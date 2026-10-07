@@ -2008,17 +2008,21 @@ export const POKEDEX_DATABASE = [
     print: "",
   },
   {
-    id: "",
+    id: "moltres",
     no: "146",
     name: "SULFURA",
     category: "Flamme",
     height: "2.0",
     weight: "60.0",
     desc: "Il bat des ailes flamboyantes et illumine le ciel.",
-    img: "pokemon146Img",
-    cry: "pokemon146Cry",
-    area: ["KANTO_VOLCAN"],
-    print: "",
+    worldMap: [],
+    print: bulbasaurPrint,
+    animations: {
+      idle: {
+        front: "moltres_front_idle",
+        back: "moltres_back_idle",
+      },
+    },
   },
   {
     id: "dratini",
