@@ -43,6 +43,21 @@ import { NIDOQUEEN_SPECIES } from "./pokemons/nidoqueen.species.js";
 import { NIDORAN_M_SPECIES } from "./pokemons/nidoranm.species.js";
 import { NIDOKING_SPECIES } from "./pokemons/nidoking.species.js";
 import { NIDORINO_SPECIES } from "./pokemons/nidorino.species.js";
+import { CLEFAIRY_SPECIES } from "./pokemons/clefairy.species.js";
+import { CLEFABLE_SPECIES } from "./pokemons/clefable.species.js";
+import { VULPIX_SPECIES } from "./pokemons/vulpix.species.js";
+import { NINETALES_SPECIES } from "./pokemons/ninetales.species.js";
+import { JIGGLYPUFF_SPECIES } from "./pokemons/jigglypuff.species.js";
+import { WIGGLYTUFF_SPECIES } from "./pokemons/wigglytuff.species.js";
+import { GOLBAT_SPECIES } from "./pokemons/golbat.species.js";
+import { ODDISH_SPECIES } from "./pokemons/oddish.species.js";
+import { GLOOM_SPECIES } from "./pokemons/gloom.species.js";
+import { VILEPLUME_SPECIES } from "./pokemons/vileplume.species.js";
+import { PARAS_SPECIES } from "./pokemons/paras.species.js";
+import { PARASECT_SPECIES } from "./pokemons/parasect.species.js";
+import { VENONAT_SPECIES } from "./pokemons/venonat.species.js";
+import { VENOMOTH_SPECIES } from "./pokemons/venomoth.species.js";
+import { DIGLETT_SPECIES } from "./pokemons/diglett.species.js";
 
 export const SPECIES_DATABASE = {
   bulbasaur: BULBASAUR_SPECIES,
@@ -79,7 +94,22 @@ export const SPECIES_DATABASE = {
   nidoranm: NIDORAN_M_SPECIES,
   nidorino: NIDORINO_SPECIES,
   nidoking: NIDOKING_SPECIES,
+  clefairy: CLEFAIRY_SPECIES,
+  clefable: CLEFABLE_SPECIES,
+  vulpix: VULPIX_SPECIES,
+  ninetales: NINETALES_SPECIES,
+  jigglypuff: JIGGLYPUFF_SPECIES,
+  wigglytuff: WIGGLYTUFF_SPECIES,
   zubat: ZUBAT_SPECIES,
+  golbat: GOLBAT_SPECIES,
+  oddish: ODDISH_SPECIES,
+  gloom: GLOOM_SPECIES,
+  vileplume: VILEPLUME_SPECIES,
+  paras: PARAS_SPECIES,
+  parasect: PARASECT_SPECIES,
+  venonat: VENONAT_SPECIES,
+  venomoth: VENOMOTH_SPECIES,
+  diglett: DIGLETT_SPECIES,
   geodude: GEODUDE_SPECIES,
   onix: ONIX_SPECIES,
   rhyhorn: RHYHORN_SPECIES,
