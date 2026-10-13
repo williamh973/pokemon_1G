@@ -58,6 +58,14 @@ import { PARASECT_SPECIES } from "./pokemons/parasect.species.js";
 import { VENONAT_SPECIES } from "./pokemons/venonat.species.js";
 import { VENOMOTH_SPECIES } from "./pokemons/venomoth.species.js";
 import { DIGLETT_SPECIES } from "./pokemons/diglett.species.js";
+import { DUGTRIO_SPECIES } from "./pokemons/dugtrio.species.js";
+import { MEOWTH_SPECIES } from "./pokemons/meowth.species.js";
+import { PERSIAN_SPECIES } from "./pokemons/persian.species.js";
+import { PSYDUCK_SPECIES } from "./pokemons/psyduck.species.js";
+import { GOLDUCK_SPECIES } from "./pokemons/golduck.species.js";
+import { MANKEY_SPECIES } from "./pokemons/mankey.species.js";
+import { PRIMEAPE_SPECIES } from "./pokemons/primeape.species.js";
+import { GROWLITHE_SPECIES } from "./pokemons/growlithe.species.js";
 
 export const SPECIES_DATABASE = {
   bulbasaur: BULBASAUR_SPECIES,
@@ -110,6 +118,14 @@ export const SPECIES_DATABASE = {
   venonat: VENONAT_SPECIES,
   venomoth: VENOMOTH_SPECIES,
   diglett: DIGLETT_SPECIES,
+  dugtrio: DUGTRIO_SPECIES,
+  meowth: MEOWTH_SPECIES,
+  persian: PERSIAN_SPECIES,
+  psyduck: PSYDUCK_SPECIES,
+  golduck: GOLDUCK_SPECIES,
+  mankey: MANKEY_SPECIES,
+  primeape: PRIMEAPE_SPECIES,
+  growlithe: GROWLITHE_SPECIES,
   geodude: GEODUDE_SPECIES,
   onix: ONIX_SPECIES,
   rhyhorn: RHYHORN_SPECIES,

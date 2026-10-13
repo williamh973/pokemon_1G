@@ -46,7 +46,7 @@ export class EncounterManager {
     // dev only
 
     const pokemonTest = {
-      id: "diglett",
+      id: "growlithe",
       level: 1,
     };
     game.player.party.slots = [];
@@ -58,7 +58,7 @@ export class EncounterManager {
     //
 
     const wildPokemon = {
-      id: "diglett",
+      id: "growlithe",
       level: 1,
     };
 

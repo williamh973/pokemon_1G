@@ -1,0 +1,67 @@
+import { GROWTH_RATES_DATABASE } from "../../experience/growthRates/growthRates.database.js";
+
+import { MOVES_DATABASE } from "../../moves/moves.database.js";
+
+export const DUGTRIO_SPECIES = {
+  id: "dugtrio",
+  pokedexId: "051",
+  name: "TRIOPIKEUR",
+  types: ["GROUND"],
+  femaleRate: 50,
+  catchRate: 50,
+  growthRate: GROWTH_RATES_DATABASE.MEDIUM_FAST,
+  baseExp: 153,
+  baseStats: {
+    hp: 35,
+    attack: 80,
+    defense: 50,
+    specialAtt: 50,
+    specialDef: 70,
+    speed: 120,
+  },
+  animations: {
+    idle: {
+      front: "dugtrio_front_idle",
+      back: "dugtrio_back_idle",
+    },
+  },
+  evolutions: [],
+  learnset: {
+    levelUp: [
+      { level: 1, move: MOVES_DATABASE.growl },
+      { level: 1, move: MOVES_DATABASE.sandAttack },
+      //   { level: 1, move: MOVES_DATABASE.scratch },
+      //   { level: 1, move: MOVES_DATABASE.triAttack },
+      //   { level: 5, move: MOVES_DATABASE.growl },
+      //   { level: 9, move: MOVES_DATABASE.magnitude },
+      //   { level: 17, move: MOVES_DATABASE.dig },
+      //   { level: 25, move: MOVES_DATABASE.mudSlap },
+      //   { level: 26, move: MOVES_DATABASE.sandTomb },
+      //   { level: 38, move: MOVES_DATABASE.slash },
+      //   { level: 51, move: MOVES_DATABASE.earthquake },
+      //   { level: 64, move: MOVES_DATABASE.fissure },
+    ],
+    tmhm: [
+      "Toxik",
+      "Puissance Cachée",
+      "Zénith",
+      "Ultralaser",
+      "Abri",
+      "Frustration",
+      "Séisme",
+      "Retour",
+      "Tunnel",
+      "Reflet",
+      "Bomb-Beurk",
+      "Tomberoche",
+      "Aéropique",
+      "Façade",
+      "Force Secrète",
+      "Repos",
+      "Attraction",
+      "Larcin",
+      "Coupe",
+      "Éclate-Roc",
+    ],
+  },
+};

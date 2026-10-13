@@ -1,0 +1,66 @@
+import { GROWTH_RATES_DATABASE } from "../../experience/growthRates/growthRates.database.js";
+
+import { MOVES_DATABASE } from "../../moves/moves.database.js";
+
+export const GROWLITHE_SPECIES = {
+  id: "growlithe",
+  pokedexId: "058",
+  name: "CANINOS",
+  types: ["FIRE"],
+  femaleRate: 25,
+  catchRate: 190,
+  growthRate: GROWTH_RATES_DATABASE.SLOW,
+  baseExp: 91,
+  baseStats: {
+    hp: 55,
+    attack: 70,
+    defense: 45,
+    specialAtt: 70,
+    specialDef: 50,
+    speed: 60,
+  },
+  animations: {
+    idle: {
+      front: "growlithe_front_idle",
+      back: "growlithe_back_idle",
+    },
+  },
+  evolutions: [{ method: "item", item: "fireStone", target: "arcanine" }],
+  learnset: {
+    levelUp: [
+      { level: 1, move: MOVES_DATABASE.acid },
+      //   { level: 1, move: MOVES_DATABASE.roar },
+      //   { level: 7, move: MOVES_DATABASE.ember },
+      //   { level: 13, move: MOVES_DATABASE.leer },
+      //   { level: 19, move: MOVES_DATABASE.odorSleuth },
+      //   { level: 25, move: MOVES_DATABASE.takeDown },
+      //   { level: 31, move: MOVES_DATABASE.flameWheel },
+      //   { level: 37, move: MOVES_DATABASE.helpingHand },
+      //   { level: 43, move: MOVES_DATABASE.agility },
+      //   { level: 49, move: MOVES_DATABASE.flamethrower },
+    ],
+    tmhm: [
+      "Hurlement",
+      "Toxik",
+      "Puissance Cachée",
+      "Zénith",
+      "Abri",
+      "Frustration",
+      "Queue de Fer",
+      "Retour",
+      "Tunnel",
+      "Reflet",
+      "Lance-Flammes",
+      "Déflagration",
+      "Aéropique",
+      "Façade",
+      "Force Secrète",
+      "Repos",
+      "Attraction",
+      "Larcin",
+      "Surchauffe",
+      "Force",
+      "Éclate-Roc",
+    ],
+  },
+};
