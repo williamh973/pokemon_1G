@@ -28,13 +28,13 @@ export const MOLTRES_SPECIES = {
   learnset: {
     levelUp: [
       { level: 1, move: MOVES_DATABASE.ember },
-      // { level: 1, move: MOVES_DATABASE.fireSpin },
-      // { level: 28, move: MOVES_DATABASE.agility },
-      // { level: 31, move: MOVES_DATABASE.endure },
-      // { level: 34, move: MOVES_DATABASE.flamethrower },
-      // { level: 37, move: MOVES_DATABASE.safeguard },
-      // { level: 40, move: MOVES_DATABASE.airSlash },
-      // { level: 43, move: MOVES_DATABASE.heatWave },
+      { level: 1, move: MOVES_DATABASE.fireSpin },
+      { level: 28, move: MOVES_DATABASE.agility },
+      { level: 31, move: MOVES_DATABASE.endure },
+      { level: 34, move: MOVES_DATABASE.flamethrower },
+      { level: 37, move: MOVES_DATABASE.safeguard },
+      { level: 40, move: MOVES_DATABASE.airSlash },
+      { level: 43, move: MOVES_DATABASE.heatWave },
     ],
     tmhm: [
       "Danse Lames",

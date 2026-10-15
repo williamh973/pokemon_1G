@@ -1,0 +1,65 @@
+import { GROWTH_RATES_DATABASE } from "../../experience/growthRates/growthRates.database.js";
+
+import { MOVES_DATABASE } from "../../moves/moves.database.js";
+
+export const WEEPINBELL_SPECIES = {
+  id: "weepinbell",
+  pokedexId: "070",
+  name: "BOUSTIFLOR",
+  types: ["GRASS", "POISON"],
+  femaleRate: 50,
+  catchRate: 120,
+  growthRate: GROWTH_RATES_DATABASE.MEDIUM_SLOW,
+  baseExp: 151,
+  baseStats: {
+    hp: 65,
+    attack: 90,
+    defense: 50,
+    specialAtt: 85,
+    specialDef: 45,
+    speed: 55,
+  },
+  animations: {
+    idle: {
+      front: "weepinbell_front_idle",
+      back: "weepinbell_back_idle",
+    },
+  },
+  evolutions: [{ method: "item", item: "leafStone", target: "victreebel" }],
+  learnset: {
+    levelUp: [
+      { level: 1, move: MOVES_DATABASE.vineWhip },
+      { level: 1, move: MOVES_DATABASE.growth },
+      { level: 1, move: MOVES_DATABASE.wrap },
+      { level: 6, move: MOVES_DATABASE.growth },
+      { level: 11, move: MOVES_DATABASE.wrap },
+      { level: 15, move: MOVES_DATABASE.sleepPowder },
+      { level: 17, move: MOVES_DATABASE.poisonPowder },
+      { level: 19, move: MOVES_DATABASE.stunSpore },
+      { level: 24, move: MOVES_DATABASE.acid },
+      { level: 33, move: MOVES_DATABASE.sweetScent },
+      { level: 42, move: MOVES_DATABASE.razorLeaf },
+      { level: 54, move: MOVES_DATABASE.slam },
+    ],
+    tmhm: [
+      "Toxik",
+      "Balle Graine",
+      "Puissance Cachée",
+      "Zénith",
+      "Abri",
+      "Giga-Sangsue",
+      "Frustration",
+      "Lance-Soleil",
+      "Retour",
+      "Reflet",
+      "Bomb-Beurk",
+      "Façade",
+      "Force Secrète",
+      "Repos",
+      "Attraction",
+      "Larcin",
+      "Coupe",
+      "Flash",
+    ],
+  },
+};

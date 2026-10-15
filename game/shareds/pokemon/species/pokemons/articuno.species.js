@@ -1,0 +1,66 @@
+import { GROWTH_RATES_DATABASE } from "../../experience/growthRates/growthRates.database.js";
+
+import { MOVES_DATABASE } from "../../moves/moves.database.js";
+
+export const ARTICUNO_SPECIES = {
+  id: "articuno",
+  pokedexId: "144",
+  name: "ARTIKODIN",
+  types: ["ICE", "FLYING"],
+  femaleRate: 0,
+  catchRate: 3,
+  growthRate: GROWTH_RATES_DATABASE.SLOW,
+  baseExp: 215,
+  baseStats: {
+    hp: 90,
+    attack: 85,
+    defense: 100,
+    specialAtt: 95,
+    specialDef: 125,
+    speed: 85,
+  },
+  animations: {
+    idle: {
+      front: "articuno_front_idle",
+      back: "articuno_back_idle",
+    },
+  },
+  evolutions: [],
+  learnset: {
+    levelUp: [
+      { level: 1, move: MOVES_DATABASE.gust },
+      { level: 1, move: MOVES_DATABASE.powderSnow },
+      { level: 13, move: MOVES_DATABASE.mist },
+      { level: 25, move: MOVES_DATABASE.agility },
+      { level: 37, move: MOVES_DATABASE.mindReader },
+      { level: 49, move: MOVES_DATABASE.iceBeam },
+      { level: 61, move: MOVES_DATABASE.reflect },
+      { level: 73, move: MOVES_DATABASE.blizzard },
+      { level: 85, move: MOVES_DATABASE.sheerCold },
+    ],
+    tmhm: [
+      "Onde Boréale",
+      "Hurlement",
+      "Toxik",
+      "Grêle",
+      "Puissance Cachée",
+      "Zénith",
+      "Ultralaser",
+      "Laser Glace",
+      "Blizzard",
+      "Abri",
+      "Danse Pluie",
+      "Frustration",
+      "Retour",
+      "Reflet",
+      "Tempête de Sable",
+      "Aéropique",
+      "Façade",
+      "Force Secrète",
+      "Repos",
+      "Aile d'Acier",
+      "Vol",
+      "Éclate-Roc",
+    ],
+  },
+};

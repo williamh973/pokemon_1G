@@ -30,8 +30,8 @@ export const GYARADOS_SPECIES = {
 
   learnset: {
     levelUp: [
-      { level: 1, move: MOVES_DATABASE.bite },
       { level: 1, move: MOVES_DATABASE.tackle },
+      { level: 1, move: MOVES_DATABASE.bite },
       { level: 20, move: MOVES_DATABASE.bite },
       { level: 25, move: MOVES_DATABASE.dragonRage },
       { level: 32, move: MOVES_DATABASE.leer },

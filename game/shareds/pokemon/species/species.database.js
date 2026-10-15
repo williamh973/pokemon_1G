@@ -66,6 +66,28 @@ import { GOLDUCK_SPECIES } from "./pokemons/golduck.species.js";
 import { MANKEY_SPECIES } from "./pokemons/mankey.species.js";
 import { PRIMEAPE_SPECIES } from "./pokemons/primeape.species.js";
 import { GROWLITHE_SPECIES } from "./pokemons/growlithe.species.js";
+import { ARCANINE_SPECIES } from "./pokemons/arcanine.species.js";
+import { POLIWAG_SPECIES } from "./pokemons/poliwag.species.js";
+import { POLIWHIRL_SPECIES } from "./pokemons/poliwhirl.species.js";
+import { POLIWRATH_SPECIES } from "./pokemons/poliwrath.species.js";
+import { ABRA_SPECIES } from "./pokemons/abra.species.js";
+import { KADABRA_SPECIES } from "./pokemons/kadabra.species.js";
+import { ALAKAZAM_SPECIES } from "./pokemons/alakazam.species.js";
+import { MACHOP_SPECIES } from "./pokemons/machop.species.js";
+import { MACHOKE_SPECIES } from "./pokemons/machoke.species.js";
+import { MACHAMP_SPECIES } from "./pokemons/machamp.species.js";
+import { BELLSPROUT_SPECIES } from "./pokemons/bellsprout.species.js";
+import { WEEPINBELL_SPECIES } from "./pokemons/weepinbell.species.js";
+import { VICTREEBEL_SPECIES } from "./pokemons/victreebel.species.js";
+import { TENTACOOL_SPECIES } from "./pokemons/tentacool.species.js";
+import { TENTACRUEL_SPECIES } from "./pokemons/tentacruel.species.js";
+import { GRAVELER_SPECIES } from "./pokemons/graveler.species.js";
+import { GOLEM_SPECIES } from "./pokemons/golem.species.js";
+import { PONYTA_SPECIES } from "./pokemons/ponyta.species.js";
+import { RAPIDASH_SPECIES } from "./pokemons/rapidash.species.js";
+import { SLOWPOKE_SPECIES } from "./pokemons/slowpoke.species.js";
+import { ZAPDOS_SPECIES } from "./pokemons/zapdos.species.js";
+import { ARTICUNO_SPECIES } from "./pokemons/articuno.species.js";
 
 export const SPECIES_DATABASE = {
   bulbasaur: BULBASAUR_SPECIES,
@@ -126,13 +148,35 @@ export const SPECIES_DATABASE = {
   mankey: MANKEY_SPECIES,
   primeape: PRIMEAPE_SPECIES,
   growlithe: GROWLITHE_SPECIES,
+  arcanine: ARCANINE_SPECIES,
+  poliwag: POLIWAG_SPECIES,
+  poliwhirl: POLIWHIRL_SPECIES,
+  poliwrath: POLIWRATH_SPECIES,
+  abra: ABRA_SPECIES,
+  kadabra: KADABRA_SPECIES,
+  alakazam: ALAKAZAM_SPECIES,
+  machop: MACHOP_SPECIES,
+  machoke: MACHOKE_SPECIES,
+  machamp: MACHAMP_SPECIES,
+  bellsprout: BELLSPROUT_SPECIES,
+  weepinbell: WEEPINBELL_SPECIES,
+  victreebel: VICTREEBEL_SPECIES,
+  tentacool: TENTACOOL_SPECIES,
+  tentacruel: TENTACRUEL_SPECIES,
   geodude: GEODUDE_SPECIES,
+  graveler: GRAVELER_SPECIES,
+  golem: GOLEM_SPECIES,
+  ponyta: PONYTA_SPECIES,
+  rapidash: RAPIDASH_SPECIES,
+  slowpoke: SLOWPOKE_SPECIES,
   onix: ONIX_SPECIES,
   rhyhorn: RHYHORN_SPECIES,
   scyther: SCYTHER_SPECIES,
   magikarp: MAGIKARP_SPECIES,
   gyarados: GYARADOS_SPECIES,
   dratini: DRATINI_SPECIES,
+  articuno: ARTICUNO_SPECIES,
+  zapdos: ZAPDOS_SPECIES,
   moltres: MOLTRES_SPECIES,
   mewtwo: MEWTWO_SPECIES,
   mew: MEW_SPECIES,

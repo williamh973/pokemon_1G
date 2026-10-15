@@ -6,7 +6,7 @@ export const PRIMEAPE_SPECIES = {
   id: "primeape",
   pokedexId: "057",
   name: "COLOSSINGE",
-  types: ["FIGHTING"],
+  types: ["FIGHT"],
   femaleRate: 50,
   catchRate: 75,
   growthRate: GROWTH_RATES_DATABASE.MEDIUM_FAST,

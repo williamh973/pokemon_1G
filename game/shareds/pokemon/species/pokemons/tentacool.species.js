@@ -1,0 +1,66 @@
+import { GROWTH_RATES_DATABASE } from "../../experience/growthRates/growthRates.database.js";
+
+import { MOVES_DATABASE } from "../../moves/moves.database.js";
+
+export const TENTACOOL_SPECIES = {
+  id: "tentacool",
+  pokedexId: "072",
+  name: "TENTACOOL",
+  types: ["WATER", "POISON"],
+  femaleRate: 50,
+  catchRate: 190,
+  growthRate: GROWTH_RATES_DATABASE.SLOW,
+  baseExp: 105,
+  baseStats: {
+    hp: 40,
+    attack: 40,
+    defense: 35,
+    specialAtt: 50,
+    specialDef: 100,
+    speed: 70,
+  },
+  animations: {
+    idle: {
+      front: "tentacool_front_idle",
+      back: "tentacool_back_idle",
+    },
+  },
+  evolutions: [{ method: "level", level: 30, target: "tentacruel" }],
+  learnset: {
+    levelUp: [
+      { level: 1, move: MOVES_DATABASE.poisonSting },
+      { level: 6, move: MOVES_DATABASE.supersonic },
+      { level: 12, move: MOVES_DATABASE.constrict },
+      { level: 19, move: MOVES_DATABASE.acid },
+      { level: 25, move: MOVES_DATABASE.bubbleBeam },
+      { level: 30, move: MOVES_DATABASE.wrap },
+      { level: 36, move: MOVES_DATABASE.barrier },
+      { level: 43, move: MOVES_DATABASE.screech },
+      { level: 49, move: MOVES_DATABASE.hydroPump },
+    ],
+    tmhm: [
+      "Vibraqua",
+      "Toxik",
+      "Grêle",
+      "Puissance Cachée",
+      "Laser Glace",
+      "Blizzard",
+      "Abri",
+      "Danse Pluie",
+      "Giga-Sangsue",
+      "Frustration",
+      "Retour",
+      "Reflet",
+      "Bomb-Beurk",
+      "Façade",
+      "Force Secrète",
+      "Repos",
+      "Attraction",
+      "Larcin",
+      "Coupe",
+      "Surf",
+      "Cascade",
+      "Plongée",
+    ],
+  },
+};

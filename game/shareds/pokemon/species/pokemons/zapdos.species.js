@@ -1,0 +1,66 @@
+import { GROWTH_RATES_DATABASE } from "../../experience/growthRates/growthRates.database.js";
+
+import { MOVES_DATABASE } from "../../moves/moves.database.js";
+
+export const ZAPDOS_SPECIES = {
+  id: "zapdos",
+  pokedexId: "145",
+  name: "ELECTHOR",
+  types: ["ELECTRIC", "FLYING"],
+  femaleRate: 0,
+  catchRate: 3,
+  growthRate: GROWTH_RATES_DATABASE.SLOW,
+  baseExp: 216,
+  baseStats: {
+    hp: 90,
+    attack: 90,
+    defense: 85,
+    specialAtt: 125,
+    specialDef: 90,
+    speed: 100,
+  },
+  animations: {
+    idle: {
+      front: "zapdos_front_idle",
+      back: "zapdos_back_idle",
+    },
+  },
+  evolutions: [],
+  learnset: {
+    levelUp: [
+      { level: 1, move: MOVES_DATABASE.acid },
+      //   { level: 1, move: MOVES_DATABASE.thunderShock },
+      //   { level: 13, move: MOVES_DATABASE.thunderWave },
+      //   { level: 25, move: MOVES_DATABASE.agility },
+      //   { level: 37, move: MOVES_DATABASE.detect },
+      //   { level: 49, move: MOVES_DATABASE.drillPeck },
+      //   { level: 61, move: MOVES_DATABASE.charge },
+      //   { level: 73, move: MOVES_DATABASE.lightScreen },
+      //   { level: 85, move: MOVES_DATABASE.thunder },
+    ],
+    tmhm: [
+      "Hurlement",
+      "Toxik",
+      "Puissance Cachée",
+      "Zénith",
+      "Ultralaser",
+      "Protection",
+      "Danse Pluie",
+      "Frustration",
+      "Tonnerre",
+      "Fatal-Foudre",
+      "Retour",
+      "Reflet",
+      "Onde de Choc",
+      "Tempête de Sable",
+      "Aéropique",
+      "Façade",
+      "Force Secrète",
+      "Repos",
+      "Aile d'Acier",
+      "Vol",
+      "Flash",
+      "Éclate-Roc",
+    ],
+  },
+};

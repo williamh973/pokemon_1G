@@ -27,11 +27,12 @@ export class BattleIntroSequence {
   }
 
   checkFrontSpriteFinalPosition() {
-    return (
-      this.viewers.front.sprite.position.x >=
-      this.frontSlot.position.x +
-        (this.frontSlot.width - this.viewers.front.sprite.frameWidth) / 2
+    const center = this.frontSlot.center(
+      this.viewers.front.sprite.frameWidth * this.viewers.front.sprite.scale,
+      this.viewers.front.sprite.frameHeight * this.viewers.front.sprite.scale
     );
+
+    return this.viewers.front.sprite.position.x >= center.x;
   }
 
   backSpriteOutLeftSide() {

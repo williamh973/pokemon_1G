@@ -1,0 +1,67 @@
+import { GROWTH_RATES_DATABASE } from "../../experience/growthRates/growthRates.database.js";
+
+import { MOVES_DATABASE } from "../../moves/moves.database.js";
+
+export const RAPIDASH_SPECIES = {
+  id: "rapidash",
+  pokedexId: "078",
+  name: "GALOPA",
+  types: ["FIRE"],
+  femaleRate: 50,
+  catchRate: 60,
+  growthRate: GROWTH_RATES_DATABASE.MEDIUM_FAST,
+  baseExp: 192,
+  baseStats: {
+    hp: 65,
+    attack: 100,
+    defense: 70,
+    specialAtt: 80,
+    specialDef: 80,
+    speed: 105,
+  },
+  animations: {
+    idle: {
+      front: "rapidash_front_idle",
+      back: "rapidash_back_idle",
+    },
+  },
+  evolutions: [],
+  learnset: {
+    levelUp: [
+      { level: 1, move: MOVES_DATABASE.ember },
+      { level: 1, move: MOVES_DATABASE.growl },
+      { level: 1, move: MOVES_DATABASE.tailWhip },
+      { level: 1, move: MOVES_DATABASE.tackle },
+      { level: 5, move: MOVES_DATABASE.growl },
+      { level: 9, move: MOVES_DATABASE.tailWhip },
+      { level: 14, move: MOVES_DATABASE.ember },
+      { level: 19, move: MOVES_DATABASE.stomp },
+      { level: 25, move: MOVES_DATABASE.fireSpin },
+      { level: 31, move: MOVES_DATABASE.takeDown },
+      { level: 38, move: MOVES_DATABASE.agility },
+      { level: 40, move: MOVES_DATABASE.furyAttack },
+      { level: 50, move: MOVES_DATABASE.bounce },
+      { level: 63, move: MOVES_DATABASE.fireBlast },
+    ],
+    tmhm: [
+      "Toxik",
+      "Puissance Cachée",
+      "Zénith",
+      "Ultralaser",
+      "Abri",
+      "Frustration",
+      "Lance-Soleil",
+      "Queue de Fer",
+      "Retour",
+      "Reflet",
+      "Lance-Flammes",
+      "Déflagration",
+      "Façade",
+      "Force Secrète",
+      "Repos",
+      "Attraction",
+      "Surchauffe",
+      "Force",
+    ],
+  },
+};

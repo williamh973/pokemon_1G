@@ -14,8 +14,8 @@ export class SpriteViewer {
 
   spritePosition() {
     const center = this.slot.center(
-      this.animationConfig.frameWidth,
-      this.animationConfig.frameHeight
+      this.animationConfig.frameWidth * this.animationConfig.scale,
+      this.animationConfig.frameHeight * this.animationConfig.scale
     );
 
     this.sprite = new AnimatedSprite({
