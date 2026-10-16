@@ -88,6 +88,15 @@ import { RAPIDASH_SPECIES } from "./pokemons/rapidash.species.js";
 import { SLOWPOKE_SPECIES } from "./pokemons/slowpoke.species.js";
 import { ZAPDOS_SPECIES } from "./pokemons/zapdos.species.js";
 import { ARTICUNO_SPECIES } from "./pokemons/articuno.species.js";
+import { SNORLAX_SPECIES } from "./pokemons/snorlax.species.js";
+import { AERODACTYL_SPECIES } from "./pokemons/aerodactyl.species.js";
+import { DRAGONITE_SPECIES } from "./pokemons/dragonite.species.js";
+import { TAUROS_SPECIES } from "./pokemons/tauros.species.js";
+import { FARFETCHD_SPECIES } from "./pokemons/farfetchd.species.js";
+import { DEWGONG_SPECIES } from "./pokemons/dewgong.species.js";
+import { CLOYSTER_SPECIES } from "./pokemons/cloyster.species.js";
+import { CHANSEY_SPECIES } from "./pokemons/chansey.species.js";
+import { KANGASKHAN_SPECIES } from "./pokemons/kangaskhan.species.js";
 
 export const SPECIES_DATABASE = {
   bulbasaur: BULBASAUR_SPECIES,
@@ -169,15 +178,24 @@ export const SPECIES_DATABASE = {
   ponyta: PONYTA_SPECIES,
   rapidash: RAPIDASH_SPECIES,
   slowpoke: SLOWPOKE_SPECIES,
+  farfetchd: FARFETCHD_SPECIES,
+  dewgong: DEWGONG_SPECIES,
+  cloyster: CLOYSTER_SPECIES,
   onix: ONIX_SPECIES,
   rhyhorn: RHYHORN_SPECIES,
+  chansey: CHANSEY_SPECIES,
+  kangaskhan: KANGASKHAN_SPECIES,
   scyther: SCYTHER_SPECIES,
+  tauros: TAUROS_SPECIES,
   magikarp: MAGIKARP_SPECIES,
   gyarados: GYARADOS_SPECIES,
   dratini: DRATINI_SPECIES,
+  aerodactyl: AERODACTYL_SPECIES,
+  snorlax: SNORLAX_SPECIES,
   articuno: ARTICUNO_SPECIES,
   zapdos: ZAPDOS_SPECIES,
   moltres: MOLTRES_SPECIES,
+  dragonite: DRAGONITE_SPECIES,
   mewtwo: MEWTWO_SPECIES,
   mew: MEW_SPECIES,
 };

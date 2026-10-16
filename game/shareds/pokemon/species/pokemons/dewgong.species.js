@@ -1,0 +1,68 @@
+import { GROWTH_RATES_DATABASE } from "../../experience/growthRates/growthRates.database.js";
+
+import { MOVES_DATABASE } from "../../moves/moves.database.js";
+
+export const DEWGONG_SPECIES = {
+  id: "dewgong",
+  pokedexId: "087",
+  name: "LAMANTINE",
+  types: ["WATER", "ICE"],
+  femaleRate: 50,
+  catchRate: 75,
+  growthRate: GROWTH_RATES_DATABASE.MEDIUM_FAST,
+  baseExp: 176,
+  baseStats: {
+    hp: 90,
+    attack: 70,
+    defense: 80,
+    specialAtt: 70,
+    specialDef: 95,
+    speed: 70,
+  },
+  animations: {
+    idle: {
+      front: "dewgong_front_idle",
+      back: "dewgong_back_idle",
+    },
+  },
+  evolutions: [],
+  learnset: {
+    levelUp: [
+      { level: 1, move: MOVES_DATABASE.acid },
+      //   { level: 1, move: MOVES_DATABASE.growl },
+      //   { level: 1, move: MOVES_DATABASE.icyWind },
+      //   { level: 1, move: MOVES_DATABASE.auroraBeam },
+      //   { level: 9, move: MOVES_DATABASE.growl },
+      //   { level: 17, move: MOVES_DATABASE.icyWind },
+      //   { level: 21, move: MOVES_DATABASE.auroraBeam },
+      //   { level: 29, move: MOVES_DATABASE.rest },
+      //   { level: 34, move: MOVES_DATABASE.sheerCold },
+      //   { level: 42, move: MOVES_DATABASE.takeDown },
+      //   { level: 51, move: MOVES_DATABASE.iceBeam },
+      //   { level: 64, move: MOVES_DATABASE.safeguard },
+    ],
+    tmhm: [
+      "Vibraqua",
+      "Toxik",
+      "Grêle",
+      "Puissance Cachée",
+      "Laser Glace",
+      "Blizzard",
+      "Ultralaser",
+      "Abri",
+      "Danse Pluie",
+      "Protection",
+      "Frustration",
+      "Retour",
+      "Reflet",
+      "Façade",
+      "Force Secrète",
+      "Repos",
+      "Attraction",
+      "Larcin",
+      "Surf",
+      "Cascade",
+      "Plongée",
+    ],
+  },
+};
