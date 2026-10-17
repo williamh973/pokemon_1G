@@ -1,0 +1,68 @@
+import { GROWTH_RATES_DATABASE } from "../../experience/growthRates/growthRates.database.js";
+
+import { MOVES_DATABASE } from "../../moves/moves.database.js";
+
+export const MAGMAR_SPECIES = {
+  id: "magmar",
+  pokedexId: "126",
+  name: "MAGMAR",
+  types: ["FIRE"],
+  femaleRate: 25,
+  catchRate: 45,
+  growthRate: GROWTH_RATES_DATABASE.MEDIUM_FAST,
+  baseExp: 167,
+  baseStats: {
+    hp: 65,
+    attack: 95,
+    defense: 57,
+    specialAtt: 100,
+    specialDef: 85,
+    speed: 93,
+  },
+  animations: {
+    idle: {
+      front: "magmar_front_idle",
+      back: "magmar_back_idle",
+    },
+  },
+  evolutions: [],
+  learnset: {
+    levelUp: [
+      { level: 1, move: MOVES_DATABASE.ember },
+      //   { level: 1, move: MOVES_DATABASE.firePunch },
+      //   { level: 1, move: MOVES_DATABASE.leer },
+      //   { level: 1, move: MOVES_DATABASE.smog },
+      //   { level: 7, move: MOVES_DATABASE.leer },
+      //   { level: 13, move: MOVES_DATABASE.smog },
+      //   { level: 19, move: MOVES_DATABASE.firePunch },
+      //   { level: 25, move: MOVES_DATABASE.smokescreen },
+      //   { level: 33, move: MOVES_DATABASE.sunnyDay },
+      //   { level: 41, move: MOVES_DATABASE.flamethrower },
+      //   { level: 49, move: MOVES_DATABASE.confuseRay },
+      //   { level: 57, move: MOVES_DATABASE.fireBlast },
+    ],
+    tmhm: [
+      "Poing-Focus",
+      "Toxik",
+      "Puissance Cachée",
+      "Zénith",
+      "Ultralaser",
+      "Protection",
+      "Frustration",
+      "Queue de Fer",
+      "Retour",
+      "Psyko",
+      "Casse-Brique",
+      "Reflet",
+      "Lance-Flammes",
+      "Déflagration",
+      "Façade",
+      "Force Secrète",
+      "Repos",
+      "Attraction",
+      "Larcin",
+      "Force",
+      "Éclate-Roc",
+    ],
+  },
+};

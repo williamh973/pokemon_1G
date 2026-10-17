@@ -1,0 +1,77 @@
+import { GROWTH_RATES_DATABASE } from "../../experience/growthRates/growthRates.database.js";
+
+import { MOVES_DATABASE } from "../../moves/moves.database.js";
+
+export const CUBONE_SPECIES = {
+  id: "cubone",
+  pokedexId: "104",
+  name: "OSSELAIT",
+  types: ["GROUND"],
+  femaleRate: 50,
+  catchRate: 190,
+  growthRate: GROWTH_RATES_DATABASE.MEDIUM_FAST,
+  baseExp: 87,
+  baseStats: {
+    hp: 50,
+    attack: 50,
+    defense: 95,
+    specialAtt: 40,
+    specialDef: 50,
+    speed: 35,
+  },
+  animations: {
+    idle: {
+      front: "cubone_front_idle",
+      back: "cubone_back_idle",
+    },
+  },
+  evolutions: [
+    {
+      method: "level",
+      level: 28,
+      target: "marowak",
+    },
+  ],
+  learnset: {
+    levelUp: [
+      { level: 1, move: MOVES_DATABASE.growl },
+      { level: 5, move: MOVES_DATABASE.tailWhip },
+      { level: 9, move: MOVES_DATABASE.boneClub },
+      { level: 13, move: MOVES_DATABASE.headbutt },
+      { level: 17, move: MOVES_DATABASE.leer },
+      { level: 21, move: MOVES_DATABASE.focusEnergy },
+      { level: 25, move: MOVES_DATABASE.bonemerang },
+      { level: 29, move: MOVES_DATABASE.rage },
+      { level: 33, move: MOVES_DATABASE.falseSwipe },
+      { level: 37, move: MOVES_DATABASE.thrash },
+      { level: 41, move: MOVES_DATABASE.boneRush },
+      { level: 45, move: MOVES_DATABASE.doubleEdge },
+    ],
+    tmhm: [
+      "Poing-Focus",
+      "Toxik",
+      "Zénith",
+      "Laser Glace",
+      "Blizzard",
+      "Protection",
+      "Frustration",
+      "Queue de Fer",
+      "Retour",
+      "Tunnel",
+      "Séisme",
+      "Casse-Brique",
+      "Reflet",
+      "Lance-Flammes",
+      "Déflagration",
+      "Tomberoche",
+      "Aéropique",
+      "Façade",
+      "Force Secrète",
+      "Repos",
+      "Attraction",
+      "Larcin",
+      "Force",
+      "Éclate-Roc",
+    ],
+  },
+};

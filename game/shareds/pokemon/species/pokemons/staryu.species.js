@@ -1,0 +1,77 @@
+import { GROWTH_RATES_DATABASE } from "../../experience/growthRates/growthRates.database.js";
+
+import { MOVES_DATABASE } from "../../moves/moves.database.js";
+
+export const STARYU_SPECIES = {
+  id: "staryu",
+  pokedexId: "120",
+  name: "STARI",
+  types: ["WATER"],
+  femaleRate: 0,
+  catchRate: 225,
+  growthRate: GROWTH_RATES_DATABASE.SLOW,
+  baseExp: 106,
+  baseStats: {
+    hp: 30,
+    attack: 45,
+    defense: 55,
+    specialAtt: 70,
+    specialDef: 55,
+    speed: 85,
+  },
+  animations: {
+    idle: {
+      front: "staryu_front_idle",
+      back: "staryu_back_idle",
+    },
+  },
+  evolutions: [
+    {
+      method: "item",
+      item: "waterStone",
+      target: "starmie",
+    },
+  ],
+  learnset: {
+    levelUp: [
+      { level: 1, move: MOVES_DATABASE.tackle },
+      //     { level: 1, move: MOVES_DATABASE.harden },
+      //   { level: 6, move: MOVES_DATABASE.waterGun },
+      //   { level: 10, move: MOVES_DATABASE.rapidSpin },
+      //   { level: 15, move: MOVES_DATABASE.recover },
+      //   { level: 19, move: MOVES_DATABASE.camouflage },
+      //   { level: 24, move: MOVES_DATABASE.swift },
+      //   { level: 28, move: MOVES_DATABASE.bubbleBeam },
+      //   { level: 33, move: MOVES_DATABASE.minimize },
+      //   { level: 37, move: MOVES_DATABASE.lightScreen },
+      //   { level: 42, move: MOVES_DATABASE.cosmicPower },
+      //   { level: 46, move: MOVES_DATABASE.hydroPump },
+    ],
+    tmhm: [
+      "Aurore boréale",
+      "Toxik",
+      "Grêle",
+      "Puissance Cachée",
+      "Laser Glace",
+      "Blizzard",
+      "Protection",
+      "Danse Pluie",
+      "Frustration",
+      "Tonnerre",
+      "Fatal-Foudre",
+      "Retour",
+      "Psyko",
+      "Reflet",
+      "Protection",
+      "Mur Lumière",
+      "Rune Protect",
+      "Façade",
+      "Force Secrète",
+      "Repos",
+      "Surf",
+      "Flash",
+      "Cascade",
+      "Plongée",
+    ],
+  },
+};

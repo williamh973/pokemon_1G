@@ -1,0 +1,67 @@
+import { GROWTH_RATES_DATABASE } from "../../experience/growthRates/growthRates.database.js";
+
+import { MOVES_DATABASE } from "../../moves/moves.database.js";
+
+export const JOLTEON_SPECIES = {
+  id: "jolteon",
+  pokedexId: "135",
+  name: "VOLTALI",
+  types: ["ELECTRIC"],
+  femaleRate: 12.5,
+  catchRate: 45,
+  growthRate: GROWTH_RATES_DATABASE.MEDIUM_FAST,
+  baseExp: 197,
+  baseStats: {
+    hp: 65,
+    attack: 65,
+    defense: 60,
+    specialAtt: 110,
+    specialDef: 95,
+    speed: 130,
+  },
+  animations: {
+    idle: {
+      front: "jolteon_front_idle",
+      back: "jolteon_back_idle",
+    },
+  },
+  evolutions: [],
+  learnset: {
+    levelUp: [
+      { level: 1, move: MOVES_DATABASE.tackle },
+      //   { level: 1, move: MOVES_DATABASE.helpingHand },
+      //   { level: 1, move: MOVES_DATABASE.tailWhip },
+      //   { level: 8, move: MOVES_DATABASE.sandAttack },
+      //   { level: 16, move: MOVES_DATABASE.thunderShock },
+      //   { level: 23, move: MOVES_DATABASE.quickAttack },
+      //   { level: 30, move: MOVES_DATABASE.doubleKick },
+      //   { level: 36, move: MOVES_DATABASE.pinMissile },
+      //   { level: 42, move: MOVES_DATABASE.thunderWave },
+      //   { level: 47, move: MOVES_DATABASE.agility },
+      //   { level: 52, move: MOVES_DATABASE.thunder },
+    ],
+    tmhm: [
+      "Hurlement",
+      "Toxik",
+      "Puissance Cachée",
+      "Zénith",
+      "Ultralaser",
+      "Abri",
+      "Danse Pluie",
+      "Frustration",
+      "Queue de Fer",
+      "Tonnerre",
+      "Fatal-Foudre",
+      "Retour",
+      "Tunnel",
+      "Ball'Ombre",
+      "Reflet",
+      "Onde de Choc",
+      "Façade",
+      "Force Secrète",
+      "Repos",
+      "Attraction",
+      "Flash",
+    ],
+  },
+};

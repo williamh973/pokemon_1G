@@ -1,0 +1,67 @@
+import { GROWTH_RATES_DATABASE } from "../../experience/growthRates/growthRates.database.js";
+
+import { MOVES_DATABASE } from "../../moves/moves.database.js";
+
+export const HITMONCHAN_SPECIES = {
+  id: "hitmonchan",
+  pokedexId: "107",
+  name: "TYGNON",
+  types: ["FIGHTING"],
+  femaleRate: 0,
+  catchRate: 45,
+  growthRate: GROWTH_RATES_DATABASE.MEDIUM_FAST,
+  baseExp: 140,
+  baseStats: {
+    hp: 50,
+    attack: 105,
+    defense: 79,
+    specialAtt: 35,
+    specialDef: 110,
+    speed: 76,
+  },
+  animations: {
+    idle: {
+      front: "hitmonchan_front_idle",
+      back: "hitmonchan_back_idle",
+    },
+  },
+  evolutions: [],
+  learnset: {
+    levelUp: [
+      { level: 1, move: MOVES_DATABASE.cometPunch },
+      { level: 1, move: MOVES_DATABASE.revenge },
+      { level: 7, move: MOVES_DATABASE.agility },
+      { level: 13, move: MOVES_DATABASE.pursuit },
+      { level: 20, move: MOVES_DATABASE.machPunch },
+      { level: 26, move: MOVES_DATABASE.firePunch },
+      { level: 26, move: MOVES_DATABASE.icePunch },
+      { level: 26, move: MOVES_DATABASE.thunderPunch },
+      { level: 32, move: MOVES_DATABASE.skyUppercut },
+      { level: 38, move: MOVES_DATABASE.megaPunch },
+      { level: 44, move: MOVES_DATABASE.detect },
+      { level: 50, move: MOVES_DATABASE.counter },
+    ],
+    tmhm: [
+      "Poing-Focus",
+      "Toxik",
+      " Gonflette",
+      "Puissance Cachée",
+      "Zénith",
+      "Protection",
+      "Danse Pluie",
+      "Frustration",
+      "Séisme",
+      "Retour",
+      "Casse-Brique",
+      "Reflet",
+      "Tomberoche",
+      "Façade",
+      "Force Secrète",
+      "Repos",
+      "Attraction",
+      "Larcin",
+      "Force",
+      "Éclate-Roc",
+    ],
+  },
+};

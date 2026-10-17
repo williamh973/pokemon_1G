@@ -1,0 +1,66 @@
+import { GROWTH_RATES_DATABASE } from "../../experience/growthRates/growthRates.database.js";
+
+import { MOVES_DATABASE } from "../../moves/moves.database.js";
+
+export const KABUTOPS_SPECIES = {
+  id: "kabutops",
+  pokedexId: "141",
+  name: "KABUTOPS",
+  types: ["ROCK", "WATER"],
+  femaleRate: 12.5,
+  catchRate: 45,
+  growthRate: GROWTH_RATES_DATABASE.MEDIUM_FAST,
+  baseExp: 201,
+  baseStats: {
+    hp: 60,
+    attack: 115,
+    defense: 105,
+    specialAtt: 65,
+    specialDef: 70,
+    speed: 80,
+  },
+  animations: {
+    idle: {
+      front: "kabutops_front_idle",
+      back: "kabutops_back_idle",
+    },
+  },
+  evolutions: [],
+  learnset: {
+    levelUp: [
+      { level: 1, move: MOVES_DATABASE.furyCutter },
+      { level: 1, move: MOVES_DATABASE.scratch },
+      { level: 1, move: MOVES_DATABASE.harden },
+      { level: 1, move: MOVES_DATABASE.absorb },
+      { level: 1, move: MOVES_DATABASE.leer },
+      { level: 13, move: MOVES_DATABASE.absorb },
+      { level: 19, move: MOVES_DATABASE.leer },
+      { level: 25, move: MOVES_DATABASE.mudShot },
+      { level: 31, move: MOVES_DATABASE.sandAttack },
+      { level: 37, move: MOVES_DATABASE.endure },
+      { level: 40, move: MOVES_DATABASE.slash },
+      { level: 46, move: MOVES_DATABASE.metalSound },
+      { level: 55, move: MOVES_DATABASE.megaDrain },
+      { level: 65, move: MOVES_DATABASE.ancientPower },
+    ],
+    tmhm: [
+      "Vibraqua",
+      "Toxik",
+      "Grêle",
+      "Puissance Cachée",
+      "Laser Glace",
+      "Blizzard",
+      "Ultralaser",
+      "Façade",
+      "Force Secrète",
+      "Repos",
+      "Attraction",
+      "Larcin",
+      "Coupe",
+      "Surf",
+      "Éclate-Roc",
+      "Cascade",
+      "Plongée",
+    ],
+  },
+};

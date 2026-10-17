@@ -1,0 +1,65 @@
+import { GROWTH_RATES_DATABASE } from "../../experience/growthRates/growthRates.database.js";
+
+import { MOVES_DATABASE } from "../../moves/moves.database.js";
+
+export const JYNX_SPECIES = {
+  id: "jynx",
+  pokedexId: "124",
+  name: "LIPPOUTOU",
+  types: ["ICE", "PSYCHIC"],
+  femaleRate: 100,
+  catchRate: 45,
+  growthRate: GROWTH_RATES_DATABASE.MEDIUM_FAST,
+  baseExp: 137,
+  baseStats: {
+    hp: 65,
+    attack: 50,
+    defense: 35,
+    specialAtt: 115,
+    specialDef: 95,
+    speed: 95,
+  },
+  animations: {
+    idle: {
+      front: "jynx_front_idle",
+      back: "jynx_back_idle",
+    },
+  },
+  evolutions: [],
+  learnset: {
+    levelUp: [
+      { level: 1, move: MOVES_DATABASE.acid },
+      { level: 1, move: MOVES_DATABASE.lick },
+      { level: 1, move: MOVES_DATABASE.lovelyKiss },
+      { level: 1, move: MOVES_DATABASE.powderSnow },
+      { level: 9, move: MOVES_DATABASE.lovelyKiss },
+      { level: 13, move: MOVES_DATABASE.powderSnow },
+      { level: 21, move: MOVES_DATABASE.doubleSlap },
+      { level: 25, move: MOVES_DATABASE.icePunch },
+      { level: 35, move: MOVES_DATABASE.meanLook },
+      { level: 41, move: MOVES_DATABASE.fakeTears },
+      { level: 51, move: MOVES_DATABASE.bodySlam },
+      { level: 57, move: MOVES_DATABASE.perishSong },
+      { level: 67, move: MOVES_DATABASE.blizzard },
+    ],
+    tmhm: [
+      "Poing-Focus",
+      "Vibraqua",
+      "Plénitude",
+      "Toxik",
+      "Grêle",
+      "Puissance Cachée",
+      "Provoc",
+      "Reflet",
+      "Mur Lumière",
+      "Tourmente",
+      "Façade",
+      "Force Secrète",
+      "Repos",
+      "Attraction",
+      "Larcin",
+      "Échange",
+      "Flash",
+    ],
+  },
+};

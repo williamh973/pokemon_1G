@@ -97,6 +97,30 @@ import { DEWGONG_SPECIES } from "./pokemons/dewgong.species.js";
 import { CLOYSTER_SPECIES } from "./pokemons/cloyster.species.js";
 import { CHANSEY_SPECIES } from "./pokemons/chansey.species.js";
 import { KANGASKHAN_SPECIES } from "./pokemons/kangaskhan.species.js";
+import { EEVEE_SPECIES } from "./pokemons/eevee.species.js";
+import { ELECTABUZZ_SPECIES } from "./pokemons/electabuzz.species.js";
+import { PINSIR_SPECIES } from "./pokemons/pinsir.species.js";
+import { KABUTOPS_SPECIES } from "./pokemons/kabutops.species.js";
+import { HAUNTER_SPECIES } from "./pokemons/haunter.species.js";
+import { MAGMAR_SPECIES } from "./pokemons/magmar.species.js";
+import { GENGAR_SPECIES } from "./pokemons/gengar.species.js";
+import { LAPRAS_SPECIES } from "./pokemons/lapras.species.js";
+import { JOLTEON_SPECIES } from "./pokemons/jolteon.species.js";
+import { SEEL_SPECIES } from "./pokemons/seel.species.js";
+import { EXEGGCUTE_SPECIES } from "./pokemons/exeggcute.species.js";
+import { EXEGGUTOR_SPECIES } from "./pokemons/exeggutor.species.js";
+import { DROWZEE_SPECIES } from "./pokemons/drowzee.species.js";
+import { VAPOREON_SPECIES } from "./pokemons/vaporeon.species.js";
+import { JYNX_SPECIES } from "./pokemons/jynx.species.js";
+import { CUBONE_SPECIES } from "./pokemons/cubone.species.js";
+import { MAROWAK_SPECIES } from "./pokemons/marowak.species.js";
+import { KRABBY_SPECIES } from "./pokemons/krabby.species.js";
+import { WEEZING_SPECIES } from "./pokemons/weezing.species.js";
+import { KINGLER_SPECIES } from "./pokemons/kingler.species.js";
+import { HITMONCHAN_SPECIES } from "./pokemons/hitmonchan.species.js";
+import { KOFFING_SPECIES } from "./pokemons/koffing.species.js";
+import { STARYU_SPECIES } from "./pokemons/staryu.species.js";
+import { VOLTORB_SPECIES } from "./pokemons/voltorb.species.js";
 
 export const SPECIES_DATABASE = {
   bulbasaur: BULBASAUR_SPECIES,
@@ -179,17 +203,41 @@ export const SPECIES_DATABASE = {
   rapidash: RAPIDASH_SPECIES,
   slowpoke: SLOWPOKE_SPECIES,
   farfetchd: FARFETCHD_SPECIES,
+  seel: SEEL_SPECIES,
   dewgong: DEWGONG_SPECIES,
   cloyster: CLOYSTER_SPECIES,
+  haunter: HAUNTER_SPECIES,
+  gengar: GENGAR_SPECIES,
   onix: ONIX_SPECIES,
+  drowzee: DROWZEE_SPECIES,
+  krabby: KRABBY_SPECIES,
+  kingler: KINGLER_SPECIES,
+  voltorb: VOLTORB_SPECIES,
+  exeggcute: EXEGGCUTE_SPECIES,
+  exeggutor: EXEGGUTOR_SPECIES,
+  cubone: CUBONE_SPECIES,
+  marowak: MAROWAK_SPECIES,
+  hitmonchan: HITMONCHAN_SPECIES,
+  koffing: KOFFING_SPECIES,
+  weezing: WEEZING_SPECIES,
   rhyhorn: RHYHORN_SPECIES,
   chansey: CHANSEY_SPECIES,
   kangaskhan: KANGASKHAN_SPECIES,
+  staryu: STARYU_SPECIES,
   scyther: SCYTHER_SPECIES,
+  jynx: JYNX_SPECIES,
+  electabuzz: ELECTABUZZ_SPECIES,
+  magmar: MAGMAR_SPECIES,
+  pinsir: PINSIR_SPECIES,
   tauros: TAUROS_SPECIES,
   magikarp: MAGIKARP_SPECIES,
   gyarados: GYARADOS_SPECIES,
+  lapras: LAPRAS_SPECIES,
+  eevee: EEVEE_SPECIES,
+  vaporeon: VAPOREON_SPECIES,
+  jolteon: JOLTEON_SPECIES,
   dratini: DRATINI_SPECIES,
+  kabutops: KABUTOPS_SPECIES,
   aerodactyl: AERODACTYL_SPECIES,
   snorlax: SNORLAX_SPECIES,
   articuno: ARTICUNO_SPECIES,

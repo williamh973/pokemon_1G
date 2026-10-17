@@ -1,0 +1,67 @@
+import { GROWTH_RATES_DATABASE } from "../../experience/growthRates/growthRates.database.js";
+
+import { MOVES_DATABASE } from "../../moves/moves.database.js";
+
+export const PINSIR_SPECIES = {
+  id: "pinsir",
+  pokedexId: "127",
+  name: "SCARABRUTE",
+  types: ["BUG"],
+  femaleRate: 50,
+  catchRate: 45,
+  growthRate: GROWTH_RATES_DATABASE.SLOW,
+  baseExp: 200,
+  baseStats: {
+    hp: 65,
+    attack: 125,
+    defense: 100,
+    specialAtt: 55,
+    specialDef: 70,
+    speed: 85,
+  },
+  animations: {
+    idle: {
+      front: "pinsir_front_idle",
+      back: "pinsir_back_idle",
+    },
+  },
+  evolutions: [],
+  learnset: {
+    levelUp: [
+      { level: 1, move: MOVES_DATABASE.viceGrip },
+      { level: 1, move: MOVES_DATABASE.focusEnergy },
+      { level: 7, move: MOVES_DATABASE.bind },
+      { level: 13, move: MOVES_DATABASE.seismicToss },
+      { level: 19, move: MOVES_DATABASE.harden },
+      { level: 25, move: MOVES_DATABASE.revenge },
+      { level: 31, move: MOVES_DATABASE.brickBreak },
+      { level: 37, move: MOVES_DATABASE.guillotine },
+      { level: 43, move: MOVES_DATABASE.submission },
+      { level: 49, move: MOVES_DATABASE.swordsDance },
+    ],
+    tmhm: [
+      "Poing-Focus",
+      "Toxik",
+      "Puissance Cachée",
+      "Zénith",
+      "Ultralaser",
+      "Abri",
+      "Danse Pluie",
+      "Frustration",
+      "Séisme",
+      "Retour",
+      "Tunnel",
+      "Casse-Brique",
+      "Reflet",
+      "Tomberoche",
+      "Façade",
+      "Force Secrète",
+      "Repos",
+      "Attraction",
+      "Larcin",
+      "Coupe",
+      "Force",
+      "Éclate-Roc",
+    ],
+  },
+};

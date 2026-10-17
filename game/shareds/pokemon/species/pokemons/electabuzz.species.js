@@ -1,0 +1,67 @@
+import { GROWTH_RATES_DATABASE } from "../../experience/growthRates/growthRates.database.js";
+
+import { MOVES_DATABASE } from "../../moves/moves.database.js";
+
+export const ELECTABUZZ_SPECIES = {
+  id: "electabuzz",
+  pokedexId: "125",
+  name: "ELEKTEK",
+  types: ["ELECTRIC"],
+  femaleRate: 25,
+  catchRate: 45,
+  growthRate: GROWTH_RATES_DATABASE.MEDIUM_FAST,
+  baseExp: 156,
+  baseStats: {
+    hp: 65,
+    attack: 83,
+    defense: 57,
+    specialAtt: 95,
+    specialDef: 85,
+    speed: 105,
+  },
+  animations: {
+    idle: {
+      front: "electabuzz_front_idle",
+      back: "electabuzz_back_idle",
+    },
+  },
+  evolutions: [],
+  learnset: {
+    levelUp: [
+      { level: 1, move: MOVES_DATABASE.quickAttack },
+      //   { level: 1, move: MOVES_DATABASE.leer },
+      //   { level: 1, move: MOVES_DATABASE.thunderPunch },
+      //   { level: 9, move: MOVES_DATABASE.thunderPunch },
+      //   { level: 17, move: MOVES_DATABASE.lightScreen },
+      //   { level: 25, move: MOVES_DATABASE.swift },
+      //   { level: 36, move: MOVES_DATABASE.screech },
+      //   { level: 47, move: MOVES_DATABASE.thunderbolt },
+      //   { level: 58, move: MOVES_DATABASE.thunder },
+    ],
+    tmhm: [
+      "Poing-Focus",
+      "Toxik",
+      "Puissance Cachée",
+      "Ultralaser",
+      "Protection",
+      "Danse Pluie",
+      "Frustration",
+      "Queue de Fer",
+      "Tonnerre",
+      "Fatal-Foudre",
+      "Retour",
+      "Psyko",
+      "Casse-Brique",
+      "Reflet",
+      "Onde de Choc",
+      "Façade",
+      "Force Secrète",
+      "Repos",
+      "Attraction",
+      "Larcin",
+      "Force",
+      "Flash",
+      "Éclate-Roc",
+    ],
+  },
+};
