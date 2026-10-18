@@ -1,0 +1,67 @@
+import { GROWTH_RATES_DATABASE } from "../../experience/growthRates/growthRates.database.js";
+
+import { MOVES_DATABASE } from "../../moves/moves.database.js";
+
+export const ELECTRODE_SPECIES = {
+  id: "electrode",
+  pokedexId: "101",
+  name: "ELECTRODE",
+  types: ["ELECTRIC"],
+  femaleRate: 0,
+  catchRate: 60,
+  growthRate: GROWTH_RATES_DATABASE.MEDIUM_FAST,
+  baseExp: 150,
+  baseStats: {
+    hp: 60,
+    attack: 50,
+    defense: 70,
+    specialAtt: 80,
+    specialDef: 80,
+    speed: 140,
+  },
+  animations: {
+    idle: {
+      front: "electrode_front_idle",
+      back: "electrode_back_idle",
+    },
+  },
+  evolutions: [],
+  learnset: {
+    levelUp: [
+      { level: 1, move: MOVES_DATABASE.charge },
+      { level: 1, move: MOVES_DATABASE.tackle },
+      { level: 1, move: MOVES_DATABASE.screech },
+      { level: 1, move: MOVES_DATABASE.sonicBoom },
+      { level: 8, move: MOVES_DATABASE.screech },
+      { level: 15, move: MOVES_DATABASE.sonicBoom },
+      { level: 21, move: MOVES_DATABASE.spark },
+      { level: 27, move: MOVES_DATABASE.selfDestruct },
+      { level: 34, move: MOVES_DATABASE.rollout },
+      { level: 41, move: MOVES_DATABASE.lightScreen },
+      { level: 48, move: MOVES_DATABASE.swift },
+      { level: 54, move: MOVES_DATABASE.explosion },
+      { level: 59, move: MOVES_DATABASE.mirrorCoat },
+    ],
+    tmhm: [
+      "Toxik",
+      "Puissance Cachée",
+      "Provoc",
+      "Ultralaser",
+      "Mur Lumière",
+      "Protection",
+      "Danse Pluie",
+      "Frustration",
+      "Tonnerre",
+      "Fatal-Foudre",
+      "Retour",
+      "Reflet",
+      "Onde de Choc",
+      "Tourmente",
+      "Façade",
+      "Force Secrète",
+      "Repos",
+      "Larcin",
+      "Flash",
+    ],
+  },
+};

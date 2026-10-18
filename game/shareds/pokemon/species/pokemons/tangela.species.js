@@ -1,0 +1,67 @@
+import { GROWTH_RATES_DATABASE } from "../../experience/growthRates/growthRates.database.js";
+
+import { MOVES_DATABASE } from "../../moves/moves.database.js";
+
+export const TANGELA_SPECIES = {
+  id: "tangela",
+  pokedexId: "114",
+  name: "SAQUEDENEU",
+  types: ["GRASS"],
+  femaleRate: 50,
+  catchRate: 45,
+  growthRate: GROWTH_RATES_DATABASE.MEDIUM_FAST,
+  baseExp: 166,
+  baseStats: {
+    hp: 65,
+    attack: 55,
+    defense: 115,
+    specialAtt: 100,
+    specialDef: 40,
+    speed: 60,
+  },
+  animations: {
+    idle: {
+      front: "tangela_front_idle",
+      back: "tangela_back_idle",
+    },
+  },
+  evolutions: [],
+  learnset: {
+    levelUp: [
+      { level: 1, move: MOVES_DATABASE.constrict },
+      { level: 1, move: MOVES_DATABASE.ingrain },
+      { level: 4, move: MOVES_DATABASE.sleepPowder },
+      { level: 10, move: MOVES_DATABASE.absorb },
+      { level: 13, move: MOVES_DATABASE.growth },
+      { level: 19, move: MOVES_DATABASE.poisonPowder },
+      { level: 22, move: MOVES_DATABASE.vineWhip },
+      { level: 28, move: MOVES_DATABASE.bind },
+      { level: 31, move: MOVES_DATABASE.megaDrain },
+      { level: 37, move: MOVES_DATABASE.stunSpore },
+      { level: 40, move: MOVES_DATABASE.slam },
+      { level: 46, move: MOVES_DATABASE.tickle },
+    ],
+    tmhm: [
+      "Toxik",
+      "Balle Graine",
+      "Puissance Cachée",
+      "Zénith",
+      "Ultralaser",
+      "Protection",
+      "Giga-Sangsue",
+      "Frustration",
+      "Lance-Soleil",
+      "Retour",
+      "Reflet",
+      "Bombe Beurk",
+      "Façade",
+      "Force Secrète",
+      "Repos",
+      "Attraction",
+      "Larcin",
+      "Coupe",
+      "Flash",
+      "Éclate-Roc",
+    ],
+  },
+};

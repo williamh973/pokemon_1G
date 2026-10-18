@@ -1,0 +1,65 @@
+import { GROWTH_RATES_DATABASE } from "../../experience/growthRates/growthRates.database.js";
+
+import { MOVES_DATABASE } from "../../moves/moves.database.js";
+
+export const MAGNETON_SPECIES = {
+  id: "magneton",
+  pokedexId: "082",
+  name: "MAGNÉTON",
+  types: ["ELECTRIC", "STEEL"],
+  femaleRate: 0,
+  catchRate: 60,
+  growthRate: GROWTH_RATES_DATABASE.MEDIUM_FAST,
+  baseExp: 161,
+  baseStats: {
+    hp: 50,
+    attack: 60,
+    defense: 95,
+    specialAtt: 120,
+    specialDef: 70,
+    speed: 70,
+  },
+  animations: {
+    idle: {
+      front: "magneton_front_idle",
+      back: "magneton_back_idle",
+    },
+  },
+  evolutions: [],
+  learnset: {
+    levelUp: [
+      { level: 1, move: MOVES_DATABASE.tackle },
+      { level: 1, move: MOVES_DATABASE.metalSound },
+      { level: 1, move: MOVES_DATABASE.supersonic },
+      { level: 1, move: MOVES_DATABASE.thunderShock },
+      { level: 6, move: MOVES_DATABASE.thunderShock },
+      { level: 11, move: MOVES_DATABASE.supersonic },
+      { level: 16, move: MOVES_DATABASE.sonicBoom },
+      { level: 21, move: MOVES_DATABASE.thunderWave },
+      { level: 26, move: MOVES_DATABASE.spark },
+      { level: 35, move: MOVES_DATABASE.lockOn },
+      { level: 44, move: MOVES_DATABASE.triAttack },
+      { level: 53, move: MOVES_DATABASE.screech },
+      { level: 62, move: MOVES_DATABASE.zapCannon },
+    ],
+    tmhm: [
+      "Toxik",
+      "Zénith",
+      "Puissance Cachée",
+      "Ultralaser",
+      "Protection",
+      "Danse Pluie",
+      "Frustration",
+      "Tonnerre",
+      "Fatal-Foudre",
+      "Retour",
+      "Reflet",
+      "Mur Lumière",
+      "Onde de Choc",
+      "Façade",
+      "Force Secrète",
+      "Repos",
+      "Flash",
+    ],
+  },
+};
