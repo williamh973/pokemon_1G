@@ -6,7 +6,7 @@ export const MACHAMP_SPECIES = {
   id: "machamp",
   pokedexId: "068",
   name: "MACKOGNEUR",
-  types: ["FIGHTING"],
+  types: ["FIGHT"],
   femaleRate: 25,
   catchRate: 45,
   growthRate: GROWTH_RATES_DATABASE.MEDIUM_SLOW,

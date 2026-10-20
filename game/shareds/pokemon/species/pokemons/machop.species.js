@@ -6,7 +6,7 @@ export const MACHOP_SPECIES = {
   id: "machop",
   pokedexId: "066",
   name: "MACHOC",
-  types: ["FIGHTING"],
+  types: ["FIGHT"],
   femaleRate: 25,
   catchRate: 180,
   growthRate: GROWTH_RATES_DATABASE.MEDIUM_SLOW,

@@ -1,0 +1,68 @@
+import { GROWTH_RATES_DATABASE } from "../../experience/growthRates/growthRates.database.js";
+
+import { MOVES_DATABASE } from "../../moves/moves.database.js";
+
+export const HITMONLEE_SPECIES = {
+  id: "hitmonlee",
+  pokedexId: "106",
+  name: "KICKLEE",
+  types: ["FIGHT"],
+  femaleRate: 0,
+  catchRate: 45,
+  growthRate: GROWTH_RATES_DATABASE.MEDIUM_FAST,
+  baseExp: 139,
+  baseStats: {
+    hp: 50,
+    attack: 120,
+    defense: 53,
+    specialAtt: 35,
+    specialDef: 110,
+    speed: 87,
+  },
+  animations: {
+    idle: {
+      front: "hitmonlee_front_idle",
+      back: "hitmonlee_back_idle",
+    },
+  },
+  evolutions: [],
+  learnset: {
+    levelUp: [
+      { level: 1, move: MOVES_DATABASE.doubleKick },
+      { level: 1, move: MOVES_DATABASE.revenge },
+      { level: 6, move: MOVES_DATABASE.meditate },
+      { level: 11, move: MOVES_DATABASE.rollingKick },
+      { level: 16, move: MOVES_DATABASE.jumpKick },
+      { level: 20, move: MOVES_DATABASE.brickBreak },
+      { level: 21, move: MOVES_DATABASE.focusEnergy },
+      { level: 26, move: MOVES_DATABASE.highJumpKick },
+      { level: 31, move: MOVES_DATABASE.mindReader },
+      { level: 36, move: MOVES_DATABASE.foresight },
+      { level: 41, move: MOVES_DATABASE.endure },
+      { level: 46, move: MOVES_DATABASE.megaKick },
+      { level: 51, move: MOVES_DATABASE.reversal },
+    ],
+    tmhm: [
+      "Mitra-Poing",
+      "Toxik",
+      "Gonflette",
+      "Puissance Cachée",
+      "Zénith",
+      "Protection",
+      "Danse Pluie",
+      "Frustration",
+      "Séisme",
+      "Retour",
+      "Casse-Brique",
+      "Reflet",
+      "Tomberoche",
+      "Façade",
+      "Force Secrète",
+      "Repos",
+      "Attraction",
+      "Larcin",
+      "Force",
+      "Éclate-Roc",
+    ],
+  },
+};

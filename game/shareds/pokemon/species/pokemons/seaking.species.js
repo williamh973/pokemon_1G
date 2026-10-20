@@ -1,0 +1,66 @@
+import { GROWTH_RATES_DATABASE } from "../../experience/growthRates/growthRates.database.js";
+
+import { MOVES_DATABASE } from "../../moves/moves.database.js";
+
+export const SEAKING_SPECIES = {
+  id: "seaking",
+  pokedexId: "119",
+  name: "POISSOROY",
+  types: ["WATER"],
+  femaleRate: 50,
+  catchRate: 60,
+  growthRate: GROWTH_RATES_DATABASE.MEDIUM_FAST,
+  baseExp: 170,
+  baseStats: {
+    hp: 80,
+    attack: 92,
+    defense: 65,
+    specialAtt: 65,
+    specialDef: 80,
+    speed: 68,
+  },
+  animations: {
+    idle: {
+      front: "seaking_front_idle",
+      back: "seaking_back_idle",
+    },
+  },
+  evolutions: [],
+  learnset: {
+    levelUp: [
+      { level: 1, move: MOVES_DATABASE.tailWhip },
+      { level: 1, move: MOVES_DATABASE.peck },
+      { level: 1, move: MOVES_DATABASE.waterSport },
+      { level: 1, move: MOVES_DATABASE.supersonic },
+      { level: 10, move: MOVES_DATABASE.supersonic },
+      { level: 15, move: MOVES_DATABASE.hornAttack },
+      { level: 24, move: MOVES_DATABASE.flail },
+      { level: 29, move: MOVES_DATABASE.furyAttack },
+      { level: 41, move: MOVES_DATABASE.waterfall },
+      { level: 49, move: MOVES_DATABASE.hornDrill },
+      { level: 61, move: MOVES_DATABASE.agility },
+      { level: 69, move: MOVES_DATABASE.megahorn },
+    ],
+    tmhm: [
+      "Onde Boréale",
+      "Toxik",
+      "Grêle",
+      "Puissance Cachée",
+      "Laser Glace",
+      "Blizzard",
+      "Ultralaser",
+      "Protection",
+      "Danse Pluie",
+      "Frustration",
+      "Retour",
+      "Reflet",
+      "Façade",
+      "Force Secrète",
+      "Repos",
+      "Attraction",
+      "Surf",
+      "Cascade",
+      "Plongée",
+    ],
+  },
+};

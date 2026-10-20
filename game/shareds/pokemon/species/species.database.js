@@ -132,6 +132,23 @@ import { STARMIE_SPECIES } from "./pokemons/starmie.species.js";
 import { MAGNETON_SPECIES } from "./pokemons/magneton.species.js";
 import { MAGNEMITE_SPECIES } from "./pokemons/magnemite.species.js";
 import { SLOWBRO_SPECIES } from "./pokemons/slowbro.species.js";
+import { GRIMER_SPECIES } from "./pokemons/grimer.species.js";
+import { MUK_SPECIES } from "./pokemons/muk.species.js";
+import { DODRIO_SPECIES } from "./pokemons/dodrio.species.js";
+import { KABUTO_SPECIES } from "./pokemons/kabuto.species.js";
+import { PORYGON_SPECIES } from "./pokemons/porygon.species.js";
+import { OMASTAR_SPECIES } from "./pokemons/omastar.species.js";
+import { HITMONLEE_SPECIES } from "./pokemons/hitmonlee.species.js";
+import { GASTLY_SPECIES } from "./pokemons/gastly.species.js";
+import { SEAKING_SPECIES } from "./pokemons/seaking.species.js";
+import { GOLDEEN_SPECIES } from "./pokemons/goldeen.species.js";
+import { HYPNO_SPECIES } from "./pokemons/hypno.species.js";
+import { HORSEA_SPECIES } from "./pokemons/horsea.species.js";
+import { SEADRA_SPECIES } from "./pokemons/seadra.species.js";
+import { MR_MIME_SPECIES } from "./pokemons/mrmime.species.js";
+import { FLAREON_SPECIES } from "./pokemons/flareon.species.js";
+import { OMANYTE_SPECIES } from "./pokemons/omanyte.species.js";
+import { SHELLDER_SPECIES } from "./pokemons/shellder.species.js";
 
 export const SPECIES_DATABASE = {
   bulbasaur: BULBASAUR_SPECIES,
@@ -218,13 +235,19 @@ export const SPECIES_DATABASE = {
   magneton: MAGNETON_SPECIES,
   farfetchd: FARFETCHD_SPECIES,
   doduo: DODUO_SPECIES,
+  dodrio: DODRIO_SPECIES,
   seel: SEEL_SPECIES,
   dewgong: DEWGONG_SPECIES,
+  grimer: GRIMER_SPECIES,
+  muk: MUK_SPECIES,
+  shellder: SHELLDER_SPECIES,
   cloyster: CLOYSTER_SPECIES,
+  gastly: GASTLY_SPECIES,
   haunter: HAUNTER_SPECIES,
   gengar: GENGAR_SPECIES,
   onix: ONIX_SPECIES,
   drowzee: DROWZEE_SPECIES,
+  hypno: HYPNO_SPECIES,
   krabby: KRABBY_SPECIES,
   kingler: KINGLER_SPECIES,
   voltorb: VOLTORB_SPECIES,
@@ -233,6 +256,7 @@ export const SPECIES_DATABASE = {
   exeggutor: EXEGGUTOR_SPECIES,
   cubone: CUBONE_SPECIES,
   marowak: MAROWAK_SPECIES,
+  hitmonlee: HITMONLEE_SPECIES,
   hitmonchan: HITMONCHAN_SPECIES,
   lickitung: LICKITUNG_SPECIES,
   koffing: KOFFING_SPECIES,
@@ -242,8 +266,13 @@ export const SPECIES_DATABASE = {
   chansey: CHANSEY_SPECIES,
   tangela: TANGELA_SPECIES,
   kangaskhan: KANGASKHAN_SPECIES,
+  horsea: HORSEA_SPECIES,
+  seadra: SEADRA_SPECIES,
+  goldeen: GOLDEEN_SPECIES,
+  seaking: SEAKING_SPECIES,
   staryu: STARYU_SPECIES,
   starmie: STARMIE_SPECIES,
+  mrmime: MR_MIME_SPECIES,
   scyther: SCYTHER_SPECIES,
   jynx: JYNX_SPECIES,
   electabuzz: ELECTABUZZ_SPECIES,
@@ -257,6 +286,11 @@ export const SPECIES_DATABASE = {
   eevee: EEVEE_SPECIES,
   vaporeon: VAPOREON_SPECIES,
   jolteon: JOLTEON_SPECIES,
+  flareon: FLAREON_SPECIES,
+  porygon: PORYGON_SPECIES,
+  omanyte: OMANYTE_SPECIES,
+  omastar: OMASTAR_SPECIES,
+  kabuto: KABUTO_SPECIES,
   kabutops: KABUTOPS_SPECIES,
   aerodactyl: AERODACTYL_SPECIES,
   snorlax: SNORLAX_SPECIES,

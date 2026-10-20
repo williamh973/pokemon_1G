@@ -6,7 +6,7 @@ export const MACHOKE_SPECIES = {
   id: "machoke",
   pokedexId: "067",
   name: "MACHOPEUR",
-  types: ["FIGHTING"],
+  types: ["FIGHT"],
   femaleRate: 25,
   catchRate: 90,
   growthRate: GROWTH_RATES_DATABASE.MEDIUM_SLOW,

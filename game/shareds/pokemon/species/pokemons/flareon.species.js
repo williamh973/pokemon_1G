@@ -1,0 +1,66 @@
+import { GROWTH_RATES_DATABASE } from "../../experience/growthRates/growthRates.database.js";
+
+import { MOVES_DATABASE } from "../../moves/moves.database.js";
+
+export const FLAREON_SPECIES = {
+  id: "flareon",
+  pokedexId: "136",
+  name: "PYROLI",
+  types: ["FIRE"],
+  femaleRate: 12.5,
+  catchRate: 45,
+  growthRate: GROWTH_RATES_DATABASE.MEDIUM_FAST,
+  baseExp: 198,
+  baseStats: {
+    hp: 65,
+    attack: 130,
+    defense: 60,
+    specialAtt: 95,
+    specialDef: 110,
+    speed: 65,
+  },
+  animations: {
+    idle: {
+      front: "flareon_front_idle",
+      back: "flareon_back_idle",
+    },
+  },
+  evolutions: [],
+  learnset: {
+    levelUp: [
+      { level: 1, move: MOVES_DATABASE.tackle },
+      { level: 1, move: MOVES_DATABASE.helpingHand },
+      { level: 1, move: MOVES_DATABASE.tailWhip },
+      { level: 8, move: MOVES_DATABASE.sandAttack },
+      { level: 16, move: MOVES_DATABASE.ember },
+      { level: 23, move: MOVES_DATABASE.quickAttack },
+      { level: 30, move: MOVES_DATABASE.bite },
+      { level: 36, move: MOVES_DATABASE.fireSpin },
+      { level: 42, move: MOVES_DATABASE.smog },
+      { level: 47, move: MOVES_DATABASE.leer },
+      { level: 52, move: MOVES_DATABASE.flamethrower },
+    ],
+    tmhm: [
+      "Hurlement",
+      "Toxik",
+      "Puissance Cachée",
+      "Zénith",
+      "Ultralaser",
+      "Protection",
+      "Danse Pluie",
+      "Frustration",
+      "Queue de Fer",
+      "Retour",
+      "Tunnel",
+      "Ball'Ombre",
+      "Reflet",
+      "Lance-Flammes",
+      "Déflagration",
+      "Façade",
+      "Force Secrète",
+      "Repos",
+      "Attraction",
+      "Surchauffe",
+    ],
+  },
+};

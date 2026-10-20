@@ -6,7 +6,7 @@ export const HITMONCHAN_SPECIES = {
   id: "hitmonchan",
   pokedexId: "107",
   name: "TYGNON",
-  types: ["FIGHTING"],
+  types: ["FIGHT"],
   femaleRate: 0,
   catchRate: 45,
   growthRate: GROWTH_RATES_DATABASE.MEDIUM_FAST,
