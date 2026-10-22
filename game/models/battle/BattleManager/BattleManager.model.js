@@ -71,7 +71,6 @@ export class BattleManager {
         this.battleRenderer.backSlot
       ),
     };
-
     this.battleRenderer.frontSlot.content = this.wildPokemon;
     this.battleRenderer.backSlot.content = this.currentPlayerPokemon;
 

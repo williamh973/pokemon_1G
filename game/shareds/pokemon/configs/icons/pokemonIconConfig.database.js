@@ -1050,4 +1050,75 @@ export const POKEMON_ICON_CONFIG_DATABASE = {
     height: 55,
     scale: 1,
   },
+
+  // -- 2G --
+
+  steelix: {
+    image: createImg("game/assets/images/pokemons/2G/icons/steelix.png"),
+    width: 55,
+    height: 55,
+    scale: 1,
+  },
+  hooh: {
+    image: createImg("game/assets/images/pokemons/2G/icons/ho-oh.png"),
+    width: 55,
+    height: 55,
+    scale: 1,
+  },
+  lugia: {
+    image: createImg("game/assets/images/pokemons/2G/icons/lugia.png"),
+    width: 55,
+    height: 55,
+    scale: 1,
+  },
+
+  // -- 3G --
+  poochyena: {
+    image: createImg("game/assets/images/pokemons/3G/icons/poochyena.png"),
+    width: 55,
+    height: 55,
+    scale: 1,
+  },
+  mightyena: {
+    image: createImg("game/assets/images/pokemons/3G/icons/mightyena.png"),
+    width: 55,
+    height: 55,
+    scale: 1,
+  },
+  regice: {
+    image: createImg("game/assets/images/pokemons/3G/icons/regice.png"),
+    width: 55,
+    height: 55,
+    scale: 1,
+  },
+  regirock: {
+    image: createImg("game/assets/images/pokemons/3G/icons/regirock.png"),
+    width: 55,
+    height: 55,
+    scale: 1,
+  },
+  registeel: {
+    image: createImg("game/assets/images/pokemons/3G/icons/registeel.png"),
+    width: 55,
+    height: 55,
+    scale: 1,
+  },
+  groudon: {
+    image: createImg("game/assets/images/pokemons/3G/icons/groudon.png"),
+    width: 55,
+    height: 55,
+    scale: 1,
+  },
+  kyogre: {
+    image: createImg("game/assets/images/pokemons/3G/icons/kyogre.png"),
+    width: 55,
+    height: 55,
+    scale: 1,
+  },
+  rayquaza: {
+    image: createImg("game/assets/images/pokemons/3G/icons/rayquaza.png"),
+    width: 55,
+    height: 55,
+    scale: 1,
+  },
 };

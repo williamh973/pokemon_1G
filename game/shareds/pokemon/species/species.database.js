@@ -149,6 +149,11 @@ import { MR_MIME_SPECIES } from "./pokemons/mrmime.species.js";
 import { FLAREON_SPECIES } from "./pokemons/flareon.species.js";
 import { OMANYTE_SPECIES } from "./pokemons/omanyte.species.js";
 import { SHELLDER_SPECIES } from "./pokemons/shellder.species.js";
+import { LUGIA_SPECIES } from "./pokemons/lugia.species.js";
+import { GROUDON_SPECIES } from "./pokemons/groudon.species.js";
+import { KYOGRE_SPECIES } from "./pokemons/kyogre.species.js";
+import { RAYQUAZA_SPECIES } from "./pokemons/rayquaza.species.js";
+import { STEELIX_SPECIES } from "./pokemons/steelix.species.js";
 
 export const SPECIES_DATABASE = {
   bulbasaur: BULBASAUR_SPECIES,
@@ -302,4 +307,11 @@ export const SPECIES_DATABASE = {
   dragonite: DRAGONITE_SPECIES,
   mewtwo: MEWTWO_SPECIES,
   mew: MEW_SPECIES,
+  // -- 2G --
+  steelix: STEELIX_SPECIES,
+  lugia: LUGIA_SPECIES,
+  // -- 3G --
+  groudon: GROUDON_SPECIES,
+  kyogre: KYOGRE_SPECIES,
+  rayquaza: RAYQUAZA_SPECIES,
 };
