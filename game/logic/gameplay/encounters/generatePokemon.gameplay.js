@@ -40,18 +40,24 @@ export const generatePokemon = (
     statStages: createStatStages(),
     status: POKEMON_STATUS.NONE,
     sleepTurns: 0,
+    chargedMove: {
+      move: null,
+      animationPhase: null,
+    },
+
     volatils: {
       confusionTurns: 0,
       isScared: false,
       hasBoostedByFocusEnergy: false,
       recharge: false,
+      fly: false,
 
       trapped: {
         turns: 0,
         move: null,
       },
 
-      // infatuatedBy: null,
+      infatuatedBy: null,
     },
   };
   return pokemon;

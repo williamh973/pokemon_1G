@@ -141,7 +141,7 @@ export const POKEDEX_DATABASE = [
     },
   },
   {
-    id: "",
+    id: "wartortle",
     no: "008",
     name: "CARABAFF",
     category: "Tortue",
@@ -154,7 +154,7 @@ export const POKEDEX_DATABASE = [
     print: "",
   },
   {
-    id: "",
+    id: "blastoise",
     no: "009",
     name: "TORTANK",
     category: "Tortue",
@@ -224,7 +224,7 @@ export const POKEDEX_DATABASE = [
     },
   },
   {
-    id: "",
+    id: "weedle",
     no: "013",
     name: "ASPICOT",
     category: "Pique",
@@ -237,7 +237,7 @@ export const POKEDEX_DATABASE = [
     print: "",
   },
   {
-    id: "",
+    id: "kakuna",
     no: "014",
     name: "COCONFORT",
     category: "Pique",
@@ -250,7 +250,7 @@ export const POKEDEX_DATABASE = [
     print: "",
   },
   {
-    id: "",
+    id: "beedrill",
     no: "015",
     name: "DARDARGNAN",
     category: "Pique",
@@ -281,7 +281,7 @@ export const POKEDEX_DATABASE = [
     },
   },
   {
-    id: "",
+    id: "pidgeotto",
     no: "017",
     name: "ROUCOUPS",
     category: "OISEAU",
@@ -294,7 +294,7 @@ export const POKEDEX_DATABASE = [
     print: "",
   },
   {
-    id: "",
+    id: "pidgeot",
     no: "018",
     name: "ROUCARNAGE",
     category: "OISEAU",
@@ -326,7 +326,7 @@ export const POKEDEX_DATABASE = [
     },
   },
   {
-    id: "",
+    id: "raticate",
     no: "020",
     name: "RATTATAC",
     category: "Souris",
@@ -339,7 +339,7 @@ export const POKEDEX_DATABASE = [
     print: "",
   },
   {
-    id: "",
+    id: "spearow",
     no: "021",
     name: "PIAFABEC",
     category: "Oiseau",
@@ -352,7 +352,7 @@ export const POKEDEX_DATABASE = [
     print: "",
   },
   {
-    id: "",
+    id: "fearow",
     no: "022",
     name: "RAPASDEPIC",
     category: "Oiseau",
@@ -365,7 +365,7 @@ export const POKEDEX_DATABASE = [
     print: "",
   },
   {
-    id: "",
+    id: "ekans",
     no: "023",
     name: "ABO",
     category: "Serpent",
@@ -378,7 +378,7 @@ export const POKEDEX_DATABASE = [
     print: "",
   },
   {
-    id: "",
+    id: "arbok",
     no: "024",
     name: "ARBOK",
     category: "Serpent",
@@ -410,7 +410,7 @@ export const POKEDEX_DATABASE = [
     },
   },
   {
-    id: "",
+    id: "raichu",
     no: "026",
     name: "RAICHU",
     category: "Souris",
@@ -423,7 +423,7 @@ export const POKEDEX_DATABASE = [
     print: "",
   },
   {
-    id: "",
+    id: "sandshrew",
     no: "027",
     name: "SABELETTE",
     category: "Souris",
@@ -436,7 +436,7 @@ export const POKEDEX_DATABASE = [
     print: "",
   },
   {
-    id: "",
+    id: "sandslash",
     no: "028",
     name: "SABLAIREAU",
     category: "Taupe",
@@ -449,7 +449,7 @@ export const POKEDEX_DATABASE = [
     print: "",
   },
   {
-    id: "",
+    id: "nidoranf",
     no: "029",
     name: "NIDORAN♀",
     category: "Petit Poison",
@@ -462,7 +462,7 @@ export const POKEDEX_DATABASE = [
     print: "",
   },
   {
-    id: "",
+    id: "nidorina",
     no: "030",
     name: "NIDORINA",
     category: "Petit Poison",
@@ -475,7 +475,7 @@ export const POKEDEX_DATABASE = [
     print: "",
   },
   {
-    id: "",
+    id: "nidoqueen",
     no: "031",
     name: "NIDOQUEEN",
     category: "Big Poison",
@@ -488,7 +488,7 @@ export const POKEDEX_DATABASE = [
     print: "",
   },
   {
-    id: "",
+    id: "nidoranm",
     no: "032",
     name: "NIDORAN♂",
     category: "Petit Poison",
@@ -501,7 +501,7 @@ export const POKEDEX_DATABASE = [
     print: "",
   },
   {
-    id: "",
+    id: "nidorino",
     no: "033",
     name: "NIDORINO",
     category: "Petit Poison",
@@ -514,7 +514,7 @@ export const POKEDEX_DATABASE = [
     print: "",
   },
   {
-    id: "",
+    id: "nidoking",
     no: "034",
     name: "NIDOKING",
     category: "Grand Poison",
@@ -527,7 +527,7 @@ export const POKEDEX_DATABASE = [
     print: "",
   },
   {
-    id: "",
+    id: "clefairy",
     no: "035",
     name: "MELOFEE",
     category: "Étoile",

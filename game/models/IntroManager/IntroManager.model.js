@@ -19,10 +19,10 @@ export class GamePhaseManager {
   onEnterPhase() {
     switch (this.currentPhase) {
       case "INTRO_CINEMATIC":
-        // this.openStartMenu(
-        //   new StartGameMenu(this.game),
-        //   GAME_STATES.START_GAME
-        // );
+        this.openStartMenu(
+          new StartGameMenu(this.game),
+          GAME_STATES.START_GAME
+        );
         break;
       case "OPENING_MENU":
         this.openScreen(

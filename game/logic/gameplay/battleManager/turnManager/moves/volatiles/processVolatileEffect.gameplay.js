@@ -1,46 +1,19 @@
-import { deductStatHP } from "./deductStatHP.gameplay.js";
+import { processConfusionTurn } from "./confusion/processConfusionTurn.gameplay.js";
+import { processFlyTurn } from "./fly/processFlyTurn.gameplay.js";
 
-export const processVolatileEffect = (pokemon) => {
+export const processVolatileEffect = (action) => {
+  const { pokemon, move } = action;
   let canUseMove = true;
 
-  if (pokemon.volatils.confusionTurns < 1) {
-    return {
-      isAffected: false,
-      pokemon,
-      canUseMove,
-    };
-  }
+  if (pokemon.volatils.confusionTurns > 0)
+    return processConfusionTurn(pokemon, canUseMove);
 
-  pokemon.volatils.confusionTurns -= 1;
-
-  if (pokemon.volatils.confusionTurns === 0) {
-    return {
-      isAffected: true,
-      volatile: "CONFUSION",
-      hasConfusedNoMore: true,
-      pokemon,
-      canUseMove,
-    };
-  }
-
-  const random100 = Math.floor(Math.random() * 100) + 1;
-
-  if (random100 <= 50)
-    return {
-      isAffected: true,
-      volatile: "CONFUSION",
-      resist: true,
-      pokemon,
-      canUseMove,
-    };
-
-  deductStatHP(pokemon);
+  if (pokemon.volatils.fly || move?.id === "fly")
+    return processFlyTurn(pokemon, move);
 
   return {
-    isAffected: true,
-    volatile: "CONFUSION",
-    resist: false,
+    isAffected: false,
     pokemon,
-    canUseMove: false,
+    canUseMove: true,
   };
 };

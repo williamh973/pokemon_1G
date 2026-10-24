@@ -46,8 +46,8 @@ export class EncounterManager {
     // dev only
 
     const pokemonTest = {
-      id: "steelix",
-      level: 1,
+      id: "lugia",
+      level: 5,
     };
     game.player.party.slots = [];
     game.player.party.initSlots();
@@ -57,17 +57,20 @@ export class EncounterManager {
 
     //
 
-    const wildPokemon = {
-      id: "steelix",
-      level: 1,
+    // const wildPokemon = {
+    //   id: "steelix",
+    //   level: 1,
+    // };
+
+    const BATTLE_TYPES = {
+      WILD: "WILD",
+      TRAINER: "TRAINER",
     };
 
-    const battleType = "WILD";
-
     game.createBattle(
-      generatePokemon(wildPokemon, game.mapManager.currentMap.name),
+      generatePokemon(targetOP, game.mapManager.currentMap.name),
       tile,
-      battleType
+      BATTLE_TYPES.WILD
     );
   }
 }

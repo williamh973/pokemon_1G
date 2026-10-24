@@ -3,7 +3,7 @@ import {
   GAME_INTRO_PLAYER_FEMALE_RUN,
   GAME_INTRO_PLAYER_MALE_RUN,
 } from "../../render/config/gameIntro/gameIntroPlayerSprite.config.js";
-import { POKEDEX_DATABASE } from "../../shareds/pokedex/pokedex.database.js";
+import { SPECIES_DATABASE } from "../../shareds/pokemon/species/species.database.js";
 import { getAnimationConfig } from "../../shareds/utils/pokemon/animations/pokemonAnimations.utils.js";
 import { Slot } from "../Slot/Slot.model.js";
 import { SpriteViewer } from "../SpriteViewer/SpriteViewer.model.js";
@@ -53,16 +53,14 @@ export class OpeningGameSequence {
   }
 
   getPokemonSprite(random151) {
-    // if (POKEDEX_DATABASE[random151]?.id) {
     this.spriteViewer.pokemon = new SpriteViewer(
       this.game,
-      getAnimationConfig(POKEDEX_DATABASE[0].id, "front"), // DEV ONLY
+      getAnimationConfig(SPECIES_DATABASE[random151].id, "front"), // DEV ONLY
       this.pokemonSlot
     );
     this.setSpriteInitalPositions();
 
     this.spriteViewer.pokemon.isOpen = true;
-    // }
   }
 
   draw(context) {

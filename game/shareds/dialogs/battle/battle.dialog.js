@@ -1,4 +1,7 @@
 export const BATTLE_DIALOGS = {
+  takeOff: (pokemon, trainerId) =>
+    `${pokemon} ${trainerId ? "" : "ennemi"} s'envole.`,
+
   toBeExhausted: (pokemon, trainerId) =>
     `${pokemon} ${trainerId ? "" : "ennemi"} est à plat.`,
 

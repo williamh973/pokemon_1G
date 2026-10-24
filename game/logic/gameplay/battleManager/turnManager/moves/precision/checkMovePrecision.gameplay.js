@@ -3,6 +3,10 @@ import { getAccuracyStageMultiplier } from "../../statStages/getAccuracyStageMul
 export const checkMovePrecision = (action) => {
   if (action.move?.selfTarget) return true;
 
+  const { target, move } = action;
+
+  if (target.volatils.fly && move.id !== "swift") return false;
+
   const random100 = Math.floor(Math.random() * 100) + 1;
 
   const accuracyStage = action.pokemon.statStages.accuracy;

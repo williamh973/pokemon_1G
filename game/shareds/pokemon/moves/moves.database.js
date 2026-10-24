@@ -1,6 +1,22 @@
 import { POKEMON_STATUS } from "../../../logic/gameplay/pokemon/status/pokemonStatus.state.js";
 
 export const MOVES_DATABASE = {
+  fly: {
+    id: "fly",
+    name: "Vol",
+    type: ["FLYING"],
+    class: ["PHYSICAL"],
+    pp: 15,
+    power: 2,
+    precision: 95,
+    priority: 0,
+    desc: "Le lanceur s'envole au premier tour puis attaque au second.",
+
+    consequence: {
+      type: "CHARGE",
+      volatile: "FLY",
+    },
+  },
   acid: {
     id: "acid",
     name: "Acide",
@@ -166,23 +182,6 @@ export const MOVES_DATABASE = {
       percentage: 100,
     },
   },
-  screech: {
-    id: "screech",
-    name: "Grincement",
-    type: ["NORMAL"],
-    class: ["STATUT"],
-    pp: 40,
-    power: 0,
-    precision: 85,
-    desc: "Attaque sonore. Baisse la Défense de la cible de 2 niveaux.",
-
-    effect: {
-      type: "STAT_STAGE",
-      stat: "defense",
-      amount: -2,
-      percentage: 100,
-    },
-  },
   bind: {
     id: "bind",
     name: "Étreinte",
@@ -198,21 +197,6 @@ export const MOVES_DATABASE = {
     },
   },
 
-  hyperBeam: {
-    id: "hyperBeam",
-    name: "Ultralaser",
-    type: ["NORMAL"],
-    class: ["PHYSICAL"],
-    pp: 5,
-    power: 150, // 150
-    precision: 90,
-    priority: 0,
-    desc: "Le lanceur doit se reposer au tour suivant.",
-
-    consequence: {
-      type: "RECHARGE",
-    },
-  },
   ember: {
     id: "ember",
     name: "Flammèche",
@@ -227,6 +211,21 @@ export const MOVES_DATABASE = {
       type: "STATUS",
       status: POKEMON_STATUS.BURN,
       percentage: 10,
+    },
+  },
+  hyperBeam: {
+    id: "hyperBeam",
+    name: "Ultralaser",
+    type: ["NORMAL"],
+    class: ["PHYSICAL"],
+    pp: 5,
+    power: 10, // 150
+    precision: 90,
+    priority: 0,
+    desc: "Le lanceur doit se reposer au tour suivant.",
+
+    consequence: {
+      type: "RECHARGE",
     },
   },
   hypnosis: {
@@ -255,6 +254,23 @@ export const MOVES_DATABASE = {
     precision: 100,
     priority: 1,
     desc: "Le lanceur attaque en premier",
+  },
+  screech: {
+    id: "screech",
+    name: "Grincement",
+    type: ["NORMAL"],
+    class: ["STATUT"],
+    pp: 40,
+    power: 0,
+    precision: 85,
+    desc: "Attaque sonore. Baisse la Défense de la cible de 2 niveaux.",
+
+    effect: {
+      type: "STAT_STAGE",
+      stat: "defense",
+      amount: -2,
+      percentage: 100,
+    },
   },
   supersonic: {
     id: "supersonic",

@@ -28,16 +28,21 @@ export const LUGIA_SPECIES = {
   evolutions: [],
   learnset: {
     levelUp: [
-      { level: 1, move: MOVES_DATABASE.whirlwind },
-      { level: 11, move: MOVES_DATABASE.safeguard },
-      { level: 22, move: MOVES_DATABASE.gust },
-      { level: 33, move: MOVES_DATABASE.recover },
-      { level: 44, move: MOVES_DATABASE.hydroPump },
-      { level: 55, move: MOVES_DATABASE.rainDance },
-      { level: 66, move: MOVES_DATABASE.swift },
-      { level: 77, move: MOVES_DATABASE.aeroblast },
-      { level: 88, move: MOVES_DATABASE.ancientPower },
-      { level: 99, move: MOVES_DATABASE.futureSight },
+      { level: 1, move: MOVES_DATABASE.fly },
+
+      { level: 1, move: MOVES_DATABASE.hyperBeam },
+
+      { level: 1, move: MOVES_DATABASE.supersonic },
+      // { level: 1, move: MOVES_DATABASE.whirlwind },
+      // { level: 11, move: MOVES_DATABASE.safeguard },
+      // { level: 22, move: MOVES_DATABASE.gust },
+      // { level: 33, move: MOVES_DATABASE.recover },
+      // { level: 44, move: MOVES_DATABASE.hydroPump },
+      // { level: 55, move: MOVES_DATABASE.rainDance },
+      // { level: 66, move: MOVES_DATABASE.swift },
+      // { level: 77, move: MOVES_DATABASE.aeroblast },
+      // { level: 88, move: MOVES_DATABASE.ancientPower },
+      // { level: 99, move: MOVES_DATABASE.futureSight },
     ],
     tmhm: [
       "Onde Boréale",
