@@ -40,9 +40,11 @@ export const generatePokemon = (
     statStages: createStatStages(),
     status: POKEMON_STATUS.NONE,
     sleepTurns: 0,
+
     chargedMove: {
       move: null,
       animationPhase: null,
+      initialPosition: null,
     },
 
     volatils: {

@@ -6,6 +6,8 @@ export class AI {
   }
 
   chooseMove(wildPokemon) {
+    if (wildPokemon.chargedMove?.move) return wildPokemon.chargedMove.move;
+
     const availableMoves = wildPokemon.moves.filter(
       (move) => move.enabled && move.currentPP > 0
     );

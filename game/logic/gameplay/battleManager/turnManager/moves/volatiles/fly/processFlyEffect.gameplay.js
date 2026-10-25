@@ -10,9 +10,8 @@ export const processFlyEffect = (
     !processVolatileResult.isAffected ||
     processVolatileResult.volatile !== "FLY" ||
     action.pokemon.chargedMove.animationPhase !== "FIRST"
-  ) {
+  )
     return false;
-  }
 
   turnManager.battleManager.openDialogBox(
     DIALOGS_DATABASE.BATTLE_DIALOGS.takeOff(

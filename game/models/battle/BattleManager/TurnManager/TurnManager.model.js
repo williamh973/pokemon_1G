@@ -19,6 +19,9 @@ import { resetFlyState } from "../../../../logic/gameplay/battleManager/turnMana
 export class TurnManager {
   constructor(battleManager) {
     this.battleManager = battleManager;
+    this.viewers = this.battleManager.viewers;
+    this.pokemonViewer = null;
+
     this.state = TURN_STATES.IDLE;
 
     this.playerMove = null;
@@ -42,6 +45,12 @@ export class TurnManager {
     this.waitCooldown = 0;
   }
 
+  getSpriteViewer(pokemon) {
+    if (this.viewers.front.slot.content === pokemon)
+      this.pokemonViewer = this.viewers.front;
+    else this.pokemonViewer = this.viewers.back;
+  }
+
   wait(duration, callbackFn, nextState) {
     this.state = TURN_STATES.WAITING;
     this.waitTimer = duration;
@@ -63,19 +72,30 @@ export class TurnManager {
     );
   }
 
-  startChargedMove(sequence, action) {
-    const chargedMove = action.pokemon.chargedMove;
+  startChargedMove(sequence) {
+    const findedAction = [this.firstAction, this.secondAction].find(
+      (action) => action?.pokemon?.chargedMove?.move
+    );
 
-    if (!action.pokemon.volatils.fly || !chargedMove.move) return false;
+    if (!findedAction) return false;
+
+    console.log("action dans startChargedMove : ", findedAction);
+
+    const chargedMove = findedAction.pokemon.chargedMove;
+
+    if (
+      !findedAction.pokemon.volatils.fly ||
+      !chargedMove.move ||
+      chargedMove.animationPhase !== "FIRST"
+    )
+      return false;
 
     chargedMove.animationPhase = "SECOND";
     this.isExecutingChargedMove = true;
 
     this.state = TURN_STATES.FIRST_ACTION;
-    this.firstAction = action;
 
-    this.executeAction(sequence, this.firstAction);
-    console.log("executeAction lancé !");
+    this.executeAction(sequence, findedAction);
     return true;
   }
 
@@ -175,8 +195,9 @@ export class TurnManager {
         console.log("FIRST_ACTION est fini, SECOND_ACTION peut se lancer");
 
         if (this.isExecutingChargedMove) {
-          resetFlyState(this.firstAction.pokemon);
+          resetFlyState(this);
           this.isExecutingChargedMove = false;
+
           this.state = TURN_STATES.END;
           return;
         }
@@ -188,7 +209,7 @@ export class TurnManager {
       case TURN_STATES.SECOND_ACTION:
         console.log("SECOND_ACTION est fini, le tour est fini");
 
-        if (this.startChargedMove(sequence, this.firstAction)) return;
+        if (this.startChargedMove(sequence)) return;
 
         this.state = TURN_STATES.END;
         break;
