@@ -45,6 +45,7 @@ export const generatePokemon = (
       move: null,
       animationPhase: null,
       initialPosition: null,
+      turnAction: null,
     },
 
     volatils: {

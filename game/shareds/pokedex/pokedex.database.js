@@ -2102,4 +2102,98 @@ export const POKEDEX_DATABASE = [
       },
     },
   },
+  // -- 2G
+  {
+    id: "steelix",
+    no: "208",
+    name: "STEELIX",
+    category: "SERPENFER",
+    height: "9,2",
+    weight: "400,0",
+    desc: "Steelix vit sous terre, encore plus profondément qu'Onix. On a déjà vu ce Pokémon descendre à plus d'un kilomètre de profondeur.",
+    cry: bulbasaurCry,
+    worldMap: [],
+    print: bulbasaurPrint,
+    animations: {
+      idle: {
+        front: "steelix_front_idle",
+        back: "steelix_back_idle",
+      },
+    },
+  },
+  {
+    id: "lugia",
+    no: "249",
+    name: "LUGIA",
+    category: "Plongeur",
+    height: "5.2",
+    weight: "260.0",
+    desc: "Les ailes de Lugia renferment une puissance dévastatrice. Ce Pokémon a choisi de vivre loin de tout, dans les profondeurs océaniques.",
+    cry: bulbasaurCry,
+    worldMap: [],
+    print: bulbasaurPrint,
+    animations: {
+      idle: {
+        front: "lugia_front_idle",
+        back: "lugia_back_idle",
+      },
+    },
+  },
+
+  // -- 3G
+
+  {
+    id: "kyogre",
+    no: "382",
+    name: "KYOGRE",
+    category: "Bassinmarin",
+    height: "4,5",
+    weight: "352,0",
+    desc: "Kyogre est un immense Pokémon ressemblant à un cétacé. Représentant l'eau, son corps est blanc et bleu comme les abysses. Il est capable de provoquer raz-de-marée et pluies torrentielles.",
+    cry: bulbasaurCry,
+    worldMap: [],
+    print: bulbasaurPrint,
+    animations: {
+      idle: {
+        front: "kyogre_front_idle",
+        back: "kyogre_back_idle",
+      },
+    },
+  },
+  {
+    id: "groudon",
+    no: "383",
+    name: "GROUDON",
+    category: "Continent",
+    height: "3,5",
+    weight: "950,0",
+    desc: "Il reste dans les abysses",
+    cry: bulbasaurCry,
+    worldMap: [],
+    print: bulbasaurPrint,
+    animations: {
+      idle: {
+        front: "groudon_front_idle",
+        back: "groudon_back_idle",
+      },
+    },
+  },
+  {
+    id: "rayquaza",
+    no: "384",
+    name: "RAYQUAZA",
+    category: "Cieux",
+    height: "7,0",
+    weight: "206,5",
+    desc: "On ne le voit pas depuis le sol, car il vit dans la couche d'ozone, bien au-dessus des nuages.",
+    cry: bulbasaurCry,
+    worldMap: [],
+    print: bulbasaurPrint,
+    animations: {
+      idle: {
+        front: "rayquaza_front_idle",
+        back: "rayquaza_back_idle",
+      },
+    },
+  },
 ];

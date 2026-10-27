@@ -1,10 +1,14 @@
 export const resetFlyState = (turnManager) => {
-  turnManager.firstAction.pokemon.volatils.fly = false;
+  const findedActionContainsChargedMove =
+    turnManager.getActionContainsChargedMove();
 
-  turnManager.firstAction.pokemon.chargedMove.move = null;
-  turnManager.firstAction.pokemon.chargedMove.animationPhase = null;
+  findedActionContainsChargedMove.pokemon.volatils.fly = false;
 
-  turnManager.getSpriteViewer(turnManager.firstAction.pokemon);
+  findedActionContainsChargedMove.pokemon.chargedMove.move = null;
+  findedActionContainsChargedMove.pokemon.chargedMove.animationPhase = null;
+  findedActionContainsChargedMove.pokemon.chargedMove.turnAction = null;
+
+  turnManager.getSpriteViewer(findedActionContainsChargedMove.pokemon);
 
   resetSpriteInitialPositionIfNeeded(turnManager.pokemonViewer);
 };

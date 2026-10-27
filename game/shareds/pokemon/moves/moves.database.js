@@ -11,11 +11,6 @@ export const MOVES_DATABASE = {
     precision: 95,
     priority: 0,
     desc: "Le lanceur s'envole au premier tour puis attaque au second.",
-
-    consequence: {
-      type: "CHARGE",
-      volatile: "FLY",
-    },
   },
   acid: {
     id: "acid",

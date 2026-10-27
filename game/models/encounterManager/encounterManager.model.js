@@ -1,5 +1,6 @@
 import { generatePokemon } from "../../logic/gameplay/encounters/generatePokemon.gameplay.js";
 import { OP_CONFIG_DATABASE } from "../../shareds/character/op/op.database.js";
+import { POKEDEX_DATABASE } from "../../shareds/pokedex/pokedex.database.js";
 import {
   getSpawnAroundPlayer,
   spawnOP,
@@ -46,8 +47,8 @@ export class EncounterManager {
     // dev only
 
     const pokemonTest = {
-      id: "lugia",
-      level: 10,
+      id: POKEDEX_DATABASE[152].id,
+      level: 5,
     };
     game.player.party.slots = [];
     game.player.party.initSlots();
@@ -58,8 +59,8 @@ export class EncounterManager {
     //
 
     const wildPokemon = {
-      id: "groudon",
-      level: 2,
+      id: POKEDEX_DATABASE[155].id,
+      level: 15,
     };
 
     const BATTLE_TYPES = {

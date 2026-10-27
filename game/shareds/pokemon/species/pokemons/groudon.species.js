@@ -28,7 +28,7 @@ export const GROUDON_SPECIES = {
   evolutions: [],
   learnset: {
     levelUp: [
-      { level: 1, move: MOVES_DATABASE.growl },
+      { level: 1, move: MOVES_DATABASE.mudShot },
       // { level: 5, move: MOVES_DATABASE.scaryFace },
       // { level: 15, move: MOVES_DATABASE.ancientPower },
       // { level: 20, move: MOVES_DATABASE.slash },

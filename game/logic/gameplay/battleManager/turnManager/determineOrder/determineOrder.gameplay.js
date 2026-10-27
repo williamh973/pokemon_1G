@@ -1,14 +1,34 @@
 export const determineOrder = (turnManager) => {
-  turnManager.playerMove = turnManager.battleManager.selectedMove;
-  turnManager.wildMove = turnManager.battleManager.wildPokemonSelectedMove;
+  const playerPokemon = turnManager.battleManager.currentPlayerPokemon;
+  const wildPokemon = turnManager.battleManager.wildPokemon;
+
+  const getSelectedMove = (pokemon, selectedMove) => {
+    const chargedMove = pokemon.chargedMove;
+
+    if (chargedMove?.move && chargedMove.animationPhase === "SECOND") {
+      return chargedMove.move;
+    }
+
+    return selectedMove;
+  };
+
+  turnManager.playerMove = getSelectedMove(
+    playerPokemon,
+    turnManager.battleManager.selectedMove
+  );
+
+  turnManager.wildMove = getSelectedMove(
+    wildPokemon,
+    turnManager.battleManager.wildPokemonSelectedMove
+  );
 
   const player = {
-    pokemon: turnManager.battleManager.currentPlayerPokemon,
+    pokemon: playerPokemon,
     move: turnManager.playerMove,
   };
 
   const wild = {
-    pokemon: turnManager.battleManager.wildPokemon,
+    pokemon: wildPokemon,
     move: turnManager.wildMove,
   };
 

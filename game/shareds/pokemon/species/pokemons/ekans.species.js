@@ -45,8 +45,9 @@ export const EKANS_SPECIES = {
 
   learnset: {
     levelUp: [
-      { level: 32, move: MOVES_DATABASE.acid },
-      //   { level: 1, move: MOVES_DATABASE.wrap },
+      { level: 1, move: MOVES_DATABASE.focusEnergy },
+
+      // { level: 1, move: MOVES_DATABASE.wrap },
       //   { level: 1, move: MOVES_DATABASE.leer },
       //   { level: 8, move: MOVES_DATABASE.poisonSting },
       //   { level: 13, move: MOVES_DATABASE.bite },

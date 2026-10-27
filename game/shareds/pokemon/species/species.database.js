@@ -311,7 +311,7 @@ export const SPECIES_DATABASE = {
   steelix: STEELIX_SPECIES,
   lugia: LUGIA_SPECIES,
   // -- 3G --
-  groudon: GROUDON_SPECIES,
   kyogre: KYOGRE_SPECIES,
+  groudon: GROUDON_SPECIES,
   rayquaza: RAYQUAZA_SPECIES,
 };

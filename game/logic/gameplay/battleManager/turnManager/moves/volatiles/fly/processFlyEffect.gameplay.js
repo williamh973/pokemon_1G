@@ -13,6 +13,8 @@ export const processFlyEffect = (
   )
     return false;
 
+  action.pokemon.chargedMove.turnAction = turnManager.state;
+
   turnManager.battleManager.openDialogBox(
     DIALOGS_DATABASE.BATTLE_DIALOGS.takeOff(
       action.pokemon.name,
