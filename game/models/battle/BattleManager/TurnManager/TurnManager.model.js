@@ -78,6 +78,29 @@ export class TurnManager {
     );
   }
 
+  getActionContainsChargedMoveContinuation() {
+    return [this.firstAction, this.secondAction].find(
+      (action) =>
+        action?.pokemon?.chargedMove?.move &&
+        action.pokemon.chargedMove.animationPhase === "SECOND"
+    );
+  }
+
+  getPendingChargedMoveAction(excludedPokemon = null) {
+    return [this.firstAction, this.secondAction].find((action) => {
+      const pokemon = action?.pokemon;
+      const chargedMove = pokemon?.chargedMove;
+
+      return (
+        pokemon &&
+        pokemon !== excludedPokemon &&
+        pokemon.volatils.fly &&
+        chargedMove?.move &&
+        chargedMove.animationPhase === "FIRST"
+      );
+    });
+  }
+
   startChargedMove(sequence) {
     const action = this.getActionContainsChargedMove();
 
@@ -211,6 +234,11 @@ export class TurnManager {
 
   onActionFinished(sequence) {
     sequence.pokemonUseMoveSequence = null;
+    console.log({
+      "turn state : ": this.state + " | ",
+      "isChargedMoveContinuation : ": this.isChargedMoveContinuation + " | ",
+      "isExecutingChargedMove : ": this.isExecutingChargedMove + " | ",
+    });
 
     const isChargedContinuation =
       this.isChargedMoveContinuation &&
@@ -221,18 +249,41 @@ export class TurnManager {
     switch (this.state) {
       case TURN_STATES.FIRST_ACTION:
         if (isChargedContinuation) {
-          resetFlyState(this);
+          resetFlyState(this, this.currentAction.pokemon);
           this.isChargedMoveContinuation = false;
 
           this.state = TURN_STATES.SECOND_ACTION;
+          console.log("turn state : ", this.state);
           this.executeAction(sequence, this.secondAction);
           return;
         }
 
         if (this.isExecutingChargedMove) {
-          resetFlyState(this);
+          const finishedPokemon = this.currentAction.pokemon;
+
+          resetFlyState(this, finishedPokemon);
           this.isExecutingChargedMove = false;
+
+          const pendingAction =
+            this.getPendingChargedMoveAction(finishedPokemon);
+
+          if (pendingAction) {
+            pendingAction.pokemon.chargedMove.animationPhase = "SECOND";
+
+            this.state = TURN_STATES.FIRST_ACTION;
+            this.isExecutingChargedMove = true;
+
+            console.log(
+              "Une autre attaque chargée est en attente :",
+              pendingAction.pokemon.name
+            );
+
+            this.executeAction(sequence, pendingAction);
+            return;
+          }
+
           this.state = TURN_STATES.END;
+          console.log("turn state : ", this.state);
           return;
         }
 
@@ -243,9 +294,23 @@ export class TurnManager {
 
       case TURN_STATES.SECOND_ACTION:
         if (isChargedContinuation) {
-          resetFlyState(this);
+          const finishedPokemon = this.currentAction.pokemon;
+
+          resetFlyState(this, finishedPokemon);
           this.isChargedMoveContinuation = false;
+
+          const pendingAction =
+            this.getPendingChargedMoveAction(finishedPokemon);
+
+          if (pendingAction) {
+            this.state = TURN_STATES.FIRST_ACTION;
+            this.isExecutingChargedMove = true;
+            this.executeAction(sequence, pendingAction);
+            return;
+          }
+
           this.state = TURN_STATES.END;
+          console.log("turn state : ", this.state);
           return;
         }
 
@@ -253,6 +318,7 @@ export class TurnManager {
 
         console.log("SECOND_ACTION est fini, le tour est fini");
         this.state = TURN_STATES.END;
+        console.log("turn state : ", this.state);
         break;
     }
   }

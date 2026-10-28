@@ -118,7 +118,7 @@ export class FlyAnimation {
     this.groundY = this.initialY;
 
     // Le sprite doit être entièrement au-dessus du canvas.
-    this.offscreenY = -this.sprite.frameHeight - 5;
+    this.offscreenY = -this.sprite.frameHeight - 100;
 
     // Le côté d'apparition dépend du côté où se trouve le lanceur.
     // Si le lanceur est à gauche, il entre depuis la gauche.

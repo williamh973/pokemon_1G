@@ -300,8 +300,31 @@ export class BattlePhaseManager {
           break;
         }
 
-        if (this.battleManager.turnManager.isFinished)
-          this.setPhase(BATTLE_PHASES.BATTLE_MENU);
+        if (this.battleManager.turnManager.isFinished) {
+          const chargedMove =
+            this.battleManager.turnManager.getActionContainsChargedMove()
+              ?.pokemon?.chargedMove;
+
+          const turnManager = this.battleManager.turnManager;
+
+          console.log("[FIN DU TOUR]", {
+            state: turnManager.state,
+            isFinished: turnManager.isFinished,
+            currentPokemon: turnManager.currentAction?.pokemon?.name,
+            firstAction: turnManager.firstAction?.pokemon?.name,
+            secondAction: turnManager.secondAction?.pokemon?.name,
+            firstChargedMove: turnManager.firstAction?.pokemon?.chargedMove,
+            secondChargedMove: turnManager.secondAction?.pokemon?.chargedMove,
+          });
+
+          if (chargedMove?.move && chargedMove.animationPhase === "SECOND") {
+            this.battleManager.turnManager.startTurn(sequence);
+          } else {
+            console.log("BATTLE_MENU OUVERT");
+            this.setPhase(BATTLE_PHASES.BATTLE_MENU);
+          }
+        }
+
         break;
 
       case BATTLE_PHASES.DETERMINE_KO:

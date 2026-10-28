@@ -24,7 +24,15 @@ export const processFlyEffect = (
 
   sequence.startPokemonUseMoveSequence(action);
 
+  console.log(
+    DIALOGS_DATABASE.BATTLE_DIALOGS.takeOff(
+      action.pokemon.name,
+      action.pokemon.trainerId
+    ) + "Validation du joueur requise pour continuer"
+  );
+
   turnManager.waitForAction(() => {
+    console.log("Le joueur a validé, onActionFinished s'éxécute");
     turnManager.onActionFinished(sequence);
   }, turnManager.state);
 

@@ -1,24 +1,27 @@
-export const resetFlyState = (turnManager) => {
-  const findedActionContainsChargedMove =
-    turnManager.getActionContainsChargedMove();
+export const resetFlyState = (turnManager, pokemon) => {
+  if (!pokemon) return;
 
-  findedActionContainsChargedMove.pokemon.volatils.fly = false;
+  pokemon.volatils.fly = false;
 
-  findedActionContainsChargedMove.pokemon.chargedMove.move = null;
-  findedActionContainsChargedMove.pokemon.chargedMove.animationPhase = null;
-  findedActionContainsChargedMove.pokemon.chargedMove.turnAction = null;
+  const initialPosition = pokemon.chargedMove.initialPosition;
 
-  turnManager.getSpriteViewer(findedActionContainsChargedMove.pokemon);
+  pokemon.chargedMove.move = null;
+  pokemon.chargedMove.animationPhase = null;
+  pokemon.chargedMove.turnAction = null;
 
-  resetSpriteInitialPositionIfNeeded(turnManager.pokemonViewer);
+  turnManager.getSpriteViewer(pokemon);
+
+  resetSpriteInitialPositionIfNeeded(
+    turnManager.pokemonViewer,
+    initialPosition
+  );
 };
 
-const resetSpriteInitialPositionIfNeeded = (pokemonViewer) => {
-  const sprite = pokemonViewer.sprite;
-  const pokemon = pokemonViewer.slot.content;
+const resetSpriteInitialPositionIfNeeded = (pokemonViewer, initialPosition) => {
+  if (!initialPosition || !pokemonViewer?.sprite) return;
 
-  sprite.position = {
-    x: pokemon.chargedMove.initialPosition.x,
-    y: pokemon.chargedMove.initialPosition.y,
+  pokemonViewer.sprite.position = {
+    x: initialPosition.x,
+    y: initialPosition.y,
   };
 };

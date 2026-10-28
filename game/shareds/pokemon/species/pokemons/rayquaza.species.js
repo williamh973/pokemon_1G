@@ -29,6 +29,9 @@ export const RAYQUAZA_SPECIES = {
   learnset: {
     levelUp: [
       { level: 1, move: MOVES_DATABASE.growl },
+      { level: 1, move: MOVES_DATABASE.harden },
+      { level: 1, move: MOVES_DATABASE.focusEnergy },
+      { level: 1, move: MOVES_DATABASE.fly },
 
       // { level: 1, move: MOVES_DATABASE.twister },
       // { level: 5, move: MOVES_DATABASE.scaryFace },
