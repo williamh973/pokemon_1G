@@ -48,7 +48,7 @@ export class EncounterManager {
 
     const pokemonTest = {
       id: POKEDEX_DATABASE[155].id,
-      level: 5,
+      level: 100,
     };
     game.player.party.slots = [];
     game.player.party.initSlots();
@@ -60,7 +60,7 @@ export class EncounterManager {
 
     const wildPokemon = {
       id: POKEDEX_DATABASE[152].id,
-      level: 15,
+      level: 100,
     };
 
     const BATTLE_TYPES = {

@@ -1,17 +1,6 @@
 import { POKEMON_STATUS } from "../../../logic/gameplay/pokemon/status/pokemonStatus.state.js";
 
 export const MOVES_DATABASE = {
-  fly: {
-    id: "fly",
-    name: "Vol",
-    type: ["FLYING"],
-    class: ["PHYSICAL"],
-    pp: 15,
-    power: 2,
-    precision: 95,
-    priority: 0,
-    desc: "Le lanceur s'envole au premier tour puis attaque au second.",
-  },
   acid: {
     id: "acid",
     name: "Acide",
@@ -29,154 +18,7 @@ export const MOVES_DATABASE = {
       percentage: 100,
     },
   },
-  focusEnergy: {
-    id: "focusEnergy",
-    name: "Puissance",
-    type: ["NORMAL"],
-    class: ["STATUT"],
-    pp: 30,
-    power: 0,
-    precision: 100,
-    desc: "augmente les chances de coups critiques.",
-    effect: {
-      type: "VOLATILE",
-      volatile: "FOCUS_ENERGY",
-      percentage: 100,
-    },
-  },
-  growl: {
-    id: "growl",
-    name: "Rugissement",
-    type: ["NORMAL"],
-    class: ["STATUT"],
-    pp: 40,
-    power: 0,
-    precision: 100,
-    desc: "Attaque sonore. Baisse l'Attaque.",
 
-    effect: {
-      type: "STAT_STAGE",
-      stat: "attack",
-      amount: -1,
-      percentage: 100,
-    },
-  },
-  harden: {
-    id: "harden",
-    name: "Armure",
-    type: ["NORMAL"],
-    class: ["STATUT"],
-    pp: 30,
-    power: 0,
-    precision: 100,
-    desc: "Augmente la Défense du lanceur d'un niveau.",
-    selfTarget: true,
-
-    effect: {
-      type: "STAT_STAGE",
-      stat: "defense",
-      amount: 1,
-      percentage: 100,
-    },
-  },
-  sandAttack: {
-    id: "sandAttack",
-    name: "Jet de Sable",
-    type: ["GROUND"],
-    class: ["STATUT"],
-    pp: 15,
-    power: 0,
-    precision: 100,
-    desc: "Baisse la Précision de la cible d'un niveau.",
-
-    effect: {
-      type: "STAT_STAGE",
-      stat: "accuracy",
-      amount: -1,
-      percentage: 100,
-    },
-  },
-  gust: {
-    id: "gust",
-    name: "Tornade",
-    type: ["FLYING"],
-    class: ["PHYSICAL"],
-    pp: 35,
-    power: 40,
-    precision: 100,
-    desc: "La puissance est doublée si la cible est dans les airs.",
-  },
-  scratch: {
-    id: "scratch",
-    name: "Griffe",
-    type: ["NORMAL"],
-    class: ["PHYSICAL"],
-    pp: 35,
-    power: 40,
-    precision: 100,
-    desc: "Un violent coup de griffe.",
-  },
-  tackle: {
-    id: "tackle",
-    name: "Charge",
-    type: ["NORMAL"],
-    class: ["PHYSICAL"],
-    pp: 35,
-    power: 35,
-    precision: 95,
-    desc: "Une violente charge",
-  },
-  tailWhip: {
-    id: "tailWhip",
-    name: "Mimi-Queue",
-    type: ["NORMAL"],
-    class: ["STATUT"],
-    pp: 35,
-    power: 0,
-    precision: 100,
-    desc: "Réduit la Défense de l'adversaire d'un niveau.",
-
-    effect: {
-      type: "STAT_STAGE",
-      stat: "defense",
-      amount: -1,
-      percentage: 100,
-    },
-  },
-
-  iceBeam: {
-    id: "iceBeam",
-    name: "Laser Glace",
-    type: ["ICE"],
-    class: ["SPECIAL"],
-    pp: 10,
-    power: 95,
-    precision: 100,
-    desc: "10% de chance de geler la cible.",
-
-    effect: {
-      type: "STATUS",
-      status: POKEMON_STATUS.FREEZE,
-      percentage: 10,
-    },
-  },
-  leechLife: {
-    id: "leechLife",
-    name: "Vampirisme",
-    type: ["BUG"],
-    class: ["PHYSICAL"],
-    pp: 15,
-    power: 20,
-    precision: 100,
-    desc: "Convertit 50% des dégâts infligés à la cible en PV pour le lanceur.",
-
-    effect: {
-      type: "DRAIN",
-      stat: "hp",
-      amount: 50,
-      percentage: 100,
-    },
-  },
   bind: {
     id: "bind",
     name: "Étreinte",
@@ -198,16 +40,93 @@ export const MOVES_DATABASE = {
     type: ["FIRE"],
     class: ["SPECIAL"],
     pp: 25,
-    power: 40,
+    power: 2,
     precision: 100,
     desc: "10% de chance de brûler la cible.",
 
     effect: {
       type: "STATUS",
       status: POKEMON_STATUS.BURN,
-      percentage: 10,
+      percentage: 100,
     },
   },
+
+  fly: {
+    id: "fly",
+    name: "Vol",
+    type: ["FLYING"],
+    class: ["PHYSICAL"],
+    pp: 15,
+    power: 2,
+    precision: 95,
+    priority: 0,
+    desc: "Le lanceur s'envole au premier tour puis attaque au second.",
+  },
+
+  focusEnergy: {
+    id: "focusEnergy",
+    name: "Puissance",
+    type: ["NORMAL"],
+    class: ["STATUT"],
+    pp: 30,
+    power: 0,
+    precision: 100,
+    desc: "augmente les chances de coups critiques.",
+    effect: {
+      type: "VOLATILE",
+      volatile: "FOCUS_ENERGY",
+      percentage: 100,
+    },
+  },
+
+  growl: {
+    id: "growl",
+    name: "Rugissement",
+    type: ["NORMAL"],
+    class: ["STATUT"],
+    pp: 40,
+    power: 0,
+    precision: 100,
+    desc: "Attaque sonore. Baisse l'Attaque.",
+
+    effect: {
+      type: "STAT_STAGE",
+      stat: "attack",
+      amount: -1,
+      percentage: 100,
+    },
+  },
+
+  gust: {
+    id: "gust",
+    name: "Tornade",
+    type: ["FLYING"],
+    class: ["PHYSICAL"],
+    pp: 35,
+    power: 40,
+    precision: 100,
+    desc: "La puissance est doublée si la cible est dans les airs.",
+  },
+
+  harden: {
+    id: "harden",
+    name: "Armure",
+    type: ["NORMAL"],
+    class: ["STATUT"],
+    pp: 30,
+    power: 0,
+    precision: 100,
+    desc: "Augmente la Défense du lanceur d'un niveau.",
+    selfTarget: true,
+
+    effect: {
+      type: "STAT_STAGE",
+      stat: "defense",
+      amount: 1,
+      percentage: 100,
+    },
+  },
+
   hyperBeam: {
     id: "hyperBeam",
     name: "Ultralaser",
@@ -223,6 +142,7 @@ export const MOVES_DATABASE = {
       type: "RECHARGE",
     },
   },
+
   hypnosis: {
     id: "hypnosis",
     name: "Hypnose",
@@ -239,6 +159,42 @@ export const MOVES_DATABASE = {
       percentage: 100,
     },
   },
+
+  iceBeam: {
+    id: "iceBeam",
+    name: "Laser Glace",
+    type: ["ICE"],
+    class: ["SPECIAL"],
+    pp: 10,
+    power: 95,
+    precision: 100,
+    desc: "10% de chance de geler la cible.",
+
+    effect: {
+      type: "STATUS",
+      status: POKEMON_STATUS.FREEZE,
+      percentage: 10,
+    },
+  },
+
+  leechLife: {
+    id: "leechLife",
+    name: "Vampirisme",
+    type: ["BUG"],
+    class: ["PHYSICAL"],
+    pp: 15,
+    power: 20,
+    precision: 100,
+    desc: "Convertit 50% des dégâts infligés à la cible en PV pour le lanceur.",
+
+    effect: {
+      type: "DRAIN",
+      stat: "hp",
+      amount: 50,
+      percentage: 100,
+    },
+  },
+
   quickAttack: {
     id: "quickAttack",
     name: "Vive-Attaque",
@@ -250,6 +206,36 @@ export const MOVES_DATABASE = {
     priority: 1,
     desc: "Le lanceur attaque en premier",
   },
+
+  sandAttack: {
+    id: "sandAttack",
+    name: "Jet de Sable",
+    type: ["GROUND"],
+    class: ["STATUT"],
+    pp: 15,
+    power: 0,
+    precision: 100,
+    desc: "Baisse la Précision de la cible d'un niveau.",
+
+    effect: {
+      type: "STAT_STAGE",
+      stat: "accuracy",
+      amount: -1,
+      percentage: 100,
+    },
+  },
+
+  scratch: {
+    id: "scratch",
+    name: "Griffe",
+    type: ["NORMAL"],
+    class: ["PHYSICAL"],
+    pp: 35,
+    power: 40,
+    precision: 100,
+    desc: "Un violent coup de griffe.",
+  },
+
   screech: {
     id: "screech",
     name: "Grincement",
@@ -267,6 +253,7 @@ export const MOVES_DATABASE = {
       percentage: 100,
     },
   },
+
   supersonic: {
     id: "supersonic",
     name: "Ultrason",
@@ -283,6 +270,7 @@ export const MOVES_DATABASE = {
       percentage: 100,
     },
   },
+
   surf: {
     id: "surf",
     name: "Surf",
@@ -293,6 +281,36 @@ export const MOVES_DATABASE = {
     precision: 100,
     desc: "Déferle une immense vague sur l'ennemi.",
   },
+
+  tackle: {
+    id: "tackle",
+    name: "Charge",
+    type: ["NORMAL"],
+    class: ["PHYSICAL"],
+    pp: 35,
+    power: 35,
+    precision: 95,
+    desc: "Une violente charge",
+  },
+
+  tailWhip: {
+    id: "tailWhip",
+    name: "Mimi-Queue",
+    type: ["NORMAL"],
+    class: ["STATUT"],
+    pp: 35,
+    power: 0,
+    precision: 100,
+    desc: "Réduit la Défense de l'adversaire d'un niveau.",
+
+    effect: {
+      type: "STAT_STAGE",
+      stat: "defense",
+      amount: -1,
+      percentage: 100,
+    },
+  },
+
   thunderWave: {
     id: "thunderWave",
     name: "Cage-Éclair",
@@ -309,6 +327,7 @@ export const MOVES_DATABASE = {
       percentage: 100,
     },
   },
+
   vineWhip: {
     id: "vineWhip",
     name: "Fouet Lianes",

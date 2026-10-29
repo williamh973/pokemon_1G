@@ -1,6 +1,8 @@
 import { processPokemonStatus } from "../../../pokemon/status/processPokemonStatus.gameplay.js";
 import { handlerStatusProcessDialogs } from "../handlerDialogs/status/handlerStatusProcessDialogs.gameplay.js";
 import { handlerStatusRecoveryDialogs } from "../handlerDialogs/status/handlerStatusRecoveryDialogs.gameplay.js";
+import { processFlyEffect } from "../moves/volatiles/fly/processFlyEffect.gameplay.js";
+import { processFlyTurn } from "../moves/volatiles/fly/processFlyTurn.gameplay.js";
 import { TURN_STATES } from "../states/turnManager.states.js";
 
 export const processActionStatus = (turnManager, sequence, action) => {
@@ -64,6 +66,24 @@ export const processActionStatus = (turnManager, sequence, action) => {
     if (!processStatusResult.canUseMove) {
       turnManager.onActionFinished(sequence);
       return;
+    }
+
+    if (
+      action.move?.id === "fly" &&
+      action.pokemon.chargedMove.animationPhase !== "SECOND"
+    ) {
+      const processFlyTurnResult = processFlyTurn(action.pokemon, action.move);
+
+      console.log("processFlyTurnResult : ", processFlyTurnResult);
+
+      if (processFlyTurnResult.isAffected) {
+        return processFlyEffect(
+          turnManager,
+          action,
+          processFlyTurnResult,
+          sequence
+        );
+      } else turnManager.executeMove(sequence, action);
     }
 
     turnManager.executeMove(sequence, action);
