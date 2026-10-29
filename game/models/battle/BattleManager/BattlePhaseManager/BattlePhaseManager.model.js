@@ -336,8 +336,14 @@ export class BattlePhaseManager {
 
       case BATTLE_PHASES.FAINT:
         if (this.sequenceManager.pokemonFaintSequence?.isFinished) {
-          const hasTargetTrainerId =
-            this.battleManager.turnManager.koAction.fainted.trainerId;
+          const turnManager = this.battleManager.turnManager;
+          const faintedPokemon = turnManager.koAction?.fainted;
+
+          if (faintedPokemon?.chargedMove?.move) {
+            turnManager.resetChargedMoveForPokemon(faintedPokemon);
+          }
+
+          const hasTargetTrainerId = faintedPokemon.trainerId;
 
           if (hasTargetTrainerId)
             this.setPhase(BATTLE_PHASES.END_BATTLE_OR_CONTINUE);

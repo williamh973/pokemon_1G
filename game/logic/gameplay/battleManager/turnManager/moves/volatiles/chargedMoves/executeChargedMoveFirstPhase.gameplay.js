@@ -1,6 +1,6 @@
 import { DIALOGS_DATABASE } from "../../../../../../../shareds/dialogs/dialogs.database.js";
 
-export const processFlyEffect = (
+export const executeChargedMoveFirstPhase = (
   turnManager,
   action,
   processVolatileResult,
@@ -8,7 +8,7 @@ export const processFlyEffect = (
 ) => {
   if (
     !processVolatileResult.isAffected ||
-    processVolatileResult.volatile !== "FLY" ||
+    processVolatileResult.volatile !== "CHARGED_MOVE" ||
     action.pokemon.chargedMove.animationPhase !== "FIRST"
   )
     return false;
@@ -24,15 +24,15 @@ export const processFlyEffect = (
 
   sequence.startPokemonUseMoveSequence(action);
 
-  console.log(
-    DIALOGS_DATABASE.BATTLE_DIALOGS.takeOff(
-      action.pokemon.name,
-      action.pokemon.trainerId
-    ) + "Validation du joueur requise pour continuer"
-  );
+  // console.log(
+  //   DIALOGS_DATABASE.BATTLE_DIALOGS.takeOff(
+  //     action.pokemon.name,
+  //     action.pokemon.trainerId
+  //   ) + "Validation du joueur requise pour continuer"
+  // );
 
   turnManager.waitForAction(() => {
-    console.log("Le joueur a validé, onActionFinished s'éxécute");
+    // console.log("Le joueur a validé, onActionFinished s'éxécute");
     turnManager.onActionFinished(sequence);
   }, turnManager.state);
 

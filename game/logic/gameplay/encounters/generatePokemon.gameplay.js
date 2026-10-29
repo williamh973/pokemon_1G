@@ -53,7 +53,6 @@ export const generatePokemon = (
       isScared: false,
       hasBoostedByFocusEnergy: false,
       recharge: false,
-      fly: false,
 
       trapped: {
         turns: 0,

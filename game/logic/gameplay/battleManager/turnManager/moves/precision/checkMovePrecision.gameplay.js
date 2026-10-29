@@ -5,7 +5,8 @@ export const checkMovePrecision = (action) => {
 
   const { target, move } = action;
 
-  if (target.volatils.fly && move.id !== "swift") return false;
+  if (target.chargedMove?.move?.id === "fly" && move.id !== "swift")
+    return false;
 
   const random100 = Math.floor(Math.random() * 100) + 1;
 

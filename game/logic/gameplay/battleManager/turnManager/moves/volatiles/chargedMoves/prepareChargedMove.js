@@ -1,13 +1,12 @@
-export const processFlyTurn = (pokemon, usingMove) => {
-  if (!pokemon.volatils.fly) {
-    pokemon.volatils.fly = true;
+export const prepareChargedMove = (pokemon, usingMove) => {
+  if (pokemon.chargedMove?.animationPhase !== "SECOND") {
     pokemon.chargedMove.move = usingMove;
     pokemon.chargedMove.animationPhase = "FIRST";
   }
 
   return {
     isAffected: true,
-    volatile: "FLY",
+    volatile: "CHARGED_MOVE",
     pokemon,
     canUseMove: true,
   };

@@ -14,7 +14,7 @@ import { processActionVolatile } from "../../../../logic/gameplay/battleManager/
 import { handlerEfficienciesDialogs } from "../../../../logic/gameplay/battleManager/turnManager/handlerDialogs/efficiencies/handlerEfficienciesDialogs.gameplay.js";
 import { processMoveConsequence } from "../../../../logic/gameplay/battleManager/turnManager/moves/processMoveConsequence.gameplay.js";
 import { processActionConsequence } from "../../../../logic/gameplay/battleManager/turnManager/moves/consequences/processActionConsequence.gameplay.js";
-import { resetFlyState } from "../../../../logic/gameplay/battleManager/turnManager/moves/volatiles/fly/resetFlyState.gameplay.js";
+import { resetChargedMoveState } from "../../../../logic/gameplay/battleManager/turnManager/moves/volatiles/chargedMoves/resetChargedMoveState.gameplay.js";
 import { wait } from "../../../../logic/gameplay/battleManager/turnManager/turn/wait.gameplay.js";
 
 export class TurnManager {
@@ -78,14 +78,6 @@ export class TurnManager {
     );
   }
 
-  getActionContainsChargedMoveContinuation() {
-    return [this.firstAction, this.secondAction].find(
-      (action) =>
-        action?.pokemon?.chargedMove?.move &&
-        action.pokemon.chargedMove.animationPhase === "SECOND"
-    );
-  }
-
   getPendingChargedMoveAction(excludedPokemon = null) {
     return [this.firstAction, this.secondAction].find((action) => {
       const pokemon = action?.pokemon;
@@ -94,7 +86,6 @@ export class TurnManager {
       return (
         pokemon &&
         pokemon !== excludedPokemon &&
-        pokemon.volatils.fly &&
         chargedMove?.move &&
         chargedMove.animationPhase === "FIRST"
       );
@@ -108,11 +99,7 @@ export class TurnManager {
 
     const chargedMove = action.pokemon.chargedMove;
 
-    if (
-      !action.pokemon.volatils.fly ||
-      !chargedMove.move ||
-      chargedMove.animationPhase !== "FIRST"
-    ) {
+    if (!chargedMove.move || chargedMove.animationPhase !== "FIRST") {
       return false;
     }
 
@@ -130,6 +117,15 @@ export class TurnManager {
     this.executeAction(sequence, action);
 
     return true;
+  }
+
+  resetChargedMoveForPokemon(faintedPokemon) {
+    faintedPokemon.chargedMove = {
+      move: null,
+      animationPhase: null,
+      initialPosition: null,
+      turnAction: null,
+    };
   }
 
   startTurn(sequence) {
@@ -249,7 +245,7 @@ export class TurnManager {
     switch (this.state) {
       case TURN_STATES.FIRST_ACTION:
         if (isChargedContinuation) {
-          resetFlyState(this, this.currentAction.pokemon);
+          resetChargedMoveState(this, this.currentAction.pokemon);
           this.isChargedMoveContinuation = false;
 
           this.state = TURN_STATES.SECOND_ACTION;
@@ -261,7 +257,7 @@ export class TurnManager {
         if (this.isExecutingChargedMove) {
           const finishedPokemon = this.currentAction.pokemon;
 
-          resetFlyState(this, finishedPokemon);
+          resetChargedMoveState(this, finishedPokemon);
           this.isExecutingChargedMove = false;
 
           const pendingAction =
@@ -296,7 +292,7 @@ export class TurnManager {
         if (isChargedContinuation) {
           const finishedPokemon = this.currentAction.pokemon;
 
-          resetFlyState(this, finishedPokemon);
+          resetChargedMoveState(this, finishedPokemon);
           this.isChargedMoveContinuation = false;
 
           const pendingAction =

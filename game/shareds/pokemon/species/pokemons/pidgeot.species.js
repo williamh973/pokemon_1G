@@ -39,19 +39,23 @@ export const PIDGEOT_SPECIES = {
 
   learnset: {
     levelUp: [
-      { level: 1, move: MOVES_DATABASE.tackle },
-      { level: 1, move: MOVES_DATABASE.sandAttack },
-      { level: 1, move: MOVES_DATABASE.gust },
-      { level: 1, move: MOVES_DATABASE.quickAttack },
+      { level: 1, move: MOVES_DATABASE.growl },
+      // { level: 1, move: MOVES_DATABASE.ember },
+      { level: 1, move: MOVES_DATABASE.fly },
 
-      { level: 5, move: MOVES_DATABASE.sandAttack },
-      { level: 9, move: MOVES_DATABASE.gust },
-      { level: 13, move: MOVES_DATABASE.quickAttack },
-      { level: 20, move: MOVES_DATABASE.whirlwind },
-      { level: 27, move: MOVES_DATABASE.wingAttack },
-      { level: 34, move: MOVES_DATABASE.featherDance },
-      { level: 48, move: MOVES_DATABASE.agility },
-      { level: 62, move: MOVES_DATABASE.mirrorMove },
+      // { level: 1, move: MOVES_DATABASE.tackle },
+      // { level: 1, move: MOVES_DATABASE.sandAttack },
+      // { level: 1, move: MOVES_DATABASE.gust },
+      // { level: 1, move: MOVES_DATABASE.quickAttack },
+
+      // { level: 5, move: MOVES_DATABASE.sandAttack },
+      // { level: 9, move: MOVES_DATABASE.gust },
+      // { level: 13, move: MOVES_DATABASE.quickAttack },
+      // { level: 20, move: MOVES_DATABASE.whirlwind },
+      // { level: 27, move: MOVES_DATABASE.wingAttack },
+      // { level: 34, move: MOVES_DATABASE.featherDance },
+      // { level: 48, move: MOVES_DATABASE.agility },
+      // { level: 62, move: MOVES_DATABASE.mirrorMove },
     ],
 
     tmhm: [

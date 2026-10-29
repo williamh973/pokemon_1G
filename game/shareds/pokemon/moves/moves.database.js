@@ -40,14 +40,14 @@ export const MOVES_DATABASE = {
     type: ["FIRE"],
     class: ["SPECIAL"],
     pp: 25,
-    power: 2,
-    precision: 100,
+    power: 40,
+    precision: 10,
     desc: "10% de chance de brûler la cible.",
 
     effect: {
       type: "STATUS",
       status: POKEMON_STATUS.BURN,
-      percentage: 100,
+      percentage: 10,
     },
   },
 
@@ -61,6 +61,11 @@ export const MOVES_DATABASE = {
     precision: 95,
     priority: 0,
     desc: "Le lanceur s'envole au premier tour puis attaque au second.",
+
+    effect: {
+      type: "VOLATILE",
+      volatile: "CHARGED",
+    },
   },
 
   focusEnergy: {

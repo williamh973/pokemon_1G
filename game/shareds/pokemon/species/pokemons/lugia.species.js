@@ -28,11 +28,7 @@ export const LUGIA_SPECIES = {
   evolutions: [],
   learnset: {
     levelUp: [
-      { level: 1, move: MOVES_DATABASE.growl },
-      // { level: 1, move: MOVES_DATABASE.ember },
-      { level: 1, move: MOVES_DATABASE.fly },
-
-      // { level: 1, move: MOVES_DATABASE.focusEnergy },
+      { level: 1, move: MOVES_DATABASE.focusEnergy },
       // { level: 1, move: MOVES_DATABASE.whirlwind },
       // { level: 11, move: MOVES_DATABASE.safeguard },
       // { level: 22, move: MOVES_DATABASE.gust },

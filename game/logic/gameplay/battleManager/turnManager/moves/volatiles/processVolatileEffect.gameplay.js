@@ -1,5 +1,5 @@
 import { processConfusionTurn } from "./confusion/processConfusionTurn.gameplay.js";
-import { processFlyTurn } from "./fly/processFlyTurn.gameplay.js";
+import { prepareChargedMove } from "./chargedMoves/prepareChargedMove .gameplay.js";
 
 export const processVolatileEffect = (action) => {
   const { pokemon, move } = action;
@@ -8,8 +8,8 @@ export const processVolatileEffect = (action) => {
   if (pokemon.volatils.confusionTurns > 0)
     return processConfusionTurn(pokemon, canUseMove);
 
-  if (pokemon.volatils.fly || move?.id === "fly")
-    return processFlyTurn(pokemon, move);
+  if (!pokemon.chargedMove?.move?.id === "fly" || move?.id === "fly")
+    return prepareChargedMove(pokemon, move);
 
   return {
     isAffected: false,

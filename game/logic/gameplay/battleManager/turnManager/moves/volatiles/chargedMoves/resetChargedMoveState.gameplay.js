@@ -1,7 +1,5 @@
-export const resetFlyState = (turnManager, pokemon) => {
+export const resetChargedMoveState = (turnManager, pokemon) => {
   if (!pokemon) return;
-
-  pokemon.volatils.fly = false;
 
   const initialPosition = pokemon.chargedMove.initialPosition;
 

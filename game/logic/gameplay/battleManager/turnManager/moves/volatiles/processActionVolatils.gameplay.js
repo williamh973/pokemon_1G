@@ -1,5 +1,5 @@
 import { processConfusionEffect } from "./confusion/processConfusionEffect.gameplay.js";
-import { processFlyEffect } from "./fly/processFlyEffect.gameplay.js";
+import { executeChargedMoveFirstPhase } from "./chargedMoves/executeChargedMoveFirstPhase .gameplay.js";
 import { processVolatileEffect } from "./processVolatileEffect.gameplay.js";
 
 export const processActionVolatile = (turnManager, sequence, action) => {
@@ -10,7 +10,6 @@ export const processActionVolatile = (turnManager, sequence, action) => {
   console.log(
     `[VOLATILE] ${action.pokemon.name} | ` +
       `confusionTurns = ${action.pokemon.volatils.confusionTurns} | ` +
-      `flyTurn = ${action.pokemon.volatils.fly} | ` +
       `chargedMove = ${action.pokemon.chargedMove.move?.id} , ` +
       `chargedMoveAnimationPhase = ${action.pokemon.chargedMove.animationPhase} | ` +
       `canUseMove=${processVolatileResult.canUseMove}`
@@ -26,8 +25,8 @@ export const processActionVolatile = (turnManager, sequence, action) => {
       );
       break;
 
-    case "FLY":
-      return processFlyEffect(
+    case "CHARGED_MOVE":
+      return executeChargedMoveFirstPhase(
         turnManager,
         action,
         processVolatileResult,
