@@ -1,5 +1,52 @@
 import { DIALOGS_DATABASE } from "../../../../../../../shareds/dialogs/dialogs.database.js";
 import { TURN_STATES } from "../../../states/turnManager.states.js";
+import { executeChargedMoveFirstPhase } from "../chargedMoves/executeChargedMoveFirstPhase.gameplay.js";
+import { getPendingChargedMoveAction } from "../chargedMoves/getPendingChargedMoveAction.gameplay.js";
+import { prepareChargedMove } from "../chargedMoves/prepareChargedMove.gameplay.js";
+
+const checkChargedMoveBeforeExecuteMove = (turnManager, sequence, action) => {
+  const pendingChargedMove = getPendingChargedMoveAction(turnManager);
+
+  if (pendingChargedMove) {
+    console.log(
+      `[CHARGED MOVE EN ATTENTE] ${pendingChargedMove.pokemon} | ${pendingChargedMove.move} | ${pendingChargedMove.animationPhase}`
+    );
+    turnManager.executeMove(sequence, action);
+    return;
+  }
+
+  const isChargedMoveInProgress =
+    action.pokemon.chargedMove?.animationPhase === "SECOND" &&
+    action.pokemon.chargedMove?.move?.id === action.move.id;
+
+  if (isChargedMoveInProgress) {
+    turnManager.executeMove(sequence, action);
+    return;
+  }
+
+  if (
+    action.pokemon.chargedMove?.move?.effect?.volatile === "CHARGED_MOVE" ||
+    action.move.effect?.volatile === "CHARGED_MOVE"
+  ) {
+    console.log(
+      `${action.pokemon.name} a l'intention d'utiliser ${action.move.id}`
+    );
+    const prepareChargedMoveResult = prepareChargedMove(
+      action.pokemon,
+      action.move
+    );
+
+    if (prepareChargedMoveResult.isAffected)
+      return executeChargedMoveFirstPhase(
+        turnManager,
+        action,
+        prepareChargedMoveResult,
+        sequence
+      );
+  }
+
+  turnManager.executeMove(sequence, action);
+};
 
 export const processConfusionEffect = (
   turnManager,
@@ -11,11 +58,14 @@ export const processConfusionEffect = (
     console.log(`N'EST PLUS CONFUS `);
 
     turnManager.battleManager.openDialogBox(
-      DIALOGS_DATABASE.BATTLE_DIALOGS.confusedNoMore(action.pokemon.name)
+      DIALOGS_DATABASE.BATTLE_DIALOGS.confusedNoMore(
+        action.pokemon.name,
+        action.pokemon.trainerId
+      )
     );
 
     turnManager.waitForAction(() => {
-      turnManager.executeMove(sequence, action);
+      checkChargedMoveBeforeExecuteMove(turnManager, sequence, action);
     }, turnManager.state);
 
     return true;
@@ -24,14 +74,17 @@ export const processConfusionEffect = (
   console.log(`IL EST CONFUS `);
 
   turnManager.battleManager.openDialogBox(
-    DIALOGS_DATABASE.BATTLE_DIALOGS.confusing(action.pokemon.name)
+    DIALOGS_DATABASE.BATTLE_DIALOGS.confusing(
+      action.pokemon.name,
+      action.pokemon.trainerId
+    )
   );
 
   if (processVolatileResult.resist) {
     console.log(`CONFUS MAIS RÉSIST`);
 
     turnManager.waitForAction(() => {
-      turnManager.executeMove(sequence, action);
+      checkChargedMoveBeforeExecuteMove(turnManager, sequence, action);
     }, turnManager.state);
 
     return true;
@@ -67,7 +120,7 @@ export const processConfusionEffect = (
           return;
         }
 
-        turnManager.executeMove(sequence, action);
+        checkChargedMoveBeforeExecuteMove(turnManager, sequence, action);
       }, turnManager.state);
     }, turnManager.state);
   }

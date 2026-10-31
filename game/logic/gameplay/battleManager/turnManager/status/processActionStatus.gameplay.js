@@ -1,8 +1,8 @@
 import { processPokemonStatus } from "../../../pokemon/status/processPokemonStatus.gameplay.js";
 import { handlerStatusProcessDialogs } from "../handlerDialogs/status/handlerStatusProcessDialogs.gameplay.js";
 import { handlerStatusRecoveryDialogs } from "../handlerDialogs/status/handlerStatusRecoveryDialogs.gameplay.js";
-import { executeChargedMoveFirstPhase } from "../moves/volatiles/chargedMoves/executeChargedMoveFirstPhase .gameplay.js";
-import { prepareChargedMove } from "../moves/volatiles/chargedMoves/prepareChargedMove .gameplay.js";
+import { executeChargedMoveFirstPhase } from "../moves/volatiles/chargedMoves/executeChargedMoveFirstPhase.gameplay.js";
+import { prepareChargedMove } from "../moves/volatiles/chargedMoves/prepareChargedMove.gameplay.js";
 import { TURN_STATES } from "../states/turnManager.states.js";
 
 export const processActionStatus = (turnManager, sequence, action) => {

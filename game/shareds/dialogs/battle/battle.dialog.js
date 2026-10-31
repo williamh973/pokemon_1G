@@ -1,4 +1,7 @@
 export const BATTLE_DIALOGS = {
+  setBack: (pokemon, trainerId) =>
+    `${pokemon} ${trainerId ? "" : "ennemi"} prend du recul.`,
+
   takeOff: (pokemon, trainerId) =>
     `${pokemon} ${trainerId ? "" : "ennemi"} s'envole.`,
 
@@ -12,13 +15,16 @@ export const BATTLE_DIALOGS = {
   ineffective: (pokemon, trainerId) =>
     `Cela n'affecte pas ${pokemon} ${trainerId ? "" : "ennemi."}`,
 
-  confusedNoMore: (pokemon) => `${pokemon} n'est plus confus.`,
+  confusedNoMore: (pokemon, trainerId) =>
+    `${pokemon}  ${trainerId ? "" : "ennemi "}\nn'est plus confus.`,
 
   confusionDeals: () => `La confusion lui inflige des\ndégâts.`,
 
-  confusing: (pokemon) => `${pokemon} est confus.`,
+  confusing: (pokemon, trainerId) =>
+    `${pokemon} ${trainerId ? "" : "ennemi "}\nest confus.`,
 
-  becomesConfusing: (pokemon) => `Cela rend ${pokemon} \nconfus`,
+  becomesConfusing: (pokemon, trainerId) =>
+    `Cela rend ${pokemon} \n${trainerId ? "" : "ennemi "}confus.`,
 
   drain: (pokemon) => `La vie de ${pokemon} \nest aspiré.`,
 

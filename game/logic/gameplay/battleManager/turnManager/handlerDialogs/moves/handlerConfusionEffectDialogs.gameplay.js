@@ -9,6 +9,9 @@ export const handlerConfusionEffectDialogs = (
     battleManager.openDialogBox(DIALOGS_DATABASE.BATTLE_DIALOGS.noEffect());
   else
     battleManager.openDialogBox(
-      DIALOGS_DATABASE.BATTLE_DIALOGS.becomesConfusing(target.name)
+      DIALOGS_DATABASE.BATTLE_DIALOGS.becomesConfusing(
+        target.name,
+        target.trainerId
+      )
     );
 };

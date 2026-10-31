@@ -57,14 +57,14 @@ export const MOVES_DATABASE = {
     type: ["FLYING"],
     class: ["PHYSICAL"],
     pp: 15,
-    power: 2,
+    power: 70,
     precision: 95,
     priority: 0,
     desc: "Le lanceur s'envole au premier tour puis attaque au second.",
 
     effect: {
       type: "VOLATILE",
-      volatile: "CHARGED",
+      volatile: "CHARGED_MOVE",
     },
   },
 
@@ -259,14 +259,30 @@ export const MOVES_DATABASE = {
     },
   },
 
+  skullBash: {
+    id: "skullBash",
+    name: "Coud'Krâne",
+    type: ["NORMAL"],
+    class: ["PHYSICAL"],
+    power: 2, // 130
+    precision: 100,
+    pp: 10,
+    desc: "Le lanceur augmente sa Défense au premier tour puis attaque au second.",
+
+    effect: {
+      type: "VOLATILE",
+      volatile: "CHARGED_MOVE",
+    },
+  },
+
   supersonic: {
     id: "supersonic",
     name: "Ultrason",
     type: ["NORMAL"],
     class: ["STATUT"],
-    pp: 20,
     power: 0,
     precision: 55,
+    pp: 20,
     desc: "Attaque sonore. Rend confus la cible.",
 
     effect: {

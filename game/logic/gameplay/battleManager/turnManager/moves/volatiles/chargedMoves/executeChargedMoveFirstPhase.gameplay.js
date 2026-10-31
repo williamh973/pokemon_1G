@@ -1,4 +1,4 @@
-import { DIALOGS_DATABASE } from "../../../../../../../shareds/dialogs/dialogs.database.js";
+import { handleChargedMoveDialogs } from "./handleChargedMoveDialogs.gameplay.js";
 
 export const executeChargedMoveFirstPhase = (
   turnManager,
@@ -15,21 +15,12 @@ export const executeChargedMoveFirstPhase = (
 
   action.pokemon.chargedMove.turnAction = turnManager.state;
 
-  turnManager.battleManager.openDialogBox(
-    DIALOGS_DATABASE.BATTLE_DIALOGS.takeOff(
-      action.pokemon.name,
-      action.pokemon.trainerId
-    )
-  );
+  const chargedMove = action.pokemon.chargedMove;
+  const pokemon = action.pokemon;
+
+  handleChargedMoveDialogs(turnManager, chargedMove, pokemon);
 
   sequence.startPokemonUseMoveSequence(action);
-
-  // console.log(
-  //   DIALOGS_DATABASE.BATTLE_DIALOGS.takeOff(
-  //     action.pokemon.name,
-  //     action.pokemon.trainerId
-  //   ) + "Validation du joueur requise pour continuer"
-  // );
 
   turnManager.waitForAction(() => {
     // console.log("Le joueur a validé, onActionFinished s'éxécute");

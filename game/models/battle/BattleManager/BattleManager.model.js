@@ -144,6 +144,8 @@ export class BattleManager {
     this.selectedMove = moveData;
     this.wildPokemonSelectMove();
 
+    console.log(`Le joueur a choisi d'utiliser ${this.selectedMove.id}`);
+
     this.phaseManager.setPhase(BATTLE_PHASES.EXECUTE_TURN);
   }
 

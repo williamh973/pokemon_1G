@@ -17,8 +17,10 @@ import { IceBeamAnimation } from "../../../models/pokemon/Move/animations/iceBea
 import { SupersonicAnimation } from "../../../models/pokemon/Move/animations/supersonicAnimation.model.js";
 import { HyperBeamAnimation } from "../../../models/pokemon/Move/animations/HyperBeamAnimation.model.js";
 import { FlyAnimation } from "../../../models/pokemon/Move/animations/FlyAnimation.model.js";
+import { SkullBashAnimation } from "../../../models/pokemon/Move/animations/skullBashAnimation.model.js";
 
 export const MOVE_ANIMATIONS_DATABASE = {
+  skullBash: SkullBashAnimation,
   fly: FlyAnimation,
   tackle: TackleAnimation,
   tailWhip: TailWhipAnimation,

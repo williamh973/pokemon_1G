@@ -39,9 +39,11 @@ export const BLASTOISE_SPECIES = {
 
   learnset: {
     levelUp: [
-      { level: 1, move: MOVES_DATABASE.tackle },
+      // { level: 1, move: MOVES_DATABASE.skullBash },
       { level: 1, move: MOVES_DATABASE.tailWhip },
-      // { level: 1, move: MOVES_DATABASE.bubble },
+      { level: 1, move: MOVES_DATABASE.supersonic },
+      { level: 1, move: MOVES_DATABASE.harden },
+      { level: 1, move: MOVES_DATABASE.skullBash },
       // { level: 1, move: MOVES_DATABASE.withdraw },
 
       // { level: 4, move: MOVES_DATABASE.tailWhip },

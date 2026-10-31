@@ -9,7 +9,7 @@ export const deductStatHP = (pokemon) => {
       30
   );
 
-  console.log(`${pokemon.name} subit : `, damages, "à cause de la confusion");
+  console.log(`${pokemon.name} perd `, damages, "PV à cause de la confusion");
 
   pokemon.stats.hp = Math.min(pokemon.stats.hp, pokemon.stats.hp - damages);
 

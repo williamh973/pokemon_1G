@@ -1,4 +1,5 @@
 import { BATTLE_RESULT_STATES } from "../../../../logic/gameplay/battleManager/resultManager/resultManager.states.js";
+import { resetChargedMoveAfterBeingFainted } from "../../../../logic/gameplay/battleManager/turnManager/moves/volatiles/chargedMoves/resetChargedMoveAfterBeingFainted.gameplay.js";
 import { TURN_STATES } from "../../../../logic/gameplay/battleManager/turnManager/states/turnManager.states.js";
 import { INPUT_STATE } from "../../../../logic/input/inputs.state.js";
 import { DIALOGS_DATABASE } from "../../../../shareds/dialogs/dialogs.database.js";
@@ -57,6 +58,7 @@ export class BattlePhaseManager {
 
         this.battleManager.battleMovesMenu.close();
         this.battleManager.openBattleMenu();
+        console.log("BattleMenu ouvert");
         break;
 
       case BATTLE_PHASES.PLAYER_TRY_CATCH_POKEMON:
@@ -340,7 +342,7 @@ export class BattlePhaseManager {
           const faintedPokemon = turnManager.koAction?.fainted;
 
           if (faintedPokemon?.chargedMove?.move) {
-            turnManager.resetChargedMoveForPokemon(faintedPokemon);
+            resetChargedMoveAfterBeingFainted(faintedPokemon);
           }
 
           const hasTargetTrainerId = faintedPokemon.trainerId;

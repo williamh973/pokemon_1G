@@ -3,7 +3,6 @@ export const prepareChargedMove = (pokemon, usingMove) => {
     pokemon.chargedMove.move = usingMove;
     pokemon.chargedMove.animationPhase = "FIRST";
   }
-
   return {
     isAffected: true,
     volatile: "CHARGED_MOVE",

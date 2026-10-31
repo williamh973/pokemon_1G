@@ -16,6 +16,8 @@ import { processMoveConsequence } from "../../../../logic/gameplay/battleManager
 import { processActionConsequence } from "../../../../logic/gameplay/battleManager/turnManager/moves/consequences/processActionConsequence.gameplay.js";
 import { resetChargedMoveState } from "../../../../logic/gameplay/battleManager/turnManager/moves/volatiles/chargedMoves/resetChargedMoveState.gameplay.js";
 import { wait } from "../../../../logic/gameplay/battleManager/turnManager/turn/wait.gameplay.js";
+import { processPendingChargedMove } from "../../../../logic/gameplay/battleManager/turnManager/moves/volatiles/chargedMoves/processPendingChargedMove.gameplay.js";
+import { getPendingChargedMoveAction } from "../../../../logic/gameplay/battleManager/turnManager/moves/volatiles/chargedMoves/getPendingChargedMoveAction.gameplay.js";
 
 export class TurnManager {
   constructor(battleManager) {
@@ -76,56 +78,6 @@ export class TurnManager {
     return [this.firstAction, this.secondAction].find(
       (action) => action?.pokemon?.chargedMove?.move
     );
-  }
-
-  getPendingChargedMoveAction(excludedPokemon = null) {
-    return [this.firstAction, this.secondAction].find((action) => {
-      const pokemon = action?.pokemon;
-      const chargedMove = pokemon?.chargedMove;
-
-      return (
-        pokemon &&
-        pokemon !== excludedPokemon &&
-        chargedMove?.move &&
-        chargedMove.animationPhase === "FIRST"
-      );
-    });
-  }
-
-  startChargedMove(sequence) {
-    const action = this.getActionContainsChargedMove();
-
-    if (!action) return false;
-
-    const chargedMove = action.pokemon.chargedMove;
-
-    if (!chargedMove.move || chargedMove.animationPhase !== "FIRST") {
-      return false;
-    }
-
-    if (chargedMove.turnAction === TURN_STATES.SECOND_ACTION) {
-      chargedMove.animationPhase = "SECOND";
-      this.state = TURN_STATES.END;
-      return true;
-    }
-
-    chargedMove.animationPhase = "SECOND";
-
-    this.isExecutingChargedMove = true;
-    this.state = TURN_STATES.FIRST_ACTION;
-
-    this.executeAction(sequence, action);
-
-    return true;
-  }
-
-  resetChargedMoveForPokemon(faintedPokemon) {
-    faintedPokemon.chargedMove = {
-      move: null,
-      animationPhase: null,
-      initialPosition: null,
-      turnAction: null,
-    };
   }
 
   startTurn(sequence) {
@@ -249,7 +201,6 @@ export class TurnManager {
           this.isChargedMoveContinuation = false;
 
           this.state = TURN_STATES.SECOND_ACTION;
-          console.log("turn state : ", this.state);
           this.executeAction(sequence, this.secondAction);
           return;
         }
@@ -260,19 +211,16 @@ export class TurnManager {
           resetChargedMoveState(this, finishedPokemon);
           this.isExecutingChargedMove = false;
 
-          const pendingAction =
-            this.getPendingChargedMoveAction(finishedPokemon);
+          const pendingAction = getPendingChargedMoveAction(
+            this,
+            finishedPokemon
+          );
 
           if (pendingAction) {
             pendingAction.pokemon.chargedMove.animationPhase = "SECOND";
 
             this.state = TURN_STATES.FIRST_ACTION;
             this.isExecutingChargedMove = true;
-
-            console.log(
-              "Une autre attaque chargée est en attente :",
-              pendingAction.pokemon.name
-            );
 
             this.executeAction(sequence, pendingAction);
             return;
@@ -295,8 +243,10 @@ export class TurnManager {
           resetChargedMoveState(this, finishedPokemon);
           this.isChargedMoveContinuation = false;
 
-          const pendingAction =
-            this.getPendingChargedMoveAction(finishedPokemon);
+          const pendingAction = getPendingChargedMoveAction(
+            this,
+            finishedPokemon
+          );
 
           if (pendingAction) {
             this.state = TURN_STATES.FIRST_ACTION;
@@ -310,7 +260,7 @@ export class TurnManager {
           return;
         }
 
-        if (this.startChargedMove(sequence)) return;
+        if (processPendingChargedMove(this, sequence)) return;
 
         console.log("SECOND_ACTION est fini, le tour est fini");
         this.state = TURN_STATES.END;

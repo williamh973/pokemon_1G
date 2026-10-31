@@ -1,5 +1,5 @@
 import { processConfusionEffect } from "./confusion/processConfusionEffect.gameplay.js";
-import { executeChargedMoveFirstPhase } from "./chargedMoves/executeChargedMoveFirstPhase .gameplay.js";
+import { executeChargedMoveFirstPhase } from "./chargedMoves/executeChargedMoveFirstPhase.gameplay.js";
 import { processVolatileEffect } from "./processVolatileEffect.gameplay.js";
 
 export const processActionVolatile = (turnManager, sequence, action) => {
