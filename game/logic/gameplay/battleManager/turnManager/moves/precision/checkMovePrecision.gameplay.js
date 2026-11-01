@@ -1,12 +1,21 @@
 import { getAccuracyStageMultiplier } from "../../statStages/getAccuracyStageMultiplier.gameplay.js";
 
+const canHitTargetDuringChargedMove = (action) => {
+  const { target, move } = action;
+  switch (target.chargedMove?.move?.id) {
+    case "fly":
+      return move.id === "swift";
+    case "dig":
+      return move.id === "earthquake";
+    default:
+      return true;
+  }
+};
+
 export const checkMovePrecision = (action) => {
   if (action.move?.selfTarget) return true;
 
-  const { target, move } = action;
-
-  if (target.chargedMove?.move?.id === "fly" && move.id !== "swift")
-    return false;
+  if (!canHitTargetDuringChargedMove(action)) return false;
 
   const random100 = Math.floor(Math.random() * 100) + 1;
 

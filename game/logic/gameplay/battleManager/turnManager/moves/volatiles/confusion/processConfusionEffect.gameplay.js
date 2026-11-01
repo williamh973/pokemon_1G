@@ -8,9 +8,6 @@ const checkChargedMoveBeforeExecuteMove = (turnManager, sequence, action) => {
   const pendingChargedMove = getPendingChargedMoveAction(turnManager);
 
   if (pendingChargedMove) {
-    console.log(
-      `[CHARGED MOVE EN ATTENTE] ${pendingChargedMove.pokemon} | ${pendingChargedMove.move} | ${pendingChargedMove.animationPhase}`
-    );
     turnManager.executeMove(sequence, action);
     return;
   }
@@ -28,9 +25,6 @@ const checkChargedMoveBeforeExecuteMove = (turnManager, sequence, action) => {
     action.pokemon.chargedMove?.move?.effect?.volatile === "CHARGED_MOVE" ||
     action.move.effect?.volatile === "CHARGED_MOVE"
   ) {
-    console.log(
-      `${action.pokemon.name} a l'intention d'utiliser ${action.move.id}`
-    );
     const prepareChargedMoveResult = prepareChargedMove(
       action.pokemon,
       action.move

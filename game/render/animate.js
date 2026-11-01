@@ -25,6 +25,10 @@ export const animate = (game, tileManager) => {
 
   if (game.player) game.camera.follow(game.player);
 
+  game.canvas.beginFrame();
+
   draw(game, tileManager);
   update(game);
+
+  game.canvas.endFrame();
 };

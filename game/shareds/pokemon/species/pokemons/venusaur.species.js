@@ -35,14 +35,14 @@ export const VENUSAUR_SPECIES = {
 
   learnset: {
     levelUp: [
-      { level: 1, move: MOVES_DATABASE.tackle },
+      { level: 1, move: MOVES_DATABASE.solarBeam },
       { level: 1, move: MOVES_DATABASE.tailWhip },
-      { level: 7, move: MOVES_DATABASE.vineWhip },
-      { level: 13, move: MOVES_DATABASE.poisonPowder },
-      { level: 20, move: MOVES_DATABASE.razorLeaf },
-      { level: 27, move: MOVES_DATABASE.growth },
-      { level: 34, move: MOVES_DATABASE.sleepPowder },
-      { level: 41, move: MOVES_DATABASE.solarBeam },
+      // { level: 7, move: MOVES_DATABASE.vineWhip },
+      // { level: 13, move: MOVES_DATABASE.poisonPowder },
+      // { level: 20, move: MOVES_DATABASE.razorLeaf },
+      // { level: 27, move: MOVES_DATABASE.growth },
+      // { level: 34, move: MOVES_DATABASE.sleepPowder },
+      // { level: 41, move: MOVES_DATABASE.solarBeam },
     ],
 
     tmhm: [

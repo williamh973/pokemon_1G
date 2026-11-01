@@ -39,7 +39,7 @@ export const SANDSLASH_SPECIES = {
 
   learnset: {
     levelUp: [
-      { level: 1, move: MOVES_DATABASE.scratch },
+      { level: 1, move: MOVES_DATABASE.tackle },
       //   { level: 1, move: MOVES_DATABASE.defenseCurl },
       //   { level: 1, move: MOVES_DATABASE.sandAttack },
 

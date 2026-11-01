@@ -18,8 +18,16 @@ import { SupersonicAnimation } from "../../../models/pokemon/Move/animations/sup
 import { HyperBeamAnimation } from "../../../models/pokemon/Move/animations/HyperBeamAnimation.model.js";
 import { FlyAnimation } from "../../../models/pokemon/Move/animations/FlyAnimation.model.js";
 import { SkullBashAnimation } from "../../../models/pokemon/Move/animations/skullBashAnimation.model.js";
+import { SolarBeamAnimation } from "../../../models/pokemon/Move/animations/SolarBeamAnimation.model.js";
+import { DigAnimation } from "../../../models/pokemon/Move/animations/DigAnimation.model.js";
+import { EarthquakeAnimation } from "../../../models/pokemon/Move/animations/EarthquakeAnimation.model.js";
+import { MegaPunchAnimation } from "../../../models/pokemon/Move/animations/MegaPunchAnimation.model.js";
 
 export const MOVE_ANIMATIONS_DATABASE = {
+  megaPunch: MegaPunchAnimation,
+  earthquake: EarthquakeAnimation,
+  dig: DigAnimation,
+  solarBeam: SolarBeamAnimation,
   skullBash: SkullBashAnimation,
   fly: FlyAnimation,
   tackle: TackleAnimation,

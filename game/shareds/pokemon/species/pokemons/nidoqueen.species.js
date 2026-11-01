@@ -38,11 +38,11 @@ export const NIDOQUEEN_SPECIES = {
 
   learnset: {
     levelUp: [
-      { level: 1, move: MOVES_DATABASE.scratch },
-      { level: 1, move: MOVES_DATABASE.tailWhip },
+      { level: 1, move: MOVES_DATABASE.dig },
+      // { level: 1, move: MOVES_DATABASE.tailWhip },
       //   { level: 1, move: MOVES_DATABASE.doubleKick },
       //   { level: 1, move: MOVES_DATABASE.poisonSting },
-      { level: 23, move: MOVES_DATABASE.bodySlam },
+      // { level: 23, move: MOVES_DATABASE.bodySlam },
     ],
 
     tmhm: [

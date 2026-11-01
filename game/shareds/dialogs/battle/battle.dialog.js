@@ -1,12 +1,18 @@
 export const BATTLE_DIALOGS = {
+  dig: (pokemon, trainerId) =>
+    `${pokemon} ${trainerId ? "" : "ennemi "}\ns'enfonce dans le sol.`,
+
+  shining: (pokemon, trainerId) =>
+    `${pokemon} ${trainerId ? "" : "ennemi "}brille.`,
+
   setBack: (pokemon, trainerId) =>
-    `${pokemon} ${trainerId ? "" : "ennemi"} prend du recul.`,
+    `${pokemon} ${trainerId ? "" : "ennemi "}prend du recul.`,
 
   takeOff: (pokemon, trainerId) =>
-    `${pokemon} ${trainerId ? "" : "ennemi"} s'envole.`,
+    `${pokemon} ${trainerId ? "" : "ennemi "}s'envole.`,
 
   toBeExhausted: (pokemon, trainerId) =>
-    `${pokemon} ${trainerId ? "" : "ennemi"} est à plat.`,
+    `${pokemon} ${trainerId ? "" : "ennemi "}est à plat.`,
 
   superEffective: () => `C'est super efficace !`,
 

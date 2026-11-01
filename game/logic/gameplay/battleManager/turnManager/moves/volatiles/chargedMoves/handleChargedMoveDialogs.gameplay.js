@@ -4,6 +4,18 @@ export const handleChargedMoveDialogs = (turnManager, chargedMove, pokemon) => {
   let dialog = null;
 
   switch (chargedMove.move.id) {
+    case "dig":
+      dialog = DIALOGS_DATABASE.BATTLE_DIALOGS.dig(
+        pokemon.name,
+        pokemon.trainerId
+      );
+      break;
+    case "solarBeam":
+      dialog = DIALOGS_DATABASE.BATTLE_DIALOGS.shining(
+        pokemon.name,
+        pokemon.trainerId
+      );
+      break;
     case "skullBash":
       dialog = DIALOGS_DATABASE.BATTLE_DIALOGS.setBack(
         pokemon.name,

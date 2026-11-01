@@ -1069,7 +1069,7 @@ export const POKEDEX_DATABASE = [
     print: "",
   },
   {
-    id: "",
+    id: "golem",
     no: "076",
     name: "GROLEM",
     category: "Mégatonne",

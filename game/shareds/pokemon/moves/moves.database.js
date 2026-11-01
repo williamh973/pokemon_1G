@@ -1,362 +1,58 @@
 import { POKEMON_STATUS } from "../../../logic/gameplay/pokemon/status/pokemonStatus.state.js";
+import { TACKLE_MOVE } from "./definitions/tackle.move.js";
+import { TAILWHIP_MOVE } from "./definitions/tailWhip.move.js";
+import { THUNDERWAVE_MOVE } from "./definitions/thunderWave.move.js";
+import { VINEWHIP_MOVE } from "./definitions/vineWhip.move.js";
+import { SURF_MOVE } from "./definitions/surf.move.js";
+import { SUPERSONIC_MOVE } from "./definitions/supersonic.move.js";
+import { SOLARBEAM_MOVE } from "./definitions/solarBeam.move.js";
+import { SKULLBASH_MOVE } from "./definitions/skullBash.move.js";
+import { SCREECH_MOVE } from "./definitions/screech.move.js";
+import { SCRATCH_MOVE } from "./definitions/scratch.move.js";
+import { SANDATTACK_MOVE } from "./definitions/sandAttack.move.js";
+import { QUICKATTACK_MOVE } from "./definitions/quickAttack.move.js";
+import { LEECHLIFE_MOVE } from "./definitions/leechLife.move.js";
+import { ICEBEAM_MOVE } from "./definitions/iceBeam.move.js";
+import { HYPNOSIS_MOVE } from "./definitions/hypnosis.move.js";
+import { HYPERBEAM_MOVE } from "./definitions/hyperBeam.move.js";
+import { HARDEN_MOVE } from "./definitions/harden.move.js";
+import { GUST_MOVE } from "./definitions/gust.move.js";
+import { GROWL_MOVE } from "./definitions/growl.move.js";
+import { FOCUS_ENERGY_MOVE } from "./definitions/focusEnergy.move.js";
+import { FLY_MOVE } from "./definitions/fly.move.js";
+import { EMBER_MOVE } from "./definitions/ember.move.js";
+import { EARTHQUAKE_MOVE } from "./definitions/earthquake.move.js";
+import { DIG_MOVE } from "./definitions/dig.move.js";
+import { BIND_MOVE } from "./definitions/bind.move.js";
+import { ACID_MOVE } from "./definitions/acid.move.js";
+import { MEGAPUNCH_MOVE } from "./definitions/megaPunch.move.js";
 
 export const MOVES_DATABASE = {
-  acid: {
-    id: "acid",
-    name: "Acide",
-    type: ["POISON"],
-    class: ["PHYSICAL"],
-    pp: 30,
-    power: 40,
-    precision: 100,
-    desc: "33.2% de chance de baisser la Défense des cibles d'un niveau.",
-
-    effect: {
-      type: "STAT_STAGE",
-      stat: "defense",
-      amount: -1,
-      percentage: 100,
-    },
-  },
-
-  bind: {
-    id: "bind",
-    name: "Étreinte",
-    type: ["NORMAL"],
-    class: ["PHYSICAL"],
-    pp: 20,
-    power: 15,
-    precision: 75,
-    desc: "Ligote la cible pour lui infliger les même dégats que le premier coup à la fin de chaque tour pendant 2 à 5 tours.",
-
-    effect: {
-      type: "TRAPPED",
-    },
-  },
-
-  ember: {
-    id: "ember",
-    name: "Flammèche",
-    type: ["FIRE"],
-    class: ["SPECIAL"],
-    pp: 25,
-    power: 40,
-    precision: 10,
-    desc: "10% de chance de brûler la cible.",
-
-    effect: {
-      type: "STATUS",
-      status: POKEMON_STATUS.BURN,
-      percentage: 10,
-    },
-  },
-
-  fly: {
-    id: "fly",
-    name: "Vol",
-    type: ["FLYING"],
-    class: ["PHYSICAL"],
-    pp: 15,
-    power: 70,
-    precision: 95,
-    priority: 0,
-    desc: "Le lanceur s'envole au premier tour puis attaque au second.",
-
-    effect: {
-      type: "VOLATILE",
-      volatile: "CHARGED_MOVE",
-    },
-  },
-
-  focusEnergy: {
-    id: "focusEnergy",
-    name: "Puissance",
-    type: ["NORMAL"],
-    class: ["STATUT"],
-    pp: 30,
-    power: 0,
-    precision: 100,
-    desc: "augmente les chances de coups critiques.",
-    effect: {
-      type: "VOLATILE",
-      volatile: "FOCUS_ENERGY",
-      percentage: 100,
-    },
-  },
-
-  growl: {
-    id: "growl",
-    name: "Rugissement",
-    type: ["NORMAL"],
-    class: ["STATUT"],
-    pp: 40,
-    power: 0,
-    precision: 100,
-    desc: "Attaque sonore. Baisse l'Attaque.",
-
-    effect: {
-      type: "STAT_STAGE",
-      stat: "attack",
-      amount: -1,
-      percentage: 100,
-    },
-  },
-
-  gust: {
-    id: "gust",
-    name: "Tornade",
-    type: ["FLYING"],
-    class: ["PHYSICAL"],
-    pp: 35,
-    power: 40,
-    precision: 100,
-    desc: "La puissance est doublée si la cible est dans les airs.",
-  },
-
-  harden: {
-    id: "harden",
-    name: "Armure",
-    type: ["NORMAL"],
-    class: ["STATUT"],
-    pp: 30,
-    power: 0,
-    precision: 100,
-    desc: "Augmente la Défense du lanceur d'un niveau.",
-    selfTarget: true,
-
-    effect: {
-      type: "STAT_STAGE",
-      stat: "defense",
-      amount: 1,
-      percentage: 100,
-    },
-  },
-
-  hyperBeam: {
-    id: "hyperBeam",
-    name: "Ultralaser",
-    type: ["NORMAL"],
-    class: ["PHYSICAL"],
-    pp: 5,
-    power: 10, // 150
-    precision: 90,
-    priority: 0,
-    desc: "Le lanceur doit se reposer au tour suivant.",
-
-    consequence: {
-      type: "RECHARGE",
-    },
-  },
-
-  hypnosis: {
-    id: "hypnosis",
-    name: "Hypnose",
-    type: ["PSYCHIC"],
-    class: ["STATUT"],
-    pp: 20,
-    power: 0,
-    precision: 60,
-    desc: "Endort la cible.",
-
-    effect: {
-      type: "STATUS",
-      status: POKEMON_STATUS.SLEEP,
-      percentage: 100,
-    },
-  },
-
-  iceBeam: {
-    id: "iceBeam",
-    name: "Laser Glace",
-    type: ["ICE"],
-    class: ["SPECIAL"],
-    pp: 10,
-    power: 95,
-    precision: 100,
-    desc: "10% de chance de geler la cible.",
-
-    effect: {
-      type: "STATUS",
-      status: POKEMON_STATUS.FREEZE,
-      percentage: 10,
-    },
-  },
-
-  leechLife: {
-    id: "leechLife",
-    name: "Vampirisme",
-    type: ["BUG"],
-    class: ["PHYSICAL"],
-    pp: 15,
-    power: 20,
-    precision: 100,
-    desc: "Convertit 50% des dégâts infligés à la cible en PV pour le lanceur.",
-
-    effect: {
-      type: "DRAIN",
-      stat: "hp",
-      amount: 50,
-      percentage: 100,
-    },
-  },
-
-  quickAttack: {
-    id: "quickAttack",
-    name: "Vive-Attaque",
-    type: ["NORMAL"],
-    class: ["PHYSICAL"],
-    pp: 30,
-    power: 40,
-    precision: 100,
-    priority: 1,
-    desc: "Le lanceur attaque en premier",
-  },
-
-  sandAttack: {
-    id: "sandAttack",
-    name: "Jet de Sable",
-    type: ["GROUND"],
-    class: ["STATUT"],
-    pp: 15,
-    power: 0,
-    precision: 100,
-    desc: "Baisse la Précision de la cible d'un niveau.",
-
-    effect: {
-      type: "STAT_STAGE",
-      stat: "accuracy",
-      amount: -1,
-      percentage: 100,
-    },
-  },
-
-  scratch: {
-    id: "scratch",
-    name: "Griffe",
-    type: ["NORMAL"],
-    class: ["PHYSICAL"],
-    pp: 35,
-    power: 40,
-    precision: 100,
-    desc: "Un violent coup de griffe.",
-  },
-
-  screech: {
-    id: "screech",
-    name: "Grincement",
-    type: ["NORMAL"],
-    class: ["STATUT"],
-    pp: 40,
-    power: 0,
-    precision: 85,
-    desc: "Attaque sonore. Baisse la Défense de la cible de 2 niveaux.",
-
-    effect: {
-      type: "STAT_STAGE",
-      stat: "defense",
-      amount: -2,
-      percentage: 100,
-    },
-  },
-
-  skullBash: {
-    id: "skullBash",
-    name: "Coud'Krâne",
-    type: ["NORMAL"],
-    class: ["PHYSICAL"],
-    power: 2, // 130
-    precision: 100,
-    pp: 10,
-    desc: "Le lanceur augmente sa Défense au premier tour puis attaque au second.",
-
-    effect: {
-      type: "VOLATILE",
-      volatile: "CHARGED_MOVE",
-    },
-  },
-
-  supersonic: {
-    id: "supersonic",
-    name: "Ultrason",
-    type: ["NORMAL"],
-    class: ["STATUT"],
-    power: 0,
-    precision: 55,
-    pp: 20,
-    desc: "Attaque sonore. Rend confus la cible.",
-
-    effect: {
-      type: "VOLATILE",
-      volatile: "CONFUSION",
-      percentage: 100,
-    },
-  },
-
-  surf: {
-    id: "surf",
-    name: "Surf",
-    type: ["WATER"],
-    class: ["SPECIAL"],
-    pp: 15,
-    power: 95,
-    precision: 100,
-    desc: "Déferle une immense vague sur l'ennemi.",
-  },
-
-  tackle: {
-    id: "tackle",
-    name: "Charge",
-    type: ["NORMAL"],
-    class: ["PHYSICAL"],
-    pp: 35,
-    power: 35,
-    precision: 95,
-    desc: "Une violente charge",
-  },
-
-  tailWhip: {
-    id: "tailWhip",
-    name: "Mimi-Queue",
-    type: ["NORMAL"],
-    class: ["STATUT"],
-    pp: 35,
-    power: 0,
-    precision: 100,
-    desc: "Réduit la Défense de l'adversaire d'un niveau.",
-
-    effect: {
-      type: "STAT_STAGE",
-      stat: "defense",
-      amount: -1,
-      percentage: 100,
-    },
-  },
-
-  thunderWave: {
-    id: "thunderWave",
-    name: "Cage-Éclair",
-    type: ["ELECTRIK"],
-    class: ["STATUS"],
-    pp: 20,
-    power: 0,
-    precision: 100,
-    desc: "Paralyse la cible.",
-
-    effect: {
-      type: "STATUS",
-      status: POKEMON_STATUS.PARALYSIS,
-      percentage: 100,
-    },
-  },
-
-  vineWhip: {
-    id: "vineWhip",
-    name: "Fouet Lianes",
-    type: ["GRASS"],
-    class: ["PHYSICAL"],
-    pp: 10,
-    power: 35,
-    precision: 100,
-    desc: "Fouette l'adversaire avec des lianes.",
-  },
+  acid: ACID_MOVE,
+  bind: BIND_MOVE,
+  dig: DIG_MOVE,
+  earthquake: EARTHQUAKE_MOVE,
+  ember: EMBER_MOVE,
+  fly: FLY_MOVE,
+  focusEnergy: FOCUS_ENERGY_MOVE,
+  growl: GROWL_MOVE,
+  gust: GUST_MOVE,
+  harden: HARDEN_MOVE,
+  hyperBeam: HYPERBEAM_MOVE,
+  hypnosis: HYPNOSIS_MOVE,
+  iceBeam: ICEBEAM_MOVE,
+  leechLife: LEECHLIFE_MOVE,
+  megaPunch: MEGAPUNCH_MOVE,
+  quickAttack: QUICKATTACK_MOVE,
+  sandAttack: SANDATTACK_MOVE,
+  scratch: SCRATCH_MOVE,
+  screech: SCREECH_MOVE,
+  skullBash: SKULLBASH_MOVE,
+  solarBeam: SOLARBEAM_MOVE,
+  supersonic: SUPERSONIC_MOVE,
+  surf: SURF_MOVE,
+  tackle: TACKLE_MOVE,
+  tailWhip: TAILWHIP_MOVE,
+  thunderWave: THUNDERWAVE_MOVE,
+  vineWhip: VINEWHIP_MOVE,
 };
