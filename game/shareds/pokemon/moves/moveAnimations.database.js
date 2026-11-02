@@ -22,31 +22,44 @@ import { SolarBeamAnimation } from "../../../models/pokemon/Move/animations/Sola
 import { DigAnimation } from "../../../models/pokemon/Move/animations/DigAnimation.model.js";
 import { EarthquakeAnimation } from "../../../models/pokemon/Move/animations/EarthquakeAnimation.model.js";
 import { MegaPunchAnimation } from "../../../models/pokemon/Move/animations/MegaPunchAnimation.model.js";
+import { WaterGunAnimation } from "../../../models/pokemon/Move/animations/WaterGunAnimation.model.js";
+import { RockThrowAnimation } from "../../../models/pokemon/Move/animations/RockThrowAnimation.model.js";
+import { RockSlideAnimation } from "../../../models/pokemon/Move/animations/RockSlideAnimation.model.js";
+import { RazorLeafAnimation } from "../../../models/pokemon/Move/animations/RazorLeafAnimation.model.js";
+import { VineWhipAnimation } from "../../../models/pokemon/Move/animations/VineWhipAnimation.model.js";
+import { AncientPowerAnimation } from "../../../models/pokemon/Move/animations/ancientPowerAnimation.model.js";
+import { HydroPumpAnimation } from "../../../models/pokemon/Move/animations/HydroPumpAnimation.model.js";
 
 export const MOVE_ANIMATIONS_DATABASE = {
-  megaPunch: MegaPunchAnimation,
-  earthquake: EarthquakeAnimation,
+  acid: AcidAnimation,
   dig: DigAnimation,
+  earthquake: EarthquakeAnimation,
+  ember: EmberAnimation,
+  fly: FlyAnimation,
+  growl: GrowlAnimation,
+  gust: GustAnimation,
+  hydroPump: HydroPumpAnimation,
+  hyperBeam: HyperBeamAnimation,
+  hypnosis: HypnosisAnimation,
+  megaPunch: MegaPunchAnimation,
   solarBeam: SolarBeamAnimation,
   skullBash: SkullBashAnimation,
-  fly: FlyAnimation,
+  quickAttack: QuickAttackAnimation,
   tackle: TackleAnimation,
   tailWhip: TailWhipAnimation,
-  growl: GrowlAnimation,
-  ember: EmberAnimation,
   scratch: ScratchAnimation,
-  quickAttack: QuickAttackAnimation,
-  gust: GustAnimation,
   sandAttack: SandAttackAnimation,
-  hypnosis: HypnosisAnimation,
   iceBeam: IceBeamAnimation,
   thunderWave: ThunderWaveAnimation,
-  acid: AcidAnimation,
   focusEnergy: FocusEnergyAnimation,
   harden: HardenAnimation,
   leechLife: LeechLifeAnimation,
   supersonic: SupersonicAnimation,
   screech: ScreechAnimation,
-  hyperBeam: HyperBeamAnimation,
-  //   watergun: WaterGunAnimation,
+  vineWhip: VineWhipAnimation,
+  watergun: WaterGunAnimation,
+  rockSlide: RockSlideAnimation,
+  rockThrow: RockThrowAnimation,
+  razorLeaf: RazorLeafAnimation,
+  ancientPower: AncientPowerAnimation,
 };

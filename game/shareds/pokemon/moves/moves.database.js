@@ -1,4 +1,3 @@
-import { POKEMON_STATUS } from "../../../logic/gameplay/pokemon/status/pokemonStatus.state.js";
 import { TACKLE_MOVE } from "./definitions/tackle.move.js";
 import { TAILWHIP_MOVE } from "./definitions/tailWhip.move.js";
 import { THUNDERWAVE_MOVE } from "./definitions/thunderWave.move.js";
@@ -26,9 +25,16 @@ import { DIG_MOVE } from "./definitions/dig.move.js";
 import { BIND_MOVE } from "./definitions/bind.move.js";
 import { ACID_MOVE } from "./definitions/acid.move.js";
 import { MEGAPUNCH_MOVE } from "./definitions/megaPunch.move.js";
+import { WATERGUN_MOVE } from "./definitions/watergun.move.js";
+import { ROCKTHROW_MOVE } from "./definitions/rockThrow.move.js";
+import { ROCKSLIDE_MOVE } from "./definitions/rockSlide.move.js";
+import { RAZORLEAF_MOVE } from "./definitions/razorLeaf.move.js";
+import { ANCIENTPOWER_MOVE } from "./definitions/ancientPower.move.js";
+import { HYDROPUMP_MOVE } from "./hydroPump.move.js";
 
 export const MOVES_DATABASE = {
   acid: ACID_MOVE,
+  ancientPower: ANCIENTPOWER_MOVE,
   bind: BIND_MOVE,
   dig: DIG_MOVE,
   earthquake: EARTHQUAKE_MOVE,
@@ -38,12 +44,16 @@ export const MOVES_DATABASE = {
   growl: GROWL_MOVE,
   gust: GUST_MOVE,
   harden: HARDEN_MOVE,
+  hydroPump: HYDROPUMP_MOVE,
   hyperBeam: HYPERBEAM_MOVE,
   hypnosis: HYPNOSIS_MOVE,
   iceBeam: ICEBEAM_MOVE,
   leechLife: LEECHLIFE_MOVE,
   megaPunch: MEGAPUNCH_MOVE,
   quickAttack: QUICKATTACK_MOVE,
+  razorLeaf: RAZORLEAF_MOVE,
+  rockSlide: ROCKSLIDE_MOVE,
+  rockThrow: ROCKTHROW_MOVE,
   sandAttack: SANDATTACK_MOVE,
   scratch: SCRATCH_MOVE,
   screech: SCREECH_MOVE,
@@ -55,4 +65,5 @@ export const MOVES_DATABASE = {
   tailWhip: TAILWHIP_MOVE,
   thunderWave: THUNDERWAVE_MOVE,
   vineWhip: VINEWHIP_MOVE,
+  watergun: WATERGUN_MOVE,
 };

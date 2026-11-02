@@ -29,7 +29,7 @@ export const GOLEM_SPECIES = {
   learnset: {
     levelUp: [
       // { level: 1, move: MOVES_DATABASE.earthquake },
-      { level: 1, move: MOVES_DATABASE.megaPunch },
+      { level: 1, move: MOVES_DATABASE.hydroPump },
 
       // { level: 1, move: MOVES_DATABASE.defenseCurl },
       // { level: 1, move: MOVES_DATABASE.mudSport },
