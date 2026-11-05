@@ -163,7 +163,10 @@ export class TurnManager {
       console.log(`${action.pokemon.name} rate son attaque !`);
 
       this.battleManager.openDialogBox(
-        DIALOGS_DATABASE.BATTLE_DIALOGS.pokemonMissMove(action.pokemon.name)
+        DIALOGS_DATABASE.BATTLE_DIALOGS.pokemonMissMove(
+          action.pokemon.name,
+          action.pokemon.trainerId
+        )
       );
 
       this.wait(
@@ -290,7 +293,7 @@ export class TurnManager {
     if (
       handleCriticalHitDialog(
         this,
-        applyMoveDamageResult.calculResult.damages,
+        applyMoveDamageResult.moveDamagesResult,
         action,
         sequence,
         applyMoveDamageResult.criticalHitResult
@@ -301,7 +304,7 @@ export class TurnManager {
     if (
       handlerEfficienciesDialogs(
         this,
-        applyMoveDamageResult.calculResult,
+        applyMoveDamageResult.moveDamagesResult,
         action,
         sequence
       )
@@ -310,7 +313,7 @@ export class TurnManager {
 
     return processMovesEffect(
       this,
-      applyMoveDamageResult.calculResult.damages,
+      applyMoveDamageResult.moveDamagesResult.damages,
       action,
       sequence
     );

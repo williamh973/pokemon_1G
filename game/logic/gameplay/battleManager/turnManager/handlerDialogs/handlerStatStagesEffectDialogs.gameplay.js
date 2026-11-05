@@ -24,6 +24,7 @@ export const handlerStatStagesEffectDialogs = (
         DIALOGS_DATABASE.BATTLE_DIALOGS.statStageChanged(
           getStatLabel(moveEffectResult.stat),
           moveEffectResult.pokemon.name,
+          moveEffectResult.pokemon.trainerId,
           moveEffectResult.amount > 0 ? "monte" : "baisse",
           intensity
         )
@@ -32,6 +33,7 @@ export const handlerStatStagesEffectDialogs = (
         DIALOGS_DATABASE.BATTLE_DIALOGS.statStageChangedNoMore(
           getStatLabel(moveEffectResult.stat),
           moveEffectResult.pokemon.name,
+          moveEffectResult.pokemon.trainerId,
           moveEffectResult.amount > 0 ? "monter" : "baisser"
         )
       );

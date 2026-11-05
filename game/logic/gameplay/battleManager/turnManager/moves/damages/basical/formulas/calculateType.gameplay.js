@@ -1,6 +1,6 @@
-import { SIMPLE_TYPE_INEFFECTIVE } from "../../../../../../../shareds/pokemon/types/ineffective/simple-type-ineffective.js";
-import { SIMPLE_TYPE_RESISTANCE } from "../../../../../../../shareds/pokemon/types/resistance/simple-type-resistance.js";
-import { SIMPLE_TYPE_WEAKNESS } from "../../../../../../../shareds/pokemon/types/weakness/simple-type-weakness.js";
+import { SIMPLE_TYPE_INEFFECTIVE } from "../../../../../../../../shareds/pokemon/types/ineffective/simple-type-ineffective.js";
+import { SIMPLE_TYPE_RESISTANCE } from "../../../../../../../../shareds/pokemon/types/resistance/simple-type-resistance.js";
+import { SIMPLE_TYPE_WEAKNESS } from "../../../../../../../../shareds/pokemon/types/weakness/simple-type-weakness.js";
 
 const simpleType = (moveType, targetType, database, value) => {
   const findedMoveType = database[moveType];

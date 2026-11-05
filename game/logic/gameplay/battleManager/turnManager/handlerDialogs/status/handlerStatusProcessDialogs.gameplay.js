@@ -19,6 +19,7 @@ export const handlerStatusProcessDialogs = (
   battleManager.openDialogBox(
     DIALOGS_DATABASE.BATTLE_DIALOGS.processStatus(
       processStatusResult.pokemon.name,
+      processStatusResult.pokemon.trainerId,
       getStatusLabel(processStatusResult.pokemon.status)
     )
   );

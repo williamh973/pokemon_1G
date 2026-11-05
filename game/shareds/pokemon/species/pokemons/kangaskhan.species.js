@@ -28,8 +28,8 @@ export const KANGASKHAN_SPECIES = {
   evolutions: [],
   learnset: {
     levelUp: [
-      { level: 1, move: MOVES_DATABASE.cometPunch },
-      //   { level: 1, move: MOVES_DATABASE.leer },
+      { level: 1, move: MOVES_DATABASE.surf },
+      // { level: 1, move: MOVES_DATABASE.dragonRage },
       //   { level: 7, move: MOVES_DATABASE.bite },
       //   { level: 13, move: MOVES_DATABASE.tailWhip },
       //   { level: 19, move: MOVES_DATABASE.fakeOut },

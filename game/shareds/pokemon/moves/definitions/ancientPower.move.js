@@ -7,6 +7,7 @@ export const ANCIENTPOWER_MOVE = {
   power: 60,
   precision: 100,
   desc: "Une attaque préhistorique qui peut augmenter toutes les stats du lanceur d'un seul coup.",
+  selfTarget: true,
 
   effect: {
     type: "STAT_STAGE",

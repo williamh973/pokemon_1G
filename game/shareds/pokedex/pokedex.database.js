@@ -1588,7 +1588,7 @@ export const POKEDEX_DATABASE = [
     print: "",
   },
   {
-    id: "",
+    id: "kangaskhan",
     no: "115",
     name: "KANGOUREX",
     category: "Maternel",

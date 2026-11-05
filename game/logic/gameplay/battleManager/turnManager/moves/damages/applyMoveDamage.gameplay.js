@@ -1,31 +1,32 @@
 import { checkDialogBoxShakeAnimation } from "../../dialogBox/dialogBoxShakeAnimation.gameplay.js";
+import { deductStatHP } from "../volatiles/deductStatHP.gameplay.js";
 import { calculateMoveDamages } from "./calculateDamages.gameplay.js";
 import { calculateCriticalHit } from "./criticalHit/calculateCriticalHit.gameplay.js";
 
 export const applyMoveDamage = (turnManager, action, weather) => {
   const criticalHitResult = calculateCriticalHit(action);
-  const calculResult = calculateMoveDamages(
+  const moveDamagesResult = calculateMoveDamages(
     action,
     criticalHitResult.CC,
     weather
   );
 
-  action.target.stats.hp = Math.max(
-    0,
-    action.target.stats.hp - calculResult.damages
-  );
+  const { TYPE1, TYPE2 } = moveDamagesResult.efficiencies;
+  const efficiency = TYPE1 * TYPE2;
+
+  if (efficiency !== 0) deductStatHP(action.target, moveDamagesResult.damages);
 
   turnManager.isDamageApplied = true;
 
   if (action.target === turnManager.battleManager.currentPlayerPokemon)
     checkDialogBoxShakeAnimation(
       turnManager.battleManager,
-      calculResult.damages
+      moveDamagesResult.damages
     );
 
   console.log(
-    "calculResult : ",
-    calculResult,
+    "moveDamagesResult : ",
+    moveDamagesResult,
     "| CC : ",
     criticalHitResult.CC,
     "| isCriticalHit : ",
@@ -33,7 +34,7 @@ export const applyMoveDamage = (turnManager, action, weather) => {
   );
 
   return {
-    calculResult,
+    moveDamagesResult,
     criticalHitResult,
   };
 };

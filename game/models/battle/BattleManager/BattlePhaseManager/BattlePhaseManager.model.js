@@ -143,7 +143,8 @@ export class BattlePhaseManager {
       case BATTLE_PHASES.DETERMINE_KO:
         this.battleManager.openDialogBox(
           DIALOGS_DATABASE.BATTLE_DIALOGS.pokemonKO(
-            this.battleManager.turnManager.koAction.fainted.name
+            this.battleManager.turnManager.koAction.fainted.name,
+            this.battleManager.turnManager.koAction.fainted.trainerId
           )
         );
         break;

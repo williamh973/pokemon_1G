@@ -10,7 +10,6 @@ export class Canvas {
     canvas.width = this.width;
     canvas.height = this.height;
 
-    // Tremblement du Canvas
     this.isShaking = false;
     this.shakeDuration = 0;
     this.shakeElapsed = 0;
@@ -29,7 +28,6 @@ export class Canvas {
 
     if (!this.isShaking) return;
 
-    // Progression du tremblement
     this.shakeElapsed += 16;
 
     const progress = Math.min(this.shakeElapsed / this.shakeDuration, 1);
@@ -39,7 +37,6 @@ export class Canvas {
       return;
     }
 
-    // Le tremblement diminue progressivement
     const intensity = this.shakeIntensity * (1 - progress);
 
     const offsetX = (Math.random() * 2 - 1) * intensity;

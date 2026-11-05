@@ -3,15 +3,20 @@ import { processMovesEffect } from "../../moves/processMovesEffect.gameplay.js";
 
 export const handlerEfficienciesDialogs = (
   turnManager,
-  calculResult,
+  moveDamagesResult,
   action,
   sequence
 ) => {
   turnManager.waitForAction(() => {
-    processMovesEffect(turnManager, calculResult.damages, action, sequence);
+    processMovesEffect(
+      turnManager,
+      moveDamagesResult.damages,
+      action,
+      sequence
+    );
   }, turnManager.state);
 
-  const { TYPE1, TYPE2 } = calculResult.efficiencies;
+  const { TYPE1, TYPE2 } = moveDamagesResult.efficiencies;
 
   const efficiency = TYPE1 * TYPE2;
 
@@ -28,7 +33,7 @@ export const handlerEfficienciesDialogs = (
   if (efficiency === 0)
     turnManager.battleManager.openDialogBox(
       DIALOGS_DATABASE.BATTLE_DIALOGS.ineffective(
-        action.target,
+        action.target.name,
         action.target.trainerId
       )
     );

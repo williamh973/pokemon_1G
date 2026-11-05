@@ -19,7 +19,7 @@ export const BATTLE_DIALOGS = {
   notVeryEffective: () => `Ce n'est pas très efficace !`,
 
   ineffective: (pokemon, trainerId) =>
-    `Cela n'affecte pas ${pokemon} ${trainerId ? "" : "ennemi."}`,
+    `Cela n'affecte pas ${pokemon} ${trainerId ? "" : "\nennemi."}`,
 
   confusedNoMore: (pokemon, trainerId) =>
     `${pokemon}  ${trainerId ? "" : "ennemi "}\nn'est plus confus.`,
@@ -32,7 +32,8 @@ export const BATTLE_DIALOGS = {
   becomesConfusing: (pokemon, trainerId) =>
     `Cela rend ${pokemon} \n${trainerId ? "" : "ennemi "}confus.`,
 
-  drain: (pokemon) => `La vie de ${pokemon} \nest aspiré.`,
+  drain: (pokemon, trainerId) =>
+    `La vie de ${pokemon} \n${trainerId ? "" : "ennemi "}est aspiré.`,
 
   noEffect: () => "Sans effet.",
 
@@ -41,21 +42,30 @@ export const BATTLE_DIALOGS = {
 
   criticalHit: () => "Coup critique !",
 
-  thawedOut: (pokemon) => `${pokemon} est dégelé !`,
+  thawedOut: (pokemon, trainerId) =>
+    `${pokemon} ${trainerId ? "" : "ennemi "}est dégelé !`,
 
-  wokenUp: (pokemon) => `${pokemon} se réveille !`,
+  wokenUp: (pokemon, trainerId) =>
+    `${pokemon} ${trainerId ? "" : "ennemi "}se réveille !`,
 
-  alreadyAsleep: (pokemon) => `Mais ${pokemon} est déjà\nendormis !`,
+  alreadyAsleep: (pokemon, trainerId) =>
+    `Mais ${pokemon} ${trainerId ? "" : "ennemi "}\nest déjà endormis !`,
 
-  processStatus: (pokemon, status) => `${pokemon} ${status}`,
+  processStatus: (pokemon, trainerId, status) =>
+    `${pokemon} ${trainerId ? "" : "ennemi "}${status}`,
 
-  statusChanged: (pokemon, status) => ` ${pokemon} est ${status} !`,
+  statusChanged: (pokemon, trainerId, status) =>
+    `${pokemon} ${trainerId ? "" : "ennemi "}\nest ${status} !`,
 
-  statStageChanged: (stat, pokemon, direction, intensity = "") =>
-    ` ${stat} de ${pokemon} \n ${direction} ${intensity} !`,
+  statStageChanged: (stat, pokemon, trainerId, direction, intensity = "") =>
+    `${stat} de ${pokemon} ${
+      trainerId ? "" : "ennemi "
+    }\n${direction} ${intensity} !`,
 
-  statStageChangedNoMore: (stat, pokemon, direction) =>
-    `Mais ${stat} de ${pokemon} \nne peut plus ${direction} !`,
+  statStageChangedNoMore: (stat, pokemon, trainerId, direction) =>
+    `Mais ${stat} de ${pokemon}\n${
+      trainerId ? "" : "ennemi "
+    }ne peut plus ${direction} !`,
 
   gainExp: (pokemon, expGained) =>
     `${pokemon} a gagné \n${expGained} points d'EXP !`,
@@ -68,9 +78,11 @@ export const BATTLE_DIALOGS = {
   pokemonUseMove: (pokemon, trainerId, move) =>
     `${pokemon} ${trainerId ? "" : "ennemi "}utilise\n${move} !`,
 
-  pokemonKO: (pokemon) => `${pokemon} est K.O !`,
+  pokemonKO: (pokemon, trainerId) =>
+    `${pokemon} ${trainerId ? "" : "ennemi "}\nest K.O !`,
 
-  pokemonMissMove: (pokemon) => `${pokemon} rate son attaque !`,
+  pokemonMissMove: (pokemon, trainerId) =>
+    `${pokemon} ${trainerId ? "" : "ennemi "}\nrate son attaque !`,
 
   wildPokemonEscaped: (pokemon) =>
     `Mince! Le ${pokemon}\nsauvage s'est libéré !`,

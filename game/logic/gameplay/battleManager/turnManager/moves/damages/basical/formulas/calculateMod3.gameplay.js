@@ -14,7 +14,7 @@ const determineTRB = () => {
   return 1;
 };
 
-export const calculateMod3 = (action) => {
+export const calculateMod3 = () => {
   const SRF = determineSRF();
   const EB = determineEB();
   const TL = determineTL();

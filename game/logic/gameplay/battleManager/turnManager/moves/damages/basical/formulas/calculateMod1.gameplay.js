@@ -1,5 +1,5 @@
-import { POKEMON_STATUS } from "../../../../../pokemon/status/pokemonStatus.state.js";
-import { WEATHER_STATES } from "../../../../../weather/weatherStates.gameplay.js";
+import { POKEMON_STATUS } from "../../../../../../pokemon/status/pokemonStatus.state.js";
+import { WEATHER_STATES } from "../../../../../../weather/weatherStates.gameplay.js";
 
 const determineBNR = (status) => {
   return status === POKEMON_STATUS.BURN ? 0.5 : 1;

@@ -2,6 +2,9 @@ import { DIALOGS_DATABASE } from "../../../../../../shareds/dialogs/dialogs.data
 
 export const handlerDrainEffectDialogs = (battleManager, action) => {
   battleManager.openDialogBox(
-    DIALOGS_DATABASE.BATTLE_DIALOGS.drain(action.target.name)
+    DIALOGS_DATABASE.BATTLE_DIALOGS.drain(
+      action.target.name,
+      action.target.trainerId
+    )
   );
 };

@@ -1,3 +1,4 @@
+import { deductStatHP } from "../../battleManager/turnManager/moves/volatiles/deductStatHP.gameplay.js";
 import { POKEMON_STATUS } from "./pokemonStatus.state.js";
 
 const deduction8 = (maxHp) => {
@@ -17,17 +18,11 @@ export const processPokemonStatus = (pokemon) => {
 
   switch (pokemon.status) {
     case POKEMON_STATUS.BURN:
-      pokemon.stats.hp = Math.max(
-        0,
-        pokemon.stats.hp - deduction8(pokemon.stats.maxHp)
-      );
+      deductStatHP(action.target, deduction8(pokemon.stats.maxHp));
       break;
 
     case POKEMON_STATUS.POISON:
-      pokemon.stats.hp = Math.max(
-        0,
-        pokemon.stats.hp - deduction8(pokemon.stats.maxHp)
-      );
+      deductStatHP(action.target, deduction8(pokemon.stats.maxHp));
       break;
 
     case POKEMON_STATUS.PARALYSIS:

@@ -1,17 +1,5 @@
-export const deductStatHP = (pokemon) => {
-  const levelFactor = (2 * pokemon.level) / 5 + 2;
-  const basicPower = 40;
-
-  const damages = Math.floor(
-    (levelFactor *
-      basicPower *
-      (pokemon.stats.attack / pokemon.stats.defense)) /
-      30
-  );
-
-  console.log(`${pokemon.name} perd `, damages, "PV à cause de la confusion");
-
-  pokemon.stats.hp = Math.min(pokemon.stats.hp, pokemon.stats.hp - damages);
+export const deductStatHP = (pokemon, damages) => {
+  pokemon.stats.hp = Math.max(0, pokemon.stats.hp - damages);
 
   return true;
 };

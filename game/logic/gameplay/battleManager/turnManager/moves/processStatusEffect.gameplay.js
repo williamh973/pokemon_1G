@@ -29,13 +29,15 @@ export const processStatusEffect = (turnManager, sequence, action) => {
 
     turnManager.battleManager.openDialogBox(
       DIALOGS_DATABASE.BATTLE_DIALOGS.alreadyAsleep(
-        statusEffectResult.pokemon.name
+        statusEffectResult.pokemon.name,
+        statusEffectResult.pokemon.trainerId
       )
     );
 
     console.log(
       DIALOGS_DATABASE.BATTLE_DIALOGS.alreadyAsleep(
-        statusEffectResult.pokemon.name
+        statusEffectResult.pokemon.name,
+        statusEffectResult.pokemon.trainerId
       )
     );
 

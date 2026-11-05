@@ -6,7 +6,7 @@ export const GOLEM_SPECIES = {
   id: "golem",
   pokedexId: "076",
   name: "GROLEM",
-  types: ["ROCK", "GROUND"],
+  types: ["DARK"],
   femaleRate: 50,
   catchRate: 45,
   growthRate: GROWTH_RATES_DATABASE.MEDIUM_SLOW,
@@ -28,8 +28,9 @@ export const GOLEM_SPECIES = {
   evolutions: [],
   learnset: {
     levelUp: [
-      // { level: 1, move: MOVES_DATABASE.earthquake },
-      { level: 1, move: MOVES_DATABASE.hydroPump },
+      { level: 1, move: MOVES_DATABASE.growl },
+      { level: 1, move: MOVES_DATABASE.psywave },
+      // { level: 1, move: MOVES_DATABASE.thundershock },
 
       // { level: 1, move: MOVES_DATABASE.defenseCurl },
       // { level: 1, move: MOVES_DATABASE.mudSport },

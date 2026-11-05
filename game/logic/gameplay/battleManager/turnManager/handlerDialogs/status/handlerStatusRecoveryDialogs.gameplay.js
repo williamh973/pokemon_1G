@@ -3,13 +3,17 @@ import { DIALOGS_DATABASE } from "../../../../../../shareds/dialogs/dialogs.data
 export const handlerStatusRecoveryDialogs = {
   wokenUpProcessDialog: (battleManager, processStatusResult) => {
     battleManager.openDialogBox(
-      DIALOGS_DATABASE.BATTLE_DIALOGS.wokenUp(processStatusResult.pokemon.name)
+      DIALOGS_DATABASE.BATTLE_DIALOGS.wokenUp(
+        processStatusResult.pokemon.name,
+        action.pokemon.trainerId
+      )
     );
   },
   thawedOutProcessDialog: (battleManager, processStatusResult) => {
     battleManager.openDialogBox(
       DIALOGS_DATABASE.BATTLE_DIALOGS.thawedOut(
-        processStatusResult.pokemon.name
+        processStatusResult.pokemon.name,
+        action.pokemon.trainerId
       )
     );
   },

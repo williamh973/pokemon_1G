@@ -19,6 +19,7 @@ export const handlerStatusEffectDialogs = (
   battleManager.openDialogBox(
     DIALOGS_DATABASE.BATTLE_DIALOGS.statusChanged(
       statusEffectResult.pokemon.name,
+      statusEffectResult.pokemon.trainerId,
       getStatusLabel(statusEffectResult.status)
     )
   );

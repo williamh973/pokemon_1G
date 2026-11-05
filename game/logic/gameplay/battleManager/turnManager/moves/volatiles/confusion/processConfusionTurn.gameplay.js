@@ -1,4 +1,4 @@
-import { deductStatHP } from "../deductStatHP.gameplay.js";
+import { applyConfusionDamages } from "./applyConfusionDamages.gameplay.js";
 
 export const processConfusionTurn = (pokemon, canUseMove) => {
   pokemon.volatils.confusionTurns -= 1;
@@ -24,7 +24,7 @@ export const processConfusionTurn = (pokemon, canUseMove) => {
       canUseMove,
     };
 
-  deductStatHP(pokemon);
+  applyConfusionDamages(pokemon);
 
   return {
     isAffected: true,
