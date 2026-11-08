@@ -18,7 +18,10 @@ export const applyMoveDamage = (turnManager, action, weather) => {
 
   turnManager.isDamageApplied = true;
 
-  if (action.target === turnManager.battleManager.currentPlayerPokemon)
+  if (
+    efficiency !== 0 &&
+    action.target === turnManager.battleManager.currentPlayerPokemon
+  )
     checkDialogBoxShakeAnimation(
       turnManager.battleManager,
       moveDamagesResult.damages
@@ -36,5 +39,6 @@ export const applyMoveDamage = (turnManager, action, weather) => {
   return {
     moveDamagesResult,
     criticalHitResult,
+    efficiency,
   };
 };

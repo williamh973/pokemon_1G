@@ -296,7 +296,8 @@ export class TurnManager {
         applyMoveDamageResult.moveDamagesResult,
         action,
         sequence,
-        applyMoveDamageResult.criticalHitResult
+        applyMoveDamageResult.criticalHitResult,
+        applyMoveDamageResult.efficiency
       )
     )
       return true;
@@ -306,7 +307,8 @@ export class TurnManager {
         this,
         applyMoveDamageResult.moveDamagesResult,
         action,
-        sequence
+        sequence,
+        applyMoveDamageResult.efficiency
       )
     )
       return true;

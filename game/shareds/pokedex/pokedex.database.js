@@ -830,7 +830,7 @@ export const POKEDEX_DATABASE = [
     print: "",
   },
   {
-    id: "",
+    id: "growlithe",
     no: "058",
     name: "CANINOS",
     category: "Chiot",
@@ -843,7 +843,7 @@ export const POKEDEX_DATABASE = [
     print: "",
   },
   {
-    id: "",
+    id: "arcanine",
     no: "059",
     name: "ARCANIN",
     category: "Légendaire",

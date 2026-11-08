@@ -4,6 +4,11 @@ import { handlerDrainEffectDialogs } from "../handlerDialogs/moves/handlerDrainE
 import { handlerFocusEnergyEffectDialogs } from "../handlerDialogs/moves/handlerFocusEnergyEffectDialogs.gameplay.js";
 import { applyMoveEffect } from "./applyMoveEffect.gameplay.js";
 
+const getMoveEfficiency = () => {
+  const { TYPE1, TYPE2 } = moveDamagesResult.efficiencies;
+  return TYPE1 * TYPE2;
+};
+
 export const processMovesEffect = (turnManager, damages, action, sequence) => {
   if (turnManager.isMoveEffectProcessed) return false;
 
@@ -21,7 +26,11 @@ export const processMovesEffect = (turnManager, damages, action, sequence) => {
         break;
 
       case "DRAIN":
-        handlerDrainEffectDialogs(turnManager.battleManager, action);
+        handlerDrainEffectDialogs(
+          turnManager.battleManager,
+          action,
+          moveEffectResult.recoveredHP
+        );
         break;
 
       case "VOLATILE":

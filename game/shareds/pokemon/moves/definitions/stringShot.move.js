@@ -10,7 +10,7 @@ export const STRINGSHOT_MOVE = {
 
   effect: {
     type: "STAT_STAGE",
-    stat: "SPEED",
+    stat: "speed",
     amount: -1,
     percentage: 100,
   },

@@ -1,4 +1,7 @@
 export const BATTLE_DIALOGS = {
+  recover: (pokemon, trainerId, recoveredHP) =>
+    `${pokemon} ${trainerId ? "" : "ennemi\n"}a récupéré ${recoveredHP} PV`,
+
   dig: (pokemon, trainerId) =>
     `${pokemon} ${trainerId ? "" : "ennemi "}\ns'enfonce dans le sol.`,
 

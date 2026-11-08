@@ -13,7 +13,7 @@ export class SurfAnimation {
     }
 
     this.isFinished = false;
-    this.phase = "PREPARE";
+    this.phase = "WAVE";
     this.timer = 0;
 
     this.attackerX =
@@ -58,10 +58,6 @@ export class SurfAnimation {
     this.timer++;
 
     switch (this.phase) {
-      case "PREPARE":
-        this.updatePrepare();
-        break;
-
       case "WAVE":
         this.updateWave();
         break;
@@ -81,28 +77,15 @@ export class SurfAnimation {
     this.draw(context);
   }
 
-  updatePrepare() {
-    this.waveHeight = Math.min(75, this.timer * 5);
-    this.waveWidth = Math.min(65, this.timer * 4.5);
-
-    this.updateFoamParticles();
-
-    if (this.timer >= 15) {
-      this.timer = 0;
-      this.phase = "WAVE";
-      this.createWaveFoam();
-    }
-  }
-
   updateWave() {
-    this.waveProgress = Math.min(1, this.waveProgress + 0.035);
+    this.waveProgress = Math.min(1, this.waveProgress + 0.025);
 
     const eased =
       this.waveProgress * this.waveProgress * (3 - 2 * this.waveProgress);
 
     this.waveX = this.waveStartX + (this.waveEndX - this.waveStartX) * eased;
 
-    this.waveHeight = 75 + Math.sin(this.timer * 0.12) * 8;
+    this.waveHeight = 85 + Math.sin(this.timer * 0.12) * 8;
 
     this.createWaveFoam();
     this.updateFoamParticles();
@@ -115,7 +98,7 @@ export class SurfAnimation {
       this.createImpactSplash();
 
       if (this.game.canvas?.startShake) {
-        this.game.canvas.startShake(22, 6);
+        this.game.canvas.startShake(1500, 6);
       }
     }
   }
@@ -123,7 +106,7 @@ export class SurfAnimation {
   updateImpact() {
     this.impactProgress = Math.min(1, this.timer / 22);
 
-    this.waveHeight = 75 * (1 - this.impactProgress);
+    this.waveHeight = 85 * (1 - this.impactProgress);
 
     this.createImpactSplash();
 
@@ -143,11 +126,11 @@ export class SurfAnimation {
   }
 
   createBubbles() {
-    for (let i = 0; i < 12; i++) {
+    for (let i = 0; i < 24; i++) {
       this.bubbles.push({
         x: this.attackerX + (Math.random() - 0.5) * 35,
         y: this.attackerY + (Math.random() - 0.5) * 35,
-        radius: 2 + Math.random() * 4,
+        radius: 1 + Math.random() * 4,
         speed: 0.5 + Math.random() * 1.5,
         life: 40 + Math.random() * 30,
       });
@@ -177,7 +160,7 @@ export class SurfAnimation {
       y,
       vx: -this.direction * (0.5 + Math.random() * 2),
       vy: -1 - Math.random() * 2,
-      radius: 2 + Math.random() * 4,
+      radius: 1 + Math.random() * 4,
       life: 15 + Math.random() * 12,
       maxLife: 27,
     });

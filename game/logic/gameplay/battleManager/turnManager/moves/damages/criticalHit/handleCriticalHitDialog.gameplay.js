@@ -6,11 +6,9 @@ export const handleCriticalHitDialog = (
   moveDamagesResult,
   action,
   sequence,
-  criticalHitResult
+  criticalHitResult,
+  efficiency
 ) => {
-  const { TYPE1, TYPE2 } = moveDamagesResult.efficiencies;
-  const efficiency = TYPE1 * TYPE2;
-
   if (!criticalHitResult.isCriticalHit || efficiency === 0) return false;
 
   turnManager.waitForAction(() => {

@@ -57,11 +57,24 @@ import { COMETPUNCH_MOVE } from "./definitions/cometPunch.move.js";
 import { METEORMASH_MOVE } from "./definitions/meteorMash.move.js";
 import { STRINGSHOT_MOVE } from "./definitions/stringShot.move.js";
 import { SWIFT_MOVE } from "./definitions/swift.move.js";
+import { PECK_MOVE } from "./definitions/peck.move.js";
+import { WINGATTACK_MOVE } from "./definitions/wingAttack.move.js";
+import { POISONSTING_MOVE } from "./definitions/poisonSting.move.js";
+import { WRAP_MOVE } from "./definitions/wrap.move.js";
+import { BITE_MOVE } from "./definitions/bite.move.js";
+import { SHADOWBALL_MOVE } from "./definitions/shadowBall.move.js";
+import { TAKEDOWN_MOVE } from "./definitions/takeDown.move.js";
+import { DOUBLEEDGE_MOVE } from "./definitions/DoubleEdge.move.js";
+import { LeerAnimation } from "../../../models/pokemon/Move/animations/LeerAnimation.model.js";
+import { LEER_MOVE } from "./definitions/leer.move.js";
+import { EXTREMESPEED_MOVE } from "./definitions/extremespeed.move.js";
+import { RECOVER_MOVE } from "./definitions/recover.move.js";
 
 export const MOVES_DATABASE = {
   absorb: ABSORB_MOVE,
   acid: ACID_MOVE,
   ancientPower: ANCIENTPOWER_MOVE,
+  bite: BITE_MOVE,
   bind: BIND_MOVE,
   blizzard: BLIZZARD_MOVE,
   bubble: BUBBLE_MOVE,
@@ -69,9 +82,11 @@ export const MOVES_DATABASE = {
   cometPunch: COMETPUNCH_MOVE,
   confusion: CONFUSION_MOVE,
   dig: DIG_MOVE,
+  doubleEdge: DOUBLEEDGE_MOVE,
   dragonRage: DRAGONRAGE_MOVE,
   earthquake: EARTHQUAKE_MOVE,
   ember: EMBER_MOVE,
+  extremespeed: EXTREMESPEED_MOVE,
   explosion: EXPLOSION_MOVE,
   fireBlast: FIREBLAST_MOVE,
   fireSpin: FIRESPIN_MOVE,
@@ -88,21 +103,26 @@ export const MOVES_DATABASE = {
   hypnosis: HYPNOSIS_MOVE,
   iceBeam: ICEBEAM_MOVE,
   leechLife: LEECHLIFE_MOVE,
+  leer: LEER_MOVE,
   megaDrain: MEGADRAIN_MOVE,
   megaPunch: MEGAPUNCH_MOVE,
   meteorMash: METEORMASH_MOVE,
+  peck: PECK_MOVE,
   poisonGas: POISONGAS_MOVE,
+  poisonSting: POISONSTING_MOVE,
   psychic: PSYCHIC_MOVE,
   psywave: PSYWAVE_MOVE,
   quickAttack: QUICKATTACK_MOVE,
   razorLeaf: RAZORLEAF_MOVE,
+  recover: RECOVER_MOVE,
   rockSlide: ROCKSLIDE_MOVE,
   rockThrow: ROCKTHROW_MOVE,
   sandAttack: SANDATTACK_MOVE,
   scratch: SCRATCH_MOVE,
   screech: SCREECH_MOVE,
-  skullBash: SKULLBASH_MOVE,
   selfDestruct: SELFDESTRUC_MOVE,
+  shadowBall: SHADOWBALL_MOVE,
+  skullBash: SKULLBASH_MOVE,
   sludge: SLUDGE_MOVE,
   solarBeam: SOLARBEAM_MOVE,
   stringShot: STRINGSHOT_MOVE,
@@ -110,6 +130,7 @@ export const MOVES_DATABASE = {
   surf: SURF_MOVE,
   swift: SWIFT_MOVE,
   tackle: TACKLE_MOVE,
+  takeDown: TAKEDOWN_MOVE,
   tailWhip: TAILWHIP_MOVE,
   thunder: THUNDER_MOVE,
   thunderBolt: THUNDERBOLT_MOVE,
@@ -118,4 +139,6 @@ export const MOVES_DATABASE = {
   toxic: TOXIC_MOVE,
   vineWhip: VINEWHIP_MOVE,
   watergun: WATERGUN_MOVE,
+  wingAttack: WINGATTACK_MOVE,
+  wrap: WRAP_MOVE,
 };

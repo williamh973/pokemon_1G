@@ -28,11 +28,13 @@ export const ARCANINE_SPECIES = {
   evolutions: [],
   learnset: {
     levelUp: [
-      { level: 1, move: MOVES_DATABASE.bite },
-      { level: 1, move: MOVES_DATABASE.roar },
-      { level: 1, move: MOVES_DATABASE.ember },
-      { level: 1, move: MOVES_DATABASE.odorSleuth },
-      { level: 49, move: MOVES_DATABASE.extremeSpeed },
+      { level: 1, move: MOVES_DATABASE.quickAttack },
+      { level: 1, move: MOVES_DATABASE.recover },
+      // { level: 1, move: MOVES_DATABASE.bite },
+      // { level: 1, move: MOVES_DATABASE.roar },
+      // { level: 1, move: MOVES_DATABASE.ember },
+      // { level: 1, move: MOVES_DATABASE.odorSleuth },
+      // { level: 49, move: MOVES_DATABASE.extremeSpeed },
     ],
     tmhm: [
       "Hurlement",

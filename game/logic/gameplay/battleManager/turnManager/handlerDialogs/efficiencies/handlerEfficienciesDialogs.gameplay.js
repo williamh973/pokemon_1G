@@ -5,7 +5,8 @@ export const handlerEfficienciesDialogs = (
   turnManager,
   moveDamagesResult,
   action,
-  sequence
+  sequence,
+  efficiency
 ) => {
   turnManager.waitForAction(() => {
     processMovesEffect(
@@ -15,10 +16,6 @@ export const handlerEfficienciesDialogs = (
       sequence
     );
   }, turnManager.state);
-
-  const { TYPE1, TYPE2 } = moveDamagesResult.efficiencies;
-
-  const efficiency = TYPE1 * TYPE2;
 
   if (efficiency < 1)
     turnManager.battleManager.openDialogBox(

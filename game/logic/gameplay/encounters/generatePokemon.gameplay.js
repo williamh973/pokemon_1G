@@ -50,7 +50,7 @@ export const generatePokemon = (
 
     volatils: {
       confusionTurns: 0,
-      isScared: false,
+      isFrighten: false,
       hasBoostedByFocusEnergy: false,
       recharge: false,
 
