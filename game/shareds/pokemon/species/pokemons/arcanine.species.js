@@ -28,7 +28,7 @@ export const ARCANINE_SPECIES = {
   evolutions: [],
   learnset: {
     levelUp: [
-      { level: 1, move: MOVES_DATABASE.quickAttack },
+      { level: 1, move: MOVES_DATABASE.roar },
       { level: 1, move: MOVES_DATABASE.recover },
       // { level: 1, move: MOVES_DATABASE.bite },
       // { level: 1, move: MOVES_DATABASE.roar },

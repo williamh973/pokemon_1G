@@ -65,15 +65,35 @@ import { BITE_MOVE } from "./definitions/bite.move.js";
 import { SHADOWBALL_MOVE } from "./definitions/shadowBall.move.js";
 import { TAKEDOWN_MOVE } from "./definitions/takeDown.move.js";
 import { DOUBLEEDGE_MOVE } from "./definitions/DoubleEdge.move.js";
-import { LeerAnimation } from "../../../models/pokemon/Move/animations/LeerAnimation.model.js";
 import { LEER_MOVE } from "./definitions/leer.move.js";
 import { EXTREMESPEED_MOVE } from "./definitions/extremespeed.move.js";
 import { RECOVER_MOVE } from "./definitions/recover.move.js";
+import { DOUBLETEAM_MOVE } from "./definitions/doubleTeam.move.js";
+import { BARRIER_MOVE } from "./definitions/barrier.move.js";
+import { IRONDEFENSE_MOVE } from "./definitions/irondefense.move.js";
+import { IRONTAIL_MOVE } from "./definitions/irontail.move.js";
+import { DEFENSECURL_MOVE } from "./definitions/defensecurl.move.js";
+import { SUPERPOWER_MOVE } from "./definitions/superpower.move.js";
+import { SLASH_MOVE } from "./definitions/slash.move.js";
+import { STRENGTH_MOVE } from "./definitions/strength.move.js";
+import { SEISMICTOSS_MOVE } from "./definitions/seismictoss.move.js";
+import { ROAR_MOVE } from "./definitions/roar.move.js";
+import { DRAGONASCENT_MOVE } from "./definitions/dragonascent.move.js";
+import { EARTHPOWER_MOVE } from "./definitions/earthpower.move.js";
+import { PRECIPICEBLADE_MOVE } from "./definitions/precipiceblades.move.js";
+import { ORIGINPULSE_MOVE } from "./definitions/originpulse.move.js";
+import { FISSURE_MOVE } from "./definitions/fissure.move.js";
+import { SUBMISSION_MOVE } from "./definitions/submission.move.js";
+import { DOUBLEKICK_MOVE } from "./definitions/doublekick.move.js";
+import { COUNTER_MOVE } from "./definitions/counter.move.js";
+import { LOWKIK_MOVE } from "./definitions/lowKik.move.js";
+import { MAWASHIGERI_MOVE } from "./definitions/mawashigeri.move.js";
 
 export const MOVES_DATABASE = {
   absorb: ABSORB_MOVE,
   acid: ACID_MOVE,
   ancientPower: ANCIENTPOWER_MOVE,
+  barrier: BARRIER_MOVE,
   bite: BITE_MOVE,
   bind: BIND_MOVE,
   blizzard: BLIZZARD_MOVE,
@@ -81,15 +101,22 @@ export const MOVES_DATABASE = {
   bubbleBeam: BUBBLEBEAM_MOVE,
   cometPunch: COMETPUNCH_MOVE,
   confusion: CONFUSION_MOVE,
+  counter: COUNTER_MOVE,
+  defensecurl: DEFENSECURL_MOVE,
   dig: DIG_MOVE,
   doubleEdge: DOUBLEEDGE_MOVE,
+  doublekick: DOUBLEKICK_MOVE,
+  doubleTeam: DOUBLETEAM_MOVE,
+  dragonascent: DRAGONASCENT_MOVE,
   dragonRage: DRAGONRAGE_MOVE,
+  earthpower: EARTHPOWER_MOVE,
   earthquake: EARTHQUAKE_MOVE,
   ember: EMBER_MOVE,
   extremespeed: EXTREMESPEED_MOVE,
   explosion: EXPLOSION_MOVE,
   fireBlast: FIREBLAST_MOVE,
   fireSpin: FIRESPIN_MOVE,
+  fissure: FISSURE_MOVE,
   flamethrower: FLAMETHROWER_MOVE,
   fly: FLY_MOVE,
   focusEnergy: FOCUS_ENERGY_MOVE,
@@ -102,30 +129,42 @@ export const MOVES_DATABASE = {
   hyperBeam: HYPERBEAM_MOVE,
   hypnosis: HYPNOSIS_MOVE,
   iceBeam: ICEBEAM_MOVE,
+  irondefense: IRONDEFENSE_MOVE,
+  irontail: IRONTAIL_MOVE,
   leechLife: LEECHLIFE_MOVE,
   leer: LEER_MOVE,
+  lowKik: LOWKIK_MOVE,
+  mawashigeri: MAWASHIGERI_MOVE,
   megaDrain: MEGADRAIN_MOVE,
   megaPunch: MEGAPUNCH_MOVE,
   meteorMash: METEORMASH_MOVE,
+  originpulse: ORIGINPULSE_MOVE,
   peck: PECK_MOVE,
   poisonGas: POISONGAS_MOVE,
   poisonSting: POISONSTING_MOVE,
+  precipiceblades: PRECIPICEBLADE_MOVE,
   psychic: PSYCHIC_MOVE,
   psywave: PSYWAVE_MOVE,
   quickAttack: QUICKATTACK_MOVE,
   razorLeaf: RAZORLEAF_MOVE,
   recover: RECOVER_MOVE,
+  roar: ROAR_MOVE,
   rockSlide: ROCKSLIDE_MOVE,
   rockThrow: ROCKTHROW_MOVE,
   sandAttack: SANDATTACK_MOVE,
   scratch: SCRATCH_MOVE,
   screech: SCREECH_MOVE,
+  slash: SLASH_MOVE,
   selfDestruct: SELFDESTRUC_MOVE,
   shadowBall: SHADOWBALL_MOVE,
+  seismictoss: SEISMICTOSS_MOVE,
   skullBash: SKULLBASH_MOVE,
   sludge: SLUDGE_MOVE,
   solarBeam: SOLARBEAM_MOVE,
+  strength: STRENGTH_MOVE,
   stringShot: STRINGSHOT_MOVE,
+  submission: SUBMISSION_MOVE,
+  superpower: SUPERPOWER_MOVE,
   supersonic: SUPERSONIC_MOVE,
   surf: SURF_MOVE,
   swift: SWIFT_MOVE,

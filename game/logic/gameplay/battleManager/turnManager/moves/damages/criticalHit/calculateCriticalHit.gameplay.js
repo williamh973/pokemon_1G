@@ -6,9 +6,12 @@ export const calculateCriticalHit = (action) => {
   const criticalHitBasicRate = 6.25;
   const criticalHitBoostedRate = 50;
 
-  const criticalHitRate = hasBoostedByFocusEnergy
+  let criticalHitRate = hasBoostedByFocusEnergy
     ? criticalHitBoostedRate
     : criticalHitBasicRate;
+
+  if (move.effect?.type === "HIGH_CC_RATE")
+    criticalHitRate = criticalHitBoostedRate;
 
   if (move.power <= 0)
     return {

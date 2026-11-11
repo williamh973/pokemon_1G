@@ -7,7 +7,7 @@ const getStatLabel = (stat) => {
     specialAtt: "L'attaque spéciale",
     defenseAtt: "La défense spéciale",
     accuracy: "La précision",
-    evasion: "L'esquive",
+    dodge: "L'esquive",
   };
 
   return labels[stat] ?? stat;

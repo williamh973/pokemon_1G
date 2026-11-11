@@ -17,6 +17,7 @@ export class AnimatedSprite {
     this.flipX = false;
     this.currentFrame = 0;
     this.counter = 0;
+    this.rotation = 0;
     this.isPlaying = isPlaying;
   }
 
@@ -57,6 +58,15 @@ export class AnimatedSprite {
     const height = this.frameHeight * this.scale;
 
     context.save();
+
+    if (this.rotation !== 0) {
+      const centerX = this.position.x + width / 2;
+      const centerY = this.position.y + height / 2;
+
+      context.translate(centerX, centerY);
+      context.rotate(this.rotation);
+      context.translate(-centerX, -centerY);
+    }
 
     if (this.flipX) {
       context.translate(this.position.x + width, this.position.y);
