@@ -2,7 +2,7 @@ export const THUNDERWAVE_MOVE = {
   id: "thunderWave",
   name: "Cage-Éclair",
   type: ["ELECTRIK"],
-  class: ["STATUS"],
+  class: ["STATUT"],
   pp: 20,
   power: 0,
   precision: 100,

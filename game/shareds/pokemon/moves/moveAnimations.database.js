@@ -87,19 +87,39 @@ import { DoubleKickAnimation } from "../../../models/pokemon/Move/animations/Dou
 import { CounterAnimation } from "../../../models/pokemon/Move/animations/CounterAnimation.model.js";
 import { LowKikAnimation } from "../../../models/pokemon/Move/animations/LowKikAnimation.model.js";
 import { MawashiGeriAnimation } from "../../../models/pokemon/Move/animations/MawashiGeriAnimation.model.js";
+import { JumpKickAnimation } from "../../../models/pokemon/Move/animations/JumpKickAnimation.model.js";
+import { HighJumpKickAnimation } from "../../../models/pokemon/Move/animations/HighJumpKickAnimation.model.js";
+import { WithdrawAnimation } from "../../../models/pokemon/Move/animations/WithdrawAnimation.model.js";
+import { ClampAnimation } from "../../../models/pokemon/Move/animations/ClampAnimation.model.js";
+import { WaterfallAnimation } from "../../../models/pokemon/Move/animations/WaterfallAnimation.model.js";
+import { CrabhammerAnimation } from "../../../models/pokemon/Move/animations/CrabhammerAnimation.model.js";
+import { ThunderPunchAnimation } from "../../../models/pokemon/Move/animations/ThunderPunchAnimation.model.js";
+import { FirePunchAnimation } from "../../../models/pokemon/Move/animations/FirePunchAnimation.model.js";
+import { IcePunchAnimation } from "../../../models/pokemon/Move/animations/IcePunchAnimation.model.js";
+import { MistAnimation } from "../../../models/pokemon/Move/animations/MistAnimation.model.js";
+import { HazeAnimation } from "../../../models/pokemon/Move/animations/HazeAnimation.model.js";
+import { AuroraBeamAnimation } from "../../../models/pokemon/Move/animations/AuroraBeamAnimation.model.js";
+import { PinMissileAnimation } from "../../../models/pokemon/Move/animations/PinMissileAnimation.model.js";
+import { TwineedleAnimation } from "../../../models/pokemon/Move/animations/TwineedleAnimation.model.js";
+import { SingAnimation } from "../../../models/pokemon/Move/animations/SingAnimation.model.js";
+import { SmokescreenAnimation } from "../../../models/pokemon/Move/animations/SmokescreenAnimation.model.js";
+import { WhirlwindAnimation } from "../../../models/pokemon/Move/animations/WhirlwindAnimation.model.js";
 
 export const MOVE_ANIMATIONS_DATABASE = {
   absorb: AbsorbAnimation,
   acid: AcidAnimation,
   ancientPower: AncientPowerAnimation,
+  auroraBeam: AuroraBeamAnimation,
   barrier: BarrierAnimation,
   bite: BiteAnimation,
   blizzard: BlizzardAnimation,
   bubble: BubbleAnimation,
   bubbleBeam: BubbleBeamAnimation,
+  clamp: ClampAnimation,
   confusion: ConfusionAnimation,
   counter: CounterAnimation,
   cometPunch: CometPunchAnimation,
+  crabhammer: CrabhammerAnimation,
   defensecurl: DefenseCurlAnimation,
   dig: DigAnimation,
   doubleEdge: DoubleEdgeAnimation,
@@ -113,6 +133,7 @@ export const MOVE_ANIMATIONS_DATABASE = {
   extremespeed: ExtremeSpeedAnimation,
   explosion: ExplosionAnimation,
   fireBlast: FireBlastAnimation,
+  firePunch: FirePunchAnimation,
   fireSpin: FireSpinAnimation,
   fissure: FissureAnimation,
   flamethrower: FlamethrowerAnimation,
@@ -123,12 +144,16 @@ export const MOVE_ANIMATIONS_DATABASE = {
   growth: GrowthAnimation,
   gust: GustAnimation,
   harden: HardenAnimation,
+  haze: HazeAnimation,
+  highjumpkick: HighJumpKickAnimation,
   hydroPump: HydroPumpAnimation,
   hyperBeam: HyperBeamAnimation,
   hypnosis: HypnosisAnimation,
   iceBeam: IceBeamAnimation,
+  icePunch: IcePunchAnimation,
   irondefense: IronDefenseAnimation,
   irontail: IronTailAnimation,
+  jumpskick: JumpKickAnimation,
   leechLife: LeechLifeAnimation,
   leer: LeerAnimation,
   lowKik: LowKikAnimation,
@@ -136,8 +161,10 @@ export const MOVE_ANIMATIONS_DATABASE = {
   megaDrain: MegaDrainAnimation,
   megaPunch: MegaPunchAnimation,
   meteorMash: MeteorMashAnimation,
+  mist: MistAnimation,
   originpulse: OriginPulseAnimation,
   peck: PeckAnimation,
+  pinMissile: PinMissileAnimation,
   poisonGas: PoisonGasAnimation,
   poisonSting: PoisonStingAnimation,
   precipiceblades: PrecipiceBladesAnimation,
@@ -163,7 +190,9 @@ export const MOVE_ANIMATIONS_DATABASE = {
   superpower: SuperpowerAnimation,
   supersonic: SupersonicAnimation,
   screech: ScreechAnimation,
+  sing: SingAnimation,
   slash: SlashAnimation,
+  smokescreen: SmokescreenAnimation,
   surf: SurfAnimation,
   swift: SwiftAnimation,
   tackle: TackleAnimation,
@@ -171,11 +200,16 @@ export const MOVE_ANIMATIONS_DATABASE = {
   tailWhip: TailWhipAnimation,
   thunder: ThunderAnimation,
   thunderBolt: ThunderBoltAnimation,
+  thunderPunch: ThunderPunchAnimation,
   thundershock: ThunderShockAnimation,
   thunderWave: ThunderWaveAnimation,
   toxic: ToxicAnimation,
+  twineedle: TwineedleAnimation,
   vineWhip: VineWhipAnimation,
+  waterfall: WaterfallAnimation,
   watergun: WaterGunAnimation,
   wingAttack: WingAttackAnimation,
+  whirlwind: WhirlwindAnimation,
+  withdraw: WithdrawAnimation,
   wrap: WrapAnimation,
 };

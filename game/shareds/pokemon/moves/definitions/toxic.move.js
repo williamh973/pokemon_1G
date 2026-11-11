@@ -2,7 +2,7 @@ export const TOXIC_MOVE = {
   id: "toxic",
   name: "Toxic",
   type: ["POISON"],
-  class: ["STATUS"],
+  class: ["STATUT"],
   pp: 10,
   power: 0,
   precision: 85,

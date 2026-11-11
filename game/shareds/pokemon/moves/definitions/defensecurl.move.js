@@ -2,7 +2,7 @@ export const DEFENSECURL_MOVE = {
   id: "defensecurl",
   name: "Boul'Armure",
   type: ["NORMAL"],
-  class: ["STATUS"],
+  class: ["STATUT"],
   pp: 40,
   power: 0,
   precision: 100,

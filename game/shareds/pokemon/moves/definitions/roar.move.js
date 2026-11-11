@@ -2,7 +2,7 @@ export const ROAR_MOVE = {
   id: "roar",
   name: "Hurlement",
   type: ["NORMAL"],
-  class: ["STATUS"],
+  class: ["STATUT"],
   pp: 20,
   power: 0,
   precision: 100,

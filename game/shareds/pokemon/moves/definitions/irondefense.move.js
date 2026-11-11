@@ -2,7 +2,7 @@ export const IRONDEFENSE_MOVE = {
   id: "irondefense",
   name: "Mur de Fer",
   type: ["STEEL"],
-  class: ["STATUS"],
+  class: ["STATUT"],
   pp: 15,
   power: 0,
   precision: 100,

@@ -2,7 +2,7 @@ export const POISONGAS_MOVE = {
   id: "poisonGas",
   name: "Gaz Toxik",
   type: ["POISON"],
-  class: ["STATUS"],
+  class: ["STATUT"],
   pp: 40,
   power: 0,
   precision: 55,

@@ -88,20 +88,40 @@ import { DOUBLEKICK_MOVE } from "./definitions/doublekick.move.js";
 import { COUNTER_MOVE } from "./definitions/counter.move.js";
 import { LOWKIK_MOVE } from "./definitions/lowKik.move.js";
 import { MAWASHIGERI_MOVE } from "./definitions/mawashigeri.move.js";
+import { JUMPSKICK_MOVE } from "./definitions/jumpskick.move.js";
+import { HIGHJUMPKICK_MOVE } from "./definitions/highjumpkick.move.js";
+import { WITHDRAW_MOVE } from "./definitions/withdraw.move.js";
+import { CLAMP_MOVE } from "./definitions/clamp.move.js";
+import { WATERFALL_MOVE } from "./definitions/waterfall.move.js";
+import { CRABHAMMER_MOVE } from "./definitions/crabhammer.move.js";
+import { THUNDERPUNCH_MOVE } from "./definitions/thunderPunch.move.js";
+import { FIREPUNCH_MOVE } from "./definitions/firePunch.move.js";
+import { ICEPUNCH_MOVE } from "./definitions/icePunch.move.js";
+import { MIST_MOVE } from "./definitions/mist.move.js";
+import { HAZE_MOVE } from "./definitions/haze.move.js";
+import { AURORABEAM_MOVE } from "./definitions/auroraBeam.move.js";
+import { PINMISSILE_MOVE } from "./definitions/pinMissile.move.js";
+import { TWINEEDLE_MOVE } from "./definitions/twineedle.move.js";
+import { SING_MOVE } from "./definitions/sing.move.js";
+import { SMOKESCREEN_MOVE } from "./definitions/smokescreen.move.js";
+import { WHIRLWIND_MOVE } from "./definitions/whirlwind.move.js";
 
 export const MOVES_DATABASE = {
   absorb: ABSORB_MOVE,
   acid: ACID_MOVE,
   ancientPower: ANCIENTPOWER_MOVE,
+  auroraBeam: AURORABEAM_MOVE,
   barrier: BARRIER_MOVE,
   bite: BITE_MOVE,
   bind: BIND_MOVE,
   blizzard: BLIZZARD_MOVE,
   bubble: BUBBLE_MOVE,
   bubbleBeam: BUBBLEBEAM_MOVE,
-  cometPunch: COMETPUNCH_MOVE,
+  clamp: CLAMP_MOVE,
   confusion: CONFUSION_MOVE,
   counter: COUNTER_MOVE,
+  cometPunch: COMETPUNCH_MOVE,
+  crabhammer: CRABHAMMER_MOVE,
   defensecurl: DEFENSECURL_MOVE,
   dig: DIG_MOVE,
   doubleEdge: DOUBLEEDGE_MOVE,
@@ -115,6 +135,7 @@ export const MOVES_DATABASE = {
   extremespeed: EXTREMESPEED_MOVE,
   explosion: EXPLOSION_MOVE,
   fireBlast: FIREBLAST_MOVE,
+  firePunch: FIREPUNCH_MOVE,
   fireSpin: FIRESPIN_MOVE,
   fissure: FISSURE_MOVE,
   flamethrower: FLAMETHROWER_MOVE,
@@ -125,12 +146,16 @@ export const MOVES_DATABASE = {
   growth: GROWTH_MOVE,
   gust: GUST_MOVE,
   harden: HARDEN_MOVE,
+  haze: HAZE_MOVE,
+  highjumpkick: HIGHJUMPKICK_MOVE,
   hydroPump: HYDROPUMP_MOVE,
   hyperBeam: HYPERBEAM_MOVE,
   hypnosis: HYPNOSIS_MOVE,
   iceBeam: ICEBEAM_MOVE,
+  icePunch: ICEPUNCH_MOVE,
   irondefense: IRONDEFENSE_MOVE,
   irontail: IRONTAIL_MOVE,
+  jumpskick: JUMPSKICK_MOVE,
   leechLife: LEECHLIFE_MOVE,
   leer: LEER_MOVE,
   lowKik: LOWKIK_MOVE,
@@ -138,8 +163,10 @@ export const MOVES_DATABASE = {
   megaDrain: MEGADRAIN_MOVE,
   megaPunch: MEGAPUNCH_MOVE,
   meteorMash: METEORMASH_MOVE,
+  mist: MIST_MOVE,
   originpulse: ORIGINPULSE_MOVE,
   peck: PECK_MOVE,
+  pinMissile: PINMISSILE_MOVE,
   poisonGas: POISONGAS_MOVE,
   poisonSting: POISONSTING_MOVE,
   precipiceblades: PRECIPICEBLADE_MOVE,
@@ -154,7 +181,9 @@ export const MOVES_DATABASE = {
   sandAttack: SANDATTACK_MOVE,
   scratch: SCRATCH_MOVE,
   screech: SCREECH_MOVE,
+  sing: SING_MOVE,
   slash: SLASH_MOVE,
+  smokescreen: SMOKESCREEN_MOVE,
   selfDestruct: SELFDESTRUC_MOVE,
   shadowBall: SHADOWBALL_MOVE,
   seismictoss: SEISMICTOSS_MOVE,
@@ -173,11 +202,16 @@ export const MOVES_DATABASE = {
   tailWhip: TAILWHIP_MOVE,
   thunder: THUNDER_MOVE,
   thunderBolt: THUNDERBOLT_MOVE,
+  thunderPunch: THUNDERPUNCH_MOVE,
   thundershock: THUNDERSHOCK_MOVE,
   thunderWave: THUNDERWAVE_MOVE,
   toxic: TOXIC_MOVE,
+  twineedle: TWINEEDLE_MOVE,
   vineWhip: VINEWHIP_MOVE,
+  waterfall: WATERFALL_MOVE,
   watergun: WATERGUN_MOVE,
+  whirlwind: WHIRLWIND_MOVE,
   wingAttack: WINGATTACK_MOVE,
+  withdraw: WITHDRAW_MOVE,
   wrap: WRAP_MOVE,
 };

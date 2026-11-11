@@ -2,7 +2,7 @@ export const RECOVER_MOVE = {
   id: "recover",
   name: "Soin",
   type: ["NORMAL"],
-  class: ["STATUS"],
+  class: ["STATUT"],
   pp: 5,
   power: 0,
   precision: 100,

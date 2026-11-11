@@ -2,7 +2,7 @@ export const DOUBLETEAM_MOVE = {
   id: "doubleTeam",
   name: "Reflet",
   type: ["NORMAL"],
-  class: ["STATUS"],
+  class: ["STATUT"],
   pp: 15,
   power: 0,
   precision: 100,
