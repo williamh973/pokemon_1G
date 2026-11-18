@@ -4,6 +4,9 @@ export class BubbleBeamAnimation {
     this.viewers = viewers;
     this.turnAction = turnAction;
 
+    this.battleBackgroundEffectManager =
+      this.game.battleManager.battleRenderer.battleBackgroundEffectManager;
+
     if (this.viewers.front.slot.content === turnAction.pokemon) {
       this.pokemonViewer = this.viewers.front;
       this.targetViewer = this.viewers.back;
@@ -61,7 +64,7 @@ export class BubbleBeamAnimation {
 
     switch (this.state) {
       case "PREPARE":
-        this.updatePrepare();
+        this.updatePrepare(context);
         break;
 
       case "FIRE":
@@ -90,7 +93,7 @@ export class BubbleBeamAnimation {
     this.timer = 0;
   }
 
-  updatePrepare() {
+  updatePrepare(context) {
     if (this.timer >= 12) {
       this.setState("FIRE");
     }

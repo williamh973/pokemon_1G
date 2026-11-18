@@ -3,9 +3,9 @@ export const SUPERSONIC_MOVE = {
   name: "Ultrason",
   type: ["NORMAL"],
   class: ["STATUT"],
+  pp: 20,
   power: 0,
   precision: 55,
-  pp: 20,
   desc: "Attaque sonore. Rend confus la cible.",
 
   effect: {

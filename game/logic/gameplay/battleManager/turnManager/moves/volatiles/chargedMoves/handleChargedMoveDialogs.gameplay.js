@@ -30,6 +30,13 @@ export const handleChargedMoveDialogs = (turnManager, chargedMove, pokemon) => {
       );
       break;
 
+    case "razorWind":
+      dialog = DIALOGS_DATABASE.BATTLE_DIALOGS.razorWind(
+        pokemon.name,
+        pokemon.trainerId
+      );
+      break;
+
     default:
       break;
   }

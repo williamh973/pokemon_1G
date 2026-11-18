@@ -2,6 +2,9 @@ export const BATTLE_DIALOGS = {
   recover: (pokemon, trainerId, recoveredHP) =>
     `${pokemon} ${trainerId ? "" : "ennemi\n"}a récupéré ${recoveredHP} PV`,
 
+  razorWind: (pokemon, trainerId) =>
+    `${pokemon} ${trainerId ? "" : "ennemi "}\ncrée un cyclone.`,
+
   dig: (pokemon, trainerId) =>
     `${pokemon} ${trainerId ? "" : "ennemi "}\ns'enfonce dans le sol.`,
 

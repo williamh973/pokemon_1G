@@ -2,10 +2,10 @@ import { DIALOGS_DATABASE } from "../../../../../../shareds/dialogs/dialogs.data
 
 const getStatusLabel = (status) => {
   const labels = {
-    BURN: "souffre de sa brûlure.",
+    BURN: "\nsouffre de sa brûlure.",
     PARALYSIS: "est paralysé.",
-    POISON: "souffre du poison.",
-    SLEEP: "dort profondément.",
+    POISON: "\nsouffre du poison.",
+    SLEEP: "\ndort profondément.",
     FREEZE: "est gelé.",
   };
 

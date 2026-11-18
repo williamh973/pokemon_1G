@@ -28,7 +28,7 @@ export const RAYQUAZA_SPECIES = {
   evolutions: [],
   learnset: {
     levelUp: [
-      { level: 1, move: MOVES_DATABASE.whirlwind },
+      { level: 1, move: MOVES_DATABASE.poisonPowder },
       // { level: 1, move: MOVES_DATABASE.dragonascent },
       // { level: 1, move: MOVES_DATABASE.fly },
 

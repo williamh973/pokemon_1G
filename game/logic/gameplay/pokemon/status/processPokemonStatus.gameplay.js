@@ -18,11 +18,11 @@ export const processPokemonStatus = (pokemon) => {
 
   switch (pokemon.status) {
     case POKEMON_STATUS.BURN:
-      deductStatHP(action.target, deduction8(pokemon.stats.maxHp));
+      deductStatHP(pokemon, deduction8(pokemon.stats.maxHp));
       break;
 
     case POKEMON_STATUS.POISON:
-      deductStatHP(action.target, deduction8(pokemon.stats.maxHp));
+      deductStatHP(pokemon, deduction8(pokemon.stats.maxHp));
       break;
 
     case POKEMON_STATUS.PARALYSIS:

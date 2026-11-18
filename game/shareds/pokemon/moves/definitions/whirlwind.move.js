@@ -2,7 +2,7 @@ export const WHIRLWIND_MOVE = {
   id: "whirlwind",
   name: "Cyclone",
   type: ["NORMAL"],
-  class: ["STATUT"],
+  class: ["SPECIAL"],
   pp: 20,
   power: 0,
   precision: 100,

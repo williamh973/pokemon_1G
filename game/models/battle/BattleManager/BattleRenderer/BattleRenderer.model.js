@@ -1,14 +1,22 @@
 import { BATTLE_BACKGROUND_DATABASE } from "../../../../shareds/battle/background/battleBackground.database.js";
+import { BattleBackgroundEffectManager } from "./BattleBackgroundEffectManager/BattleBackgroundEffectManager.model.js";
 
 export class BattleRenderer {
   constructor(game, slots, huds, tile) {
     this.game = game;
     this.tile = tile;
+
     this.battleBackgroundImage = this.setBattleBackImg();
+
     this.frontSlot = slots.frontSlot;
     this.backSlot = slots.backSlot;
+
     this.frontHUD = huds.frontHUD;
     this.backHUD = huds.backHUD;
+
+    this.battleBackgroundEffectManager = new BattleBackgroundEffectManager(
+      game
+    );
   }
 
   isPokemonHpAnimationFinished(pokemon) {
@@ -63,17 +71,33 @@ export class BattleRenderer {
   }
 
   draw(context) {
-    context.drawImage(
+    const x = this.game.canvas.position.x;
+    const y = this.game.canvas.position.y;
+    const width = this.game.canvas.width;
+    const height = this.game.canvas.height;
+
+    this.battleBackgroundEffectManager.drawBackground(
+      context,
       this.battleBackgroundImage,
+      x,
+      y,
+      width,
+      height
+    );
+  }
+
+  update(context) {
+    this.battleBackgroundEffectManager.update(context);
+    this.draw(context);
+
+    this.battleBackgroundEffectManager.drawColor(
+      context,
       this.game.canvas.position.x,
       this.game.canvas.position.y,
       this.game.canvas.width,
       this.game.canvas.height
     );
-  }
 
-  update(context) {
-    this.draw(context);
     this.frontSlot.update(context);
     this.backSlot.update(context);
   }

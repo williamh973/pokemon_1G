@@ -5,7 +5,7 @@ export const handlerStatusRecoveryDialogs = {
     battleManager.openDialogBox(
       DIALOGS_DATABASE.BATTLE_DIALOGS.wokenUp(
         processStatusResult.pokemon.name,
-        action.pokemon.trainerId
+        processStatusResult.pokemon.trainerId
       )
     );
   },
@@ -13,7 +13,7 @@ export const handlerStatusRecoveryDialogs = {
     battleManager.openDialogBox(
       DIALOGS_DATABASE.BATTLE_DIALOGS.thawedOut(
         processStatusResult.pokemon.name,
-        action.pokemon.trainerId
+        processStatusResult.pokemon.trainerId
       )
     );
   },

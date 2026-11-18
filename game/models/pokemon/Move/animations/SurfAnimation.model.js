@@ -4,6 +4,9 @@ export class SurfAnimation {
     this.viewers = viewers;
     this.turnAction = turnAction;
 
+    this.battleBackgroundEffectManager =
+      this.game.battleManager.battleRenderer.battleBackgroundEffectManager;
+
     if (this.viewers.front.slot.content === turnAction.pokemon) {
       this.pokemonViewer = this.viewers.front;
       this.targetViewer = this.viewers.back;
@@ -50,6 +53,14 @@ export class SurfAnimation {
 
     this.flashOpacity = 0;
     this.waterOpacity = 1;
+
+    this.battleBackgroundEffectManager.startColorChange("BLUE", 0.4);
+
+    this.battleBackgroundEffectManager.startWave({
+      amplitude: 15,
+      frequency: 0.08,
+      speed: 0.07,
+    });
 
     this.createBubbles();
   }
@@ -122,6 +133,8 @@ export class SurfAnimation {
 
     if (this.timer >= 45) {
       this.isFinished = true;
+      this.battleBackgroundEffectManager.stopColorChange();
+      this.battleBackgroundEffectManager.stopWave();
     }
   }
 

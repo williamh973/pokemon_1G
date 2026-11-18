@@ -4,6 +4,9 @@ export class PsychicAnimation {
     this.viewers = viewers;
     this.turnAction = turnAction;
 
+    this.battleBackgroundEffectManager =
+      this.game.battleManager.battleRenderer.battleBackgroundEffectManager;
+
     if (this.viewers.front.slot.content === turnAction.pokemon) {
       this.pokemonViewer = this.viewers.front;
       this.targetViewer = this.viewers.back;
@@ -60,6 +63,12 @@ export class PsychicAnimation {
 
     this.createInitialParticles();
     this.createTendrils();
+
+    this.battleBackgroundEffectManager.startWave({
+      amplitude: 3,
+      frequency: 0.08,
+      speed: 0.48,
+    });
   }
 
   createInitialParticles() {
@@ -256,6 +265,7 @@ export class PsychicAnimation {
     if (this.timer >= this.duration.DISSIPATION) {
       this.restoreTargetPosition();
       this.isFinished = true;
+      this.battleBackgroundEffectManager.stopWave();
     }
   }
 
