@@ -147,11 +147,27 @@ import { PetalDanceAnimation } from "../../../models/pokemon/Move/animations/Pet
 import { ThrashAnimation } from "../../../models/pokemon/Move/animations/ThrashAnimation.model.js";
 import { AcidArmorAnimation } from "../../../models/pokemon/Move/animations/AcidArmorAnimation.model.js";
 import { PoisonPowderAnimation } from "../../../models/pokemon/Move/animations/PoisonPowderAnimation.model.js";
+import { SmogAnimation } from "../../../models/pokemon/Move/animations/SmogAnimation.model.js";
+import { AgilityAnimation } from "../../../models/pokemon/Move/animations/AgilityAnimation.model.js";
+import { LightScreenAnimation } from "../../../models/pokemon/Move/animations/LightScreenAnimation.model.js";
+import { ReflectAnimation } from "../../../models/pokemon/Move/animations/ReflectAnimation.model.js";
+import { RestAnimation } from "../../../models/pokemon/Move/animations/RestAnimation.model.js";
+import { TeleportAnimation } from "../../../models/pokemon/Move/animations/TeleportAnimation.model.js";
+import { MeditateAnimation } from "../../../models/pokemon/Move/animations/MeditateAnimation.model.js";
+import { PsybeamAnimation } from "../../../models/pokemon/Move/animations/PsybeamAnimation.model.js";
+import { DreamEaterAnimation } from "../../../models/pokemon/Move/animations/DreamEaterAnimation.model.js";
+import { BonemerangAnimation } from "../../../models/pokemon/Move/animations/BonemerangAnimation.model.js";
+import { BoneClubAnimation } from "../../../models/pokemon/Move/animations/BoneClubAnimation.model.js";
+import { NightShadeAnimation } from "../../../models/pokemon/Move/animations/NightShadeAnimation.model.js";
+import { LickAnimation } from "../../../models/pokemon/Move/animations/LickAnimation.model.js";
+import { MirrorMoveAnimation } from "../../../models/pokemon/Move/animations/MirrorAnimation.model.js";
+import { DrillPeckAnimation } from "../../../models/pokemon/Move/animations/DrillPeckAnimation.model.js";
 
 export const MOVE_ANIMATIONS_DATABASE = {
   absorb: AbsorbAnimation,
   acid: AcidAnimation,
   acidArmor: AcidArmorAnimation,
+  agility: AgilityAnimation,
   ancientPower: AncientPowerAnimation,
   auroraBeam: AuroraBeamAnimation,
   barrage: BarrageAnimation,
@@ -159,6 +175,8 @@ export const MOVE_ANIMATIONS_DATABASE = {
   bite: BiteAnimation,
   blizzard: BlizzardAnimation,
   bodySlam: BodySlamAnimation,
+  boneClub: BoneClubAnimation,
+  bonemerang: BonemerangAnimation,
   bubble: BubbleAnimation,
   bubbleBeam: BubbleBeamAnimation,
   clamp: ClampAnimation,
@@ -178,6 +196,8 @@ export const MOVE_ANIMATIONS_DATABASE = {
   doubleTeam: DoubleTeamAnimation,
   dragonascent: DragonAscentAnimation,
   dragonRage: DragonRageAnimation,
+  dreamEater: DreamEaterAnimation,
+  drillPeck: DrillPeckAnimation,
   earthpower: EarthPowerAnimation,
   earthquake: EarthquakeAnimation,
   eggBomb: EggBombAnimation,
@@ -218,16 +238,21 @@ export const MOVE_ANIMATIONS_DATABASE = {
   leechLife: LeechLifeAnimation,
   leechSeed: LeechSeedAnimation,
   leer: LeerAnimation,
+  lick: LickAnimation,
+  lightScreen: LightScreenAnimation,
   lovelyKiss: LovelyKissAnimation,
   lowKik: LowKikAnimation,
   mawashigeri: MawashiGeriAnimation,
+  meditate: MeditateAnimation,
   megaDrain: MegaDrainAnimation,
   megaKick: MegaKickAnimation,
   megaPunch: MegaPunchAnimation,
   meteorMash: MeteorMashAnimation,
   metronome: MetronomeAnimation,
   minimize: MinimizeAnimation,
+  mirrorMove: MirrorMoveAnimation,
   mist: MistAnimation,
+  nightShade: NightShadeAnimation,
   originpulse: OriginPulseAnimation,
   payday: PayDayAnimation,
   peck: PeckAnimation,
@@ -239,11 +264,14 @@ export const MOVE_ANIMATIONS_DATABASE = {
   pound: PoundAnimation,
   precipiceblades: PrecipiceBladesAnimation,
   psychic: PsychicAnimation,
+  psybeam: PsybeamAnimation,
   psywave: PsywaveAnimation,
   quickAttack: QuickAttackAnimation,
   razorLeaf: RazorLeafAnimation,
   razorWind: RazorWindAnimation,
   recover: RecoverAnimation,
+  reflect: ReflectAnimation,
+  rest: RestAnimation,
   roar: RoarAnimation,
   rockSlide: RockSlideAnimation,
   rockThrow: RockThrowAnimation,
@@ -260,6 +288,7 @@ export const MOVE_ANIMATIONS_DATABASE = {
   slash: SlashAnimation,
   sleepPowder: SleepPowderAnimation,
   sludge: SludgeAnimation,
+  smog: SmogAnimation,
   smokescreen: SmokescreenAnimation,
   softBoiled: SoftBoiledAnimation,
   solarBeam: SolarBeamAnimation,
@@ -280,6 +309,7 @@ export const MOVE_ANIMATIONS_DATABASE = {
   tackle: TackleAnimation,
   takeDown: TakeDownAnimation,
   tailWhip: TailWhipAnimation,
+  teleport: TeleportAnimation,
   thrash: ThrashAnimation,
   thunder: ThunderAnimation,
   thunderBolt: ThunderBoltAnimation,

@@ -35,7 +35,7 @@ export class PoisonPowderAnimation {
     this.duration = {
       PREPARE: 20,
       RELEASE: 28,
-      POISON: 48,
+      POISON: 38,
       FINISH: 24,
     };
 

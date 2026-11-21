@@ -148,11 +148,27 @@ import { PETALDANCE_MOVE } from "./definitions/petalDance.move.js";
 import { THRASH_MOVE } from "./definitions/thrash.move.js";
 import { ACIDARMOR_MOVE } from "./definitions/acidArmor.move.js";
 import { POISONPOWDER_MOVE } from "./definitions/poisonPowder.move.js";
+import { SMOG_MOVE } from "./definitions/smog.move.js";
+import { AGILITY_MOVE } from "./definitions/agility.move.js";
+import { LIGHTSCREEN_MOVE } from "./definitions/lightScreen.move.js";
+import { REFLECT_MOVE } from "./definitions/reflect.move.js";
+import { REST_MOVE } from "./definitions/rest.move.js";
+import { TELEPORT_MOVE } from "./definitions/teleport.move.js";
+import { MEDITATE_MOVE } from "./definitions/meditate.move.js";
+import { PSYBEAM_MOVE } from "./definitions/psybeam.move.js";
+import { DREAMEATER_MOVE } from "./definitions/dreamEater.move.js";
+import { BONEMERANG_MOVE } from "./definitions/bonemerang.move.js";
+import { BONECLUB_MOVE } from "./definitions/boneClub.move.js";
+import { NIGHTSHADE_MOVE } from "./definitions/nightShade.move.js";
+import { LICK_MOVE } from "./definitions/lick.move.js";
+import { MIRRORMOVE_MOVE } from "./definitions/mirrorMove.move.js";
+import { DRILLPECK_MOVE } from "./definitions/drillPeck.move.js";
 
 export const MOVES_DATABASE = {
   absorb: ABSORB_MOVE,
   acid: ACID_MOVE,
   acidArmor: ACIDARMOR_MOVE,
+  agility: AGILITY_MOVE,
   ancientPower: ANCIENTPOWER_MOVE,
   auroraBeam: AURORABEAM_MOVE,
   barrage: BARRAGE_MOVE,
@@ -161,6 +177,8 @@ export const MOVES_DATABASE = {
   bind: BIND_MOVE,
   blizzard: BLIZZARD_MOVE,
   bodySlam: BODYSLAM_MOVE,
+  boneClub: BONECLUB_MOVE,
+  bonemerang: BONEMERANG_MOVE,
   bubble: BUBBLE_MOVE,
   bubbleBeam: BUBBLEBEAM_MOVE,
   clamp: CLAMP_MOVE,
@@ -180,6 +198,8 @@ export const MOVES_DATABASE = {
   doubleTeam: DOUBLETEAM_MOVE,
   dragonascent: DRAGONASCENT_MOVE,
   dragonRage: DRAGONRAGE_MOVE,
+  dreamEater: DREAMEATER_MOVE,
+  drillPeck: DRILLPECK_MOVE,
   earthpower: EARTHPOWER_MOVE,
   earthquake: EARTHQUAKE_MOVE,
   eggBomb: EGGBOMB_MOVE,
@@ -220,16 +240,21 @@ export const MOVES_DATABASE = {
   leechLife: LEECHLIFE_MOVE,
   leechSeed: LEECHSEED_MOVE,
   leer: LEER_MOVE,
+  lick: LICK_MOVE,
+  lightScreen: LIGHTSCREEN_MOVE,
   lovelyKiss: LOVELYKISS_MOVE,
   lowKik: LOWKIK_MOVE,
   mawashigeri: MAWASHIGERI_MOVE,
+  meditate: MEDITATE_MOVE,
   megaDrain: MEGADRAIN_MOVE,
   megaKick: MEGAKICK_MOVE,
   megaPunch: MEGAPUNCH_MOVE,
   meteorMash: METEORMASH_MOVE,
   metronome: METRONOME_MOVE,
-  mist: MIST_MOVE,
   minimize: MINIMIZE_MOVE,
+  mist: MIST_MOVE,
+  mirrorMove: MIRRORMOVE_MOVE,
+  nightShade: NIGHTSHADE_MOVE,
   originpulse: ORIGINPULSE_MOVE,
   payday: PAYDAY_MOVE,
   peck: PECK_MOVE,
@@ -238,14 +263,18 @@ export const MOVES_DATABASE = {
   poisonGas: POISONGAS_MOVE,
   poisonPowder: POISONPOWDER_MOVE,
   poisonSting: POISONSTING_MOVE,
+  psybeam: PSYBEAM_MOVE,
   pound: POUND_MOVE,
   precipiceblades: PRECIPICEBLADE_MOVE,
   psychic: PSYCHIC_MOVE,
+  psybeam: PSYBEAM_MOVE,
   psywave: PSYWAVE_MOVE,
   quickAttack: QUICKATTACK_MOVE,
   razorLeaf: RAZORLEAF_MOVE,
   razorWind: RAZORWIND_MOVE,
   recover: RECOVER_MOVE,
+  reflect: REFLECT_MOVE,
+  rest: REST_MOVE,
   roar: ROAR_MOVE,
   rockSlide: ROCKSLIDE_MOVE,
   rockThrow: ROCKTHROW_MOVE,
@@ -262,6 +291,7 @@ export const MOVES_DATABASE = {
   slash: SLASH_MOVE,
   sleepPowder: SLEEPPOWDER_MOVE,
   sludge: SLUDGE_MOVE,
+  smog: SMOG_MOVE,
   smokescreen: SMOKESCREEN_MOVE,
   spikeCannon: SPIKECANNON_MOVE,
   softBoiled: SOFTBOILED_MOVE,
@@ -282,6 +312,7 @@ export const MOVES_DATABASE = {
   tackle: TACKLE_MOVE,
   takeDown: TAKEDOWN_MOVE,
   tailWhip: TAILWHIP_MOVE,
+  teleport: TELEPORT_MOVE,
   thrash: THRASH_MOVE,
   thunder: THUNDER_MOVE,
   thunderBolt: THUNDERBOLT_MOVE,
