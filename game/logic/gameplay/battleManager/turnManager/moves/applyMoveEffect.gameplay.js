@@ -10,12 +10,19 @@ const random = (percent) => {
 export const applyMoveEffect = (damages, action) => {
   switch (action.move.effect?.type) {
     case "STAT_STAGE":
-      if (random(action.move.effect?.percentage))
-        return modifyStatStage(
-          action.move.selfTarget ? action.pokemon : action.target,
-          action.move.effect.stat,
-          action.move.effect.amount
-        );
+      const effect = action.move.effect;
+
+      if (!random(effect.percentage)) return null;
+
+      const target = action.move.selfTarget ? action.pokemon : action.target;
+
+      const stats = effect.stats ?? [effect.stat];
+
+      const results = stats.map((stat) =>
+        modifyStatStage(target, stat, effect.amount)
+      );
+
+      return effect.stats ? results : results[0];
       break;
 
     case "DRAIN":

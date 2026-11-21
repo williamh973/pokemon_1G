@@ -1,6 +1,6 @@
 import { SPECIES_DATABASE } from "../../../shareds/pokemon/species/species.database.js";
 import { getExpForLevel } from "../../../shareds/utils/pokemon/experience/experience.utils.js";
-import { createStatStages } from "../battleManager/turnManager/statStages/statStages.gameplay.js";
+import { createStatStages } from "../battleManager/turnManager/statStages/createStatStages.gameplay.js";
 import { POKEMON_STATUS } from "../pokemon/status/pokemonStatus.state.js";
 
 export const generatePokemon = (

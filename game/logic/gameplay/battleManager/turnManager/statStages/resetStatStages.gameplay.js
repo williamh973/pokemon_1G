@@ -1,4 +1,4 @@
-import { createStatStages } from "./statStages.gameplay.js";
+import { createStatStages } from "./createStatStages.gameplay.js";
 
 export const resetTeamStatStages = (party) => {
   party.slots.forEach((slot) => {

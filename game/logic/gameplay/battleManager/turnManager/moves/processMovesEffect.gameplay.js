@@ -14,16 +14,41 @@ export const processMovesEffect = (turnManager, damages, action, sequence) => {
 
   const moveEffectResult = applyMoveEffect(damages, action);
 
+  if (action.move.effect?.type === "STAT_STAGE" && moveEffectResult === null) {
+    turnManager.isMoveEffectProcessed = true;
+    return false;
+  }
+
   if (moveEffectResult) {
     turnManager.isMoveEffectProcessed = true;
 
     switch (action.move.effect?.type) {
-      case "STAT_STAGE":
-        handlerStatStagesEffectDialogs(
-          turnManager.battleManager,
-          moveEffectResult
-        );
-        break;
+      case "STAT_STAGE": {
+        const results = Array.isArray(moveEffectResult)
+          ? moveEffectResult
+          : [moveEffectResult];
+
+        let index = 0;
+
+        const showNextDialog = () => {
+          if (index >= results.length) {
+            turnManager.checkActionAnimationFinished(sequence, action);
+            return;
+          }
+
+          handlerStatStagesEffectDialogs(
+            turnManager.battleManager,
+            results[index]
+          );
+
+          index++;
+
+          turnManager.waitForAction(showNextDialog, turnManager.state);
+        };
+
+        showNextDialog();
+        return true;
+      }
 
       case "DRAIN":
         handlerDrainEffectDialogs(
