@@ -28,10 +28,10 @@ export const RAYQUAZA_SPECIES = {
   evolutions: [],
   learnset: {
     levelUp: [
-      { level: 1, move: MOVES_DATABASE.harden },
+      { level: 1, move: MOVES_DATABASE.fly },
       { level: 1, move: MOVES_DATABASE.barrage },
-      // { level: 1, move: MOVES_DATABASE.fly },
-      // { level: 1, move: MOVES_DATABASE.iceBeam },
+      { level: 1, move: MOVES_DATABASE.bite },
+      { level: 1, move: MOVES_DATABASE.defensecurl },
 
       // { level: 1, move: MOVES_DATABASE.twister },
       // { level: 5, move: MOVES_DATABASE.scaryFace },

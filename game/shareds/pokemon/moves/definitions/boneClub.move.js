@@ -7,4 +7,10 @@ export const BONECLUB_MOVE = {
   power: 65,
   precision: 85,
   desc: "Massd'Os inflige des dégâts et a 10% de chances d'apeurer la cible.",
+
+  effect: {
+    type: "VOLATILE",
+    volatile: "FRIGHTEN",
+    percentage: 10,
+  },
 };

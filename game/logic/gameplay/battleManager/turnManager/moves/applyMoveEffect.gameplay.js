@@ -1,12 +1,8 @@
+import { random } from "../../../../../shareds/utils/math/math.utils.js";
 import { handlerStatStagesEffect } from "../statStages/handlerStatStagesEffect.gamplay.js";
 import { modifyStatHP } from "../stats/modifyStatHP.gameplay.js";
 import { modifyVolatile } from "./volatiles/modifyVolatile.gameplay.js";
 import { createMultiHitTurns } from "./volatiles/multiHitMoves/createMultiHitTurns.gameplay.js";
-
-const random = (percent) => {
-  const random100 = Math.floor(Math.random() * 100) + 1;
-  return random100 <= percent;
-};
 
 export const applyMoveEffect = (damages, action) => {
   switch (action.move.effect?.type) {

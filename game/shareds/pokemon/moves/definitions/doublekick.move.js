@@ -7,4 +7,10 @@ export const DOUBLEKICK_MOVE = {
   power: 30,
   precision: 100,
   desc: "Deux coups de pied qui frappent l'ennemi deux fois d'affilée.",
+
+  effect: {
+    type: "MULTI_HIT",
+    minCount: 2,
+    maxCount: 2,
+  },
 };

@@ -3,12 +3,14 @@ export const FURYSWIPS_MOVE = {
   name: "Combo-Griffe",
   type: ["NORMAL"],
   class: ["PHYSICAL"],
-  pp: 10,
-  power: 15,
+  pp: 15,
+  power: 18,
   precision: 80,
   desc: "Frappe l'ennemi deux à cinq fois d'affilée avec un bec ou une corne, par exemple.",
 
   effect: {
     type: "MULTI_HIT",
+    minCount: 2,
+    maxCount: 5,
   },
 };

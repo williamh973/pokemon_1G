@@ -14,6 +14,14 @@ export const processVolatileEffect = (action) => {
   )
     return prepareChargedMove(pokemon, move);
 
+  if (pokemon.volatils.isFrighten)
+    return {
+      isAffected: true,
+      volatile: "FRIGHTEN",
+      pokemon,
+      canUseMove: false,
+    };
+
   return {
     isAffected: false,
     pokemon,

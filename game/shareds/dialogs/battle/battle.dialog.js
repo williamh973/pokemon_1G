@@ -1,4 +1,7 @@
 export const BATTLE_DIALOGS = {
+  isFrighten: (pokemon, trainerId) =>
+    `${pokemon} ${trainerId ? "" : "ennemi\n"}a peur.`,
+
   recover: (pokemon, trainerId, recoveredHP) =>
     `${pokemon} ${trainerId ? "" : "ennemi\n"}a récupéré ${recoveredHP} PV`,
 

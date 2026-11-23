@@ -10,5 +10,7 @@ export const BONEMERANG_MOVE = {
 
   effect: {
     type: "MULTI_HIT",
+    minCount: 2,
+    maxCount: 2,
   },
 };

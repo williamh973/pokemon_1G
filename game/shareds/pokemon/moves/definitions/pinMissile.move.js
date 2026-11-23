@@ -4,11 +4,13 @@ export const PINMISSILE_MOVE = {
   type: ["BUG"],
   class: ["PHYSICAL"],
   pp: 20,
-  power: 40,
-  precision: 95,
+  power: 14,
+  precision: 85,
   desc: "Envoie une rafale de dards. Peut toucher de deux à cinq fois.",
 
   effect: {
     type: "MULTI_HIT",
+    minCount: 2,
+    maxCount: 5,
   },
 };

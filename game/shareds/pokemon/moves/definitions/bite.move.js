@@ -4,7 +4,7 @@ export const BITE_MOVE = {
   type: ["DARK"],
   class: ["PHYSICAL"],
   pp: 25,
-  power: 60,
+  power: 1,
   precision: 100,
   desc: "L'ennemi est mordu par de tranchantes canines. Peut l'apeurer.",
 

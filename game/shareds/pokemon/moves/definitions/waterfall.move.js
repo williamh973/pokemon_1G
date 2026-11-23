@@ -9,6 +9,8 @@ export const WATERFALL_MOVE = {
   desc: "Le lanceur charge l'ennemi à une vitesse remarquable, ce qui peut l'apeurer.",
 
   effect: {
-    type: "FRIGHTEN",
+    type: "VOLATILE",
+    volatile: "FRIGHTEN",
+    percentage: 20,
   },
 };

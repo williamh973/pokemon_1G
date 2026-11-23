@@ -7,4 +7,10 @@ export const HYPERFANG_MOVE = {
   power: 80,
   precision: 90,
   desc: "Le lanceur mord l'ennemi à l'aide de ses incisives aiguisées. Peut aussi l'apeurer.",
+
+  effect: {
+    type: "VOLATILE",
+    volatile: "FRIGHTEN",
+    percentage: 10,
+  },
 };

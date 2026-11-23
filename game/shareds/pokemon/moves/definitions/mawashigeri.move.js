@@ -10,7 +10,7 @@ export const MAWASHIGERI_MOVE = {
 
   effect: {
     type: "VOLATILE",
-    volatile: "SCARE",
+    volatile: "FRIGHTEN",
     percentage: 30,
   },
 };

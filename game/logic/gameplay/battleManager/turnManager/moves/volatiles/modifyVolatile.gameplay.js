@@ -1,4 +1,7 @@
-import { randomBetween } from "../../../../../../shareds/utils/math/math.utils.js";
+import {
+  random,
+  randomBetween,
+} from "../../../../../../shareds/utils/math/math.utils.js";
 
 export const modifyVolatile = (action, volatile) => {
   const pokemon = action.pokemon;
@@ -17,7 +20,9 @@ export const modifyVolatile = (action, volatile) => {
       break;
 
     case "FRIGHTEN":
-      pokemon.volatils.isScared = true;
+      if (random(action.move.effect?.percentage))
+        action.target.volatils.isFrighten = true;
+
       break;
 
     case "FOCUS_ENERGY":

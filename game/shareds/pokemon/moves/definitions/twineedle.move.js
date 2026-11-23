@@ -9,8 +9,15 @@ export const TWINEEDLE_MOVE = {
   desc: "Double Dard possède une puissance minime, de 25, mais elle frappe deux fois - ce qui lui donne en réalité une puissance de 50.",
 
   effect: {
-    type: "STATUS",
-    status: "POISON",
-    percentage: 20,
+    type: "MULTI_HIT",
+    minCount: 2,
+    maxCount: 2,
   },
+
+  // Mais peut aussi empoisonner la cible
+  // effect: {
+  //   type: "STATUS",
+  //   status: "POISON",
+  //   percentage: 20,
+  // },
 };

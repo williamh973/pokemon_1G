@@ -18,6 +18,8 @@ import { resetChargedMoveState } from "../../../../logic/gameplay/battleManager/
 import { wait } from "../../../../logic/gameplay/battleManager/turnManager/turn/wait.gameplay.js";
 import { processPendingChargedMove } from "../../../../logic/gameplay/battleManager/turnManager/moves/volatiles/chargedMoves/processPendingChargedMove.gameplay.js";
 import { getPendingChargedMoveAction } from "../../../../logic/gameplay/battleManager/turnManager/moves/volatiles/chargedMoves/getPendingChargedMoveAction.gameplay.js";
+import { isPendingMultiHitTurn } from "../../../../logic/gameplay/battleManager/turnManager/moves/volatiles/multiHitMoves/isPendingMultiHitTurn.gameplay.js";
+import { executeNextMultiHit } from "../../../../logic/gameplay/battleManager/turnManager/moves/volatiles/multiHitMoves/executeNextMultiHit.gameplay.js";
 
 export class TurnManager {
   constructor(battleManager) {
@@ -157,16 +159,7 @@ export class TurnManager {
   }
 
   executeNextMultiHit(sequence, action) {
-    this.resetMultiHitState();
-    this.deductMultiHitTurns(action);
-
-    this.wait(
-      40,
-      () => {
-        sequence.startPokemonUseMoveSequence(action);
-      },
-      this.state
-    );
+    executeNextMultiHit(this, sequence, action);
   }
 
   checkMovePrecision(action) {
@@ -226,20 +219,7 @@ export class TurnManager {
   }
 
   isPendingMultiHitTurn() {
-    const { pokemon, move, isMultiHitInitialized } = this.currentAction;
-
-    const isPending =
-      move.effect?.type === "MULTI_HIT" &&
-      pokemon.volatils.multiHitTurns > 0 &&
-      isMultiHitInitialized;
-
-    if (isPending) {
-      console.log(
-        `${pokemon.name} doit continuer d'attaquer encore ${pokemon.volatils.multiHitTurns} fois.`
-      );
-    }
-
-    return isPending;
+    return isPendingMultiHitTurn(this.currentAction);
   }
 
   onActionFinished(sequence) {

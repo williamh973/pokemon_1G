@@ -8,4 +8,10 @@ export const ROCKSLIDE_MOVE = {
   precision: 90,
   priority: 0,
   desc: "Envoie de gros rochers sur la cible pour lui infliger des dégâts. Peut aussi l'apeurer.",
+
+  effect: {
+    type: "VOLATILE",
+    volatile: "FRIGHTEN",
+    percentage: 20,
+  },
 };

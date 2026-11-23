@@ -9,6 +9,8 @@ export const HEADBUTT_MOVE = {
   desc: "Le lanceur donne un coup de tête. Peut apeurer l'ennemi.",
 
   effect: {
-    type: "FRIGHTEN",
+    type: "VOLATILE",
+    volatile: "FRIGHTEN",
+    percentage: 30,
   },
 };
