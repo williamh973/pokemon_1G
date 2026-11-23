@@ -8,14 +8,7 @@ export const handlerEfficienciesDialogs = (
   sequence,
   efficiency
 ) => {
-  turnManager.waitForAction(() => {
-    processMovesEffect(
-      turnManager,
-      moveDamagesResult.damages,
-      action,
-      sequence
-    );
-  }, turnManager.state);
+  if (efficiency === 1) return false;
 
   if (efficiency < 1)
     turnManager.battleManager.openDialogBox(
@@ -34,6 +27,17 @@ export const handlerEfficienciesDialogs = (
         action.target.trainerId
       )
     );
+
+  // permet d'attendre la validation du joueur avant de poursuivre après un dialogue comme "C'est super efficace"
+  if (efficiency !== 1)
+    turnManager.waitForAction(() => {
+      processMovesEffect(
+        turnManager,
+        moveDamagesResult.damages,
+        action,
+        sequence
+      );
+    }, turnManager.state);
 
   return true;
 };

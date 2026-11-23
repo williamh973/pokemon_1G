@@ -1,4 +1,5 @@
-import { modifyStatStage } from "../statStages/modifyStatStage.gameplay.js";
+import { randomBetween } from "../../../../../shareds/utils/math/math.utils.js";
+import { handlerStatStagesEffect } from "../statStages/handlerStatStagesEffect.gamplay.js";
 import { modifyStatHP } from "../stats/modifyStatHP.gameplay.js";
 import { modifyVolatile } from "./volatiles/modifyVolatile.gameplay.js";
 
@@ -14,16 +15,7 @@ export const applyMoveEffect = (damages, action) => {
 
       if (!random(effect.percentage)) return null;
 
-      const target = action.move.selfTarget ? action.pokemon : action.target;
-
-      const stats = effect.stats ?? [effect.stat];
-
-      const results = stats.map((stat) =>
-        modifyStatStage(target, stat, effect.amount)
-      );
-
-      return effect.stats ? results : results[0];
-      break;
+      return handlerStatStagesEffect(effect, action);
 
     case "DRAIN":
       if (random(action.move.effect?.percentage))
@@ -34,6 +26,26 @@ export const applyMoveEffect = (damages, action) => {
       if (random(action.move.effect?.percentage))
         return modifyVolatile(action, action.move.effect?.volatile);
       break;
+
+    case "MULTI_HIT":
+      const pokemon = action.pokemon;
+
+      if (pokemon.volatils.multiHitTurns > 0) return;
+
+      const minCount = action.move.effect?.minCount;
+      const maxCount = action.move.effect?.maxCount;
+      const currentTurn = 1;
+
+      pokemon.volatils.multiHitTurns = randomBetween(minCount, maxCount);
+
+      const deductedMultiHitTurn = pokemon.volatils.multiHitTurns - currentTurn;
+
+      pokemon.volatils.multiHitTurns = deductedMultiHitTurn;
+
+      console.log(
+        "Définition du nombre de Multi Hits : ",
+        pokemon.volatils.multiHitTurns
+      );
     default:
       break;
   }

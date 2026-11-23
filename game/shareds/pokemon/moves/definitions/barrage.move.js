@@ -9,6 +9,8 @@ export const BARRAGE_MOVE = {
   desc: "Frappe l'ennemi deux à cinq fois d'affilée avec un bec ou une corne, par exemple.",
 
   effect: {
-    type: "TRAPPED",
+    type: "MULTI_HIT",
+    minCount: 2,
+    maxCount: 5,
   },
 };

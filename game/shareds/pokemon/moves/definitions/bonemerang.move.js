@@ -9,6 +9,6 @@ export const BONEMERANG_MOVE = {
   desc: "Le lanceur projette son os comme un boomerang. Cette attaque frappe à l'aller et au retour.",
 
   effect: {
-    type: "TRAPPED",
+    type: "MULTI_HIT",
   },
 };

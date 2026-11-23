@@ -9,6 +9,6 @@ export const PINMISSILE_MOVE = {
   desc: "Envoie une rafale de dards. Peut toucher de deux à cinq fois.",
 
   effect: {
-    type: "TRAPPED",
+    type: "MULTI_HIT",
   },
 };

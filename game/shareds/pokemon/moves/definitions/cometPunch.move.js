@@ -9,6 +9,6 @@ export const COMETPUNCH_MOVE = {
   desc: "Le lanceur envoie une rafale de coups de poing qui frappe la cible cinq fois d'affilée.",
 
   effect: {
-    type: "TRAPPED",
+    type: "MULTI_HIT",
   },
 };

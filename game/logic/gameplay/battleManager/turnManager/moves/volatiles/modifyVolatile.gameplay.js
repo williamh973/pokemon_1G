@@ -16,7 +16,7 @@ export const modifyVolatile = (action, volatile) => {
       target.volatils.confusionTurns = randomBetween(1, 4);
       break;
 
-    case "SCARED":
+    case "FRIGHTEN":
       pokemon.volatils.isScared = true;
       break;
 

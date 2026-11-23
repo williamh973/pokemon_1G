@@ -168,10 +168,10 @@ export const MOVES_DATABASE = {
   absorb: ABSORB_MOVE,
   acid: ACID_MOVE,
   acidArmor: ACIDARMOR_MOVE,
-  agility: AGILITY_MOVE,
+  agility: AGILITY_MOVE, // Hâte
   ancientPower: ANCIENTPOWER_MOVE,
   auroraBeam: AURORABEAM_MOVE,
-  barrage: BARRAGE_MOVE,
+  barrage: BARRAGE_MOVE, //Pilonnage
   barrier: BARRIER_MOVE,
   bite: BITE_MOVE,
   bind: BIND_MOVE,

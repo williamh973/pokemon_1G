@@ -4,6 +4,9 @@ export class HardenAnimation {
     this.viewers = viewers;
     this.turnAction = turnAction;
 
+    this.battleBackgroundEffectManager =
+      this.game.battleManager.battleRenderer.battleBackgroundEffectManager;
+
     this.pokemon = turnAction.pokemon;
     this.target = turnAction.target;
     this.move = turnAction.move;
@@ -18,7 +21,9 @@ export class HardenAnimation {
       this.key = "back";
     }
 
-    this.targetInitialPositionY = this.targetViewer.sprite.position.y;
+    this.sprite = this.targetViewer.sprite;
+
+    this.targetInitialPositionY = this.sprite.position.y;
 
     this.shakeDistance = 4;
     this.shakeSpeed = 1;
@@ -27,10 +32,14 @@ export class HardenAnimation {
     this.direction = 1;
 
     this.elapsedTime = 0;
+    this.animationDuration = 2000;
 
-    this.animationDuration = 600;
+    this.metalProgress = 0;
+    this.armorProgress = 0;
 
     this.isFinished = false;
+
+    this.battleBackgroundEffectManager.startColorChange("BLACK", 0.65);
   }
 
   update(context) {
@@ -41,7 +50,7 @@ export class HardenAnimation {
         this.updateTargetShake();
 
         if (this.shakeCount >= this.maxShakeCount) {
-          this.targetViewer.sprite.position.y = this.targetInitialPositionY;
+          this.sprite.position.y = this.targetInitialPositionY;
 
           this.state = "ARMOR";
           this.elapsedTime = 0;
@@ -58,12 +67,10 @@ export class HardenAnimation {
   }
 
   updateTargetShake() {
-    const sprite = this.targetViewer.sprite;
-
-    sprite.position.y += this.shakeSpeed * this.direction;
+    this.sprite.position.y += this.shakeSpeed * this.direction;
 
     if (
-      Math.abs(sprite.position.y - this.targetInitialPositionY) >=
+      Math.abs(this.sprite.position.y - this.targetInitialPositionY) >=
       this.shakeDistance
     ) {
       this.direction *= -1;
@@ -76,43 +83,102 @@ export class HardenAnimation {
 
     const progress = Math.min(this.elapsedTime / this.animationDuration, 1);
 
-    this.drawArmor(context, progress);
+    // Apparition progressive de l'effet métallique.
+    this.metalProgress = Math.min(progress * 2, 1);
+
+    this.drawMetalPokemon(context);
+    this.drawArmor(context, this.armorProgress);
 
     if (progress >= 1) {
       this.isFinished = true;
+      this.battleBackgroundEffectManager.stopColorChange();
     }
   }
 
-  drawArmor(context, progress) {
-    const sprite = this.targetViewer.sprite;
+  drawMetalPokemon(context) {
+    if (this.metalProgress <= 0) return;
 
-    const centerX = sprite.position.x + sprite.frameWidth / 2;
+    const sprite = this.sprite;
+    const image = sprite.image;
 
-    const centerY = sprite.position.y + sprite.frameHeight / 2;
+    if (!image || !image.complete || !image.naturalWidth) return;
 
-    const radius = 28;
+    const width = sprite.frameWidth * sprite.scale;
+    const height = sprite.frameHeight * sprite.scale;
 
-    const alpha =
-      progress < 0.25 ? progress / 0.25 : 1 - (progress - 0.25) / 0.75;
+    const x = sprite.position.x;
+    const y = sprite.position.y;
 
     context.save();
 
-    context.globalAlpha = Math.max(0, alpha);
+    context.globalAlpha = this.metalProgress;
+
+    // Redessine la frame actuelle avec un aspect métallique.
+    context.filter = "grayscale(1) brightness(1.35) contrast(1.15)";
+
+    context.drawImage(
+      image,
+      sprite.currentFrame * sprite.frameWidth,
+      0,
+      sprite.frameWidth,
+      sprite.frameHeight,
+      x,
+      y,
+      width,
+      height
+    );
+
+    context.filter = "none";
+
+    // Reflet argenté qui traverse le Pokémon.
+    const flashWidth = width * 0.35;
+
+    const flashX = x + width * this.metalProgress - flashWidth;
+
+    const gradient = context.createLinearGradient(
+      flashX,
+      y,
+      flashX + flashWidth,
+      y
+    );
+
+    gradient.addColorStop(0, "rgba(255,255,255,0)");
+    gradient.addColorStop(0.5, "rgba(255,255,255,0.7)");
+    gradient.addColorStop(1, "rgba(255,255,255,0)");
+
+    context.fillStyle = gradient;
+    context.fillRect(x, y, width, height);
+
+    context.restore();
+  }
+
+  drawArmor(context, progress) {
+    if (progress <= 0) return;
+
+    const sprite = this.sprite;
+
+    const centerX = sprite.position.x + (sprite.frameWidth * sprite.scale) / 2;
+
+    const centerY = sprite.position.y + (sprite.frameHeight * sprite.scale) / 2;
+
+    const radius = 28 * progress;
+
+    context.save();
+
+    context.globalAlpha = progress;
 
     /*
-     * Coquille / armure extérieure
+     * Coquille extérieure.
      */
     context.strokeStyle = "#ffffff";
     context.lineWidth = 4;
 
     context.beginPath();
-
     context.arc(centerX, centerY, radius, 0, Math.PI * 2);
-
     context.stroke();
 
     /*
-     * Segments de l'armure
+     * Segments de l'armure.
      */
     this.drawArmorPlate(
       context,
@@ -165,11 +231,8 @@ export class HardenAnimation {
     const endY = centerY + Math.sin(endAngle) * radius;
 
     context.beginPath();
-
     context.moveTo(startX, startY);
-
     context.lineTo(endX, endY);
-
     context.stroke();
   }
 }

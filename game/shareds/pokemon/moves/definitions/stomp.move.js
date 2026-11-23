@@ -9,6 +9,6 @@ export const STOMP_MOVE = {
   desc: "Écrase l'ennemi avec un énorme pied. Peut aussi l'apeurer.",
 
   effect: {
-    type: "SCARED",
+    type: "FRIGHTEN",
   },
 };

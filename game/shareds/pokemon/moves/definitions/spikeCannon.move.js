@@ -9,6 +9,6 @@ export const SPIKECANNON_MOVE = {
   desc: "Picanon attaque de deux à cinq fois par tour",
 
   effect: {
-    type: "TRAPPED",
+    type: "MULTI_HIT",
   },
 };

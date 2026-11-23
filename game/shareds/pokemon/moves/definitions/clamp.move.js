@@ -9,6 +9,6 @@ export const CLAMP_MOVE = {
   desc: "Claquoir inflige des dégâts, puis piège la cible sur le terrain pendant 4 à 5 tours",
 
   effect: {
-    type: "TRAPPED",
+    type: "MULTI_HIT",
   },
 };

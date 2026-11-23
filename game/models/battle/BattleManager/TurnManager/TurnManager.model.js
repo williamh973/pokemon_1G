@@ -62,6 +62,7 @@ export class TurnManager {
   }
 
   waitForAction(callbackFn, nextState) {
+    console.log("Jeu en attente de la validation du joueur.");
     this.state = TURN_STATES.WAITING_FOR_ACTION;
     this.callbackFnAfterWait = callbackFn;
     this.nextStateAfterWait = nextState;
@@ -88,6 +89,19 @@ export class TurnManager {
     determineOrder(this);
   }
 
+  resetActionState() {
+    this.isDamageApplied = false;
+    this.isPPDeducted = false;
+    this.isMoveEffectProcessed = false;
+    this.isStatusEffectProcessed = false;
+  }
+
+  resetMultiHitState() {
+    this.isDamageApplied = false;
+    this.isMoveEffectProcessed = false;
+    this.isStatusEffectProcessed = false;
+  }
+
   executeAction(sequence, action) {
     this.currentAction = action;
 
@@ -111,10 +125,7 @@ export class TurnManager {
       action.target
     );
 
-    this.isDamageApplied = false;
-    this.isPPDeducted = false;
-    this.isMoveEffectProcessed = false;
-    this.isStatusEffectProcessed = false;
+    this.resetActionState();
 
     if (processActionStatus(this, sequence, action)) return;
 
@@ -143,6 +154,18 @@ export class TurnManager {
     );
   }
 
+  executeNextMultiHit(sequence, action) {
+    this.resetMultiHitState();
+
+    this.wait(
+      40,
+      () => {
+        sequence.startPokemonUseMoveSequence(action);
+      },
+      this.state
+    );
+  }
+
   checkMovePrecision(action) {
     return checkMovePrecision(action);
   }
@@ -152,6 +175,12 @@ export class TurnManager {
 
     action.move.currentPP = Math.max(0, action.move.currentPP - 1);
     this.isPPDeducted = true;
+  }
+
+  deductmultiHitTurns(action) {
+    if (action.pokemon.volatils.multiHitTurns <= 0) return;
+
+    action.pokemon.volatils.multiHitTurns--;
   }
 
   pokemonAttemptMove(sequence, action) {
@@ -180,7 +209,31 @@ export class TurnManager {
       return;
     }
 
+    this.deductmultiHitTurns(action);
+
     sequence.startPokemonUseMoveSequence(action);
+  }
+
+  isCurrentActionChargedContinuation() {
+    const chargedMove = this.currentAction?.pokemon?.chargedMove;
+
+    return (
+      this.isChargedMoveContinuation &&
+      chargedMove?.animationPhase === "SECOND" &&
+      this.currentAction?.move === chargedMove?.move
+    );
+  }
+
+  isPendingMultiHitTurn() {
+    if (
+      this.currentAction.move.effect?.type === "MULTI_HIT" &&
+      this.currentAction.pokemon.volatils.multiHitTurns > 0
+    ) {
+      console.log(
+        `${this.currentAction.pokemon.name} doit continuer d'attaquer encore ${this.currentAction.pokemon.volatils.multiHitTurns} fois.`
+      );
+      return true;
+    }
   }
 
   onActionFinished(sequence) {
@@ -191,16 +244,14 @@ export class TurnManager {
       "isExecutingChargedMove : ": this.isExecutingChargedMove + " | ",
     });
 
-    const isChargedContinuation =
-      this.isChargedMoveContinuation &&
-      this.currentAction?.pokemon?.chargedMove?.animationPhase === "SECOND" &&
-      this.currentAction?.move ===
-        this.currentAction?.pokemon?.chargedMove?.move;
+    const isChargedContinuation = this.isCurrentActionChargedContinuation();
 
     switch (this.state) {
       case TURN_STATES.FIRST_ACTION:
+        const finishedPokemon = this.currentAction.pokemon;
+
         if (isChargedContinuation) {
-          resetChargedMoveState(this, this.currentAction.pokemon);
+          resetChargedMoveState(this, finishedPokemon);
           this.isChargedMoveContinuation = false;
 
           this.state = TURN_STATES.SECOND_ACTION;
@@ -209,8 +260,6 @@ export class TurnManager {
         }
 
         if (this.isExecutingChargedMove) {
-          const finishedPokemon = this.currentAction.pokemon;
-
           resetChargedMoveState(this, finishedPokemon);
           this.isExecutingChargedMove = false;
 
@@ -231,6 +280,11 @@ export class TurnManager {
 
           this.state = TURN_STATES.END;
           console.log("turn state : ", this.state);
+          return;
+        }
+
+        if (this.isPendingMultiHitTurn()) {
+          this.executeNextMultiHit(sequence, this.currentAction);
           return;
         }
 
@@ -265,6 +319,11 @@ export class TurnManager {
 
         if (processPendingChargedMove(this, sequence)) return;
 
+        if (this.isPendingMultiHitTurn()) {
+          this.executeNextMultiHit(sequence, this.currentAction);
+          return;
+        }
+
         console.log("SECOND_ACTION est fini, le tour est fini");
         this.state = TURN_STATES.END;
         console.log("turn state : ", this.state);
@@ -281,7 +340,6 @@ export class TurnManager {
 
       return processMovesEffect(this, 0, action, sequence);
     }
-
     const applyMoveDamageResult = applyMoveDamage(
       this,
       action,
@@ -343,18 +401,16 @@ export class TurnManager {
     switch (this.state) {
       case TURN_STATES.FIRST_ACTION:
       case TURN_STATES.SECOND_ACTION: {
-        const action = this.currentAction;
-
-        if (!action) break;
+        if (!this.currentAction) break;
 
         const isWaitingForAction = this.checkPokemonUseMoveSequenceFinished(
           sequence,
-          action
+          this.currentAction
         );
 
         if (isWaitingForAction) break;
 
-        this.checkActionAnimationFinished(sequence, action);
+        this.checkActionAnimationFinished(sequence, this.currentAction);
 
         break;
       }

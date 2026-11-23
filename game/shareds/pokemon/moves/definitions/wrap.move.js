@@ -9,6 +9,6 @@ export const WRAP_MOVE = {
   desc: "Le lanceur ligote l'ennemi avec des lianes ou son corps pour l'écraser durant quatre à cinq tours.",
 
   effect: {
-    type: "TRAPPED",
+    type: "MULTI_HIT",
   },
 };
