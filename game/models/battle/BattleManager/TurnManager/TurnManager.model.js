@@ -122,7 +122,9 @@ export class TurnManager {
       "| Lanceur : ",
       action.pokemon,
       "| Cible : ",
-      action.target
+      action.target,
+      "| Multi Hit Initialisé : ",
+      action.isMultiHitInitialized
     );
 
     this.resetActionState();
@@ -156,6 +158,7 @@ export class TurnManager {
 
   executeNextMultiHit(sequence, action) {
     this.resetMultiHitState();
+    this.deductMultiHitTurns(action);
 
     this.wait(
       40,
@@ -177,7 +180,7 @@ export class TurnManager {
     this.isPPDeducted = true;
   }
 
-  deductmultiHitTurns(action) {
+  deductMultiHitTurns(action) {
     if (action.pokemon.volatils.multiHitTurns <= 0) return;
 
     action.pokemon.volatils.multiHitTurns--;
@@ -209,8 +212,6 @@ export class TurnManager {
       return;
     }
 
-    this.deductmultiHitTurns(action);
-
     sequence.startPokemonUseMoveSequence(action);
   }
 
@@ -225,15 +226,20 @@ export class TurnManager {
   }
 
   isPendingMultiHitTurn() {
-    if (
-      this.currentAction.move.effect?.type === "MULTI_HIT" &&
-      this.currentAction.pokemon.volatils.multiHitTurns > 0
-    ) {
+    const { pokemon, move, isMultiHitInitialized } = this.currentAction;
+
+    const isPending =
+      move.effect?.type === "MULTI_HIT" &&
+      pokemon.volatils.multiHitTurns > 0 &&
+      isMultiHitInitialized;
+
+    if (isPending) {
       console.log(
-        `${this.currentAction.pokemon.name} doit continuer d'attaquer encore ${this.currentAction.pokemon.volatils.multiHitTurns} fois.`
+        `${pokemon.name} doit continuer d'attaquer encore ${pokemon.volatils.multiHitTurns} fois.`
       );
-      return true;
     }
+
+    return isPending;
   }
 
   onActionFinished(sequence) {
@@ -340,6 +346,7 @@ export class TurnManager {
 
       return processMovesEffect(this, 0, action, sequence);
     }
+
     const applyMoveDamageResult = applyMoveDamage(
       this,
       action,

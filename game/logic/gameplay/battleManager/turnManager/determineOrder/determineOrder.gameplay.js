@@ -52,6 +52,7 @@ export const determineOrder = (turnManager) => {
     move: order[0].move,
     target: order[1].pokemon,
     trainerId: order[0].pokemon.trainerId,
+    isMultiHitInitialized: false,
   };
 
   turnManager.secondAction = {
@@ -59,5 +60,6 @@ export const determineOrder = (turnManager) => {
     move: order[1].move,
     target: order[0].pokemon,
     trainerId: order[1].pokemon.trainerId,
+    isMultiHitInitialized: false,
   };
 };

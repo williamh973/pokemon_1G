@@ -13,7 +13,7 @@ export const calculateMoveDamages = (action, CC, weather) => {
 
   getVariableDamages
     ? (damages = getVariableDamages)
-    : (damages = getBasicDamages);
+    : (damages = getBasicDamages / 3);
 
   return {
     basicDamage: getBasicDamages,

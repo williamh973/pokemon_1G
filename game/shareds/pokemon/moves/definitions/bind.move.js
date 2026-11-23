@@ -9,6 +9,6 @@ export const BIND_MOVE = {
   desc: "Ligote la cible pour lui infliger les même dégats que le premier coup à la fin de chaque tour pendant 2 à 5 tours.",
 
   effect: {
-    type: "MULTI_HIT",
+    type: "TRAPPED",
   },
 };
