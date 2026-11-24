@@ -90,7 +90,7 @@ export class BattleSequenceManager {
     this.battleSwitchSequence.start();
   }
 
-  startPokemonUseMoveSequence(turnAction) {
+  startMoveSequence(turnAction) {
     this.pokemonUseMoveSequence = new PokemonUseMoveSequence(
       this.game,
       this.viewers,

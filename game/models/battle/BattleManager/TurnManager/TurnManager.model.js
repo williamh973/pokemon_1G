@@ -20,6 +20,9 @@ import { processPendingChargedMove } from "../../../../logic/gameplay/battleMana
 import { getPendingChargedMoveAction } from "../../../../logic/gameplay/battleManager/turnManager/moves/volatiles/chargedMoves/getPendingChargedMoveAction.gameplay.js";
 import { isPendingMultiHitTurn } from "../../../../logic/gameplay/battleManager/turnManager/moves/volatiles/multiHitMoves/isPendingMultiHitTurn.gameplay.js";
 import { executeNextMultiHit } from "../../../../logic/gameplay/battleManager/turnManager/moves/volatiles/multiHitMoves/executeNextMultiHit.gameplay.js";
+import { waitForAction } from "../../../../logic/gameplay/battleManager/turnManager/turn/waitForAction.gameplay.js";
+import { handleOHKOEffectDialog } from "../../../../logic/gameplay/battleManager/turnManager/handlerDialogs/moves/handleOHKOEffectDialog.gameplay.js";
+import { handleMoveDamageDialogs } from "../../../../logic/gameplay/battleManager/turnManager/handlerDialogs/handleMoveDamageDialogs.gameplay.js";
 
 export class TurnManager {
   constructor(battleManager) {
@@ -53,21 +56,12 @@ export class TurnManager {
     this.waitCooldown = 0;
   }
 
-  getSpriteViewer(pokemon) {
-    if (this.viewers.front.slot.content === pokemon)
-      this.pokemonViewer = this.viewers.front;
-    else this.pokemonViewer = this.viewers.back;
-  }
-
   wait(duration, callbackFn, nextState) {
     wait(this, duration, callbackFn, nextState);
   }
 
   waitForAction(callbackFn, nextState) {
-    console.log("Jeu en attente de la validation du joueur.");
-    this.state = TURN_STATES.WAITING_FOR_ACTION;
-    this.callbackFnAfterWait = callbackFn;
-    this.nextStateAfterWait = nextState;
+    waitForAction(this, callbackFn, nextState);
   }
 
   isActionAnimationFinished(sequence, action) {
@@ -152,7 +146,7 @@ export class TurnManager {
     this.wait(
       40,
       () => {
-        this.pokemonAttemptMove(sequence, action);
+        this.attemptMove(sequence, action);
       },
       this.state
     );
@@ -179,7 +173,7 @@ export class TurnManager {
     action.pokemon.volatils.multiHitTurns--;
   }
 
-  pokemonAttemptMove(sequence, action) {
+  attemptMove(sequence, action) {
     if (!this.isPPDeducted) this.deductMovePP(action);
 
     const isMoveSuccessful = this.checkMovePrecision(action);
@@ -205,7 +199,7 @@ export class TurnManager {
       return;
     }
 
-    sequence.startPokemonUseMoveSequence(action);
+    sequence.startMoveSequence(action);
   }
 
   isCurrentActionChargedContinuation() {
@@ -317,7 +311,7 @@ export class TurnManager {
     }
   }
 
-  checkPokemonUseMoveSequenceFinished(sequence, action) {
+  checkMoveSequenceFinished(sequence, action) {
     if (!sequence.pokemonUseMoveSequence?.isFinished || this.isDamageApplied)
       return false;
 
@@ -333,30 +327,17 @@ export class TurnManager {
       this.battleManager.weather
     );
 
-    processMoveConsequence(action);
+    processMoveConsequence(
+      this,
+      action,
+      sequence,
+      applyMoveDamageResult.moveDamagesResult
+    );
 
-    if (
-      handleCriticalHitDialog(
-        this,
-        applyMoveDamageResult.moveDamagesResult,
-        action,
-        sequence,
-        applyMoveDamageResult.criticalHitResult,
-        applyMoveDamageResult.efficiency
-      )
-    )
+    if (handleMoveDamageDialogs(this, applyMoveDamageResult, action, sequence))
       return true;
 
-    if (
-      handlerEfficienciesDialogs(
-        this,
-        applyMoveDamageResult.moveDamagesResult,
-        action,
-        sequence,
-        applyMoveDamageResult.efficiency
-      )
-    )
-      return true;
+    console.log("log entre processMoveConsequence et processMovesEffect");
 
     return processMovesEffect(
       this,
@@ -375,7 +356,7 @@ export class TurnManager {
   checkActionAnimationFinished(sequence, action) {
     if (!this.isActionAnimationFinished(sequence, action)) return;
 
-    console.log("pokemonUseMoveSequence est fini");
+    console.log("move séquence est fini");
 
     if (this.handleTargetKO(action)) return;
 
@@ -390,7 +371,7 @@ export class TurnManager {
       case TURN_STATES.SECOND_ACTION: {
         if (!this.currentAction) break;
 
-        const isWaitingForAction = this.checkPokemonUseMoveSequenceFinished(
+        const isWaitingForAction = this.checkMoveSequenceFinished(
           sequence,
           this.currentAction
         );

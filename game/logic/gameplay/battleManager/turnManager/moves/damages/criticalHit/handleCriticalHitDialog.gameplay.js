@@ -11,6 +11,10 @@ export const handleCriticalHitDialog = (
 ) => {
   if (!criticalHitResult.isCriticalHit || efficiency === 0) return false;
 
+  turnManager.battleManager.openDialogBox(
+    DIALOGS_DATABASE.BATTLE_DIALOGS.criticalHit()
+  );
+
   turnManager.waitForAction(() => {
     processMovesEffect(
       turnManager,
@@ -20,9 +24,7 @@ export const handleCriticalHitDialog = (
     );
   }, turnManager.state);
 
-  turnManager.battleManager.openDialogBox(
-    DIALOGS_DATABASE.BATTLE_DIALOGS.criticalHit()
-  );
+  console.log(DIALOGS_DATABASE.BATTLE_DIALOGS.criticalHit());
 
   return true;
 };

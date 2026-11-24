@@ -10,5 +10,6 @@ export const TAKEDOWN_MOVE = {
 
   consequence: {
     type: "BACKWARD",
+    rate: 22.5,
   },
 };

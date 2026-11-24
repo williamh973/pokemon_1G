@@ -10,5 +10,6 @@ export const DOUBLEEDGE_MOVE = {
 
   consequence: {
     type: "BACKWARD",
+    rate: 25,
   },
 };

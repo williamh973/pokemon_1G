@@ -5,7 +5,7 @@ export const executeNextMultiHit = (turnManager, sequence, action) => {
   turnManager.wait(
     40,
     () => {
-      sequence.startPokemonUseMoveSequence(action);
+      sequence.startMoveSequence(action);
     },
     turnManager.state
   );

@@ -7,4 +7,9 @@ export const SUBMISSION_MOVE = {
   power: 80,
   precision: 80,
   desc: "Le lanceur agrippe l'ennemi et l'écrase au sol. Blesse aussi légèrement le lanceur.",
+
+  consequence: {
+    type: "BACKWARD",
+    rate: 20,
+  },
 };

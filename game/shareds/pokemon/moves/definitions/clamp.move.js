@@ -10,5 +10,7 @@ export const CLAMP_MOVE = {
 
   effect: {
     type: "MULTI_HIT",
+    minCount: 4,
+    maxCount: 5,
   },
 };

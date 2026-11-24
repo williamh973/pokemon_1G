@@ -54,6 +54,7 @@ export const generatePokemon = (
       isFrighten: false,
       hasBoostedByFocusEnergy: false,
       recharge: false,
+      backward: false,
 
       infatuatedBy: null,
     },

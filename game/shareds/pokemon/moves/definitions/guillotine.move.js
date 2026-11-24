@@ -4,8 +4,8 @@ export const GUILLOTINE_MOVE = {
   type: ["NORMAL"],
   class: ["PHYSICAL"],
   pp: 5,
-  power: 0,
-  precision: 100,
+  power: 1,
+  precision: 30,
   desc: "Des pinces lacèrent violemment l'ennemi, le mettant K.O. sur le coup s'il est touché.",
 
   effect: {

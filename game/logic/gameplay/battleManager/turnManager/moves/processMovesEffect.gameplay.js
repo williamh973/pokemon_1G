@@ -6,7 +6,6 @@ import { applyMoveEffect } from "./applyMoveEffect.gameplay.js";
 
 export const processMovesEffect = (turnManager, damages, action, sequence) => {
   if (turnManager.isMoveEffectProcessed) return false;
-
   const moveEffectResult = applyMoveEffect(damages, action);
 
   if (action.move.effect?.type === "STAT_STAGE" && moveEffectResult === null) {
@@ -15,6 +14,7 @@ export const processMovesEffect = (turnManager, damages, action, sequence) => {
   }
 
   if (moveEffectResult) {
+    console.log("Le jeu passe dans moveEffectResult de processMovesEffect");
     turnManager.isMoveEffectProcessed = true;
 
     switch (action.move.effect?.type) {
@@ -83,6 +83,7 @@ export const processMovesEffect = (turnManager, damages, action, sequence) => {
     console.log("move effect result: ", moveEffectResult);
 
     turnManager.waitForAction(() => {
+      console.log("Le jeu passe dans le waitForAction de processMovesEffect");
       turnManager.checkActionAnimationFinished(sequence, action);
     }, turnManager.state);
 

@@ -4,7 +4,7 @@ export const DIG_MOVE = {
   type: ["GROUND"],
   class: ["PHYSICAL"],
   pp: 10,
-  power: 1,
+  power: 60,
   precision: 100,
   desc: "Le lanceur creuse dans le sol au premier tour puis attaque au second.",
 

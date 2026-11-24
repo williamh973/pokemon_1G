@@ -20,7 +20,7 @@ export const executeChargedMoveFirstPhase = (
 
   handleChargedMoveDialogs(turnManager, chargedMove, pokemon);
 
-  sequence.startPokemonUseMoveSequence(action);
+  sequence.startMoveSequence(action);
 
   turnManager.waitForAction(() => {
     // console.log("Le joueur a validé, onActionFinished s'éxécute");

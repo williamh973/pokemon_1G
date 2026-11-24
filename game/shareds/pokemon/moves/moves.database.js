@@ -64,7 +64,7 @@ import { WRAP_MOVE } from "./definitions/wrap.move.js";
 import { BITE_MOVE } from "./definitions/bite.move.js";
 import { SHADOWBALL_MOVE } from "./definitions/shadowBall.move.js";
 import { TAKEDOWN_MOVE } from "./definitions/takeDown.move.js";
-import { DOUBLEEDGE_MOVE } from "./definitions/DoubleEdge.move.js";
+import { DOUBLEEDGE_MOVE } from "./definitions/doubleEdge.move.js";
 import { LEER_MOVE } from "./definitions/leer.move.js";
 import { EXTREMESPEED_MOVE } from "./definitions/extremespeed.move.js";
 import { RECOVER_MOVE } from "./definitions/recover.move.js";

@@ -4,7 +4,12 @@ import { calculateVariableDamage } from "./variable/calculateVariableDamage.game
 
 export const calculateMoveDamages = (action, CC, weather) => {
   let damages = null;
+  let wasHitByOHKO = false;
+
   const target = action.target;
+
+  const OHKO = action.move.effect?.type === "OHKO";
+
   const TYPE1 = calculateType(action, target.types[0]);
   const TYPE2 = calculateType(action, target.types[1]);
 
@@ -15,10 +20,16 @@ export const calculateMoveDamages = (action, CC, weather) => {
     ? (damages = getVariableDamages)
     : (damages = getBasicDamages / 3);
 
+  if (OHKO) {
+    wasHitByOHKO = true;
+    damages = target.stats.hp;
+  }
+
   return {
     basicDamage: getBasicDamages,
     variableDamage: getVariableDamages,
     damages,
     efficiencies: { TYPE1, TYPE2 },
+    wasHitByOHKO,
   };
 };

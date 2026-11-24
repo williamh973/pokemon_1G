@@ -5,6 +5,10 @@ export const FISSURE_MOVE = {
   class: ["PHYSICAL"],
   pp: 5,
   power: 1,
-  precision: 100,
+  precision: 30,
   desc: "Le lanceur fait tomber l'ennemi dans une crevasse. Si cette attaque réussit, elle met K.O. sur le coup.",
+
+  effect: {
+    type: "OHKO",
+  },
 };

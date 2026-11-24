@@ -1,4 +1,10 @@
 export const BATTLE_DIALOGS = {
+  backward: (pokemon, trainerId) =>
+    `${pokemon} ${trainerId ? "" : "ennemi\n"}se blesse en frappant.`,
+
+  OHKO: (pokemon, trainerId) =>
+    `${pokemon} ${trainerId ? "" : "ennemi\n"}est KO en un coup !`,
+
   isFrighten: (pokemon, trainerId) =>
     `${pokemon} ${trainerId ? "" : "ennemi\n"}a peur.`,
 

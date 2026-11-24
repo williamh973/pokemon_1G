@@ -6,4 +6,5 @@ export const wait = (turnManager, duration, callbackFn, nextState) => {
   turnManager.waitCooldown = duration;
   turnManager.callbackFnAfterWait = callbackFn;
   turnManager.nextStateAfterWait = nextState;
+  console.log("Temps de pause défini.");
 };

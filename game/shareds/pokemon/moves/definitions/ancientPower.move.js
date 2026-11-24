@@ -4,7 +4,7 @@ export const ANCIENTPOWER_MOVE = {
   type: ["ROCK"],
   class: ["SPECIAL"],
   pp: 5,
-  power: 1,
+  power: 60,
   precision: 100,
   desc: "Une attaque préhistorique qui peut augmenter toutes les stats du lanceur d'un seul coup.",
   selfTarget: true,

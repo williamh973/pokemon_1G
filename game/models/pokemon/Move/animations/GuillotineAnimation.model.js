@@ -252,7 +252,7 @@ export class GuillotineAnimation {
       this.createImpactParticles();
 
       if (this.game.canvas.startShake) {
-        this.game.canvas.startShake(9, 4);
+        this.game.canvas.startShake(500, 25);
       }
     }
 

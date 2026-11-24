@@ -6,7 +6,7 @@ export const RAYQUAZA_SPECIES = {
   id: "rayquaza",
   pokedexId: "384",
   name: "RAYQUAZA",
-  types: ["DRAGON"],
+  types: ["DRAGON", "FLYING"],
   femaleRate: 0,
   catchRate: 3,
   growthRate: GROWTH_RATES_DATABASE.SLOW,
@@ -28,9 +28,7 @@ export const RAYQUAZA_SPECIES = {
   evolutions: [],
   learnset: {
     levelUp: [
-      { level: 1, move: MOVES_DATABASE.fly },
-      { level: 1, move: MOVES_DATABASE.barrage },
-      { level: 1, move: MOVES_DATABASE.bite },
+      { level: 1, move: MOVES_DATABASE.ancientPower },
       { level: 1, move: MOVES_DATABASE.defensecurl },
 
       // { level: 1, move: MOVES_DATABASE.twister },

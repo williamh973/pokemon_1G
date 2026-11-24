@@ -4,7 +4,7 @@ export const HORNDRILL_MOVE = {
   type: ["NORMAL"],
   class: ["PHYSICAL"],
   pp: 5,
-  power: 0,
+  power: 1,
   precision: 30,
   desc: "Un coup de corne en vrille qui empale l'ennemi, le mettant K.O. sur le coup s'il est touché.",
 
