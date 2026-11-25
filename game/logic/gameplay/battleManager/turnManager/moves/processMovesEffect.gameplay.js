@@ -1,4 +1,5 @@
 import { handlerStatStagesEffectDialogs } from "../handlerDialogs/handlerStatStagesEffectDialogs.gameplay.js";
+import { handleDisableLastMoveEffectDialogs } from "../handlerDialogs/moves/handleDisableLastMoveEffectDialogs.gameplay.js";
 import { handlerConfusionEffectDialogs } from "../handlerDialogs/moves/handlerConfusionEffectDialogs.gameplay.js";
 import { handlerDrainEffectDialogs } from "../handlerDialogs/moves/handlerDrainEffectDialogs.gameplay.js";
 import { handlerFocusEnergyEffectDialogs } from "../handlerDialogs/moves/handlerFocusEnergyEffectDialogs.gameplay.js";
@@ -14,7 +15,6 @@ export const processMovesEffect = (turnManager, damages, action, sequence) => {
   }
 
   if (moveEffectResult) {
-    console.log("Le jeu passe dans moveEffectResult de processMovesEffect");
     turnManager.isMoveEffectProcessed = true;
 
     switch (action.move.effect?.type) {
@@ -55,6 +55,14 @@ export const processMovesEffect = (turnManager, damages, action, sequence) => {
 
       case "VOLATILE":
         switch (moveEffectResult.volatile) {
+          case "PREVENTS_LAST_MOVE":
+            handleDisableLastMoveEffectDialogs(
+              turnManager,
+              action,
+              moveEffectResult
+            );
+            break;
+
           case "CONFUSION":
             handlerConfusionEffectDialogs(
               turnManager.battleManager,

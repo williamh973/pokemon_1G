@@ -8,6 +8,24 @@ export const modifyVolatile = (action, volatile) => {
   const target = action.target;
 
   switch (volatile) {
+    case "PREVENTS_LAST_MOVE":
+      if (!target.lastMove || !target.lastMove.enabled)
+        return {
+          isAffected: false,
+          target,
+          volatile,
+        };
+
+      target.volatils.disabledMove = target.lastMove;
+      target.volatils.disabledMove.enabled = false;
+      target.volatils.disabledTurns = 2;
+
+      return {
+        isAffected: true,
+        target,
+        volatile,
+      };
+
     case "CONFUSION":
       if (target.volatils.confusionTurns >= 1)
         return {
@@ -22,7 +40,6 @@ export const modifyVolatile = (action, volatile) => {
     case "FRIGHTEN":
       if (random(action.move.effect?.percentage))
         action.target.volatils.isFrighten = true;
-
       break;
 
     case "FOCUS_ENERGY":

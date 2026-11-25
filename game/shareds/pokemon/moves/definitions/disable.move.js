@@ -9,6 +9,8 @@ export const DISABLE_MOVE = {
   desc: "Empêche l'ennemi d'employer à nouveau sa dernière attaque. Dure quatre tours.",
 
   effect: {
-    type: "PREVENTS_LAST_ATTACK",
+    type: "VOLATILE",
+    volatile: "PREVENTS_LAST_MOVE",
+    percentage: 100,
   },
 };

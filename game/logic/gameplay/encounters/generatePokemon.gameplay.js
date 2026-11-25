@@ -41,6 +41,8 @@ export const generatePokemon = (
     status: POKEMON_STATUS.NONE,
     sleepTurns: 0,
 
+    lastMove: null,
+
     chargedMove: {
       move: null,
       animationPhase: null,
@@ -51,6 +53,8 @@ export const generatePokemon = (
     volatils: {
       confusionTurns: 0,
       multiHitTurns: 0,
+      disabledTurns: 0,
+      disabledMove: null,
       isFrighten: false,
       hasBoostedByFocusEnergy: false,
       recharge: false,

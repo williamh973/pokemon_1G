@@ -8,10 +8,8 @@ import { processMovesEffect } from "../../../../logic/gameplay/battleManager/tur
 import { applyMoveDamage } from "../../../../logic/gameplay/battleManager/turnManager/moves/damages/applyMoveDamage.gameplay.js";
 import { processStatusEffect } from "../../../../logic/gameplay/battleManager/turnManager/moves/processStatusEffect.gameplay.js";
 import { checkMovePrecision } from "../../../../logic/gameplay/battleManager/turnManager/moves/precision/checkMovePrecision.gameplay.js";
-import { handleCriticalHitDialog } from "../../../../logic/gameplay/battleManager/turnManager/moves/damages/criticalHit/handleCriticalHitDialog.gameplay.js";
 import { handleTargetKO } from "../../../../logic/gameplay/battleManager/turnManager/handleKO/handleTargetKO.gameplay.js";
 import { processActionVolatile } from "../../../../logic/gameplay/battleManager/turnManager/moves/volatiles/processActionVolatils.gameplay.js";
-import { handlerEfficienciesDialogs } from "../../../../logic/gameplay/battleManager/turnManager/handlerDialogs/efficiencies/handlerEfficienciesDialogs.gameplay.js";
 import { processMoveConsequence } from "../../../../logic/gameplay/battleManager/turnManager/moves/processMoveConsequence.gameplay.js";
 import { processActionConsequence } from "../../../../logic/gameplay/battleManager/turnManager/moves/consequences/processActionConsequence.gameplay.js";
 import { resetChargedMoveState } from "../../../../logic/gameplay/battleManager/turnManager/moves/volatiles/chargedMoves/resetChargedMoveState.gameplay.js";
@@ -21,8 +19,8 @@ import { getPendingChargedMoveAction } from "../../../../logic/gameplay/battleMa
 import { isPendingMultiHitTurn } from "../../../../logic/gameplay/battleManager/turnManager/moves/volatiles/multiHitMoves/isPendingMultiHitTurn.gameplay.js";
 import { executeNextMultiHit } from "../../../../logic/gameplay/battleManager/turnManager/moves/volatiles/multiHitMoves/executeNextMultiHit.gameplay.js";
 import { waitForAction } from "../../../../logic/gameplay/battleManager/turnManager/turn/waitForAction.gameplay.js";
-import { handleOHKOEffectDialog } from "../../../../logic/gameplay/battleManager/turnManager/handlerDialogs/moves/handleOHKOEffectDialog.gameplay.js";
 import { handleMoveDamageDialogs } from "../../../../logic/gameplay/battleManager/turnManager/handlerDialogs/handleMoveDamageDialogs.gameplay.js";
+import { handlerDisableTurns } from "../../../../logic/gameplay/battleManager/turnManager/moves/volatiles/disabledMoves/handlerDisableTurns.gameplay.js";
 
 export class TurnManager {
   constructor(battleManager) {
@@ -47,6 +45,7 @@ export class TurnManager {
     this.isPPDeducted = false;
     this.isMoveEffectProcessed = false;
     this.isStatusEffectProcessed = false;
+    this.isEndOfTurnProcessed = false;
     this.isFinished = false;
 
     this.isExecutingChargedMove = false;
@@ -78,6 +77,7 @@ export class TurnManager {
   }
 
   startTurn(sequence) {
+    this.isEndOfTurnProcessed = false;
     startTurn(this, sequence);
   }
 
@@ -135,6 +135,8 @@ export class TurnManager {
   }
 
   executeMove(sequence, action) {
+    action.pokemon.lastMove = action.move;
+
     this.battleManager.openDialogBox(
       DIALOGS_DATABASE.BATTLE_DIALOGS.pokemonUseMove(
         action.pokemon.name,
@@ -171,6 +173,10 @@ export class TurnManager {
     if (action.pokemon.volatils.multiHitTurns <= 0) return;
 
     action.pokemon.volatils.multiHitTurns--;
+  }
+
+  handlerDisableTurns() {
+    handlerDisableTurns(this);
   }
 
   attemptMove(sequence, action) {
@@ -384,6 +390,12 @@ export class TurnManager {
       }
 
       case TURN_STATES.END:
+        if (!this.isEndOfTurnProcessed) {
+          this.isEndOfTurnProcessed = true;
+          this.handlerDisableTurns();
+          break;
+        }
+
         if (!this.isFinished) this.isFinished = true;
 
         break;

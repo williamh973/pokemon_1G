@@ -18,7 +18,7 @@ export const calculateMoveDamages = (action, CC, weather) => {
 
   getVariableDamages
     ? (damages = getVariableDamages)
-    : (damages = getBasicDamages / 3);
+    : (damages = getBasicDamages / 4);
 
   if (OHKO) {
     wasHitByOHKO = true;

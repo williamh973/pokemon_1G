@@ -1,6 +1,6 @@
 export const FURYATTACK_MOVE = {
   id: "furyAttack",
-  name: "Fury",
+  name: "Furie",
   type: ["NORMAL"],
   class: ["PHYSICAL"],
   pp: 20,

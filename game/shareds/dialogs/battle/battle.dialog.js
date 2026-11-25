@@ -1,4 +1,10 @@
 export const BATTLE_DIALOGS = {
+  enabledMove: (move, pokemon, trainerId) =>
+    `${move} de ${pokemon}\n${trainerId ? "" : "ennemi "}n'est plus entravé.`,
+
+  disabledMove: (move, pokemon, trainerId) =>
+    `${move} de ${pokemon}\n${trainerId ? "" : "ennemi "}est sous entrave.`,
+
   backward: (pokemon, trainerId) =>
     `${pokemon} ${trainerId ? "" : "ennemi\n"}se blesse en frappant.`,
 
