@@ -61,6 +61,10 @@ export class BattlePhaseManager {
         console.log("BattleMenu ouvert");
         break;
 
+      case BATTLE_PHASES.BATTLE_MOVES_MENU:
+        this.battleManager.openBattleMovesMenu();
+        break;
+
       case BATTLE_PHASES.PLAYER_TRY_CATCH_POKEMON:
         const BALL = this.battleManager.usedItem;
         sequence.initBattleCatchSequence(BALL);
@@ -134,6 +138,19 @@ export class BattlePhaseManager {
         );
 
         sequence.startBattleSwitchSequence(key);
+        break;
+
+      case BATTLE_PHASES.PLAYER_TRY_USE_DISABLED_MOVE:
+        const playerPokemon = this.battleManager.currentPlayerPokemon;
+        const disabledMove = playerPokemon.volatils.disabledMove;
+
+        this.battleManager.openDialogBox(
+          DIALOGS_DATABASE.BATTLE_DIALOGS.disabledMove(
+            disabledMove.name,
+            playerPokemon.name,
+            playerPokemon.trainerId
+          )
+        );
         break;
 
       case BATTLE_PHASES.EXECUTE_TURN:
@@ -295,6 +312,13 @@ export class BattlePhaseManager {
         }
         break;
 
+      case BATTLE_PHASES.PLAYER_TRY_USE_DISABLED_MOVE:
+        if (action === INPUT_STATE.ACTION) {
+          console.log("[DISABLED MOVE] Retour au menu");
+          this.setPhase(BATTLE_PHASES.BATTLE_MENU);
+        }
+        break;
+
       case BATTLE_PHASES.EXECUTE_TURN:
         this.battleManager.turnManager.update(sequence, action);
 
@@ -307,18 +331,6 @@ export class BattlePhaseManager {
           const chargedMove =
             this.battleManager.turnManager.getActionContainsChargedMove()
               ?.pokemon?.chargedMove;
-
-          const turnManager = this.battleManager.turnManager;
-
-          console.log("[FIN DU TOUR]", {
-            state: turnManager.state,
-            isFinished: turnManager.isFinished,
-            currentPokemon: turnManager.currentAction?.pokemon?.name,
-            firstAction: turnManager.firstAction?.pokemon?.name,
-            secondAction: turnManager.secondAction?.pokemon?.name,
-            firstChargedMove: turnManager.firstAction?.pokemon?.chargedMove,
-            secondChargedMove: turnManager.secondAction?.pokemon?.chargedMove,
-          });
 
           if (chargedMove?.move && chargedMove.animationPhase === "SECOND") {
             this.battleManager.turnManager.startTurn(sequence);

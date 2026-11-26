@@ -21,7 +21,6 @@ export class BattleMoveInfo {
 
   drawMoveType(context) {
     const LOGO = TYPES_LOGO_CONFIG;
-    const textWidth = context.measureText(LOGO[this.move.type].image).width;
 
     context.drawImage(
       LOGO[this.move.type].image,
@@ -40,7 +39,9 @@ export class BattleMoveInfo {
 
     drawText(
       context,
-      `PP ${this.move.currentPP}/${this.move.maxPP}`,
+      this.move.enabled
+        ? `PP ${this.move.currentPP}/${this.move.maxPP}`
+        : "Entravé",
       this.config.positionX + this.config.width / 2 - textWidth / 2,
       this.config.positionY + 35
     );

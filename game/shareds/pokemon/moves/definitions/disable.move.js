@@ -5,7 +5,7 @@ export const DISABLE_MOVE = {
   class: ["STATUT"],
   pp: 20,
   power: 0,
-  precision: 55,
+  precision: 100,
   desc: "Empêche l'ennemi d'employer à nouveau sa dernière attaque. Dure quatre tours.",
 
   effect: {

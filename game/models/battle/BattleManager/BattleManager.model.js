@@ -141,6 +141,15 @@ export class BattleManager {
   }
 
   selecteMove(moveData) {
+    console.log("[SELECT MOVE]", moveData.id);
+    const disabledMove = this.currentPlayerPokemon.volatils.disabledMove;
+
+    if (disabledMove?.id === moveData.id) {
+      console.log("[DISABLED MOVE DETECTED]", disabledMove.id);
+      this.phaseManager.setPhase(BATTLE_PHASES.PLAYER_TRY_USE_DISABLED_MOVE);
+      return;
+    }
+
     this.selectedMove = moveData;
     this.wildPokemonSelectMove();
 
