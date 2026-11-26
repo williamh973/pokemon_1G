@@ -1,6 +1,6 @@
 import { calculateBasicDamage } from "./basical/formulas/calculateBasicDamage.gameplay.js";
 import { calculateType } from "./basical/formulas/calculateType.gameplay.js";
-import { calculateVariableDamage } from "./variable/calculateVariableDamage.gameplay.js";
+import { calculateSpecialDamage } from "./variable/calculateSpecialDamage.gameplay.js";
 
 export const calculateMoveDamages = (action, CC, weather) => {
   let damages = null;
@@ -14,10 +14,10 @@ export const calculateMoveDamages = (action, CC, weather) => {
   const TYPE2 = calculateType(action, target.types[1]);
 
   const getBasicDamages = calculateBasicDamage(action, CC, weather);
-  const getVariableDamages = calculateVariableDamage(action);
+  const getSpecialDamages = calculateSpecialDamage(action);
 
-  getVariableDamages
-    ? (damages = getVariableDamages)
+  getSpecialDamages
+    ? (damages = getSpecialDamages)
     : (damages = getBasicDamages / 4);
 
   if (OHKO) {
@@ -27,7 +27,7 @@ export const calculateMoveDamages = (action, CC, weather) => {
 
   return {
     basicDamage: getBasicDamages,
-    variableDamage: getVariableDamages,
+    variableDamage: getSpecialDamages,
     damages,
     efficiencies: { TYPE1, TYPE2 },
     wasHitByOHKO,

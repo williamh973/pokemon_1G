@@ -10,5 +10,6 @@ export const SONICBOOM_MOVE = {
 
   effect: {
     type: "STATIC_DAMAGE",
+    amount: 20,
   },
 };

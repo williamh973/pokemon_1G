@@ -8,7 +8,7 @@ export const modifyVolatile = (action, volatile) => {
   const target = action.target;
 
   switch (volatile) {
-    case "PREVENTS_LAST_MOVE":
+    case "DISABLED_LAST_MOVE":
       if (!target.lastMove || !target.lastMove.enabled)
         return {
           isAffected: false,

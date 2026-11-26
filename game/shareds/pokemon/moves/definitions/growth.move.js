@@ -11,7 +11,7 @@ export const GROWTH_MOVE = {
 
   effect: {
     type: "STAT_STAGE",
-    stat: ["attack", "specialAtt"],
+    stats: ["attack", "specialAtt"],
     amount: 1,
     percentage: 100,
   },

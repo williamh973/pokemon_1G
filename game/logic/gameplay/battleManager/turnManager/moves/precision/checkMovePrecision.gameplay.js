@@ -20,9 +20,12 @@ export const checkMovePrecision = (action) => {
   const random100 = Math.floor(Math.random() * 100) + 1;
 
   const accuracyStage = action.pokemon.statStages.accuracy;
+  const dodgeStage = action.target.statStages.dodge;
+
+  const finalStageValue = accuracyStage - dodgeStage;
 
   const accuracy =
-    action.move.precision * getAccuracyStageMultiplier(accuracyStage);
+    action.move.precision * getAccuracyStageMultiplier(finalStageValue);
 
   const isSuccessful = random100 <= accuracy;
 

@@ -11,7 +11,7 @@ export const DRAGONASCENT_MOVE = {
 
   effect: {
     type: "STAT_STAGE",
-    stat: ["defense", "specialDef"],
+    stats: ["defense", "specialDef"],
     amount: 1,
     percentage: 100,
   },

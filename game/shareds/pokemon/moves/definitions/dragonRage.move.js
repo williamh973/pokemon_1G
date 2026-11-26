@@ -10,5 +10,6 @@ export const DRAGONRAGE_MOVE = {
 
   effect: {
     type: "STATIC_DAMAGE",
+    amount: 40,
   },
 };

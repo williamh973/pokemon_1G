@@ -1,4 +1,4 @@
-export const calculateVariableDamage = (action) => {
+export const calculateSpecialDamage = (action) => {
   const pokemonLevel = action.pokemon.level;
   const moveEffect = action.move?.effect;
 
@@ -12,7 +12,7 @@ export const calculateVariableDamage = (action) => {
       );
 
     case "STATIC_DAMAGE":
-      break;
+      return moveEffect.amount;
     default:
       break;
   }

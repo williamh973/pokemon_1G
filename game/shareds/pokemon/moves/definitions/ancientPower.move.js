@@ -11,7 +11,7 @@ export const ANCIENTPOWER_MOVE = {
 
   effect: {
     type: "STAT_STAGE",
-    stats: ["attack", "defense", "specialAtt", "defenseAtt", "speed"],
+    stats: ["attack", "defense", "specialAtt", "specialDef", "speed"],
     amount: 1,
     percentage: 10,
   },

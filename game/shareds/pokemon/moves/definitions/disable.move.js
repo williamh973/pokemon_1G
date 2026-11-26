@@ -10,7 +10,7 @@ export const DISABLE_MOVE = {
 
   effect: {
     type: "VOLATILE",
-    volatile: "PREVENTS_LAST_MOVE",
-    percentage: 100,
+    volatile: "DISABLED_LAST_MOVE",
+    percentage: 55,
   },
 };

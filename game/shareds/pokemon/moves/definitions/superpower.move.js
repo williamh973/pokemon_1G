@@ -11,7 +11,7 @@ export const SUPERPOWER_MOVE = {
 
   effect: {
     type: "STAT_STAGE",
-    stat: ["attack", "defense"],
+    stats: ["attack", "defense"],
     amount: 1,
     percentage: 100,
   },

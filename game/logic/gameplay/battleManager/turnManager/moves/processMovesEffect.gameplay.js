@@ -16,7 +16,7 @@ export const processMovesEffect = (turnManager, damages, action, sequence) => {
 
   if (moveEffectResult) {
     turnManager.isMoveEffectProcessed = true;
-
+    console.log(moveEffectResult);
     switch (action.move.effect?.type) {
       case "STAT_STAGE": {
         const results = Array.isArray(moveEffectResult)
@@ -55,7 +55,7 @@ export const processMovesEffect = (turnManager, damages, action, sequence) => {
 
       case "VOLATILE":
         switch (moveEffectResult.volatile) {
-          case "PREVENTS_LAST_MOVE":
+          case "DISABLED_LAST_MOVE":
             handleDisableLastMoveEffectDialogs(
               turnManager,
               action,
